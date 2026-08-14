@@ -15,6 +15,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 MODELS = ROOT / "models"
+CANDIDATES = ROOT / "candidates"   # unverified/unbindable; gated for shape, not loaded by consumers
 SCHEMA = ROOT / "schema" / "model.schema.json"
 
 
@@ -85,6 +86,7 @@ def main() -> int:
     if not files:
         print("no model files found under models/", file=sys.stderr)
         return 1
+    files += sorted(CANDIDATES.rglob("*.json"))   # share the id namespace with facts
     total = 0
     for f in files:
         rel = f.relative_to(ROOT)
@@ -117,7 +119,9 @@ def main() -> int:
             print("FAIL", m, file=sys.stderr)
         print(f"\n{len(errs)} problem(s) across {len(files)} file(s)", file=sys.stderr)
         return 1
-    print(f"OK: {total} entries in {len(files)} files, schema-valid, ids unique")
+    ncand = sum(1 for f in files if str(f).startswith(str(CANDIDATES)))
+    tail = f" ({ncand} candidate file(s))" if ncand else ""
+    print(f"OK: {total} entries in {len(files)} files, schema-valid, ids unique{tail}")
     return 0
 
 

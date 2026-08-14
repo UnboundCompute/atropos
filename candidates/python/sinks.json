@@ -1,0 +1,124 @@
+{
+  "role_group": "sink",
+  "entries": [
+    {
+      "id": "python.cryptographyhazmatprimitiveshashes.md5.a0",
+      "language": "python",
+      "package": "cryptography.hazmat.primitives.hashes",
+      "type": null,
+      "method": "MD5",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 2,
+      "notes": "dangerous API with no precise bindable argument; needs a richer access path or a banned-API check"
+    },
+    {
+      "id": "python.cryptographyhazmatprimitiveshashes.sha1.a0",
+      "language": "python",
+      "package": "cryptography.hazmat.primitives.hashes",
+      "type": null,
+      "method": "SHA1",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "dangerous API with no precise bindable argument; needs a richer access path or a banned-API check"
+    },
+    {
+      "id": "python.cryptographyhazmatprimitivesciphersmodes.ecb.a0",
+      "language": "python",
+      "package": "cryptography.hazmat.primitives.ciphers.modes",
+      "type": null,
+      "method": "ECB",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 2,
+      "notes": "dangerous API with no precise bindable argument; needs a richer access path or a banned-API check"
+    },
+    {
+      "id": "python.urllibrequest.urlopener.a0",
+      "language": "python",
+      "package": "urllib.request",
+      "type": null,
+      "method": "URLopener",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "dangerous API with no precise bindable argument; needs a richer access path or a banned-API check"
+    },
+    {
+      "id": "python.urllibrequest.fancyurlopener.a0",
+      "language": "python",
+      "package": "urllib.request",
+      "type": null,
+      "method": "FancyURLopener",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "dangerous API with no precise bindable argument; needs a richer access path or a banned-API check"
+    },
+    {
+      "id": "python.sixmovesurllibrequest.urlopener.a0",
+      "language": "python",
+      "package": "six.moves.urllib.request",
+      "type": null,
+      "method": "URLopener",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "dangerous API with no precise bindable argument; needs a richer access path or a banned-API check"
+    },
+    {
+      "id": "python.sixmovesurllibrequest.fancyurlopener.a0",
+      "language": "python",
+      "package": "six.moves.urllib.request",
+      "type": null,
+      "method": "FancyURLopener",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "dangerous API with no precise bindable argument; needs a richer access path or a banned-API check"
+    }
+  ]
+}
