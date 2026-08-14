@@ -98,3 +98,26 @@ reviewer verified is the true attachment. A valid-looking name is not enough.
 python3 tools/bind.py fixtures/c_buffer.index.json   # binding report for one index
 python3 -m unittest discover -s tests                # schema + binding gate
 ```
+
+## Validated against real graphs
+
+The fixtures prove the contract in miniature; the same binder has been run
+against full symbol-index exports of real projects to confirm it holds at scale.
+Two frontend facts surfaced and are worth recording for any engine writing an
+exporter:
+
+- **Argument linkage is frontend-specific.** A C export attaches arguments one
+  way; a Python/TypeScript export attaches them another. An exporter must emit
+  the neutral index's `arg_value_ids` in positional order regardless of how its
+  own graph spells arguments — order them by source position when in doubt.
+- **Precision needs receiver typing.** With `module` and `receiver_type` left
+  null, the binder can only disambiguate by arity, so a bare `.get()` or
+  `.request()` that appears at several receivers is reported `ambiguous` rather
+  than mis-bound. Populating those two fields is what turns an ambiguous match
+  into a precise one. The binder failing safe here is the design working, not a
+  gap in the models.
+
+Every `arity-mismatch` observed traced to a real callsite that passed fewer
+positional arguments (the rest keyword or defaulted), never to a wrong index in
+the catalog — which is exactly the honest per-callsite reporting the contract
+promises.
