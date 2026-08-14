@@ -1,0 +1,113 @@
+{
+  "role_group": "source",
+  "entries": [
+    {
+      "id": "python.random.random.ret",
+      "language": "python",
+      "package": "random",
+      "type": null,
+      "method": "random",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-330",
+        "CWE-338"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "Mersenne Twister; not cryptographic"
+    },
+    {
+      "id": "python.random.randint.ret",
+      "language": "python",
+      "package": "random",
+      "type": null,
+      "method": "randint",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-330",
+        "CWE-338"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "Mersenne Twister; not cryptographic"
+    },
+    {
+      "id": "python.random.randrange.ret",
+      "language": "python",
+      "package": "random",
+      "type": null,
+      "method": "randrange",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-330",
+        "CWE-338"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "Mersenne Twister; not cryptographic"
+    },
+    {
+      "id": "python.random.choice.ret",
+      "language": "python",
+      "package": "random",
+      "type": null,
+      "method": "choice",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-330",
+        "CWE-338"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "Mersenne Twister; not cryptographic"
+    },
+    {
+      "id": "python.random.getrandbits.ret",
+      "language": "python",
+      "package": "random",
+      "type": null,
+      "method": "getrandbits",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-330",
+        "CWE-338"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "Mersenne Twister; not cryptographic"
+    },
+    {
+      "id": "python.random.uniform.ret",
+      "language": "python",
+      "package": "random",
+      "type": null,
+      "method": "uniform",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-330",
+        "CWE-338"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "Mersenne Twister; not cryptographic"
+    }
+  ]
+}

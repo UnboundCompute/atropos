@@ -2,70 +2,1334 @@
   "role_group": "sink",
   "entries": [
     {
-      "id": "py.os.system.cmd",
-      "language": "python", "package": "os", "type": null, "method": "system",
-      "signature": "os.system(command)",
-      "access_path": "Argument[0]", "role": "sink", "kind": "command-injection",
-      "cwe": ["CWE-78"], "confidence": "high", "corroboration": 3, "notes": null
+      "id": "python.os.system.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "system",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
     },
     {
-      "id": "py.subprocess.popen.cmd",
-      "language": "python", "package": "subprocess", "type": null, "method": "Popen",
-      "signature": "subprocess.Popen(args, ..., shell=False)",
-      "access_path": "Argument[0]", "role": "sink", "kind": "command-injection",
-      "cwe": ["CWE-78"], "confidence": "high", "corroboration": 3,
-      "notes": "Injection when shell=True; the guard check on shell is the engine's job, not this fact's."
+      "id": "python.os.popen.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "popen",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
     },
     {
-      "id": "py.subprocess.run.cmd",
-      "language": "python", "package": "subprocess", "type": null, "method": "run",
-      "signature": "subprocess.run(args, ..., shell=False)",
-      "access_path": "Argument[0]", "role": "sink", "kind": "command-injection",
-      "cwe": ["CWE-78"], "confidence": "high", "corroboration": 3, "notes": null
+      "id": "python.os.execl.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "execl",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
     },
     {
-      "id": "py.subprocess.call.cmd",
-      "language": "python", "package": "subprocess", "type": null, "method": "call",
-      "signature": "subprocess.call(args, ..., shell=False)",
-      "access_path": "Argument[0]", "role": "sink", "kind": "command-injection",
-      "cwe": ["CWE-78"], "confidence": "high", "corroboration": 2, "notes": null
+      "id": "python.os.execle.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "execle",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
     },
     {
-      "id": "py.builtins.eval.expr",
-      "language": "python", "package": "builtins", "type": null, "method": "eval",
-      "signature": "eval(expression)",
-      "access_path": "Argument[0]", "role": "sink", "kind": "code-injection",
-      "cwe": ["CWE-95"], "confidence": "high", "corroboration": 3, "notes": null
+      "id": "python.os.execlp.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "execlp",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
     },
     {
-      "id": "py.builtins.exec.code",
-      "language": "python", "package": "builtins", "type": null, "method": "exec",
-      "signature": "exec(object)",
-      "access_path": "Argument[0]", "role": "sink", "kind": "code-injection",
-      "cwe": ["CWE-95"], "confidence": "high", "corroboration": 3, "notes": null
+      "id": "python.os.execlpe.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "execlpe",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
     },
     {
-      "id": "py.pickle.loads.data",
-      "language": "python", "package": "pickle", "type": null, "method": "loads",
-      "signature": "pickle.loads(data)",
-      "access_path": "Argument[0]", "role": "sink", "kind": "deserialization",
-      "cwe": ["CWE-502"], "confidence": "high", "corroboration": 3, "notes": null
+      "id": "python.os.execv.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "execv",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
     },
     {
-      "id": "py.yaml.load.stream",
-      "language": "python", "package": "yaml", "type": null, "method": "load",
-      "signature": "yaml.load(stream, Loader=...)",
-      "access_path": "Argument[0]", "role": "sink", "kind": "deserialization",
-      "cwe": ["CWE-502"], "confidence": "medium", "corroboration": 2,
-      "notes": "Unsafe without a safe Loader; the Loader check is the engine's guard step."
+      "id": "python.os.execve.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "execve",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
     },
     {
-      "id": "py.dbapi.cursor.execute.sql",
-      "language": "python", "package": null, "type": "Cursor", "method": "execute",
-      "signature": "Cursor.execute(sql, params=None)",
-      "access_path": "Argument[0]", "role": "sink", "kind": "sql-injection",
-      "cwe": ["CWE-89"], "confidence": "high", "corroboration": 3,
-      "notes": "DB-API cursor. Owning type resolves lexically as Cursor; binding may be conservative."
+      "id": "python.os.execvp.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "execvp",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.os.execvpe.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "execvpe",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.os.spawnl.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "spawnl",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.os.spawnle.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "spawnle",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.os.spawnlp.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "spawnlp",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.os.spawnlpe.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "spawnlpe",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.os.spawnv.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "spawnv",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.os.spawnve.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "spawnve",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.os.startfile.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "startfile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.subprocess.popen.a0",
+      "language": "python",
+      "package": "subprocess",
+      "type": null,
+      "method": "Popen",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "shell=True makes arg0 a shell command; the shell check is the engine's guard step"
+    },
+    {
+      "id": "python.subprocess.call.a0",
+      "language": "python",
+      "package": "subprocess",
+      "type": null,
+      "method": "call",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "shell=True makes arg0 a shell command; the shell check is the engine's guard step"
+    },
+    {
+      "id": "python.subprocess.run.a0",
+      "language": "python",
+      "package": "subprocess",
+      "type": null,
+      "method": "run",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "shell=True makes arg0 a shell command; the shell check is the engine's guard step"
+    },
+    {
+      "id": "python.subprocess.checkcall.a0",
+      "language": "python",
+      "package": "subprocess",
+      "type": null,
+      "method": "check_call",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "shell=True makes arg0 a shell command; the shell check is the engine's guard step"
+    },
+    {
+      "id": "python.subprocess.checkoutput.a0",
+      "language": "python",
+      "package": "subprocess",
+      "type": null,
+      "method": "check_output",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "shell=True makes arg0 a shell command; the shell check is the engine's guard step"
+    },
+    {
+      "id": "python.subprocess.getoutput.a0",
+      "language": "python",
+      "package": "subprocess",
+      "type": null,
+      "method": "getoutput",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "shell=True makes arg0 a shell command; the shell check is the engine's guard step"
+    },
+    {
+      "id": "python.subprocess.getstatusoutput.a0",
+      "language": "python",
+      "package": "subprocess",
+      "type": null,
+      "method": "getstatusoutput",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "shell=True makes arg0 a shell command; the shell check is the engine's guard step"
+    },
+    {
+      "id": "python.pty.spawn.a0",
+      "language": "python",
+      "package": "pty",
+      "type": null,
+      "method": "spawn",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.builtins.eval.a0",
+      "language": "python",
+      "package": "builtins",
+      "type": null,
+      "method": "eval",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
+    },
+    {
+      "id": "python.builtins.exec.a0",
+      "language": "python",
+      "package": "builtins",
+      "type": null,
+      "method": "exec",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
+    },
+    {
+      "id": "python.builtins.compile.a0",
+      "language": "python",
+      "package": "builtins",
+      "type": null,
+      "method": "compile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
+    },
+    {
+      "id": "python.builtins.import.a0",
+      "language": "python",
+      "package": "builtins",
+      "type": null,
+      "method": "__import__",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.importlib.importmodule.a0",
+      "language": "python",
+      "package": "importlib",
+      "type": null,
+      "method": "import_module",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.pickle.loads.a0",
+      "language": "python",
+      "package": "pickle",
+      "type": null,
+      "method": "loads",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.pickle.load.a0",
+      "language": "python",
+      "package": "pickle",
+      "type": null,
+      "method": "load",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.marshal.loads.a0",
+      "language": "python",
+      "package": "marshal",
+      "type": null,
+      "method": "loads",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.yaml.load.a0",
+      "language": "python",
+      "package": "yaml",
+      "type": null,
+      "method": "load",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.dill.loads.a0",
+      "language": "python",
+      "package": "dill",
+      "type": null,
+      "method": "loads",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.jsonpickle.decode.a0",
+      "language": "python",
+      "package": "jsonpickle",
+      "type": null,
+      "method": "decode",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.shelve.open.a0",
+      "language": "python",
+      "package": "shelve",
+      "type": null,
+      "method": "open",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.cursor.execute.a0",
+      "language": "python",
+      "package": null,
+      "type": "Cursor",
+      "method": "execute",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "DB-API cursor; owning type resolves lexically"
+    },
+    {
+      "id": "python.cursor.executemany.a0",
+      "language": "python",
+      "package": null,
+      "type": "Cursor",
+      "method": "executemany",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "DB-API cursor; owning type resolves lexically"
+    },
+    {
+      "id": "python.cursor.executescript.a0",
+      "language": "python",
+      "package": null,
+      "type": "Cursor",
+      "method": "executescript",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "DB-API cursor; owning type resolves lexically"
+    },
+    {
+      "id": "python.builtins.open.a0",
+      "language": "python",
+      "package": "builtins",
+      "type": null,
+      "method": "open",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.io.open.a0",
+      "language": "python",
+      "package": "io",
+      "type": null,
+      "method": "open",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.os.open.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "open",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.codecs.open.a0",
+      "language": "python",
+      "package": "codecs",
+      "type": null,
+      "method": "open",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.shutil.copy.a0",
+      "language": "python",
+      "package": "shutil",
+      "type": null,
+      "method": "copy",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.shutil.copyfile.a0",
+      "language": "python",
+      "package": "shutil",
+      "type": null,
+      "method": "copyfile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.shutil.move.a0",
+      "language": "python",
+      "package": "shutil",
+      "type": null,
+      "method": "move",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.shutil.rmtree.a0",
+      "language": "python",
+      "package": "shutil",
+      "type": null,
+      "method": "rmtree",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.os.remove.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "remove",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.os.unlink.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "unlink",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.os.rename.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "rename",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.os.mkdir.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "mkdir",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.os.makedirs.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "makedirs",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.os.rmdir.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "rmdir",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.tarfile.extractall.recv",
+      "language": "python",
+      "package": "tarfile",
+      "type": null,
+      "method": "extractall",
+      "signature": null,
+      "access_path": "Receiver",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "archive members may traverse out of dest (Zip Slip)"
+    },
+    {
+      "id": "python.zipfile.extractall.recv",
+      "language": "python",
+      "package": "zipfile",
+      "type": null,
+      "method": "extractall",
+      "signature": null,
+      "access_path": "Receiver",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
+    },
+    {
+      "id": "python.urllibrequest.urlopen.a0",
+      "language": "python",
+      "package": "urllib.request",
+      "type": null,
+      "method": "urlopen",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.requests.get.a0",
+      "language": "python",
+      "package": "requests",
+      "type": null,
+      "method": "get",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.requests.post.a0",
+      "language": "python",
+      "package": "requests",
+      "type": null,
+      "method": "post",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.requests.put.a0",
+      "language": "python",
+      "package": "requests",
+      "type": null,
+      "method": "put",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.requests.delete.a0",
+      "language": "python",
+      "package": "requests",
+      "type": null,
+      "method": "delete",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.requests.head.a0",
+      "language": "python",
+      "package": "requests",
+      "type": null,
+      "method": "head",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.requests.patch.a0",
+      "language": "python",
+      "package": "requests",
+      "type": null,
+      "method": "patch",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.requests.request.a0",
+      "language": "python",
+      "package": "requests",
+      "type": null,
+      "method": "request",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.xmletreeelementtree.parse.a0",
+      "language": "python",
+      "package": "xml.etree.ElementTree",
+      "type": null,
+      "method": "parse",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xxe",
+      "cwe": [
+        "CWE-611"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.xmletreeelementtree.fromstring.a0",
+      "language": "python",
+      "package": "xml.etree.ElementTree",
+      "type": null,
+      "method": "fromstring",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xxe",
+      "cwe": [
+        "CWE-611"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.xmldomminidom.parse.a0",
+      "language": "python",
+      "package": "xml.dom.minidom",
+      "type": null,
+      "method": "parse",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xxe",
+      "cwe": [
+        "CWE-611"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.xmlsax.parse.a0",
+      "language": "python",
+      "package": "xml.sax",
+      "type": null,
+      "method": "parse",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xxe",
+      "cwe": [
+        "CWE-611"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.lxmletree.parse.a0",
+      "language": "python",
+      "package": "lxml.etree",
+      "type": null,
+      "method": "parse",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xxe",
+      "cwe": [
+        "CWE-611"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.lxmletree.fromstring.a0",
+      "language": "python",
+      "package": "lxml.etree",
+      "type": null,
+      "method": "fromstring",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xxe",
+      "cwe": [
+        "CWE-611"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.jinja2.template.a0",
+      "language": "python",
+      "package": "jinja2",
+      "type": null,
+      "method": "Template",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336",
+        "CWE-94"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.flask.rendertemplatestring.a0",
+      "language": "python",
+      "package": "flask",
+      "type": null,
+      "method": "render_template_string",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336",
+        "CWE-94"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.jinja2.fromstring.a0",
+      "language": "python",
+      "package": "jinja2",
+      "type": "Environment",
+      "method": "from_string",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.hashlib.md5.a0",
+      "language": "python",
+      "package": "hashlib",
+      "type": null,
+      "method": "md5",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327",
+        "CWE-328"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "weak hash for security use"
+    },
+    {
+      "id": "python.hashlib.sha1.a0",
+      "language": "python",
+      "package": "hashlib",
+      "type": null,
+      "method": "sha1",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327",
+        "CWE-328"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "weak hash for security use"
+    },
+    {
+      "id": "python.flask.markup.a0",
+      "language": "python",
+      "package": "flask",
+      "type": null,
+      "method": "Markup",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "marks string as safe HTML, bypassing autoescape"
+    },
+    {
+      "id": "python.djangoutilssafestring.marksafe.a0",
+      "language": "python",
+      "package": "django.utils.safestring",
+      "type": null,
+      "method": "mark_safe",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.tempfile.mktemp.ret",
+      "language": "python",
+      "package": "tempfile",
+      "type": null,
+      "method": "mktemp",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "sink",
+      "kind": "insecure-temp-file",
+      "cwe": [
+        "CWE-377"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": null
     }
   ]
 }

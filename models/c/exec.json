@@ -1,0 +1,192 @@
+{
+  "role_group": "sink",
+  "entries": [
+    {
+      "id": "c.std.system.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "system",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
+    },
+    {
+      "id": "c.std.popen.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "popen",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
+    },
+    {
+      "id": "c.std.execl.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "execl",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "program path/args to process exec"
+    },
+    {
+      "id": "c.std.execlp.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "execlp",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "program path/args to process exec"
+    },
+    {
+      "id": "c.std.execle.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "execle",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "program path/args to process exec"
+    },
+    {
+      "id": "c.std.execv.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "execv",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "program path/args to process exec"
+    },
+    {
+      "id": "c.std.execvp.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "execvp",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "program path/args to process exec"
+    },
+    {
+      "id": "c.std.execve.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "execve",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "program path/args to process exec"
+    },
+    {
+      "id": "c.std.execvpe.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "execvpe",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "program path/args to process exec"
+    },
+    {
+      "id": "c.std.posixspawn.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "posix_spawn",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "program path/args to process exec"
+    },
+    {
+      "id": "c.std.posixspawnp.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "posix_spawnp",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "program path/args to process exec"
+    }
+  ]
+}

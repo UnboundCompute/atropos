@@ -1,0 +1,211 @@
+{
+  "role_group": "sink",
+  "entries": [
+    {
+      "id": "c.std.printf.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "printf",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "attacker-controlled format string"
+    },
+    {
+      "id": "c.std.fprintf.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "fprintf",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "attacker-controlled format string"
+    },
+    {
+      "id": "c.std.dprintf.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "dprintf",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "attacker-controlled format string"
+    },
+    {
+      "id": "c.std.sprintf.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "sprintf",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "attacker-controlled format string"
+    },
+    {
+      "id": "c.std.snprintf.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "snprintf",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "attacker-controlled format string"
+    },
+    {
+      "id": "c.std.vprintf.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "vprintf",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "attacker-controlled format string"
+    },
+    {
+      "id": "c.std.vfprintf.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "vfprintf",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "attacker-controlled format string"
+    },
+    {
+      "id": "c.std.vsprintf.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "vsprintf",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "attacker-controlled format string"
+    },
+    {
+      "id": "c.std.vsnprintf.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "vsnprintf",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "attacker-controlled format string"
+    },
+    {
+      "id": "c.std.syslog.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "syslog",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "attacker-controlled format string"
+    },
+    {
+      "id": "c.std.sprintf.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "sprintf",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
+    },
+    {
+      "id": "c.std.vsprintf.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "vsprintf",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": null
+    }
+  ]
+}

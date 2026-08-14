@@ -52,12 +52,16 @@ a given call is a bug is for the engine (does tainted data reach it?) and the hu
 
 ```
 models/
-  c/        memory.json  injection.json  sources.json
-  python/   sinks.json   sources.json    sanitizers.json
+  c/        memory  string  scanf  format  alloc  exec  path  tempfile  sources  random
+  python/   sinks   sources  sanitizers  random
 schema/     model.schema.json
 tools/      validate.py  stats.py         # stdlib only, zero deps
 tests/      test_models.py
 ```
+
+187 entries at time of writing: C memory-safety / injection / path / format / alloc
+sinks plus network/io/env sources; Python command / code / deserialization / SQL /
+path / SSRF / XXE / template / crypto sinks, sources, and sanitizers.
 
 ## Use it
 

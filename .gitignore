@@ -10,3 +10,6 @@ venv/
 
 # OS
 .DS_Store
+
+# Claude Code worktrees / local
+.claude/

@@ -39,8 +39,10 @@ class TestModels(unittest.TestCase):
 
     def test_memcpy_size_sink_present(self):
         # The regression that motivated the repo: memcpy's size arg must be a sink.
-        ids = {e["id"] for _, e in self.entries}
-        self.assertIn("c.mem.memcpy.n", ids)
+        hit = [e for _, e in self.entries
+               if e["method"] == "memcpy" and e["access_path"] == "Argument[2]"
+               and e["role"] == "sink"]
+        self.assertTrue(hit, "memcpy size-arg sink missing")
 
 
 if __name__ == "__main__":

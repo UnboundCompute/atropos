@@ -1,0 +1,311 @@
+{
+  "role_group": "sink",
+  "entries": [
+    {
+      "id": "c.std.fopen.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "fopen",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "filesystem path may escape intended root"
+    },
+    {
+      "id": "c.std.freopen.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "freopen",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "filesystem path may escape intended root"
+    },
+    {
+      "id": "c.std.open.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "open",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "filesystem path may escape intended root"
+    },
+    {
+      "id": "c.std.openat.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "openat",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "filesystem path may escape intended root"
+    },
+    {
+      "id": "c.std.opendir.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "opendir",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "filesystem path may escape intended root"
+    },
+    {
+      "id": "c.std.unlink.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "unlink",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "filesystem path may escape intended root"
+    },
+    {
+      "id": "c.std.remove.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "remove",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "filesystem path may escape intended root"
+    },
+    {
+      "id": "c.std.rename.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "rename",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "filesystem path may escape intended root"
+    },
+    {
+      "id": "c.std.mkdir.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "mkdir",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "filesystem path may escape intended root"
+    },
+    {
+      "id": "c.std.rmdir.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "rmdir",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "filesystem path may escape intended root"
+    },
+    {
+      "id": "c.std.chmod.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "chmod",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "filesystem path may escape intended root"
+    },
+    {
+      "id": "c.std.chown.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "chown",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "filesystem path may escape intended root"
+    },
+    {
+      "id": "c.std.symlink.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "symlink",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "filesystem path may escape intended root"
+    },
+    {
+      "id": "c.std.link.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "link",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "filesystem path may escape intended root"
+    },
+    {
+      "id": "c.std.readlink.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "readlink",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "filesystem path may escape intended root"
+    },
+    {
+      "id": "c.std.access.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "access",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "filesystem path may escape intended root"
+    },
+    {
+      "id": "c.std.stat.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "stat",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "filesystem path may escape intended root"
+    },
+    {
+      "id": "c.std.lstat.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "lstat",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "filesystem path may escape intended root"
+    }
+  ]
+}

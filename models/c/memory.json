@@ -2,117 +2,161 @@
   "role_group": "sink",
   "entries": [
     {
-      "id": "c.mem.memcpy.n",
-      "language": "c", "package": null, "type": null, "method": "memcpy",
-      "signature": "void *memcpy(void *dest, const void *src, size_t n)",
-      "access_path": "Argument[2]", "role": "sink", "kind": "buffer-size",
-      "cwe": ["CWE-787", "CWE-120", "CWE-190"], "confidence": "high", "corroboration": 3,
-      "notes": "Attacker-influenced length copies past dest bounds. The size arg is the taint sink."
+      "id": "c.std.memcpy.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "memcpy",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "attacker-influenced length overruns the destination"
     },
     {
-      "id": "c.mem.memcpy.dest",
-      "language": "c", "package": null, "type": null, "method": "memcpy",
-      "signature": "void *memcpy(void *dest, const void *src, size_t n)",
-      "access_path": "Argument[0]", "role": "sink", "kind": "buffer-write",
-      "cwe": ["CWE-787"], "confidence": "medium", "corroboration": 2,
-      "notes": "Destination buffer written; overflow when size exceeds its capacity."
+      "id": "c.std.memcpy.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "memcpy",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-787"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
     },
     {
-      "id": "c.mem.memmove.n",
-      "language": "c", "package": null, "type": null, "method": "memmove",
-      "signature": "void *memmove(void *dest, const void *src, size_t n)",
-      "access_path": "Argument[2]", "role": "sink", "kind": "buffer-size",
-      "cwe": ["CWE-787", "CWE-120"], "confidence": "high", "corroboration": 3, "notes": null
+      "id": "c.std.memmove.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "memmove",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "attacker-influenced length overruns the destination"
     },
     {
-      "id": "c.mem.memset.n",
-      "language": "c", "package": null, "type": null, "method": "memset",
-      "signature": "void *memset(void *s, int c, size_t n)",
-      "access_path": "Argument[2]", "role": "sink", "kind": "buffer-size",
-      "cwe": ["CWE-787"], "confidence": "medium", "corroboration": 2, "notes": null
+      "id": "c.std.memmove.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "memmove",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-787"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
     },
     {
-      "id": "c.str.strcpy.dest",
-      "language": "c", "package": null, "type": null, "method": "strcpy",
-      "signature": "char *strcpy(char *dest, const char *src)",
-      "access_path": "Argument[0]", "role": "sink", "kind": "buffer-write",
-      "cwe": ["CWE-120", "CWE-787"], "confidence": "high", "corroboration": 3,
-      "notes": "Unbounded copy; dest overflows when src is longer than dest capacity."
+      "id": "c.std.memccpy.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "memccpy",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "attacker-influenced length overruns the destination"
     },
     {
-      "id": "c.str.strcat.dest",
-      "language": "c", "package": null, "type": null, "method": "strcat",
-      "signature": "char *strcat(char *dest, const char *src)",
-      "access_path": "Argument[0]", "role": "sink", "kind": "buffer-write",
-      "cwe": ["CWE-120", "CWE-787"], "confidence": "high", "corroboration": 3, "notes": null
+      "id": "c.std.memccpy.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "memccpy",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-787"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
     },
     {
-      "id": "c.str.strncpy.n",
-      "language": "c", "package": null, "type": null, "method": "strncpy",
-      "signature": "char *strncpy(char *dest, const char *src, size_t n)",
-      "access_path": "Argument[2]", "role": "sink", "kind": "buffer-size",
-      "cwe": ["CWE-120"], "confidence": "medium", "corroboration": 2,
-      "notes": "Bounded but misuse-prone: attacker-controlled n still overflows; no guaranteed NUL."
+      "id": "c.std.memset.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "memset",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-787"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
     },
     {
-      "id": "c.str.strncat.n",
-      "language": "c", "package": null, "type": null, "method": "strncat",
-      "signature": "char *strncat(char *dest, const char *src, size_t n)",
-      "access_path": "Argument[2]", "role": "sink", "kind": "buffer-size",
-      "cwe": ["CWE-120", "CWE-787"], "confidence": "medium", "corroboration": 2, "notes": null
+      "id": "c.std.bcopy.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "bcopy",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
     },
     {
-      "id": "c.io.gets.dest",
-      "language": "c", "package": null, "type": null, "method": "gets",
-      "signature": "char *gets(char *s)",
-      "access_path": "Argument[0]", "role": "sink", "kind": "buffer-write",
-      "cwe": ["CWE-242", "CWE-120"], "confidence": "high", "corroboration": 3,
-      "notes": "No bound possible; banned interface."
-    },
-    {
-      "id": "c.fmt.sprintf.dest",
-      "language": "c", "package": null, "type": null, "method": "sprintf",
-      "signature": "int sprintf(char *str, const char *format, ...)",
-      "access_path": "Argument[0]", "role": "sink", "kind": "buffer-write",
-      "cwe": ["CWE-120", "CWE-787"], "confidence": "high", "corroboration": 3, "notes": null
-    },
-    {
-      "id": "c.fmt.sprintf.format",
-      "language": "c", "package": null, "type": null, "method": "sprintf",
-      "signature": "int sprintf(char *str, const char *format, ...)",
-      "access_path": "Argument[1]", "role": "sink", "kind": "format-string",
-      "cwe": ["CWE-134"], "confidence": "high", "corroboration": 3,
-      "notes": "Attacker-controlled format string."
-    },
-    {
-      "id": "c.fmt.snprintf.format",
-      "language": "c", "package": null, "type": null, "method": "snprintf",
-      "signature": "int snprintf(char *str, size_t size, const char *format, ...)",
-      "access_path": "Argument[2]", "role": "sink", "kind": "format-string",
-      "cwe": ["CWE-134"], "confidence": "high", "corroboration": 2, "notes": null
-    },
-    {
-      "id": "c.alloc.malloc.size",
-      "language": "c", "package": null, "type": null, "method": "malloc",
-      "signature": "void *malloc(size_t size)",
-      "access_path": "Argument[0]", "role": "sink", "kind": "alloc-size",
-      "cwe": ["CWE-190", "CWE-789"], "confidence": "medium", "corroboration": 2,
-      "notes": "Attacker-controlled size: integer overflow to undersized allocation, or unbounded allocation."
-    },
-    {
-      "id": "c.alloc.realloc.size",
-      "language": "c", "package": null, "type": null, "method": "realloc",
-      "signature": "void *realloc(void *ptr, size_t size)",
-      "access_path": "Argument[1]", "role": "sink", "kind": "alloc-size",
-      "cwe": ["CWE-190"], "confidence": "medium", "corroboration": 2, "notes": null
-    },
-    {
-      "id": "c.alloc.alloca.size",
-      "language": "c", "package": null, "type": null, "method": "alloca",
-      "signature": "void *alloca(size_t size)",
-      "access_path": "Argument[0]", "role": "sink", "kind": "alloc-size",
-      "cwe": ["CWE-770", "CWE-789"], "confidence": "high", "corroboration": 2,
-      "notes": "Stack allocation from attacker-controlled size: stack exhaustion / clash."
+      "id": "c.std.bzero.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "bzero",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-787"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
     }
   ]
 }

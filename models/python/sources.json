@@ -2,18 +2,89 @@
   "role_group": "source",
   "entries": [
     {
-      "id": "py.builtins.input.ret",
-      "language": "python", "package": "builtins", "type": null, "method": "input",
-      "signature": "input(prompt=None)",
-      "access_path": "ReturnValue", "role": "source", "kind": "untrusted-input",
-      "cwe": ["CWE-20"], "confidence": "medium", "corroboration": 2, "notes": null
+      "id": "python.builtins.input.ret",
+      "language": "python",
+      "package": "builtins",
+      "type": null,
+      "method": "input",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
     },
     {
-      "id": "py.os.getenv.ret",
-      "language": "python", "package": "os", "type": null, "method": "getenv",
-      "signature": "os.getenv(key, default=None)",
-      "access_path": "ReturnValue", "role": "source", "kind": "untrusted-input",
-      "cwe": ["CWE-20"], "confidence": "low", "corroboration": 1, "notes": null
+      "id": "python.os.getenv.ret",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "getenv",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.osenviron.get.ret",
+      "language": "python",
+      "package": "os.environ",
+      "type": null,
+      "method": "get",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.baserequest.getjson.ret",
+      "language": "python",
+      "package": null,
+      "type": "BaseRequest",
+      "method": "get_json",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "HTTP request body; framework-resolved"
+    },
+    {
+      "id": "python.multidict.get.ret",
+      "language": "python",
+      "package": null,
+      "type": "MultiDict",
+      "method": "get",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
     }
   ]
 }

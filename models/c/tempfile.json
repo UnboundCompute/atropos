@@ -1,0 +1,73 @@
+{
+  "role_group": "sink",
+  "entries": [
+    {
+      "id": "c.std.tmpnam.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "tmpnam",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "sink",
+      "kind": "insecure-temp-file",
+      "cwe": [
+        "CWE-377"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "predictable temp name -> race"
+    },
+    {
+      "id": "c.std.tempnam.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "tempnam",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "sink",
+      "kind": "insecure-temp-file",
+      "cwe": [
+        "CWE-377"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.std.mktemp.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "mktemp",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "insecure-temp-file",
+      "cwe": [
+        "CWE-377"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.std.tmpfile.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "tmpfile",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "sink",
+      "kind": "insecure-temp-file",
+      "cwe": [
+        "CWE-377"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    }
+  ]
+}

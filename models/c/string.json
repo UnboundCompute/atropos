@@ -1,0 +1,197 @@
+{
+  "role_group": "sink",
+  "entries": [
+    {
+      "id": "c.std.strcpy.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "strcpy",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "unbounded copy overflows dest when source exceeds capacity"
+    },
+    {
+      "id": "c.std.strcat.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "strcat",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "unbounded copy overflows dest when source exceeds capacity"
+    },
+    {
+      "id": "c.std.stpcpy.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "stpcpy",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "unbounded copy overflows dest when source exceeds capacity"
+    },
+    {
+      "id": "c.std.wcscpy.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "wcscpy",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "unbounded copy overflows dest when source exceeds capacity"
+    },
+    {
+      "id": "c.std.wcscat.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "wcscat",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "unbounded copy overflows dest when source exceeds capacity"
+    },
+    {
+      "id": "c.std.strncpy.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "strncpy",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "bounded but misuse-prone; attacker-controlled n still overruns"
+    },
+    {
+      "id": "c.std.strncat.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "strncat",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "bounded but misuse-prone; attacker-controlled n still overruns"
+    },
+    {
+      "id": "c.std.wcsncpy.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "wcsncpy",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "bounded but misuse-prone; attacker-controlled n still overruns"
+    },
+    {
+      "id": "c.std.wcsncat.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "wcsncat",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "bounded but misuse-prone; attacker-controlled n still overruns"
+    },
+    {
+      "id": "c.std.strlcpy.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "strlcpy",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-120"
+      ],
+      "confidence": "low",
+      "corroboration": 2,
+      "notes": "bounded but misuse-prone; attacker-controlled n still overruns"
+    },
+    {
+      "id": "c.std.strlcat.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "strlcat",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-120"
+      ],
+      "confidence": "low",
+      "corroboration": 2,
+      "notes": "bounded but misuse-prone; attacker-controlled n still overruns"
+    }
+  ]
+}

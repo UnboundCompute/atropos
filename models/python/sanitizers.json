@@ -2,26 +2,140 @@
   "role_group": "sanitizer",
   "entries": [
     {
-      "id": "py.shlex.quote.ret",
-      "language": "python", "package": "shlex", "type": null, "method": "quote",
-      "signature": "shlex.quote(s)",
-      "access_path": "Argument[0] -> ReturnValue", "role": "sanitizer", "kind": "command-injection",
-      "cwe": ["CWE-78"], "confidence": "high", "corroboration": 3,
-      "notes": "Neutralizes shell metacharacters; clears command-injection taint on the returned value."
+      "id": "python.shlex.quote.a0",
+      "language": "python",
+      "package": "shlex",
+      "type": null,
+      "method": "quote",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
     },
     {
-      "id": "py.html.escape.ret",
-      "language": "python", "package": "html", "type": null, "method": "escape",
-      "signature": "html.escape(s, quote=True)",
-      "access_path": "Argument[0] -> ReturnValue", "role": "sanitizer", "kind": "xss",
-      "cwe": ["CWE-79"], "confidence": "high", "corroboration": 3, "notes": null
+      "id": "python.html.escape.a0",
+      "language": "python",
+      "package": "html",
+      "type": null,
+      "method": "escape",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
     },
     {
-      "id": "py.markupsafe.escape.ret",
-      "language": "python", "package": "markupsafe", "type": null, "method": "escape",
-      "signature": "markupsafe.escape(s)",
-      "access_path": "Argument[0] -> ReturnValue", "role": "sanitizer", "kind": "xss",
-      "cwe": ["CWE-79"], "confidence": "high", "corroboration": 2, "notes": null
+      "id": "python.markupsafe.escape.a0",
+      "language": "python",
+      "package": "markupsafe",
+      "type": null,
+      "method": "escape",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.urllibparse.quote.a0",
+      "language": "python",
+      "package": "urllib.parse",
+      "type": null,
+      "method": "quote",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.urllibparse.quoteplus.a0",
+      "language": "python",
+      "package": "urllib.parse",
+      "type": null,
+      "method": "quote_plus",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.werkzeugutils.securefilename.a0",
+      "language": "python",
+      "package": "werkzeug.utils",
+      "type": null,
+      "method": "secure_filename",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
+    },
+    {
+      "id": "python.bleach.clean.a0",
+      "language": "python",
+      "package": "bleach",
+      "type": null,
+      "method": "clean",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.re.escape.a0",
+      "language": "python",
+      "package": "re",
+      "type": null,
+      "method": "escape",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "regex",
+      "cwe": [
+        "CWE-625"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
     }
   ]
 }

@@ -1,0 +1,95 @@
+{
+  "role_group": "source",
+  "entries": [
+    {
+      "id": "c.std.rand.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "rand",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-330",
+        "CWE-338"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "predictable PRNG; not for security"
+    },
+    {
+      "id": "c.std.random.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "random",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-330",
+        "CWE-338"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "predictable PRNG; not for security"
+    },
+    {
+      "id": "c.std.drand48.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "drand48",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-330",
+        "CWE-338"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "predictable PRNG; not for security"
+    },
+    {
+      "id": "c.std.lrand48.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "lrand48",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-330",
+        "CWE-338"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "predictable PRNG; not for security"
+    },
+    {
+      "id": "c.std.mrand48.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "mrand48",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-330",
+        "CWE-338"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "predictable PRNG; not for security"
+    }
+  ]
+}

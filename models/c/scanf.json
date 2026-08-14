@@ -1,0 +1,74 @@
+{
+  "role_group": "sink",
+  "entries": [
+    {
+      "id": "c.std.gets.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "gets",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-242",
+        "CWE-120"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "no bound possible; banned"
+    },
+    {
+      "id": "c.std.scanf.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "scanf",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "%s without width overflows"
+    },
+    {
+      "id": "c.std.sscanf.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "sscanf",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.std.fscanf.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "fscanf",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    }
+  ]
+}

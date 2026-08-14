@@ -2,41 +2,174 @@
   "role_group": "source",
   "entries": [
     {
-      "id": "c.net.recv.buf",
-      "language": "c", "package": null, "type": null, "method": "recv",
-      "signature": "ssize_t recv(int sockfd, void *buf, size_t len, int flags)",
-      "access_path": "Argument[1]", "role": "source", "kind": "network-input",
-      "cwe": ["CWE-20"], "confidence": "high", "corroboration": 3,
-      "notes": "Buffer filled from the network; contents are attacker-controlled."
+      "id": "c.std.recv.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "recv",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "source",
+      "kind": "network-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
     },
     {
-      "id": "c.net.recvfrom.buf",
-      "language": "c", "package": null, "type": null, "method": "recvfrom",
-      "signature": "ssize_t recvfrom(int sockfd, void *buf, size_t len, int flags, struct sockaddr *src, socklen_t *addrlen)",
-      "access_path": "Argument[1]", "role": "source", "kind": "network-input",
-      "cwe": ["CWE-20"], "confidence": "high", "corroboration": 3, "notes": null
+      "id": "c.std.recvfrom.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "recvfrom",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "source",
+      "kind": "network-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
     },
     {
-      "id": "c.io.read.buf",
-      "language": "c", "package": null, "type": null, "method": "read",
-      "signature": "ssize_t read(int fd, void *buf, size_t count)",
-      "access_path": "Argument[1]", "role": "source", "kind": "untrusted-input",
-      "cwe": ["CWE-20"], "confidence": "medium", "corroboration": 2, "notes": null
+      "id": "c.std.recvmsg.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "recvmsg",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "source",
+      "kind": "network-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
     },
     {
-      "id": "c.io.fgets.buf",
-      "language": "c", "package": null, "type": null, "method": "fgets",
-      "signature": "char *fgets(char *s, int size, FILE *stream)",
-      "access_path": "Argument[0]", "role": "source", "kind": "untrusted-input",
-      "cwe": ["CWE-20"], "confidence": "medium", "corroboration": 2, "notes": null
+      "id": "c.std.read.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "read",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
     },
     {
-      "id": "c.env.getenv.ret",
-      "language": "c", "package": null, "type": null, "method": "getenv",
-      "signature": "char *getenv(const char *name)",
-      "access_path": "ReturnValue", "role": "source", "kind": "untrusted-input",
-      "cwe": ["CWE-20"], "confidence": "medium", "corroboration": 2,
-      "notes": "Environment is externally influenced in many deployments."
+      "id": "c.std.pread.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "pread",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "c.std.fgets.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "fgets",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.std.fread.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "fread",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.std.getline.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "getline",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "c.std.getenv.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "getenv",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.std.securegetenv.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "secure_getenv",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
     }
   ]
 }

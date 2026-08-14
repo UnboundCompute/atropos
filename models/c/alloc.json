@@ -1,0 +1,109 @@
+{
+  "role_group": "sink",
+  "entries": [
+    {
+      "id": "c.std.malloc.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "malloc",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-190",
+        "CWE-789"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.std.realloc.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "realloc",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-190"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.std.calloc.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "calloc",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-190"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.std.calloc.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "calloc",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-190"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.std.alloca.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "alloca",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-770",
+        "CWE-789"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "stack alloc from controlled size"
+    },
+    {
+      "id": "c.std.valloc.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "valloc",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-789"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    }
+  ]
+}
