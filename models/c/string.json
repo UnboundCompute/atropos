@@ -398,42 +398,6 @@
       "notes": "conventional dangerous interface; argument by class default"
     },
     {
-      "id": "c.std.char.a0",
-      "language": "c",
-      "package": null,
-      "type": null,
-      "method": "char",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "buffer-write",
-      "cwe": [
-        "CWE-119",
-        "CWE-120"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
-      "id": "c.std.wchart.a0",
-      "language": "c",
-      "package": null,
-      "type": null,
-      "method": "wchar_t",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "buffer-write",
-      "cwe": [
-        "CWE-119",
-        "CWE-120"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
       "id": "c.std.swprintf.a0",
       "language": "c",
       "package": null,
@@ -666,40 +630,6 @@
       "notes": "conventional dangerous interface; argument by class default"
     },
     {
-      "id": "c.std.strlen.a0",
-      "language": "c",
-      "package": null,
-      "type": null,
-      "method": "strlen",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "buffer-write",
-      "cwe": [
-        "CWE-126"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
-      "id": "c.std.wcslen.a0",
-      "language": "c",
-      "package": null,
-      "type": null,
-      "method": "wcslen",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "buffer-write",
-      "cwe": [
-        "CWE-126"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
       "id": "c.std.streadd.a0",
       "language": "c",
       "package": null,
@@ -751,101 +681,11 @@
       "notes": "conventional dangerous interface; argument by class default"
     },
     {
-      "id": "c.std.getopt.a0",
-      "language": "c",
-      "package": null,
-      "type": null,
-      "method": "getopt",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "buffer-write",
-      "cwe": [
-        "CWE-120",
-        "CWE-20"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
-      "id": "c.std.getoptlong.a0",
-      "language": "c",
-      "package": null,
-      "type": null,
-      "method": "getopt_long",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "buffer-write",
-      "cwe": [
-        "CWE-120",
-        "CWE-20"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
       "id": "c.std.getwd.a0",
       "language": "c",
       "package": null,
       "type": null,
       "method": "getwd",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "buffer-write",
-      "cwe": [
-        "CWE-120",
-        "CWE-20"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
-      "id": "c.std.getchar.a0",
-      "language": "c",
-      "package": null,
-      "type": null,
-      "method": "getchar",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "buffer-write",
-      "cwe": [
-        "CWE-120",
-        "CWE-20"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
-      "id": "c.std.fgetc.a0",
-      "language": "c",
-      "package": null,
-      "type": null,
-      "method": "fgetc",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "buffer-write",
-      "cwe": [
-        "CWE-120",
-        "CWE-20"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
-      "id": "c.std.getc.a0",
-      "language": "c",
-      "package": null,
-      "type": null,
-      "method": "getc",
       "signature": null,
       "access_path": "Argument[0]",
       "role": "sink",
@@ -895,60 +735,6 @@
       "notes": "conventional dangerous interface; argument by class default"
     },
     {
-      "id": "c.std.curlgetenv.a0",
-      "language": "c",
-      "package": null,
-      "type": null,
-      "method": "curl_getenv",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "buffer-write",
-      "cwe": [
-        "CWE-20",
-        "CWE-807"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
-      "id": "c.std.ggethomedir.a0",
-      "language": "c",
-      "package": null,
-      "type": null,
-      "method": "g_get_home_dir",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "buffer-write",
-      "cwe": [
-        "CWE-20",
-        "CWE-807"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
-      "id": "c.std.ggettmpdir.a0",
-      "language": "c",
-      "package": null,
-      "type": null,
-      "method": "g_get_tmp_dir",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "buffer-write",
-      "cwe": [
-        "CWE-20",
-        "CWE-807"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
       "id": "c.std.getpw.a0",
       "language": "c",
       "package": null,
@@ -961,57 +747,6 @@
       "cwe": [
         "CWE-120",
         "CWE-676"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
-      "id": "c.std.equal.a0",
-      "language": "c",
-      "package": null,
-      "type": null,
-      "method": "equal",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "buffer-write",
-      "cwe": [
-        "CWE-126"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
-      "id": "c.std.mismatch.a0",
-      "language": "c",
-      "package": null,
-      "type": null,
-      "method": "mismatch",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "buffer-write",
-      "cwe": [
-        "CWE-126"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
-      "id": "c.std.ispermutation.a0",
-      "language": "c",
-      "package": null,
-      "type": null,
-      "method": "is_permutation",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "buffer-write",
-      "cwe": [
-        "CWE-126"
       ],
       "confidence": "low",
       "corroboration": 1,
