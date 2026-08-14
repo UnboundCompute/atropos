@@ -13,7 +13,7 @@ argument or return value to watch.
 If you want a plain analogy: Lachesis figures out how code connects. Atropos is the
 lookup table that says "this specific argument is dangerous, and here is why."
 
-> **Status: v1.1, actively curated.** 187 entries and growing. The data is
+> **Status: v1.2, actively curated.** 369 entries and growing. The data is
 > validated on every change. Contributions are welcome, see
 > [Contributing](#contributing).
 
@@ -56,17 +56,20 @@ it?) and the human (is the length actually bounded upstream?). The models only s
 
 ```
 models/
-  c/        memory  string  scanf  format  alloc  exec  path  tempfile  sources  random
-  python/   sinks   sources  sanitizers  random
-schema/     model.schema.json
-tools/      validate.py  stats.py         # stdlib only, zero deps
-tests/      test_models.py
+  c/            memory string scanf format alloc exec path tempfile sources random
+  python/       sinks sources sanitizers random
+  javascript/   sinks sources sanitizers
+  typescript/   sinks sources sanitizers
+schema/         model.schema.json
+tools/          validate.py  stats.py     # stdlib only, zero deps
+tests/          test_models.py
 ```
 
-187 entries at the time of writing: C memory-safety, injection, path, format, and
-alloc sinks plus network, io, and env sources; Python command, code,
-deserialization, SQL, path, SSRF, XXE, template, and crypto sinks, plus sources and
-sanitizers.
+369 entries at the time of writing, covering all four languages Lachesis parses
+(C, Python, JavaScript, TypeScript) across ~27 CWE classes: buffer overflow,
+command / code / SQL / LDAP / XPath / NoSQL / template injection, path traversal,
+deserialization, SSRF, XXE, XSS, open redirect, prototype pollution, weak crypto
+and randomness, insecure TLS, and more — sinks, sources, and sanitizers.
 
 ## Using the data
 
@@ -83,12 +86,19 @@ in the engine walks `models/**/*.json`, resolves each
 
 ## Scope, honestly
 
-Atropos is sinks-first and favors depth over breadth. It starts with C
-memory-safety and injection sinks (the class a call graph alone misses, because
-`memcpy` and friends are builtins rather than ordinary call edges), plus a broad
-Python sink, source, and sanitizer set. Sources and sanitizers grow from here.
-Framework- and domain-specific sources (a packet buffer, say) are seeded by the
-engine, not this catalog.
+Atropos is sinks-first and favors depth over breadth, now across all four
+languages. The C set leads with memory-safety and injection sinks — the class a
+call graph alone misses, because `memcpy` and friends are builtins rather than
+ordinary call edges. Python, JavaScript, and TypeScript add command / code / SQL /
+injection, deserialization, SSRF, XXE, XSS, path-traversal, template-injection, and
+prototype-pollution sinks, plus sources and sanitizers.
+
+A note on binding, since it differs by language. A flat C builtin binds on the
+callee spelling at the call site (`memcpy`); a JS/TS member call is spelled in full
+(`child_process.exec`), so it binds on the method name and narrows with the entry's
+`package`/`type` as a receiver hint — which is why those fields matter. Framework-
+and domain-specific sources (a packet buffer, say) are seeded by the engine, not
+this catalog.
 
 ## Contributing
 

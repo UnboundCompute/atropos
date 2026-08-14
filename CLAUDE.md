@@ -24,3 +24,8 @@ python3 -m unittest discover -s tests        # must pass
 ## tmp/ is internal
 `tmp/` is gitignored. Build/import scripts and working notes live there and are
 never pushed. Nothing under version control references where any datum came from.
+
+## Commits
+- **No `Co-Authored-By` trailer.** Commit messages carry no co-author lines.
+- **Multiple small commits, not one big one.** Split work into logical units
+  (per language, per concern, docs separate from data) so history reads clearly.
