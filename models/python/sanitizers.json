@@ -170,6 +170,57 @@
       "confidence": "low",
       "corroboration": 1,
       "notes": "data-only, unlike pickle"
+    },
+    {
+      "id": "python.defusedxmlelementtree.fromstring.a0",
+      "language": "python",
+      "package": "defusedxml.ElementTree",
+      "type": null,
+      "method": "fromstring",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xxe",
+      "cwe": [
+        "CWE-611"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "hardened parser; blocks entity expansion"
+    },
+    {
+      "id": "python.defusedxmlelementtree.parse.a0",
+      "language": "python",
+      "package": "defusedxml.ElementTree",
+      "type": null,
+      "method": "parse",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xxe",
+      "cwe": [
+        "CWE-611"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.nh3.clean.a0",
+      "language": "python",
+      "package": "nh3",
+      "type": null,
+      "method": "clean",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "HTML sanitizer (ammonia binding)"
     }
   ]
 }

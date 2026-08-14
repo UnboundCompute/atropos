@@ -1677,6 +1677,499 @@
       "notes": "algorithm chosen at runtime"
     },
     {
+      "id": "python.httpx.get.a0",
+      "language": "python",
+      "package": "httpx",
+      "type": null,
+      "method": "get",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.httpx.post.a0",
+      "language": "python",
+      "package": "httpx",
+      "type": null,
+      "method": "post",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.httpx.put.a0",
+      "language": "python",
+      "package": "httpx",
+      "type": null,
+      "method": "put",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.httpx.delete.a0",
+      "language": "python",
+      "package": "httpx",
+      "type": null,
+      "method": "delete",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.httpx.head.a0",
+      "language": "python",
+      "package": "httpx",
+      "type": null,
+      "method": "head",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.httpx.patch.a0",
+      "language": "python",
+      "package": "httpx",
+      "type": null,
+      "method": "patch",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.httpx.request.a0",
+      "language": "python",
+      "package": "httpx",
+      "type": null,
+      "method": "request",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.httpx.stream.a0",
+      "language": "python",
+      "package": "httpx",
+      "type": null,
+      "method": "stream",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.client.get.a0",
+      "language": "python",
+      "package": null,
+      "type": "Client",
+      "method": "get",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "httpx.Client instance method"
+    },
+    {
+      "id": "python.clientsession.get.a0",
+      "language": "python",
+      "package": null,
+      "type": "ClientSession",
+      "method": "get",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "aiohttp session method"
+    },
+    {
+      "id": "python.client.post.a0",
+      "language": "python",
+      "package": null,
+      "type": "Client",
+      "method": "post",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "httpx.Client instance method"
+    },
+    {
+      "id": "python.clientsession.post.a0",
+      "language": "python",
+      "package": null,
+      "type": "ClientSession",
+      "method": "post",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "aiohttp session method"
+    },
+    {
+      "id": "python.client.request.a0",
+      "language": "python",
+      "package": null,
+      "type": "Client",
+      "method": "request",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "httpx.Client instance method"
+    },
+    {
+      "id": "python.clientsession.request.a0",
+      "language": "python",
+      "package": null,
+      "type": "ClientSession",
+      "method": "request",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "aiohttp session method"
+    },
+    {
+      "id": "python.poolmanager.request.a1",
+      "language": "python",
+      "package": null,
+      "type": "PoolManager",
+      "method": "request",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "urllib3 pool request; url is 2nd positional"
+    },
+    {
+      "id": "python.poolmanager.urlopen.a1",
+      "language": "python",
+      "package": null,
+      "type": "PoolManager",
+      "method": "urlopen",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.torch.load.a0",
+      "language": "python",
+      "package": "torch",
+      "type": null,
+      "method": "load",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "torch.load uses pickle by default"
+    },
+    {
+      "id": "python.joblib.load.a0",
+      "language": "python",
+      "package": "joblib",
+      "type": null,
+      "method": "load",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.os.posixspawn.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "posix_spawn",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.os.posixspawnp.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "posix_spawnp",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.connection.search.a1",
+      "language": "python",
+      "package": null,
+      "type": "Connection",
+      "method": "search",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "ldap-injection",
+      "cwe": [
+        "CWE-90"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "ldap3 Connection.search; filter is 2nd positional"
+    },
+    {
+      "id": "python.ldap.searchexts.a2",
+      "language": "python",
+      "package": "ldap",
+      "type": null,
+      "method": "search_ext_s",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "ldap-injection",
+      "cwe": [
+        "CWE-90"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "filterstr is 3rd positional"
+    },
+    {
+      "id": "python.collection.findone.a0",
+      "language": "python",
+      "package": null,
+      "type": "Collection",
+      "method": "find_one",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "Mongo query filter"
+    },
+    {
+      "id": "python.collection.updateone.a0",
+      "language": "python",
+      "package": null,
+      "type": "Collection",
+      "method": "update_one",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "Mongo query filter"
+    },
+    {
+      "id": "python.collection.deleteone.a0",
+      "language": "python",
+      "package": null,
+      "type": "Collection",
+      "method": "delete_one",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "Mongo query filter"
+    },
+    {
+      "id": "python.collection.updatemany.a0",
+      "language": "python",
+      "package": null,
+      "type": "Collection",
+      "method": "update_many",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "Mongo query filter"
+    },
+    {
+      "id": "python.collection.deletemany.a0",
+      "language": "python",
+      "package": null,
+      "type": "Collection",
+      "method": "delete_many",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "Mongo query filter"
+    },
+    {
+      "id": "python.collection.aggregate.a0",
+      "language": "python",
+      "package": null,
+      "type": "Collection",
+      "method": "aggregate",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "Mongo query filter"
+    },
+    {
+      "id": "python.collection.findoneandupdate.a0",
+      "language": "python",
+      "package": null,
+      "type": "Collection",
+      "method": "find_one_and_update",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "Mongo query filter"
+    },
+    {
       "id": "python.pickle.unpickler.a0",
       "language": "python",
       "package": "pickle",

@@ -120,7 +120,8 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
-        "CWE-330"
+        "CWE-330",
+        "CWE-338"
       ],
       "confidence": "low",
       "corroboration": 1,
@@ -137,7 +138,8 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
-        "CWE-330"
+        "CWE-330",
+        "CWE-338"
       ],
       "confidence": "low",
       "corroboration": 1,
@@ -154,7 +156,8 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
-        "CWE-330"
+        "CWE-330",
+        "CWE-338"
       ],
       "confidence": "low",
       "corroboration": 1,
@@ -171,7 +174,8 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
-        "CWE-330"
+        "CWE-330",
+        "CWE-338"
       ],
       "confidence": "low",
       "corroboration": 1,
