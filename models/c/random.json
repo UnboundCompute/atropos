@@ -30,6 +30,7 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
+        "CWE-327",
         "CWE-330",
         "CWE-338"
       ],
@@ -48,6 +49,7 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
+        "CWE-327",
         "CWE-330",
         "CWE-338"
       ],
@@ -66,6 +68,7 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
+        "CWE-327",
         "CWE-330",
         "CWE-338"
       ],
@@ -84,12 +87,336 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
+        "CWE-327",
         "CWE-330",
         "CWE-338"
       ],
       "confidence": "medium",
       "corroboration": 2,
       "notes": "predictable PRNG; not for security"
+    },
+    {
+      "id": "c.std.erand48.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "erand48",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "conventional dangerous interface; argument by class default"
+    },
+    {
+      "id": "c.std.jrand48.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "jrand48",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "conventional dangerous interface; argument by class default"
+    },
+    {
+      "id": "c.std.lcong48.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "lcong48",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "conventional dangerous interface; argument by class default"
+    },
+    {
+      "id": "c.std.nrand48.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "nrand48",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "conventional dangerous interface; argument by class default"
+    },
+    {
+      "id": "c.std.seed48.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "seed48",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "conventional dangerous interface; argument by class default"
+    },
+    {
+      "id": "c.std.setstate.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "setstate",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "conventional dangerous interface; argument by class default"
+    },
+    {
+      "id": "c.std.srand.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "srand",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "conventional dangerous interface; argument by class default"
+    },
+    {
+      "id": "c.std.strfry.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "strfry",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "conventional dangerous interface; argument by class default"
+    },
+    {
+      "id": "c.std.srandom.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "srandom",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "conventional dangerous interface; argument by class default"
+    },
+    {
+      "id": "c.std.grandboolean.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "g_rand_boolean",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "conventional dangerous interface; argument by class default"
+    },
+    {
+      "id": "c.std.grandint.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "g_rand_int",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "conventional dangerous interface; argument by class default"
+    },
+    {
+      "id": "c.std.grandintrange.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "g_rand_int_range",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "conventional dangerous interface; argument by class default"
+    },
+    {
+      "id": "c.std.granddouble.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "g_rand_double",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "conventional dangerous interface; argument by class default"
+    },
+    {
+      "id": "c.std.granddoublerange.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "g_rand_double_range",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "conventional dangerous interface; argument by class default"
+    },
+    {
+      "id": "c.std.grandomboolean.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "g_random_boolean",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "conventional dangerous interface; argument by class default"
+    },
+    {
+      "id": "c.std.grandomint.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "g_random_int",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "conventional dangerous interface; argument by class default"
+    },
+    {
+      "id": "c.std.grandomintrange.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "g_random_int_range",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "conventional dangerous interface; argument by class default"
+    },
+    {
+      "id": "c.std.grandomdouble.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "g_random_double",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "conventional dangerous interface; argument by class default"
+    },
+    {
+      "id": "c.std.grandomdoublerange.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "g_random_double_range",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "conventional dangerous interface; argument by class default"
     }
   ]
 }

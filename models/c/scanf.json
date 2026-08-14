@@ -12,8 +12,9 @@
       "role": "sink",
       "kind": "buffer-write",
       "cwe": [
-        "CWE-242",
-        "CWE-120"
+        "CWE-120",
+        "CWE-20",
+        "CWE-242"
       ],
       "confidence": "high",
       "corroboration": 3,

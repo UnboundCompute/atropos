@@ -1,0 +1,39 @@
+{
+  "role_group": "sink",
+  "entries": [
+    {
+      "id": "c.std.crypt.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "crypt",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "conventional dangerous interface; argument by class default"
+    },
+    {
+      "id": "c.std.cryptr.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "crypt_r",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "conventional dangerous interface; argument by class default"
+    }
+  ]
+}

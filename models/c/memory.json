@@ -30,6 +30,7 @@
       "role": "sink",
       "kind": "buffer-write",
       "cwe": [
+        "CWE-120",
         "CWE-787"
       ],
       "confidence": "medium",

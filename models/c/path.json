@@ -352,11 +352,30 @@
       "role": "sink",
       "kind": "path-traversal",
       "cwe": [
-        "CWE-22"
+        "CWE-120",
+        "CWE-22",
+        "CWE-785"
       ],
       "confidence": "low",
       "corroboration": 1,
       "notes": null
+    },
+    {
+      "id": "c.std.umask.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "umask",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-732"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "conventional dangerous interface; argument by class default"
     }
   ]
 }
