@@ -306,6 +306,57 @@
       "confidence": "medium",
       "corroboration": 2,
       "notes": "filesystem path may escape intended root"
+    },
+    {
+      "id": "c.std.creat.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "creat",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.std.truncate.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "truncate",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "c.std.realpath.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "realpath",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
     }
   ]
 }

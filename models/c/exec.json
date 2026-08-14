@@ -187,6 +187,23 @@
       "confidence": "medium",
       "corroboration": 2,
       "notes": "program path/args to process exec"
+    },
+    {
+      "id": "c.std.wordexp.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "wordexp",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "shell-style expansion"
     }
   ]
 }
