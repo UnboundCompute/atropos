@@ -139,23 +139,6 @@
       "notes": "Math.random is not cryptographic"
     },
     {
-      "id": "typescript.location.assign.a0",
-      "language": "typescript",
-      "package": null,
-      "type": "Location",
-      "method": "assign",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "source",
-      "kind": "web-input",
-      "cwe": [
-        "CWE-20"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": null
-    },
-    {
       "id": "typescript.std.prompt.ret",
       "language": "typescript",
       "package": null,
@@ -171,23 +154,6 @@
       "confidence": "low",
       "corroboration": 1,
       "notes": "browser prompt()"
-    },
-    {
-      "id": "typescript.location.replace.a0",
-      "language": "typescript",
-      "package": null,
-      "type": "Location",
-      "method": "replace",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "source",
-      "kind": "web-input",
-      "cwe": [
-        "CWE-20"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": null
     },
     {
       "id": "typescript.request.body.ret",

@@ -1481,6 +1481,40 @@
       "notes": null
     },
     {
+      "id": "javascript.location.assign.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Location",
+      "method": "assign",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "open-redirect",
+      "cwe": [
+        "CWE-601"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "navigates browser to its argument"
+    },
+    {
+      "id": "javascript.location.replace.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Location",
+      "method": "replace",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "open-redirect",
+      "cwe": [
+        "CWE-601"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "navigates browser to its argument"
+    },
+    {
       "id": "javascript.libxmljs.parsexml.a0",
       "language": "javascript",
       "package": "libxmljs",
