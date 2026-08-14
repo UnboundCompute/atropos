@@ -2,7 +2,7 @@
   "role_group": "sanitizer",
   "entries": [
     {
-      "id": "python.shlex.quote.a0",
+      "id": "python.shlex.quote.a0-ret",
       "language": "python",
       "package": "shlex",
       "type": null,
@@ -19,7 +19,7 @@
       "notes": null
     },
     {
-      "id": "python.html.escape.a0",
+      "id": "python.html.escape.a0-ret",
       "language": "python",
       "package": "html",
       "type": null,
@@ -36,7 +36,7 @@
       "notes": null
     },
     {
-      "id": "python.markupsafe.escape.a0",
+      "id": "python.markupsafe.escape.a0-ret",
       "language": "python",
       "package": "markupsafe",
       "type": null,
@@ -53,7 +53,7 @@
       "notes": null
     },
     {
-      "id": "python.urllibparse.quote.a0",
+      "id": "python.urllibparse.quote.a0-ret",
       "language": "python",
       "package": "urllib.parse",
       "type": null,
@@ -70,7 +70,7 @@
       "notes": null
     },
     {
-      "id": "python.urllibparse.quoteplus.a0",
+      "id": "python.urllibparse.quoteplus.a0-ret",
       "language": "python",
       "package": "urllib.parse",
       "type": null,
@@ -87,7 +87,7 @@
       "notes": null
     },
     {
-      "id": "python.werkzeugutils.securefilename.a0",
+      "id": "python.werkzeugutils.securefilename.a0-ret",
       "language": "python",
       "package": "werkzeug.utils",
       "type": null,
@@ -104,7 +104,7 @@
       "notes": null
     },
     {
-      "id": "python.bleach.clean.a0",
+      "id": "python.bleach.clean.a0-ret",
       "language": "python",
       "package": "bleach",
       "type": null,
@@ -121,7 +121,7 @@
       "notes": null
     },
     {
-      "id": "python.re.escape.a0",
+      "id": "python.re.escape.a0-ret",
       "language": "python",
       "package": "re",
       "type": null,
@@ -138,7 +138,7 @@
       "notes": null
     },
     {
-      "id": "python.ast.literaleval.a0",
+      "id": "python.ast.literaleval.a0-ret",
       "language": "python",
       "package": "ast",
       "type": null,
@@ -155,7 +155,7 @@
       "notes": "safe eval of literals only"
     },
     {
-      "id": "python.json.loads.a0",
+      "id": "python.json.loads.a0-ret",
       "language": "python",
       "package": "json",
       "type": null,
@@ -172,7 +172,7 @@
       "notes": "data-only, unlike pickle"
     },
     {
-      "id": "python.defusedxmlelementtree.fromstring.a0",
+      "id": "python.defusedxmlelementtree.fromstring.a0-ret",
       "language": "python",
       "package": "defusedxml.ElementTree",
       "type": null,
@@ -189,7 +189,7 @@
       "notes": "hardened parser; blocks entity expansion"
     },
     {
-      "id": "python.defusedxmlelementtree.parse.a0",
+      "id": "python.defusedxmlelementtree.parse.a0-ret",
       "language": "python",
       "package": "defusedxml.ElementTree",
       "type": null,
@@ -206,7 +206,7 @@
       "notes": null
     },
     {
-      "id": "python.nh3.clean.a0",
+      "id": "python.nh3.clean.a0-ret",
       "language": "python",
       "package": "nh3",
       "type": null,

@@ -2,7 +2,7 @@
   "role_group": "sanitizer",
   "entries": [
     {
-      "id": "javascript.dompurify.sanitize.a0",
+      "id": "javascript.dompurify.sanitize.a0-ret",
       "language": "javascript",
       "package": "dompurify",
       "type": null,
@@ -19,7 +19,7 @@
       "notes": null
     },
     {
-      "id": "javascript.std.encodeuricomponent.a0",
+      "id": "javascript.std.encodeuricomponent.a0-ret",
       "language": "javascript",
       "package": null,
       "type": null,
@@ -36,7 +36,7 @@
       "notes": null
     },
     {
-      "id": "javascript.std.encodeuri.a0",
+      "id": "javascript.std.encodeuri.a0-ret",
       "language": "javascript",
       "package": null,
       "type": null,
@@ -53,7 +53,7 @@
       "notes": null
     },
     {
-      "id": "javascript.validator.escape.a0",
+      "id": "javascript.validator.escape.a0-ret",
       "language": "javascript",
       "package": "validator",
       "type": null,
@@ -70,7 +70,7 @@
       "notes": null
     },
     {
-      "id": "javascript.lodash.escape.a0",
+      "id": "javascript.lodash.escape.a0-ret",
       "language": "javascript",
       "package": "lodash",
       "type": null,
@@ -87,7 +87,7 @@
       "notes": null
     },
     {
-      "id": "javascript.he.encode.a0",
+      "id": "javascript.he.encode.a0-ret",
       "language": "javascript",
       "package": "he",
       "type": null,
@@ -104,7 +104,7 @@
       "notes": null
     },
     {
-      "id": "javascript.mysql.escape.a0",
+      "id": "javascript.mysql.escape.a0-ret",
       "language": "javascript",
       "package": "mysql",
       "type": null,
@@ -121,7 +121,7 @@
       "notes": null
     },
     {
-      "id": "javascript.xss.filterxss.a0",
+      "id": "javascript.xss.filterxss.a0-ret",
       "language": "javascript",
       "package": "xss",
       "type": null,
@@ -138,7 +138,7 @@
       "notes": null
     },
     {
-      "id": "javascript.sanitizehtml.sanitizehtml.a0",
+      "id": "javascript.sanitizehtml.sanitizehtml.a0-ret",
       "language": "javascript",
       "package": "sanitize-html",
       "type": null,
@@ -155,7 +155,7 @@
       "notes": null
     },
     {
-      "id": "javascript.validator.whitelist.a0",
+      "id": "javascript.validator.whitelist.a0-ret",
       "language": "javascript",
       "package": "validator",
       "type": null,
@@ -172,7 +172,7 @@
       "notes": null
     },
     {
-      "id": "javascript.path.basename.a0",
+      "id": "javascript.path.basename.a0-ret",
       "language": "javascript",
       "package": "path",
       "type": null,
@@ -189,7 +189,7 @@
       "notes": "strips directory components"
     },
     {
-      "id": "javascript.sqlstring.escape.a0",
+      "id": "javascript.sqlstring.escape.a0-ret",
       "language": "javascript",
       "package": "sqlstring",
       "type": null,
