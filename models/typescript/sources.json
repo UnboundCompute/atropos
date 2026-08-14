@@ -1,0 +1,159 @@
+{
+  "role_group": "source",
+  "entries": [
+    {
+      "id": "typescript.url.parse.ret",
+      "language": "typescript",
+      "package": "url",
+      "type": null,
+      "method": "parse",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.querystring.parse.ret",
+      "language": "typescript",
+      "package": "querystring",
+      "type": null,
+      "method": "parse",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.urlsearchparams.get.ret",
+      "language": "typescript",
+      "package": null,
+      "type": "URLSearchParams",
+      "method": "get",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.request.param.ret",
+      "language": "typescript",
+      "package": null,
+      "type": "Request",
+      "method": "param",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "express req.param(name)"
+    },
+    {
+      "id": "typescript.request.get.ret",
+      "language": "typescript",
+      "package": null,
+      "type": "Request",
+      "method": "get",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "request header lookup"
+    },
+    {
+      "id": "typescript.request.header.ret",
+      "language": "typescript",
+      "package": null,
+      "type": "Request",
+      "method": "header",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.storage.getitem.ret",
+      "language": "typescript",
+      "package": null,
+      "type": "Storage",
+      "method": "getItem",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.math.random.ret",
+      "language": "typescript",
+      "package": "Math",
+      "type": null,
+      "method": "random",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-330",
+        "CWE-338"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "Math.random is not cryptographic"
+    },
+    {
+      "id": "typescript.location.assign.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Location",
+      "method": "assign",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    }
+  ]
+}

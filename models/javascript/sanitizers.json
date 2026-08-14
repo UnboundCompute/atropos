@@ -1,0 +1,158 @@
+{
+  "role_group": "sanitizer",
+  "entries": [
+    {
+      "id": "javascript.dompurify.sanitize.a0",
+      "language": "javascript",
+      "package": "dompurify",
+      "type": null,
+      "method": "sanitize",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
+    },
+    {
+      "id": "javascript.std.encodeuricomponent.a0",
+      "language": "javascript",
+      "package": null,
+      "type": null,
+      "method": "encodeURIComponent",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.std.encodeuri.a0",
+      "language": "javascript",
+      "package": null,
+      "type": null,
+      "method": "encodeURI",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "javascript.validator.escape.a0",
+      "language": "javascript",
+      "package": "validator",
+      "type": null,
+      "method": "escape",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.lodash.escape.a0",
+      "language": "javascript",
+      "package": "lodash",
+      "type": null,
+      "method": "escape",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.he.encode.a0",
+      "language": "javascript",
+      "package": "he",
+      "type": null,
+      "method": "encode",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.mysql.escape.a0",
+      "language": "javascript",
+      "package": "mysql",
+      "type": null,
+      "method": "escape",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.xss.filterxss.a0",
+      "language": "javascript",
+      "package": "xss",
+      "type": null,
+      "method": "filterXSS",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.sanitizehtml.sanitizehtml.a0",
+      "language": "javascript",
+      "package": "sanitize-html",
+      "type": null,
+      "method": "sanitizeHtml",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    }
+  ]
+}

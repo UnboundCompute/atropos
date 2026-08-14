@@ -1,0 +1,1008 @@
+{
+  "role_group": "sink",
+  "entries": [
+    {
+      "id": "javascript.std.eval.a0",
+      "language": "javascript",
+      "package": null,
+      "type": null,
+      "method": "eval",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
+    },
+    {
+      "id": "javascript.std.function.a0",
+      "language": "javascript",
+      "package": null,
+      "type": null,
+      "method": "Function",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "new Function(body)"
+    },
+    {
+      "id": "javascript.std.settimeout.a0",
+      "language": "javascript",
+      "package": null,
+      "type": null,
+      "method": "setTimeout",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "string-body form is eval-like"
+    },
+    {
+      "id": "javascript.std.setinterval.a0",
+      "language": "javascript",
+      "package": null,
+      "type": null,
+      "method": "setInterval",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "javascript.std.require.a0",
+      "language": "javascript",
+      "package": null,
+      "type": null,
+      "method": "require",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "dynamic require of controlled path"
+    },
+    {
+      "id": "javascript.vm.runincontext.a0",
+      "language": "javascript",
+      "package": "vm",
+      "type": null,
+      "method": "runInContext",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.vm.runinnewcontext.a0",
+      "language": "javascript",
+      "package": "vm",
+      "type": null,
+      "method": "runInNewContext",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.vm.runinthiscontext.a0",
+      "language": "javascript",
+      "package": "vm",
+      "type": null,
+      "method": "runInThisContext",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.vm.compilefunction.a0",
+      "language": "javascript",
+      "package": "vm",
+      "type": null,
+      "method": "compileFunction",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "javascript.childprocess.exec.a0",
+      "language": "javascript",
+      "package": "child_process",
+      "type": null,
+      "method": "exec",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
+    },
+    {
+      "id": "javascript.childprocess.execsync.a0",
+      "language": "javascript",
+      "package": "child_process",
+      "type": null,
+      "method": "execSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
+    },
+    {
+      "id": "javascript.childprocess.execfile.a0",
+      "language": "javascript",
+      "package": "child_process",
+      "type": null,
+      "method": "execFile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.childprocess.spawn.a0",
+      "language": "javascript",
+      "package": "child_process",
+      "type": null,
+      "method": "spawn",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.childprocess.spawnsync.a0",
+      "language": "javascript",
+      "package": "child_process",
+      "type": null,
+      "method": "spawnSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.nodeserialize.unserialize.a0",
+      "language": "javascript",
+      "package": "node-serialize",
+      "type": null,
+      "method": "unserialize",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.fs.readfile.a0",
+      "language": "javascript",
+      "package": "fs",
+      "type": null,
+      "method": "readFile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.fs.readfilesync.a0",
+      "language": "javascript",
+      "package": "fs",
+      "type": null,
+      "method": "readFileSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.fs.writefile.a0",
+      "language": "javascript",
+      "package": "fs",
+      "type": null,
+      "method": "writeFile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.fs.writefilesync.a0",
+      "language": "javascript",
+      "package": "fs",
+      "type": null,
+      "method": "writeFileSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.fs.appendfile.a0",
+      "language": "javascript",
+      "package": "fs",
+      "type": null,
+      "method": "appendFile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.fs.createreadstream.a0",
+      "language": "javascript",
+      "package": "fs",
+      "type": null,
+      "method": "createReadStream",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.fs.createwritestream.a0",
+      "language": "javascript",
+      "package": "fs",
+      "type": null,
+      "method": "createWriteStream",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.fs.open.a0",
+      "language": "javascript",
+      "package": "fs",
+      "type": null,
+      "method": "open",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.fs.unlink.a0",
+      "language": "javascript",
+      "package": "fs",
+      "type": null,
+      "method": "unlink",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.fs.readdir.a0",
+      "language": "javascript",
+      "package": "fs",
+      "type": null,
+      "method": "readdir",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "javascript.connection.query.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Connection",
+      "method": "query",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "raw SQL on a DB connection"
+    },
+    {
+      "id": "javascript.pool.query.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Pool",
+      "method": "query",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.knex.raw.a0",
+      "language": "javascript",
+      "package": "knex",
+      "type": null,
+      "method": "raw",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.sequelize.query.a0",
+      "language": "javascript",
+      "package": "sequelize",
+      "type": null,
+      "method": "query",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.document.write.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Document",
+      "method": "write",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
+    },
+    {
+      "id": "javascript.document.writeln.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Document",
+      "method": "writeln",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.element.insertadjacenthtml.a1",
+      "language": "javascript",
+      "package": null,
+      "type": "Element",
+      "method": "insertAdjacentHTML",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.std.html.a0",
+      "language": "javascript",
+      "package": null,
+      "type": null,
+      "method": "html",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "jQuery .html(x) sets innerHTML"
+    },
+    {
+      "id": "javascript.http.request.a0",
+      "language": "javascript",
+      "package": "http",
+      "type": null,
+      "method": "request",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.https.request.a0",
+      "language": "javascript",
+      "package": "https",
+      "type": null,
+      "method": "request",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.std.fetch.a0",
+      "language": "javascript",
+      "package": null,
+      "type": null,
+      "method": "fetch",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.axios.get.a0",
+      "language": "javascript",
+      "package": "axios",
+      "type": null,
+      "method": "get",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.axios.post.a0",
+      "language": "javascript",
+      "package": "axios",
+      "type": null,
+      "method": "post",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.axios.request.a0",
+      "language": "javascript",
+      "package": "axios",
+      "type": null,
+      "method": "request",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.std.regexp.a0",
+      "language": "javascript",
+      "package": null,
+      "type": null,
+      "method": "RegExp",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "new RegExp(userInput) risks catastrophic backtracking"
+    },
+    {
+      "id": "javascript.response.redirect.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Response",
+      "method": "redirect",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "open-redirect",
+      "cwe": [
+        "CWE-601"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "javascript.lodash.merge.a1",
+      "language": "javascript",
+      "package": "lodash",
+      "type": null,
+      "method": "merge",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "prototype-pollution",
+      "cwe": [
+        "CWE-1321"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.lodash.mergewith.a1",
+      "language": "javascript",
+      "package": "lodash",
+      "type": null,
+      "method": "mergeWith",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "prototype-pollution",
+      "cwe": [
+        "CWE-1321"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.lodash.set.a1",
+      "language": "javascript",
+      "package": "lodash",
+      "type": null,
+      "method": "set",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "prototype-pollution",
+      "cwe": [
+        "CWE-1321"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "javascript.lodash.defaultsdeep.a1",
+      "language": "javascript",
+      "package": "lodash",
+      "type": null,
+      "method": "defaultsDeep",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "prototype-pollution",
+      "cwe": [
+        "CWE-1321"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "javascript.collection.find.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Collection",
+      "method": "find",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "javascript.handlebars.compile.a0",
+      "language": "javascript",
+      "package": "handlebars",
+      "type": null,
+      "method": "compile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.ejs.render.a0",
+      "language": "javascript",
+      "package": "ejs",
+      "type": null,
+      "method": "render",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.pug.compile.a0",
+      "language": "javascript",
+      "package": "pug",
+      "type": null,
+      "method": "compile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "javascript.jsyaml.load.a0",
+      "language": "javascript",
+      "package": "js-yaml",
+      "type": null,
+      "method": "load",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "legacy load is unsafe"
+    },
+    {
+      "id": "javascript.got.get.a0",
+      "language": "javascript",
+      "package": "got",
+      "type": null,
+      "method": "get",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.superagent.get.a0",
+      "language": "javascript",
+      "package": "superagent",
+      "type": null,
+      "method": "get",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "javascript.request.get.a0",
+      "language": "javascript",
+      "package": "request",
+      "type": null,
+      "method": "get",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "javascript.xpath.select.a0",
+      "language": "javascript",
+      "package": "xpath",
+      "type": null,
+      "method": "select",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xpath-injection",
+      "cwe": [
+        "CWE-643"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.client.search.a1",
+      "language": "javascript",
+      "package": null,
+      "type": "Client",
+      "method": "search",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "ldap-injection",
+      "cwe": [
+        "CWE-90"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "ldapjs search filter"
+    },
+    {
+      "id": "javascript.angular.trustashtml.a0",
+      "language": "javascript",
+      "package": "angular",
+      "type": "$sce",
+      "method": "trustAsHtml",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "javascript.std.append.a0",
+      "language": "javascript",
+      "package": null,
+      "type": null,
+      "method": "append",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "jQuery .append(html)"
+    },
+    {
+      "id": "javascript.response.location.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Response",
+      "method": "location",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "open-redirect",
+      "cwe": [
+        "CWE-601"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "javascript.crypto.createhash.a0",
+      "language": "javascript",
+      "package": "crypto",
+      "type": null,
+      "method": "createHash",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "md5/sha1 chosen at runtime"
+    }
+  ]
+}

@@ -1,0 +1,1008 @@
+{
+  "role_group": "sink",
+  "entries": [
+    {
+      "id": "typescript.std.eval.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "eval",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
+    },
+    {
+      "id": "typescript.std.function.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "Function",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "new Function(body)"
+    },
+    {
+      "id": "typescript.std.settimeout.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "setTimeout",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "string-body form is eval-like"
+    },
+    {
+      "id": "typescript.std.setinterval.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "setInterval",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.std.require.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "require",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "dynamic require of controlled path"
+    },
+    {
+      "id": "typescript.vm.runincontext.a0",
+      "language": "typescript",
+      "package": "vm",
+      "type": null,
+      "method": "runInContext",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.vm.runinnewcontext.a0",
+      "language": "typescript",
+      "package": "vm",
+      "type": null,
+      "method": "runInNewContext",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.vm.runinthiscontext.a0",
+      "language": "typescript",
+      "package": "vm",
+      "type": null,
+      "method": "runInThisContext",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.vm.compilefunction.a0",
+      "language": "typescript",
+      "package": "vm",
+      "type": null,
+      "method": "compileFunction",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.childprocess.exec.a0",
+      "language": "typescript",
+      "package": "child_process",
+      "type": null,
+      "method": "exec",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
+    },
+    {
+      "id": "typescript.childprocess.execsync.a0",
+      "language": "typescript",
+      "package": "child_process",
+      "type": null,
+      "method": "execSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
+    },
+    {
+      "id": "typescript.childprocess.execfile.a0",
+      "language": "typescript",
+      "package": "child_process",
+      "type": null,
+      "method": "execFile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.childprocess.spawn.a0",
+      "language": "typescript",
+      "package": "child_process",
+      "type": null,
+      "method": "spawn",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.childprocess.spawnsync.a0",
+      "language": "typescript",
+      "package": "child_process",
+      "type": null,
+      "method": "spawnSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.nodeserialize.unserialize.a0",
+      "language": "typescript",
+      "package": "node-serialize",
+      "type": null,
+      "method": "unserialize",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.fs.readfile.a0",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "readFile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.fs.readfilesync.a0",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "readFileSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.fs.writefile.a0",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "writeFile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.fs.writefilesync.a0",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "writeFileSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.fs.appendfile.a0",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "appendFile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.fs.createreadstream.a0",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "createReadStream",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.fs.createwritestream.a0",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "createWriteStream",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.fs.open.a0",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "open",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.fs.unlink.a0",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "unlink",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.fs.readdir.a0",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "readdir",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.connection.query.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Connection",
+      "method": "query",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "raw SQL on a DB connection"
+    },
+    {
+      "id": "typescript.pool.query.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Pool",
+      "method": "query",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.knex.raw.a0",
+      "language": "typescript",
+      "package": "knex",
+      "type": null,
+      "method": "raw",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.sequelize.query.a0",
+      "language": "typescript",
+      "package": "sequelize",
+      "type": null,
+      "method": "query",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.document.write.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Document",
+      "method": "write",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
+    },
+    {
+      "id": "typescript.document.writeln.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Document",
+      "method": "writeln",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.element.insertadjacenthtml.a1",
+      "language": "typescript",
+      "package": null,
+      "type": "Element",
+      "method": "insertAdjacentHTML",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.std.html.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "html",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "jQuery .html(x) sets innerHTML"
+    },
+    {
+      "id": "typescript.http.request.a0",
+      "language": "typescript",
+      "package": "http",
+      "type": null,
+      "method": "request",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.https.request.a0",
+      "language": "typescript",
+      "package": "https",
+      "type": null,
+      "method": "request",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.std.fetch.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "fetch",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.axios.get.a0",
+      "language": "typescript",
+      "package": "axios",
+      "type": null,
+      "method": "get",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.axios.post.a0",
+      "language": "typescript",
+      "package": "axios",
+      "type": null,
+      "method": "post",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.axios.request.a0",
+      "language": "typescript",
+      "package": "axios",
+      "type": null,
+      "method": "request",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.std.regexp.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "RegExp",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "new RegExp(userInput) risks catastrophic backtracking"
+    },
+    {
+      "id": "typescript.response.redirect.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Response",
+      "method": "redirect",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "open-redirect",
+      "cwe": [
+        "CWE-601"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.lodash.merge.a1",
+      "language": "typescript",
+      "package": "lodash",
+      "type": null,
+      "method": "merge",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "prototype-pollution",
+      "cwe": [
+        "CWE-1321"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.lodash.mergewith.a1",
+      "language": "typescript",
+      "package": "lodash",
+      "type": null,
+      "method": "mergeWith",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "prototype-pollution",
+      "cwe": [
+        "CWE-1321"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.lodash.set.a1",
+      "language": "typescript",
+      "package": "lodash",
+      "type": null,
+      "method": "set",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "prototype-pollution",
+      "cwe": [
+        "CWE-1321"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.lodash.defaultsdeep.a1",
+      "language": "typescript",
+      "package": "lodash",
+      "type": null,
+      "method": "defaultsDeep",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "prototype-pollution",
+      "cwe": [
+        "CWE-1321"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.collection.find.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Collection",
+      "method": "find",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.handlebars.compile.a0",
+      "language": "typescript",
+      "package": "handlebars",
+      "type": null,
+      "method": "compile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.ejs.render.a0",
+      "language": "typescript",
+      "package": "ejs",
+      "type": null,
+      "method": "render",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.pug.compile.a0",
+      "language": "typescript",
+      "package": "pug",
+      "type": null,
+      "method": "compile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.jsyaml.load.a0",
+      "language": "typescript",
+      "package": "js-yaml",
+      "type": null,
+      "method": "load",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "legacy load is unsafe"
+    },
+    {
+      "id": "typescript.got.get.a0",
+      "language": "typescript",
+      "package": "got",
+      "type": null,
+      "method": "get",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.superagent.get.a0",
+      "language": "typescript",
+      "package": "superagent",
+      "type": null,
+      "method": "get",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.request.get.a0",
+      "language": "typescript",
+      "package": "request",
+      "type": null,
+      "method": "get",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.xpath.select.a0",
+      "language": "typescript",
+      "package": "xpath",
+      "type": null,
+      "method": "select",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xpath-injection",
+      "cwe": [
+        "CWE-643"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.client.search.a1",
+      "language": "typescript",
+      "package": null,
+      "type": "Client",
+      "method": "search",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "ldap-injection",
+      "cwe": [
+        "CWE-90"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "ldapjs search filter"
+    },
+    {
+      "id": "typescript.angular.trustashtml.a0",
+      "language": "typescript",
+      "package": "angular",
+      "type": "$sce",
+      "method": "trustAsHtml",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.std.append.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "append",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "jQuery .append(html)"
+    },
+    {
+      "id": "typescript.response.location.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Response",
+      "method": "location",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "open-redirect",
+      "cwe": [
+        "CWE-601"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.crypto.createhash.a0",
+      "language": "typescript",
+      "package": "crypto",
+      "type": null,
+      "method": "createHash",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "md5/sha1 chosen at runtime"
+    }
+  ]
+}

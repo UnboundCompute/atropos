@@ -1,0 +1,158 @@
+{
+  "role_group": "sanitizer",
+  "entries": [
+    {
+      "id": "typescript.dompurify.sanitize.a0",
+      "language": "typescript",
+      "package": "dompurify",
+      "type": null,
+      "method": "sanitize",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
+    },
+    {
+      "id": "typescript.std.encodeuricomponent.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "encodeURIComponent",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.std.encodeuri.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "encodeURI",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.validator.escape.a0",
+      "language": "typescript",
+      "package": "validator",
+      "type": null,
+      "method": "escape",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.lodash.escape.a0",
+      "language": "typescript",
+      "package": "lodash",
+      "type": null,
+      "method": "escape",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.he.encode.a0",
+      "language": "typescript",
+      "package": "he",
+      "type": null,
+      "method": "encode",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.mysql.escape.a0",
+      "language": "typescript",
+      "package": "mysql",
+      "type": null,
+      "method": "escape",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.xss.filterxss.a0",
+      "language": "typescript",
+      "package": "xss",
+      "type": null,
+      "method": "filterXSS",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.sanitizehtml.sanitizehtml.a0",
+      "language": "typescript",
+      "package": "sanitize-html",
+      "type": null,
+      "method": "sanitizeHtml",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    }
+  ]
+}
