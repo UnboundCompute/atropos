@@ -2,7 +2,7 @@
 
 Unlike the schema validator (which only proves JSON shape), these run the
 binder over committed neutral symbol-index fixtures and assert the node a model
-lands on. They encode the contract Codex asked for: a sink binds to exactly
+lands on. They encode the binding contract: a sink binds to exactly
 Argument[n], neighbouring arguments are NOT sinks, a summary yields the right
 edge, and same-named application symbols are reported ambiguous, not silently
 bound. They also lock in the C semantic fixes (read/getenv are not sinks).
@@ -62,7 +62,7 @@ class BufferFixture(unittest.TestCase):
                 sink_nodes.update(a["node"] for a in r["attachments"])
         # memcpy source pointer (Arg1) is read-from, not a write target.
         self.assertNotIn("v_mc_src", sink_nodes)
-        # read fd (Arg0) is not a buffer — the Codex regression guard.
+        # read fd (Arg0) is not a buffer — regression guard.
         self.assertNotIn("v_rd_fd", sink_nodes)
         # getenv name (Arg0) is not a buffer-write sink either.
         self.assertNotIn("v_ge_name", sink_nodes)
