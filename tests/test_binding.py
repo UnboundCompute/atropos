@@ -153,5 +153,39 @@ class SummaryFixture(unittest.TestCase):
         self.assertTrue(all(m["cwe"] == [] for m in summ), "a summary is not a vulnerability")
 
 
+class JsBuilderSummaryFixture(unittest.TestCase):
+    """The JS/TS builder summaries bind to the exact receiver/arg handles, carrying
+    receiver taint the engine's every-argument default would otherwise drop."""
+
+    @classmethod
+    def setUpClass(cls):
+        index = load_index("js_builders.index.json")
+        report = bind.bind_all(bind.load_models(), index)
+        cls.byid = {r["model_id"]: r for r in report["results"]}
+
+    def edge(self, mid):
+        r = self.byid[mid]
+        self.assertEqual(r["status"], "bound", f"{mid}: {r}")
+        self.assertEqual(len(r["attachments"]), 1)
+        return r["attachments"][0]["edge"]
+
+    def test_receiver_summary_binds(self):
+        # userInput.toLowerCase(): the tainted receiver flows to the result.
+        self.assertEqual(self.edge("javascript.string.tolowercase.recv-ret"),
+                         {"from": "v_user", "to": "v_low_ret"})
+
+    def test_object_assign_binds_both_edges(self):
+        self.assertEqual(self.edge("javascript.object.assign.a1-a0"),
+                         {"from": "v_src", "to": "v_tgt"})
+        self.assertEqual(self.edge("javascript.object.assign.a1-ret"),
+                         {"from": "v_src", "to": "v_asn_ret"})
+
+    def test_array_join_receiver_and_separator(self):
+        self.assertEqual(self.edge("javascript.array.join.recv-ret"),
+                         {"from": "v_parts", "to": "v_join_ret"})
+        self.assertEqual(self.edge("javascript.array.join.a0-ret"),
+                         {"from": "v_sep", "to": "v_join_ret"})
+
+
 if __name__ == "__main__":
     unittest.main()
