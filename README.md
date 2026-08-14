@@ -13,7 +13,7 @@ argument or return value to watch.
 Put plainly: Lachesis figures out how code connects. Atropos is the lookup table
 that says "this specific argument is dangerous, and here is why."
 
-> **Status: v1.2, actively curated.** 369 entries and growing. The data is
+> **Status: v1.3, actively curated.** 787 entries and growing. The data is
 > validated on every change. Contributions are welcome, see
 > [Contributing](#contributing).
 
@@ -65,8 +65,8 @@ tools/          validate.py  stats.py     # stdlib only, zero deps
 tests/          test_models.py
 ```
 
-369 entries at the time of writing, covering all four languages Lachesis parses
-(C, Python, JavaScript, TypeScript) across roughly 27 CWE classes: buffer overflow,
+787 entries at the time of writing, covering all four languages Lachesis parses
+(C, Python, JavaScript, TypeScript) across 27 taint kinds: buffer overflow,
 command / code / SQL / LDAP / XPath / NoSQL / template injection, path traversal,
 deserialization, SSRF, XXE, XSS, open redirect, prototype pollution, weak crypto
 and randomness, insecure TLS, and more. Sinks, sources, and sanitizers.
