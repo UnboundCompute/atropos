@@ -331,24 +331,24 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "destination buffer; an unbounded copy overflows it"
     },
     {
-      "id": "c.std.bcopy.a0",
+      "id": "c.std.bcopy.a1",
       "language": "c",
       "package": null,
       "type": null,
       "method": "bcopy",
       "signature": null,
-      "access_path": "Argument[0]",
+      "access_path": "Argument[1]",
       "role": "sink",
       "kind": "buffer-write",
       "cwe": [
         "CWE-120"
       ],
-      "confidence": "low",
+      "confidence": "medium",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": null
     },
     {
       "id": "c.std.lstrcat.a0",
@@ -365,7 +365,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "destination buffer; an unbounded copy overflows it"
     },
     {
       "id": "c.std.lstrncat.a0",
@@ -382,7 +382,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "destination buffer; an unbounded copy overflows it"
     },
     {
       "id": "c.std.strncpy.a0",
@@ -399,7 +399,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "destination buffer; an unbounded copy overflows it"
     },
     {
       "id": "c.std.lstrcpyn.a0",
@@ -416,7 +416,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "destination buffer; an unbounded copy overflows it"
     },
     {
       "id": "c.std.wcsncpy.a0",
@@ -433,7 +433,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "destination buffer; an unbounded copy overflows it"
     },
     {
       "id": "c.std.strncat.a0",
@@ -450,7 +450,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "destination buffer; an unbounded copy overflows it"
     },
     {
       "id": "c.std.lstrcatn.a0",
@@ -467,7 +467,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "destination buffer; an unbounded copy overflows it"
     },
     {
       "id": "c.std.wcsncat.a0",
@@ -484,7 +484,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "destination buffer; an unbounded copy overflows it"
     },
     {
       "id": "c.std.strccpy.a0",
@@ -501,7 +501,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "destination buffer; an unbounded copy overflows it"
     },
     {
       "id": "c.std.strcadd.a0",
@@ -518,7 +518,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "destination buffer; an unbounded copy overflows it"
     },
     {
       "id": "c.std.swprintf.a0",
@@ -535,7 +535,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "destination buffer; an unbounded copy overflows it"
     },
     {
       "id": "c.std.vswprintf.a0",
@@ -552,7 +552,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "destination buffer; an unbounded copy overflows it"
     },
     {
       "id": "c.std.streadd.a0",
@@ -569,7 +569,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "destination buffer; an unbounded copy overflows it"
     },
     {
       "id": "c.std.strecpy.a0",
@@ -586,24 +586,24 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "destination buffer; an unbounded copy overflows it"
     },
     {
-      "id": "c.std.strtrns.a0",
+      "id": "c.std.strtrns.a3",
       "language": "c",
       "package": null,
       "type": null,
       "method": "strtrns",
       "signature": null,
-      "access_path": "Argument[0]",
+      "access_path": "Argument[3]",
       "role": "sink",
       "kind": "buffer-write",
       "cwe": [
         "CWE-120"
       ],
-      "confidence": "low",
+      "confidence": "medium",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": null
     },
     {
       "id": "c.std.getwd.a0",
@@ -621,25 +621,25 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "destination buffer; an unbounded copy overflows it"
     },
     {
-      "id": "c.std.getpw.a0",
+      "id": "c.std.getpw.a1",
       "language": "c",
       "package": null,
       "type": null,
       "method": "getpw",
       "signature": null,
-      "access_path": "Argument[0]",
+      "access_path": "Argument[1]",
       "role": "sink",
       "kind": "buffer-write",
       "cwe": [
         "CWE-120",
         "CWE-676"
       ],
-      "confidence": "low",
+      "confidence": "medium",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": null
     }
   ]
 }

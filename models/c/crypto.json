@@ -16,7 +16,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "c.std.cryptr.a0",
@@ -33,7 +33,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     }
   ]
 }

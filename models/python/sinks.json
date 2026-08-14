@@ -2201,7 +2201,7 @@
       ],
       "confidence": "low",
       "corroboration": 2,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "untrusted payload is deserialized"
     },
     {
       "id": "python.dill.unpickler.a0",
@@ -2218,7 +2218,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "untrusted payload is deserialized"
     },
     {
       "id": "python.shelve.dbfilenameshelf.a0",
@@ -2252,7 +2252,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "untrusted payload is deserialized"
     },
     {
       "id": "python.jsonpickleunpickler.unpickler.a0",
@@ -2269,7 +2269,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "untrusted payload is deserialized"
     },
     {
       "id": "python.marshal.load.a0",
@@ -2303,7 +2303,7 @@
       ],
       "confidence": "low",
       "corroboration": 2,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.cryptohashmd4.new.a0",
@@ -2320,7 +2320,7 @@
       ],
       "confidence": "low",
       "corroboration": 2,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.cryptohashmd5.new.a0",
@@ -2337,7 +2337,7 @@
       ],
       "confidence": "low",
       "corroboration": 2,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.cryptohashsha.new.a0",
@@ -2354,7 +2354,7 @@
       ],
       "confidence": "low",
       "corroboration": 2,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.cryptodomehashmd2.new.a0",
@@ -2371,7 +2371,7 @@
       ],
       "confidence": "low",
       "corroboration": 2,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.cryptodomehashmd4.new.a0",
@@ -2388,7 +2388,7 @@
       ],
       "confidence": "low",
       "corroboration": 2,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.cryptodomehashmd5.new.a0",
@@ -2405,7 +2405,7 @@
       ],
       "confidence": "low",
       "corroboration": 2,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.cryptodomehashsha.new.a0",
@@ -2422,41 +2422,7 @@
       ],
       "confidence": "low",
       "corroboration": 2,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
-      "id": "python.cryptographyhazmatprimitiveshashes.md5.a0",
-      "language": "python",
-      "package": "cryptography.hazmat.primitives.hashes",
-      "type": null,
-      "method": "MD5",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "weak-crypto",
-      "cwe": [
-        "CWE-327"
-      ],
-      "confidence": "low",
-      "corroboration": 2,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
-      "id": "python.cryptographyhazmatprimitiveshashes.sha1.a0",
-      "language": "python",
-      "package": "cryptography.hazmat.primitives.hashes",
-      "type": null,
-      "method": "SHA1",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "weak-crypto",
-      "cwe": [
-        "CWE-327"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.cryptocipherarc2.new.a0",
@@ -2473,7 +2439,7 @@
       ],
       "confidence": "low",
       "corroboration": 2,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.cryptocipherarc4.new.a0",
@@ -2490,7 +2456,7 @@
       ],
       "confidence": "low",
       "corroboration": 2,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.cryptocipherblowfish.new.a0",
@@ -2507,7 +2473,7 @@
       ],
       "confidence": "low",
       "corroboration": 2,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.cryptocipherdes.new.a0",
@@ -2524,7 +2490,7 @@
       ],
       "confidence": "low",
       "corroboration": 2,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.cryptocipherxor.new.a0",
@@ -2541,7 +2507,7 @@
       ],
       "confidence": "low",
       "corroboration": 2,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.cryptodomecipherarc2.new.a0",
@@ -2558,7 +2524,7 @@
       ],
       "confidence": "low",
       "corroboration": 2,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.cryptodomecipherarc4.new.a0",
@@ -2575,7 +2541,7 @@
       ],
       "confidence": "low",
       "corroboration": 2,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.cryptodomecipherblowfish.new.a0",
@@ -2592,7 +2558,7 @@
       ],
       "confidence": "low",
       "corroboration": 2,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.cryptodomecipherdes.new.a0",
@@ -2609,7 +2575,7 @@
       ],
       "confidence": "low",
       "corroboration": 2,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.cryptodomecipherxor.new.a0",
@@ -2626,7 +2592,7 @@
       ],
       "confidence": "low",
       "corroboration": 2,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.cryptographyhazmatprimitivesciphersalgorithms.arc4.a0",
@@ -2643,7 +2609,7 @@
       ],
       "confidence": "low",
       "corroboration": 2,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.cryptographyhazmatprimitivesciphersalgorithms.blowfish.a0",
@@ -2660,7 +2626,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.cryptographyhazmatprimitivesciphersalgorithms.cast5.a0",
@@ -2677,7 +2643,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.cryptographyhazmatprimitivesciphersalgorithms.idea.a0",
@@ -2694,7 +2660,7 @@
       ],
       "confidence": "low",
       "corroboration": 2,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.cryptographyhazmatprimitivesciphersalgorithms.seed.a0",
@@ -2711,7 +2677,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.cryptographyhazmatprimitivesciphersalgorithms.tripledes.a0",
@@ -2728,24 +2694,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
-      "id": "python.cryptographyhazmatprimitivesciphersmodes.ecb.a0",
-      "language": "python",
-      "package": "cryptography.hazmat.primitives.ciphers.modes",
-      "type": null,
-      "method": "ECB",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "weak-crypto",
-      "cwe": [
-        "CWE-327"
-      ],
-      "confidence": "low",
-      "corroboration": 2,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "weak algorithm; primary input is the first argument"
     },
     {
       "id": "python.urllibrequest.urlretrieve.a0",
@@ -2765,40 +2714,6 @@
       "notes": null
     },
     {
-      "id": "python.urllibrequest.urlopener.a0",
-      "language": "python",
-      "package": "urllib.request",
-      "type": null,
-      "method": "URLopener",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "path-traversal",
-      "cwe": [
-        "CWE-22"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
-      "id": "python.urllibrequest.fancyurlopener.a0",
-      "language": "python",
-      "package": "urllib.request",
-      "type": null,
-      "method": "FancyURLopener",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "path-traversal",
-      "cwe": [
-        "CWE-22"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
       "id": "python.sixmovesurllibrequest.urlopen.a0",
       "language": "python",
       "package": "six.moves.urllib.request",
@@ -2813,7 +2728,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "request target; may reach internal services"
     },
     {
       "id": "python.sixmovesurllibrequest.urlretrieve.a0",
@@ -2830,41 +2745,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
-      "id": "python.sixmovesurllibrequest.urlopener.a0",
-      "language": "python",
-      "package": "six.moves.urllib.request",
-      "type": null,
-      "method": "URLopener",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "path-traversal",
-      "cwe": [
-        "CWE-22"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
-      "id": "python.sixmovesurllibrequest.fancyurlopener.a0",
-      "language": "python",
-      "package": "six.moves.urllib.request",
-      "type": null,
-      "method": "FancyURLopener",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "path-traversal",
-      "cwe": [
-        "CWE-22"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": "request target; may reach internal services"
     },
     {
       "id": "python.yaml.loadall.a0",
