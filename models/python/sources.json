@@ -85,6 +85,23 @@
       "confidence": "low",
       "corroboration": 1,
       "notes": null
+    },
+    {
+      "id": "python.wsgirefutil.applicationuri.ret",
+      "language": "python",
+      "package": "wsgiref.util",
+      "type": null,
+      "method": "application_uri",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
     }
   ]
 }

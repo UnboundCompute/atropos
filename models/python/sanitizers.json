@@ -136,6 +136,40 @@
       "confidence": "low",
       "corroboration": 1,
       "notes": null
+    },
+    {
+      "id": "python.ast.literaleval.a0",
+      "language": "python",
+      "package": "ast",
+      "type": null,
+      "method": "literal_eval",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "safe eval of literals only"
+    },
+    {
+      "id": "python.json.loads.a0",
+      "language": "python",
+      "package": "json",
+      "type": null,
+      "method": "loads",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "data-only, unlike pickle"
     }
   ]
 }

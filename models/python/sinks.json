@@ -1330,6 +1330,347 @@
       "confidence": "high",
       "corroboration": 2,
       "notes": null
+    },
+    {
+      "id": "python.ldap.searchs.a2",
+      "language": "python",
+      "package": "ldap",
+      "type": "Connection",
+      "method": "search_s",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "ldap-injection",
+      "cwe": [
+        "CWE-90"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "filter string"
+    },
+    {
+      "id": "python.ldap.search.a2",
+      "language": "python",
+      "package": "ldap",
+      "type": "Connection",
+      "method": "search",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "ldap-injection",
+      "cwe": [
+        "CWE-90"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.lxmletree.xpath.a0",
+      "language": "python",
+      "package": "lxml.etree",
+      "type": "Element",
+      "method": "xpath",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xpath-injection",
+      "cwe": [
+        "CWE-643"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.makotemplate.template.a0",
+      "language": "python",
+      "package": "mako.template",
+      "type": null,
+      "method": "Template",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336",
+        "CWE-94"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.djangotemplate.template.a0",
+      "language": "python",
+      "package": "django.template",
+      "type": null,
+      "method": "Template",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.tornadotemplate.template.a0",
+      "language": "python",
+      "package": "tornado.template",
+      "type": null,
+      "method": "Template",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.yaml.unsafeload.a0",
+      "language": "python",
+      "package": "yaml",
+      "type": null,
+      "method": "unsafe_load",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": null
+    },
+    {
+      "id": "python.yaml.fullload.a0",
+      "language": "python",
+      "package": "yaml",
+      "type": null,
+      "method": "full_load",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.sqlalchemy.text.a0",
+      "language": "python",
+      "package": "sqlalchemy",
+      "type": null,
+      "method": "text",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.engine.execute.a0",
+      "language": "python",
+      "package": null,
+      "type": "Engine",
+      "method": "execute",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.flask.sendfile.a0",
+      "language": "python",
+      "package": "flask",
+      "type": null,
+      "method": "send_file",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.flask.sendfromdirectory.a1",
+      "language": "python",
+      "package": "flask",
+      "type": null,
+      "method": "send_from_directory",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.flask.redirect.a0",
+      "language": "python",
+      "package": "flask",
+      "type": null,
+      "method": "redirect",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "open-redirect",
+      "cwe": [
+        "CWE-601"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.queryset.raw.a0",
+      "language": "python",
+      "package": null,
+      "type": "QuerySet",
+      "method": "raw",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.queryset.extra.a0",
+      "language": "python",
+      "package": null,
+      "type": "QuerySet",
+      "method": "extra",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.numpy.load.a0",
+      "language": "python",
+      "package": "numpy",
+      "type": null,
+      "method": "load",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "allow_pickle path"
+    },
+    {
+      "id": "python.pandas.readpickle.a0",
+      "language": "python",
+      "package": "pandas",
+      "type": null,
+      "method": "read_pickle",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.collection.find.a0",
+      "language": "python",
+      "package": null,
+      "type": "Collection",
+      "method": "find",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.ssl.createunverifiedcontext.ret",
+      "language": "python",
+      "package": "ssl",
+      "type": null,
+      "method": "_create_unverified_context",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "sink",
+      "kind": "insecure-tls",
+      "cwe": [
+        "CWE-295"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "disables cert validation"
+    },
+    {
+      "id": "python.hashlib.new.a0",
+      "language": "python",
+      "package": "hashlib",
+      "type": null,
+      "method": "new",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "algorithm chosen at runtime"
     }
   ]
 }
