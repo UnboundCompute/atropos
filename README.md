@@ -13,7 +13,7 @@ argument or return value to watch.
 Put plainly: Lachesis figures out how code connects. Atropos is the lookup table
 that says "this specific argument is dangerous, and here is why."
 
-> **Status: v1.4, actively curated.** 882 entries and growing. The data is
+> **Status: v1.5, actively curated.** 951 entries and growing. The data is
 > validated on every change. Contributions are welcome, see
 > [Contributing](#contributing).
 
@@ -56,8 +56,8 @@ it?) and the human (is the length actually bounded upstream?). The models only s
 
 ```
 models/
-  c/            memory string scanf format alloc exec path tempfile sources random
-  python/       sinks sources sanitizers random
+  c/            memory string scanf format alloc exec path tempfile sources random summaries
+  python/       sinks sources sanitizers random summaries
   javascript/   sinks sources sanitizers
   typescript/   sinks sources sanitizers
 schema/         model.schema.json  symbol-index.schema.json
@@ -67,11 +67,13 @@ tests/          test_models.py  test_binding.py
 docs/           binding.md
 ```
 
-882 entries at the time of writing, covering all four languages Lachesis parses
+951 entries at the time of writing, covering all four languages Lachesis parses
 (C, Python, JavaScript, TypeScript) across 27 taint kinds: buffer overflow,
 command / code / SQL / LDAP / XPath / NoSQL / template injection, path traversal,
 deserialization, SSRF, XXE, XSS, open redirect, prototype pollution, weak crypto
-and randomness, insecure TLS, and more. Sinks, sources, and sanitizers.
+and randomness, insecure TLS, and more. Sinks, sources, sanitizers, and
+flow summaries (documented src->dest / input->return behavior that lets the
+engine drop its conservative every-argument-flows-to-return default).
 
 ## Using the data
 
