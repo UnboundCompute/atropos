@@ -154,6 +154,40 @@
       "confidence": "low",
       "corroboration": 1,
       "notes": null
+    },
+    {
+      "id": "javascript.std.prompt.ret",
+      "language": "javascript",
+      "package": null,
+      "type": null,
+      "method": "prompt",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "browser prompt()"
+    },
+    {
+      "id": "javascript.location.replace.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Location",
+      "method": "replace",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
     }
   ]
 }

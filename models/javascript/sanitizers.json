@@ -153,6 +153,57 @@
       "confidence": "medium",
       "corroboration": 2,
       "notes": null
+    },
+    {
+      "id": "javascript.validator.whitelist.a0",
+      "language": "javascript",
+      "package": "validator",
+      "type": null,
+      "method": "whitelist",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "javascript.path.basename.a0",
+      "language": "javascript",
+      "package": "path",
+      "type": null,
+      "method": "basename",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "strips directory components"
+    },
+    {
+      "id": "javascript.sqlstring.escape.a0",
+      "language": "javascript",
+      "package": "sqlstring",
+      "type": null,
+      "method": "escape",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
     }
   ]
 }
