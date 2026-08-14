@@ -13,7 +13,7 @@ argument or return value to watch.
 Put plainly: Lachesis figures out how code connects. Atropos is the lookup table
 that says "this specific argument is dangerous, and here is why."
 
-> **Status: v1.5, actively curated.** 951 entries and growing. The data is
+> **Status: v1.6, actively curated.** 944 verified facts (plus 7 candidates under review). The data is
 > validated on every change. Contributions are welcome, see
 > [Contributing](#contributing).
 
@@ -60,6 +60,7 @@ models/
   python/       sinks sources sanitizers random summaries
   javascript/   sinks sources sanitizers
   typescript/   sinks sources sanitizers
+candidates/     known-dangerous symbols not yet precisely bindable (never loaded by consumers)
 schema/         model.schema.json  symbol-index.schema.json
 tools/          validate.py  bind.py  stats.py   # stdlib only, zero deps
 fixtures/       tiny symbol-index exports with verified node handles
@@ -67,7 +68,7 @@ tests/          test_models.py  test_binding.py
 docs/           binding.md
 ```
 
-951 entries at the time of writing, covering all four languages Lachesis parses
+944 verified facts at the time of writing, covering all four languages Lachesis parses
 (C, Python, JavaScript, TypeScript) across 27 taint kinds: buffer overflow,
 command / code / SQL / LDAP / XPath / NoSQL / template injection, path traversal,
 deserialization, SSRF, XXE, XSS, open redirect, prototype pollution, weak crypto
@@ -96,7 +97,9 @@ in-repo binder ([`tools/bind.py`](tools/bind.py)) resolves each model against it
 and reports one status per model — `bound`, `symbol-not-found`, `ambiguous`,
 `arity-mismatch`, or `unsupported-path` — never a silent drop. This is what
 turns an entry from a valid-looking name into a verified fact: it binds to the
-exact node a reviewer confirmed. See [`docs/binding.md`](docs/binding.md).
+exact node a reviewer confirmed. See [`docs/binding.md`](docs/binding.md). A symbol
+that is dangerous but not yet precisely bindable waits in
+[`candidates/`](candidates/) rather than posing as a fact.
 
 ## Scope, honestly
 
