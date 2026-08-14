@@ -1,0 +1,19 @@
+{
+  "role_group": "source",
+  "entries": [
+    {
+      "id": "py.builtins.input.ret",
+      "language": "python", "package": "builtins", "type": null, "method": "input",
+      "signature": "input(prompt=None)",
+      "access_path": "ReturnValue", "role": "source", "kind": "untrusted-input",
+      "cwe": ["CWE-20"], "confidence": "medium", "corroboration": 2, "notes": null
+    },
+    {
+      "id": "py.os.getenv.ret",
+      "language": "python", "package": "os", "type": null, "method": "getenv",
+      "signature": "os.getenv(key, default=None)",
+      "access_path": "ReturnValue", "role": "source", "kind": "untrusted-input",
+      "cwe": ["CWE-20"], "confidence": "low", "corroboration": 1, "notes": null
+    }
+  ]
+}

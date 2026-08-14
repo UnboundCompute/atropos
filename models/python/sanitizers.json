@@ -1,0 +1,27 @@
+{
+  "role_group": "sanitizer",
+  "entries": [
+    {
+      "id": "py.shlex.quote.ret",
+      "language": "python", "package": "shlex", "type": null, "method": "quote",
+      "signature": "shlex.quote(s)",
+      "access_path": "Argument[0] -> ReturnValue", "role": "sanitizer", "kind": "command-injection",
+      "cwe": ["CWE-78"], "confidence": "high", "corroboration": 3,
+      "notes": "Neutralizes shell metacharacters; clears command-injection taint on the returned value."
+    },
+    {
+      "id": "py.html.escape.ret",
+      "language": "python", "package": "html", "type": null, "method": "escape",
+      "signature": "html.escape(s, quote=True)",
+      "access_path": "Argument[0] -> ReturnValue", "role": "sanitizer", "kind": "xss",
+      "cwe": ["CWE-79"], "confidence": "high", "corroboration": 3, "notes": null
+    },
+    {
+      "id": "py.markupsafe.escape.ret",
+      "language": "python", "package": "markupsafe", "type": null, "method": "escape",
+      "signature": "markupsafe.escape(s)",
+      "access_path": "Argument[0] -> ReturnValue", "role": "sanitizer", "kind": "xss",
+      "cwe": ["CWE-79"], "confidence": "high", "corroboration": 2, "notes": null
+    }
+  ]
+}

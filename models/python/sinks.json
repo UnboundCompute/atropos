@@ -1,0 +1,71 @@
+{
+  "role_group": "sink",
+  "entries": [
+    {
+      "id": "py.os.system.cmd",
+      "language": "python", "package": "os", "type": null, "method": "system",
+      "signature": "os.system(command)",
+      "access_path": "Argument[0]", "role": "sink", "kind": "command-injection",
+      "cwe": ["CWE-78"], "confidence": "high", "corroboration": 3, "notes": null
+    },
+    {
+      "id": "py.subprocess.popen.cmd",
+      "language": "python", "package": "subprocess", "type": null, "method": "Popen",
+      "signature": "subprocess.Popen(args, ..., shell=False)",
+      "access_path": "Argument[0]", "role": "sink", "kind": "command-injection",
+      "cwe": ["CWE-78"], "confidence": "high", "corroboration": 3,
+      "notes": "Injection when shell=True; the guard check on shell is the engine's job, not this fact's."
+    },
+    {
+      "id": "py.subprocess.run.cmd",
+      "language": "python", "package": "subprocess", "type": null, "method": "run",
+      "signature": "subprocess.run(args, ..., shell=False)",
+      "access_path": "Argument[0]", "role": "sink", "kind": "command-injection",
+      "cwe": ["CWE-78"], "confidence": "high", "corroboration": 3, "notes": null
+    },
+    {
+      "id": "py.subprocess.call.cmd",
+      "language": "python", "package": "subprocess", "type": null, "method": "call",
+      "signature": "subprocess.call(args, ..., shell=False)",
+      "access_path": "Argument[0]", "role": "sink", "kind": "command-injection",
+      "cwe": ["CWE-78"], "confidence": "high", "corroboration": 2, "notes": null
+    },
+    {
+      "id": "py.builtins.eval.expr",
+      "language": "python", "package": "builtins", "type": null, "method": "eval",
+      "signature": "eval(expression)",
+      "access_path": "Argument[0]", "role": "sink", "kind": "code-injection",
+      "cwe": ["CWE-95"], "confidence": "high", "corroboration": 3, "notes": null
+    },
+    {
+      "id": "py.builtins.exec.code",
+      "language": "python", "package": "builtins", "type": null, "method": "exec",
+      "signature": "exec(object)",
+      "access_path": "Argument[0]", "role": "sink", "kind": "code-injection",
+      "cwe": ["CWE-95"], "confidence": "high", "corroboration": 3, "notes": null
+    },
+    {
+      "id": "py.pickle.loads.data",
+      "language": "python", "package": "pickle", "type": null, "method": "loads",
+      "signature": "pickle.loads(data)",
+      "access_path": "Argument[0]", "role": "sink", "kind": "deserialization",
+      "cwe": ["CWE-502"], "confidence": "high", "corroboration": 3, "notes": null
+    },
+    {
+      "id": "py.yaml.load.stream",
+      "language": "python", "package": "yaml", "type": null, "method": "load",
+      "signature": "yaml.load(stream, Loader=...)",
+      "access_path": "Argument[0]", "role": "sink", "kind": "deserialization",
+      "cwe": ["CWE-502"], "confidence": "medium", "corroboration": 2,
+      "notes": "Unsafe without a safe Loader; the Loader check is the engine's guard step."
+    },
+    {
+      "id": "py.dbapi.cursor.execute.sql",
+      "language": "python", "package": null, "type": "Cursor", "method": "execute",
+      "signature": "Cursor.execute(sql, params=None)",
+      "access_path": "Argument[0]", "role": "sink", "kind": "sql-injection",
+      "cwe": ["CWE-89"], "confidence": "high", "corroboration": 3,
+      "notes": "DB-API cursor. Owning type resolves lexically as Cursor; binding may be conservative."
+    }
+  ]
+}

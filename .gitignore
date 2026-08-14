@@ -1,0 +1,12 @@
+# Internal-only: import/build scripts, sourcing memos, scratch. Never pushed.
+tmp/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# OS
+.DS_Store

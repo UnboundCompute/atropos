@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://unboundcompute.dev/atropos/model.schema.json",
+  "title": "Atropos taint model entry",
+  "description": "One row of taint knowledge, keyed by a resolvable symbol and an access path. Modeled after the models-as-data shape: a declarative fact the engine binds against a code graph. Pure data; no engine coupling.",
+  "type": "object",
+  "properties": {
+    "role_group": {
+      "type": "string",
+      "enum": ["sink", "source", "sanitizer", "summary"],
+      "description": "The taint role every entry in this file carries."
+    },
+    "entries": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/entry" }
+    }
+  },
+  "required": ["role_group", "entries"],
+  "definitions": {
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(\\.[a-z0-9_*<>-]+)+$",
+          "description": "Stable unique key. Dotted, lowercase. e.g. c.mem.memcpy.n"
+        },
+        "language": {
+          "type": "string",
+          "enum": ["c", "python", "javascript", "typescript"]
+        },
+        "package": {
+          "type": ["string", "null"],
+          "description": "Module/package that owns the symbol. null for a C standard-library / builtin name."
+        },
+        "type": {
+          "type": ["string", "null"],
+          "description": "Owning type for a method (e.g. a DB cursor). null for a free function."
+        },
+        "method": {
+          "type": "string",
+          "description": "Function or method name as the frontend resolves it."
+        },
+        "signature": {
+          "type": ["string", "null"],
+          "description": "Human-readable signature. Documentation only; binding keys on symbol + access_path, not this."
+        },
+        "access_path": {
+          "type": "string",
+          "pattern": "^(Argument\\[(\\*|[0-9]+)\\]|ReturnValue|Receiver)(\\s*->\\s*(Argument\\[(\\*|[0-9]+)\\]|ReturnValue|Receiver))?$",
+          "description": "Where the role attaches: Argument[n], ReturnValue, Receiver, or in->out for a summary."
+        },
+        "role": {
+          "type": "string",
+          "enum": ["sink", "source", "sanitizer", "summary"]
+        },
+        "kind": {
+          "type": "string",
+          "description": "Vulnerability class subtype. e.g. buffer-write, buffer-size, command-injection, sql-injection, code-injection, deserialization, format-string, path-traversal, alloc-size, network-input."
+        },
+        "cwe": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^CWE-[0-9]+$" },
+          "description": "Public CWE identifiers for the class. Standard names, not sourced data."
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["high", "medium", "low"],
+          "description": "Our confidence that this attachment is a true positive when the flow reaches it."
+        },
+        "corroboration": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "How many independent confirmations back this entry. A count only; establishes it as fact rather than one author's expression."
+        },
+        "notes": {
+          "type": ["string", "null"]
+        }
+      },
+      "required": ["id", "language", "method", "access_path", "role", "kind", "cwe", "confidence"]
+    }
+  }
+}

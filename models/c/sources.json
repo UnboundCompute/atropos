@@ -1,0 +1,42 @@
+{
+  "role_group": "source",
+  "entries": [
+    {
+      "id": "c.net.recv.buf",
+      "language": "c", "package": null, "type": null, "method": "recv",
+      "signature": "ssize_t recv(int sockfd, void *buf, size_t len, int flags)",
+      "access_path": "Argument[1]", "role": "source", "kind": "network-input",
+      "cwe": ["CWE-20"], "confidence": "high", "corroboration": 3,
+      "notes": "Buffer filled from the network; contents are attacker-controlled."
+    },
+    {
+      "id": "c.net.recvfrom.buf",
+      "language": "c", "package": null, "type": null, "method": "recvfrom",
+      "signature": "ssize_t recvfrom(int sockfd, void *buf, size_t len, int flags, struct sockaddr *src, socklen_t *addrlen)",
+      "access_path": "Argument[1]", "role": "source", "kind": "network-input",
+      "cwe": ["CWE-20"], "confidence": "high", "corroboration": 3, "notes": null
+    },
+    {
+      "id": "c.io.read.buf",
+      "language": "c", "package": null, "type": null, "method": "read",
+      "signature": "ssize_t read(int fd, void *buf, size_t count)",
+      "access_path": "Argument[1]", "role": "source", "kind": "untrusted-input",
+      "cwe": ["CWE-20"], "confidence": "medium", "corroboration": 2, "notes": null
+    },
+    {
+      "id": "c.io.fgets.buf",
+      "language": "c", "package": null, "type": null, "method": "fgets",
+      "signature": "char *fgets(char *s, int size, FILE *stream)",
+      "access_path": "Argument[0]", "role": "source", "kind": "untrusted-input",
+      "cwe": ["CWE-20"], "confidence": "medium", "corroboration": 2, "notes": null
+    },
+    {
+      "id": "c.env.getenv.ret",
+      "language": "c", "package": null, "type": null, "method": "getenv",
+      "signature": "char *getenv(const char *name)",
+      "access_path": "ReturnValue", "role": "source", "kind": "untrusted-input",
+      "cwe": ["CWE-20"], "confidence": "medium", "corroboration": 2,
+      "notes": "Environment is externally influenced in many deployments."
+    }
+  ]
+}
