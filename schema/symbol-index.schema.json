@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://unboundcompute.dev/atropos/symbol-index.schema.json",
+  "title": "Atropos neutral symbol index",
+  "description": "The seam between Atropos and any graph engine. An engine (e.g. Lachesis) exports the symbols and callsites of a codebase into this engine-agnostic shape; the Atropos binder resolves models against it and applies each access_path to an exact node handle. Atropos never imports the engine; the engine exports into this. Node ids are opaque handles owned by the exporter.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["format", "version", "language", "callsites"],
+  "properties": {
+    "format": { "const": "atropos-symbol-index" },
+    "version": { "type": "integer", "minimum": 1 },
+    "language": { "type": "string", "enum": ["c", "python", "javascript", "typescript"] },
+    "source": { "type": ["string", "null"], "description": "Human reference (e.g. the fixture path). Not used for binding." },
+    "callsites": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/callsite" }
+    },
+    "declarations": {
+      "type": "array",
+      "description": "Optional: resolved declarations, for name-level checks. Binding attaches at callsites.",
+      "items": { "$ref": "#/definitions/declaration" }
+    }
+  },
+  "definitions": {
+    "callee": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "description": "Callee symbol name as the engine resolves it." },
+        "module": { "type": ["string", "null"], "description": "Owning module/package, or null for a builtin. A model's package constrains only when both sides carry a value." },
+        "receiver_type": { "type": ["string", "null"], "description": "Owning type for a method call; null for a free function. Matches a model's type hint." },
+        "arity": { "type": ["integer", "null"], "minimum": 0, "description": "Positional argument count; bounds Argument[n]." },
+        "static": { "type": ["boolean", "null"], "description": "Static/free call vs instance call." }
+      }
+    },
+    "callsite": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "callee", "arg_value_ids"],
+      "properties": {
+        "id": { "type": "string" },
+        "callee": { "$ref": "#/definitions/callee" },
+        "call_value_id": { "type": ["string", "null"], "description": "Node for the call result (ReturnValue attaches here)." },
+        "receiver_value_id": { "type": ["string", "null"], "description": "Node for the receiver (Receiver attaches here)." },
+        "arg_value_ids": { "type": "array", "items": { "type": "string" }, "description": "Argument value nodes in order; Argument[n] attaches to element n." },
+        "file": { "type": ["string", "null"] },
+        "line": { "type": ["integer", "null"] }
+      }
+    },
+    "declaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "module": { "type": ["string", "null"] },
+        "receiver_type": { "type": ["string", "null"] },
+        "kind": { "type": ["string", "null"] },
+        "arity": { "type": ["integer", "null"], "minimum": 0 },
+        "file": { "type": ["string", "null"] },
+        "line": { "type": ["integer", "null"] }
+      }
+    }
+  }
+}
