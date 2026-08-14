@@ -108,6 +108,78 @@
       "confidence": "medium",
       "corroboration": 2,
       "notes": "Mersenne Twister; not cryptographic"
+    },
+    {
+      "id": "python.random.choices.ret",
+      "language": "python",
+      "package": "random",
+      "type": null,
+      "method": "choices",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-330",
+        "CWE-338"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "predictable PRNG output; not for security use"
+    },
+    {
+      "id": "python.random.triangular.ret",
+      "language": "python",
+      "package": "random",
+      "type": null,
+      "method": "triangular",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-330",
+        "CWE-338"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "predictable PRNG output; not for security use"
+    },
+    {
+      "id": "python.random.randbytes.ret",
+      "language": "python",
+      "package": "random",
+      "type": null,
+      "method": "randbytes",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-330",
+        "CWE-338"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "predictable PRNG output; not for security use"
+    },
+    {
+      "id": "python.random.sample.ret",
+      "language": "python",
+      "package": "random",
+      "type": null,
+      "method": "sample",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-330",
+        "CWE-338"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "predictable PRNG output; not for security use"
     }
   ]
 }

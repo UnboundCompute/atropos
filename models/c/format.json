@@ -206,6 +206,125 @@
       "confidence": "high",
       "corroboration": 2,
       "notes": null
+    },
+    {
+      "id": "c.std.vdprintf.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "vdprintf",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "attacker-controlled format string"
+    },
+    {
+      "id": "c.std.vsyslog.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "vsyslog",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "attacker-controlled format string"
+    },
+    {
+      "id": "c.std.wprintf.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "wprintf",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "attacker-controlled format string"
+    },
+    {
+      "id": "c.std.fwprintf.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "fwprintf",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "attacker-controlled format string"
+    },
+    {
+      "id": "c.std.vwprintf.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "vwprintf",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "attacker-controlled format string"
+    },
+    {
+      "id": "c.std.vfwprintf.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "vfwprintf",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "attacker-controlled format string"
+    },
+    {
+      "id": "c.std.vswprintf.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "vswprintf",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "attacker-controlled format string"
     }
   ]
 }

@@ -204,6 +204,40 @@
       "confidence": "medium",
       "corroboration": 2,
       "notes": "shell-style expansion"
+    },
+    {
+      "id": "c.std.fexecve.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "fexecve",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "fd to process exec"
+    },
+    {
+      "id": "c.std.execveat.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "execveat",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
     }
   ]
 }

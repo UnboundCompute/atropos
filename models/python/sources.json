@@ -102,6 +102,822 @@
       "confidence": "low",
       "corroboration": 1,
       "notes": null
+    },
+    {
+      "id": "python.wsgirefutil.requesturi.ret",
+      "language": "python",
+      "package": "wsgiref.util",
+      "type": null,
+      "method": "request_uri",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.wsgirefutil.shiftpathinfo.ret",
+      "language": "python",
+      "package": "wsgiref.util",
+      "type": null,
+      "method": "shift_path_info",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.wsgirefheadersheaders.getall.ret",
+      "language": "python",
+      "package": "wsgiref.headers.Headers",
+      "type": null,
+      "method": "get_all",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.wsgirefheadersheaders.get.ret",
+      "language": "python",
+      "package": "wsgiref.headers.Headers",
+      "type": null,
+      "method": "get",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.wsgirefheadersheaders.values.ret",
+      "language": "python",
+      "package": "wsgiref.headers.Headers",
+      "type": null,
+      "method": "values",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.wsgirefheadersheaders.items.ret",
+      "language": "python",
+      "package": "wsgiref.headers.Headers",
+      "type": null,
+      "method": "items",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.wsgirefsimpleserverwsgirequesthandler.getenviron.ret",
+      "language": "python",
+      "package": "wsgiref.simple_server.WSGIRequestHandler",
+      "type": null,
+      "method": "get_environ",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.wsgirefhandlers.readenviron.ret",
+      "language": "python",
+      "package": "wsgiref.handlers",
+      "type": null,
+      "method": "read_environ",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.wsgirefhandlerssimplehandler.getstdin.ret",
+      "language": "python",
+      "package": "wsgiref.handlers.SimpleHandler",
+      "type": null,
+      "method": "get_stdin",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.wsgirefhandlerssimplehandler.getstderr.ret",
+      "language": "python",
+      "package": "wsgiref.handlers.SimpleHandler",
+      "type": null,
+      "method": "get_stderr",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.argparseargumentparser.parseargs.ret",
+      "language": "python",
+      "package": "argparse.ArgumentParser",
+      "type": null,
+      "method": "parse_args",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.djangohttprequesthttprequest.getsignedcookie.ret",
+      "language": "python",
+      "package": "django.http.request.HttpRequest",
+      "type": null,
+      "method": "get_signed_cookie",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.djangohttprequest.buildrequestrepr.ret",
+      "language": "python",
+      "package": "django.http.request",
+      "type": null,
+      "method": "build_request_repr",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.djangohttprequesthttprequest.getfullpath.ret",
+      "language": "python",
+      "package": "django.http.request.HttpRequest",
+      "type": null,
+      "method": "get_full_path",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.djangohttprequesthttprequest.buildabsoluteuri.ret",
+      "language": "python",
+      "package": "django.http.request.HttpRequest",
+      "type": null,
+      "method": "build_absolute_uri",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.djangohttpresponsehttpresponsebase.serializeheaders.ret",
+      "language": "python",
+      "package": "django.http.response.HttpResponseBase",
+      "type": null,
+      "method": "serialize_headers",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.djangohttpresponsehttpresponsebase.items.ret",
+      "language": "python",
+      "package": "django.http.response.HttpResponseBase",
+      "type": null,
+      "method": "items",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.djangohttpresponsehttpresponsebase.get.ret",
+      "language": "python",
+      "package": "django.http.response.HttpResponseBase",
+      "type": null,
+      "method": "get",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.djangohttpresponsehttpresponse.serialize.ret",
+      "language": "python",
+      "package": "django.http.response.HttpResponse",
+      "type": null,
+      "method": "serialize",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.djangohttprequesthttprequest.issecure.ret",
+      "language": "python",
+      "package": "django.http.request.HttpRequest",
+      "type": null,
+      "method": "is_secure",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.requestsapi.request.ret",
+      "language": "python",
+      "package": "requests.api",
+      "type": null,
+      "method": "request",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.requestsapi.get.ret",
+      "language": "python",
+      "package": "requests.api",
+      "type": null,
+      "method": "get",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.requestsapi.options.ret",
+      "language": "python",
+      "package": "requests.api",
+      "type": null,
+      "method": "options",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.requestsapi.head.ret",
+      "language": "python",
+      "package": "requests.api",
+      "type": null,
+      "method": "head",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.requestsapi.post.ret",
+      "language": "python",
+      "package": "requests.api",
+      "type": null,
+      "method": "post",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.requestsapi.put.ret",
+      "language": "python",
+      "package": "requests.api",
+      "type": null,
+      "method": "put",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.requestsapi.patch.ret",
+      "language": "python",
+      "package": "requests.api",
+      "type": null,
+      "method": "patch",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.requestsapi.delete.ret",
+      "language": "python",
+      "package": "requests.api",
+      "type": null,
+      "method": "delete",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.requestssessionssession.get.ret",
+      "language": "python",
+      "package": "requests.sessions.Session",
+      "type": null,
+      "method": "get",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.requestssessionssession.options.ret",
+      "language": "python",
+      "package": "requests.sessions.Session",
+      "type": null,
+      "method": "options",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.requestssessionssession.head.ret",
+      "language": "python",
+      "package": "requests.sessions.Session",
+      "type": null,
+      "method": "head",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.requestssessionssession.post.ret",
+      "language": "python",
+      "package": "requests.sessions.Session",
+      "type": null,
+      "method": "post",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.requestssessionssession.put.ret",
+      "language": "python",
+      "package": "requests.sessions.Session",
+      "type": null,
+      "method": "put",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.requestssessionssession.patch.ret",
+      "language": "python",
+      "package": "requests.sessions.Session",
+      "type": null,
+      "method": "patch",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.requestssessionssession.delete.ret",
+      "language": "python",
+      "package": "requests.sessions.Session",
+      "type": null,
+      "method": "delete",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.requestssessionssession.request.ret",
+      "language": "python",
+      "package": "requests.sessions.Session",
+      "type": null,
+      "method": "request",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.urllibrequest.urlopen.ret",
+      "language": "python",
+      "package": "urllib.request",
+      "type": null,
+      "method": "urlopen",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.urllibrequest.urlretrieve.ret",
+      "language": "python",
+      "package": "urllib.request",
+      "type": null,
+      "method": "urlretrieve",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.urllibrequesturlopener.open.ret",
+      "language": "python",
+      "package": "urllib.request.URLopener",
+      "type": null,
+      "method": "open",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.urllibrequesturlopener.openunknown.ret",
+      "language": "python",
+      "package": "urllib.request.URLopener",
+      "type": null,
+      "method": "open_unknown",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.urllibrequesturlopener.retrieve.ret",
+      "language": "python",
+      "package": "urllib.request.URLopener",
+      "type": null,
+      "method": "retrieve",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.httpclienthttpconnection.getresponse.ret",
+      "language": "python",
+      "package": "http.client.HTTPConnection",
+      "type": null,
+      "method": "getresponse",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.restframeworkrequestrequest.post.ret",
+      "language": "python",
+      "package": "rest_framework.request.Request",
+      "type": null,
+      "method": "POST",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.restframeworkrequestrequest.files.ret",
+      "language": "python",
+      "package": "rest_framework.request.Request",
+      "type": null,
+      "method": "FILES",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.restframeworkrequestrequest.data.ret",
+      "language": "python",
+      "package": "rest_framework.request.Request",
+      "type": null,
+      "method": "DATA",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.restframeworkrequestrequest.queryparams.ret",
+      "language": "python",
+      "package": "rest_framework.request.Request",
+      "type": null,
+      "method": "QUERY_PARAMS",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.restframeworkrequestrequest.contenttype.ret",
+      "language": "python",
+      "package": "rest_framework.request.Request",
+      "type": null,
+      "method": "content_type",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.restframeworkrequestrequest.stream.ret",
+      "language": "python",
+      "package": "rest_framework.request.Request",
+      "type": null,
+      "method": "stream",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
     }
   ]
 }

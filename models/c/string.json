@@ -192,6 +192,473 @@
       "confidence": "low",
       "corroboration": 2,
       "notes": "bounded but misuse-prone; attacker-controlled n still overruns"
+    },
+    {
+      "id": "c.std.mempcpy.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "mempcpy",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "copy overflows dest when source exceeds capacity"
+    },
+    {
+      "id": "c.std.stpncpy.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "stpncpy",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "copy overflows dest when source exceeds capacity"
+    },
+    {
+      "id": "c.std.wcpcpy.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "wcpcpy",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "copy overflows dest when source exceeds capacity"
+    },
+    {
+      "id": "c.std.wcpncpy.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "wcpncpy",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "copy overflows dest when source exceeds capacity"
+    },
+    {
+      "id": "c.std.mempcpy.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "mempcpy",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-120"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "c.std.stpncpy.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "stpncpy",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-120"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "c.std.wcpncpy.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "wcpncpy",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-120"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "c.std.lstrcpy.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "lstrcpy",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "destination buffer; an unbounded copy overflows it"
+    },
+    {
+      "id": "c.std.bcopy.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "bcopy",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "c.std.lstrcat.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "lstrcat",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "destination buffer; an unbounded copy overflows it"
+    },
+    {
+      "id": "c.std.lstrncat.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "lstrncat",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "destination buffer; an unbounded copy overflows it"
+    },
+    {
+      "id": "c.std.strncpy.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "strncpy",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "destination buffer; an unbounded copy overflows it"
+    },
+    {
+      "id": "c.std.lstrcpyn.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "lstrcpyn",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "destination buffer; an unbounded copy overflows it"
+    },
+    {
+      "id": "c.std.wcsncpy.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "wcsncpy",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "destination buffer; an unbounded copy overflows it"
+    },
+    {
+      "id": "c.std.strncat.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "strncat",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "destination buffer; an unbounded copy overflows it"
+    },
+    {
+      "id": "c.std.lstrcatn.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "lstrcatn",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "destination buffer; an unbounded copy overflows it"
+    },
+    {
+      "id": "c.std.wcsncat.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "wcsncat",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "destination buffer; an unbounded copy overflows it"
+    },
+    {
+      "id": "c.std.strccpy.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "strccpy",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "destination buffer; an unbounded copy overflows it"
+    },
+    {
+      "id": "c.std.strcadd.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "strcadd",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "destination buffer; an unbounded copy overflows it"
+    },
+    {
+      "id": "c.std.swprintf.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "swprintf",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "destination buffer; an unbounded copy overflows it"
+    },
+    {
+      "id": "c.std.vswprintf.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "vswprintf",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "destination buffer; an unbounded copy overflows it"
+    },
+    {
+      "id": "c.std.streadd.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "streadd",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "destination buffer; an unbounded copy overflows it"
+    },
+    {
+      "id": "c.std.strecpy.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "strecpy",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "destination buffer; an unbounded copy overflows it"
+    },
+    {
+      "id": "c.std.strtrns.a3",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "strtrns",
+      "signature": null,
+      "access_path": "Argument[3]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-787"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "c.std.getwd.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "getwd",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-20",
+        "CWE-787"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "destination buffer; an unbounded copy overflows it"
+    },
+    {
+      "id": "c.std.getpw.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "getpw",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120",
+        "CWE-676",
+        "CWE-787"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": null
     }
   ]
 }

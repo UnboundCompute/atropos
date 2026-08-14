@@ -1,0 +1,12 @@
+{
+  "format": "atropos-symbol-index", "version": 1, "language": "javascript",
+  "source": "fixtures/js_builders.js",
+  "callsites": [
+    {"id": "cs_lower", "callee": {"name": "toLowerCase", "module": null, "receiver_type": null, "arity": 0, "static": false},
+     "call_value_id": "v_low_ret", "receiver_value_id": "v_user", "arg_value_ids": []},
+    {"id": "cs_assign", "callee": {"name": "assign", "module": null, "receiver_type": "Object", "arity": 2, "static": true},
+     "call_value_id": "v_asn_ret", "receiver_value_id": null, "arg_value_ids": ["v_tgt", "v_src"]},
+    {"id": "cs_join", "callee": {"name": "join", "module": null, "receiver_type": "Array", "arity": 1, "static": false},
+     "call_value_id": "v_join_ret", "receiver_value_id": "v_parts", "arg_value_ids": ["v_sep"]}
+  ]
+}

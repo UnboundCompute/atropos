@@ -1,0 +1,14 @@
+{
+  "format": "atropos-symbol-index", "version": 1, "language": "c",
+  "source": "fixtures/c_summary.c",
+  "callsites": [
+    {"id": "cs_memcpy", "callee": {"name": "memcpy", "module": null, "receiver_type": null, "arity": 3},
+     "call_value_id": "v_mc_ret", "receiver_value_id": null, "arg_value_ids": ["v_dst", "v_src", "v_n"]},
+    {"id": "cs_strcpy", "callee": {"name": "strcpy", "module": null, "receiver_type": null, "arity": 2},
+     "call_value_id": "v2_ret", "receiver_value_id": null, "arg_value_ids": ["v2_dst", "v2_src"]},
+    {"id": "cs_strcat", "callee": {"name": "strcat", "module": null, "receiver_type": null, "arity": 2},
+     "call_value_id": "v3_ret", "receiver_value_id": null, "arg_value_ids": ["v3_dst", "v3_src"]},
+    {"id": "cs_strdup", "callee": {"name": "strdup", "module": null, "receiver_type": null, "arity": 1},
+     "call_value_id": "v_sd_ret", "receiver_value_id": null, "arg_value_ids": ["v_sd_in"]}
+  ]
+}

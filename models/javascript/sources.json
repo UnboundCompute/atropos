@@ -139,15 +139,117 @@
       "notes": "Math.random is not cryptographic"
     },
     {
-      "id": "javascript.location.assign.a0",
+      "id": "javascript.std.prompt.ret",
+      "language": "javascript",
+      "package": null,
+      "type": null,
+      "method": "prompt",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "browser prompt()"
+    },
+    {
+      "id": "javascript.request.body.ret",
+      "language": "javascript",
+      "package": null,
+      "type": "Request",
+      "method": "body",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "javascript.request.query.ret",
+      "language": "javascript",
+      "package": null,
+      "type": "Request",
+      "method": "query",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "javascript.request.cookies.ret",
+      "language": "javascript",
+      "package": null,
+      "type": "Request",
+      "method": "cookies",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "javascript.location.hash.ret",
       "language": "javascript",
       "package": null,
       "type": "Location",
-      "method": "assign",
+      "method": "hash",
       "signature": null,
-      "access_path": "Argument[0]",
+      "access_path": "ReturnValue",
       "role": "source",
       "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "javascript.location.search.ret",
+      "language": "javascript",
+      "package": null,
+      "type": "Location",
+      "method": "search",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "javascript.process.argv.ret",
+      "language": "javascript",
+      "package": "process",
+      "type": null,
+      "method": "argv",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "untrusted-input",
       "cwe": [
         "CWE-20"
       ],

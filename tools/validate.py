@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
-"""Validate every model file against the Atropos entry rules. Stdlib only.
+"""Validate every model file against schema/model.schema.json. Stdlib only.
 
-Checks structure, enums, id uniqueness, access-path grammar, CWE format, and
-that each file's declared role_group matches every entry's role. Exit non-zero
-on any violation so CI and pre-commit can gate on it.
+Enforces the schema directly: a small draft-07 subset validator (type, enum,
+pattern, required, additionalProperties, minimum, array items) reads
+schema/model.schema.json and applies it to every entry, so the schema is the
+single source of truth rather than a second hand-maintained copy of the rules.
+On top of the schema it adds two cross-cutting checks the schema cannot express:
+global id uniqueness, and that each file's role_group matches every entry's role.
+Exit non-zero on any violation so CI and pre-commit can gate on it.
 """
 from __future__ import annotations
 import json, re, sys
@@ -11,48 +15,78 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 MODELS = ROOT / "models"
-
-ROLES = {"sink", "source", "sanitizer", "summary"}
-LANGS = {"c", "python", "javascript", "typescript"}
-CONF = {"high", "medium", "low"}
-ID_RE = re.compile(r"^[a-z0-9]+(\.[a-z0-9_*<>-]+)+$")
-AP_TERM = r"(Argument\[(\*|[0-9]+)\]|ReturnValue|Receiver)"
-AP_RE = re.compile(rf"^{AP_TERM}(\s*->\s*{AP_TERM})?$")
-CWE_RE = re.compile(r"^CWE-[0-9]+$")
-REQUIRED = ("id", "language", "method", "access_path", "role", "kind", "cwe", "confidence")
+CANDIDATES = ROOT / "candidates"   # unverified/unbindable; gated for shape, not loaded by consumers
+SCHEMA = ROOT / "schema" / "model.schema.json"
 
 
-def validate_entry(e: dict, role_group: str, where: str, errs: list) -> None:
-    def err(m): errs.append(f"{where}: {m}")
-    for k in REQUIRED:
-        if k not in e:
-            err(f"missing required field '{k}'")
-    if "id" in e and not ID_RE.match(e["id"]):
-        err(f"bad id '{e['id']}'")
-    if e.get("language") not in LANGS:
-        err(f"bad language '{e.get('language')}'")
-    if e.get("role") not in ROLES:
-        err(f"bad role '{e.get('role')}'")
-    if e.get("role") != role_group:
-        err(f"role '{e.get('role')}' != file role_group '{role_group}'")
-    if e.get("confidence") not in CONF:
-        err(f"bad confidence '{e.get('confidence')}'")
-    if "access_path" in e and not AP_RE.match(e["access_path"]):
-        err(f"bad access_path '{e['access_path']}'")
-    if "corroboration" in e and (not isinstance(e["corroboration"], int) or e["corroboration"] < 1):
-        err(f"bad corroboration '{e.get('corroboration')}'")
-    for c in e.get("cwe", []):
-        if not CWE_RE.match(c):
-            err(f"bad CWE id '{c}'")
+def resolve(schema: dict, node: dict) -> dict:
+    """Follow a local $ref (#/definitions/x) one hop; return node unchanged otherwise."""
+    ref = node.get("$ref")
+    if not ref or not ref.startswith("#/"):
+        return node
+    cur = schema
+    for part in ref[2:].split("/"):
+        cur = cur[part]
+    return cur
+
+
+def check(schema: dict, node: dict, value, where: str, errs: list) -> None:
+    node = resolve(schema, node)
+    t = node.get("type")
+    types = t if isinstance(t, list) else [t] if t else []
+
+    def is_type(name):
+        if name == "string": return isinstance(value, str)
+        if name == "integer": return isinstance(value, int) and not isinstance(value, bool)
+        if name == "number": return isinstance(value, (int, float)) and not isinstance(value, bool)
+        if name == "array": return isinstance(value, list)
+        if name == "object": return isinstance(value, dict)
+        if name == "null": return value is None
+        return True
+
+    if types and not any(is_type(n) for n in types):
+        errs.append(f"{where}: expected type {t}, got {type(value).__name__}")
+        return
+    if value is None and "null" in types:
+        return
+
+    if "enum" in node and value not in node["enum"]:
+        errs.append(f"{where}: {value!r} not in {node['enum']}")
+    if "pattern" in node and isinstance(value, str) and not re.match(node["pattern"], value):
+        errs.append(f"{where}: {value!r} violates pattern {node['pattern']}")
+    if "minimum" in node and isinstance(value, (int, float)) and value < node["minimum"]:
+        errs.append(f"{where}: {value} below minimum {node['minimum']}")
+
+    if "object" in types and isinstance(value, dict):
+        props = node.get("properties", {})
+        for req in node.get("required", []):
+            if req not in value:
+                errs.append(f"{where}: missing required field '{req}'")
+        if node.get("additionalProperties") is False:
+            for k in value:
+                if k not in props:
+                    errs.append(f"{where}: unknown field '{k}'")
+        for k, v in value.items():
+            if k in props:
+                check(schema, props[k], v, f"{where}.{k}", errs)
+
+    if "array" in types and isinstance(value, list) and "items" in node:
+        for i, item in enumerate(value):
+            check(schema, node["items"], item, f"{where}[{i}]", errs)
 
 
 def main() -> int:
+    schema = json.loads(SCHEMA.read_text())
+    entry_schema = schema["definitions"]["entry"]
+    roles = entry_schema["properties"]["role"]["enum"]
+
     errs: list = []
     seen: dict = {}
     files = sorted(MODELS.rglob("*.json"))
     if not files:
         print("no model files found under models/", file=sys.stderr)
         return 1
+    files += sorted(CANDIDATES.rglob("*.json"))   # share the id namespace with facts
     total = 0
     for f in files:
         rel = f.relative_to(ROOT)
@@ -61,14 +95,20 @@ def main() -> int:
         except json.JSONDecodeError as ex:
             errs.append(f"{rel}: invalid JSON: {ex}")
             continue
+        # File-level shape is the schema's top object (role_group + entries).
         rg = doc.get("role_group")
-        if rg not in ROLES:
+        if rg not in roles:
             errs.append(f"{rel}: bad or missing role_group '{rg}'")
             rg = None
         for i, e in enumerate(doc.get("entries", [])):
             total += 1
-            where = f"{rel}[{i}] id={e.get('id','?')}"
-            validate_entry(e, rg, where, errs)
+            where = f"{rel}[{i}] id={e.get('id','?') if isinstance(e, dict) else '?'}"
+            check(schema, entry_schema, e, where, errs)
+            if not isinstance(e, dict):
+                continue
+            # Cross-cutting checks the schema can't express:
+            if rg is not None and e.get("role") != rg:
+                errs.append(f"{where}: role '{e.get('role')}' != file role_group '{rg}'")
             eid = e.get("id")
             if eid in seen:
                 errs.append(f"{where}: duplicate id (also in {seen[eid]})")
@@ -79,7 +119,9 @@ def main() -> int:
             print("FAIL", m, file=sys.stderr)
         print(f"\n{len(errs)} problem(s) across {len(files)} file(s)", file=sys.stderr)
         return 1
-    print(f"OK: {total} entries in {len(files)} files, all valid, ids unique")
+    ncand = sum(1 for f in files if str(f).startswith(str(CANDIDATES)))
+    tail = f" ({ncand} candidate file(s))" if ncand else ""
+    print(f"OK: {total} entries in {len(files)} files, schema-valid, ids unique{tail}")
     return 0
 
 

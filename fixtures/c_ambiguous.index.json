@@ -1,0 +1,22 @@
+{
+  "format": "atropos-symbol-index",
+  "version": 1,
+  "language": "c",
+  "source": "fixtures/c_ambiguous.c",
+  "callsites": [
+    {
+      "id": "cs_sys_libc",
+      "callee": {"name": "system", "module": null, "receiver_type": null, "arity": 1, "static": true},
+      "call_value_id": "v_sys1_ret", "receiver_value_id": null,
+      "arg_value_ids": ["v_sys1_cmd"],
+      "file": "fixtures/c_ambiguous.c", "line": 9
+    },
+    {
+      "id": "cs_sys_app",
+      "callee": {"name": "system", "module": "app", "receiver_type": null, "arity": 1, "static": true},
+      "call_value_id": "v_sys2_ret", "receiver_value_id": null,
+      "arg_value_ids": ["v_sys2_code"],
+      "file": "fixtures/c_ambiguous.c", "line": 10
+    }
+  ]
+}

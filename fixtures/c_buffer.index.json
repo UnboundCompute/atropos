@@ -1,0 +1,36 @@
+{
+  "format": "atropos-symbol-index",
+  "version": 1,
+  "language": "c",
+  "source": "fixtures/c_buffer.c",
+  "callsites": [
+    {
+      "id": "cs_memcpy",
+      "callee": {"name": "memcpy", "module": null, "receiver_type": null, "arity": 3, "static": true},
+      "call_value_id": "v_mc_ret", "receiver_value_id": null,
+      "arg_value_ids": ["v_mc_dst", "v_mc_src", "v_mc_len"],
+      "file": "fixtures/c_buffer.c", "line": 11
+    },
+    {
+      "id": "cs_read",
+      "callee": {"name": "read", "module": null, "receiver_type": null, "arity": 3, "static": true},
+      "call_value_id": "v_rd_ret", "receiver_value_id": null,
+      "arg_value_ids": ["v_rd_fd", "v_rd_buf", "v_rd_count"],
+      "file": "fixtures/c_buffer.c", "line": 12
+    },
+    {
+      "id": "cs_getenv",
+      "callee": {"name": "getenv", "module": null, "receiver_type": null, "arity": 1, "static": true},
+      "call_value_id": "v_ge_ret", "receiver_value_id": null,
+      "arg_value_ids": ["v_ge_name"],
+      "file": "fixtures/c_buffer.c", "line": 13
+    },
+    {
+      "id": "cs_scanf",
+      "callee": {"name": "scanf", "module": null, "receiver_type": null, "arity": 2, "static": true},
+      "call_value_id": "v_sc_ret", "receiver_value_id": null,
+      "arg_value_ids": ["v_sc_fmt", "v_sc_buf"],
+      "file": "fixtures/c_buffer.c", "line": 14
+    }
+  ]
+}
