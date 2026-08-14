@@ -70,6 +70,57 @@
       "confidence": "medium",
       "corroboration": 2,
       "notes": null
+    },
+    {
+      "id": "c.std.wscanf.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "wscanf",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "%ls without width overflows"
+    },
+    {
+      "id": "c.std.fwscanf.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "fwscanf",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "c.std.swscanf.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "swscanf",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-120"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
     }
   ]
 }

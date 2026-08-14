@@ -361,21 +361,310 @@
       "notes": null
     },
     {
-      "id": "c.std.umask.a0",
+      "id": "c.std.faccessat.a1",
       "language": "c",
       "package": null,
       "type": null,
-      "method": "umask",
+      "method": "faccessat",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "dirfd-relative path may escape intended root"
+    },
+    {
+      "id": "c.std.fchmodat.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "fchmodat",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "dirfd-relative path may escape intended root"
+    },
+    {
+      "id": "c.std.fchownat.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "fchownat",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "dirfd-relative path may escape intended root"
+    },
+    {
+      "id": "c.std.mkdirat.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "mkdirat",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "dirfd-relative path may escape intended root"
+    },
+    {
+      "id": "c.std.unlinkat.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "unlinkat",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "dirfd-relative path may escape intended root"
+    },
+    {
+      "id": "c.std.readlinkat.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "readlinkat",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "dirfd-relative path may escape intended root"
+    },
+    {
+      "id": "c.std.fstatat.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "fstatat",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "dirfd-relative path may escape intended root"
+    },
+    {
+      "id": "c.std.newfstatat.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "newfstatat",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "dirfd-relative path may escape intended root"
+    },
+    {
+      "id": "c.std.mknodat.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "mknodat",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "dirfd-relative path may escape intended root"
+    },
+    {
+      "id": "c.std.utimensat.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "utimensat",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "dirfd-relative path may escape intended root"
+    },
+    {
+      "id": "c.std.futimesat.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "futimesat",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "dirfd-relative path may escape intended root"
+    },
+    {
+      "id": "c.std.openat2.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "openat2",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "dirfd-relative path may escape intended root"
+    },
+    {
+      "id": "c.std.renameat.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "renameat",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.std.renameat.a3",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "renameat",
+      "signature": null,
+      "access_path": "Argument[3]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.std.linkat.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "linkat",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.std.linkat.a3",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "linkat",
+      "signature": null,
+      "access_path": "Argument[3]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.std.symlinkat.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "symlinkat",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.std.mknod.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "mknod",
       "signature": null,
       "access_path": "Argument[0]",
       "role": "sink",
       "kind": "path-traversal",
       "cwe": [
-        "CWE-732"
+        "CWE-22"
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
+      "notes": null
     }
   ]
 }

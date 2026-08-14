@@ -30,7 +30,6 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
-        "CWE-327",
         "CWE-330",
         "CWE-338"
       ],
@@ -49,7 +48,6 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
-        "CWE-327",
         "CWE-330",
         "CWE-338"
       ],
@@ -68,7 +66,6 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
-        "CWE-327",
         "CWE-330",
         "CWE-338"
       ],
@@ -87,7 +84,24 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
-        "CWE-327",
+        "CWE-330",
+        "CWE-338"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "predictable PRNG; not for security"
+    },
+    {
+      "id": "c.std.randr.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "rand_r",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
         "CWE-330",
         "CWE-338"
       ],
@@ -106,7 +120,8 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
-        "CWE-327"
+        "CWE-330",
+        "CWE-338"
       ],
       "confidence": "low",
       "corroboration": 1,
@@ -123,24 +138,8 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
-        "CWE-327"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
-      "id": "c.std.lcong48.ret",
-      "language": "c",
-      "package": null,
-      "type": null,
-      "method": "lcong48",
-      "signature": null,
-      "access_path": "ReturnValue",
-      "role": "source",
-      "kind": "weak-random",
-      "cwe": [
-        "CWE-327"
+        "CWE-330",
+        "CWE-338"
       ],
       "confidence": "low",
       "corroboration": 1,
@@ -157,58 +156,8 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
-        "CWE-327"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
-      "id": "c.std.seed48.ret",
-      "language": "c",
-      "package": null,
-      "type": null,
-      "method": "seed48",
-      "signature": null,
-      "access_path": "ReturnValue",
-      "role": "source",
-      "kind": "weak-random",
-      "cwe": [
-        "CWE-327"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
-      "id": "c.std.setstate.ret",
-      "language": "c",
-      "package": null,
-      "type": null,
-      "method": "setstate",
-      "signature": null,
-      "access_path": "ReturnValue",
-      "role": "source",
-      "kind": "weak-random",
-      "cwe": [
-        "CWE-327"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
-      "id": "c.std.srand.ret",
-      "language": "c",
-      "package": null,
-      "type": null,
-      "method": "srand",
-      "signature": null,
-      "access_path": "ReturnValue",
-      "role": "source",
-      "kind": "weak-random",
-      "cwe": [
-        "CWE-327"
+        "CWE-330",
+        "CWE-338"
       ],
       "confidence": "low",
       "corroboration": 1,
@@ -225,24 +174,8 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
-        "CWE-327"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "conventional dangerous interface; argument by class default"
-    },
-    {
-      "id": "c.std.srandom.ret",
-      "language": "c",
-      "package": null,
-      "type": null,
-      "method": "srandom",
-      "signature": null,
-      "access_path": "ReturnValue",
-      "role": "source",
-      "kind": "weak-random",
-      "cwe": [
-        "CWE-327"
+        "CWE-330",
+        "CWE-338"
       ],
       "confidence": "low",
       "corroboration": 1,
@@ -259,7 +192,8 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
-        "CWE-327"
+        "CWE-330",
+        "CWE-338"
       ],
       "confidence": "low",
       "corroboration": 1,
@@ -276,7 +210,8 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
-        "CWE-327"
+        "CWE-330",
+        "CWE-338"
       ],
       "confidence": "low",
       "corroboration": 1,
@@ -293,7 +228,8 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
-        "CWE-327"
+        "CWE-330",
+        "CWE-338"
       ],
       "confidence": "low",
       "corroboration": 1,
@@ -310,7 +246,8 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
-        "CWE-327"
+        "CWE-330",
+        "CWE-338"
       ],
       "confidence": "low",
       "corroboration": 1,
@@ -327,7 +264,8 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
-        "CWE-327"
+        "CWE-330",
+        "CWE-338"
       ],
       "confidence": "low",
       "corroboration": 1,
@@ -344,7 +282,8 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
-        "CWE-327"
+        "CWE-330",
+        "CWE-338"
       ],
       "confidence": "low",
       "corroboration": 1,
@@ -361,7 +300,8 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
-        "CWE-327"
+        "CWE-330",
+        "CWE-338"
       ],
       "confidence": "low",
       "corroboration": 1,
@@ -378,7 +318,8 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
-        "CWE-327"
+        "CWE-330",
+        "CWE-338"
       ],
       "confidence": "low",
       "corroboration": 1,
@@ -395,7 +336,8 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
-        "CWE-327"
+        "CWE-330",
+        "CWE-338"
       ],
       "confidence": "low",
       "corroboration": 1,
@@ -412,7 +354,8 @@
       "role": "source",
       "kind": "weak-random",
       "cwe": [
-        "CWE-327"
+        "CWE-330",
+        "CWE-338"
       ],
       "confidence": "low",
       "corroboration": 1,

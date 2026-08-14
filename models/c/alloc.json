@@ -104,6 +104,91 @@
       "confidence": "low",
       "corroboration": 1,
       "notes": null
+    },
+    {
+      "id": "c.std.reallocarray.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "reallocarray",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-190"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.std.reallocarray.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "reallocarray",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-190"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.std.alignedalloc.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "aligned_alloc",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-789"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "c.std.posixmemalign.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "posix_memalign",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-789"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "c.std.memalign.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "memalign",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-789"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
     }
   ]
 }
