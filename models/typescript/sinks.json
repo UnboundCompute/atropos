@@ -1513,6 +1513,365 @@
       "confidence": "low",
       "corroboration": 1,
       "notes": null
+    },
+    {
+      "id": "typescript.fs.rmdir.a0",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "rmdir",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.fs.lstat.a0",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "lstat",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.fs.readlink.a0",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "readlink",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.fs.realpath.a0",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "realpath",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.fs.symlink.a1",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "symlink",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.fs.link.a1",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "link",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.fs.chmod.a0",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "chmod",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.fs.chown.a0",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "chown",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.undici.request.a0",
+      "language": "typescript",
+      "package": "undici",
+      "type": null,
+      "method": "request",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.undici.fetch.a0",
+      "language": "typescript",
+      "package": "undici",
+      "type": null,
+      "method": "fetch",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.vm.script.a0",
+      "language": "typescript",
+      "package": "vm",
+      "type": null,
+      "method": "Script",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.crypto.createcipher.a0",
+      "language": "typescript",
+      "package": "crypto",
+      "type": null,
+      "method": "createCipher",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.crypto.createdecipher.a0",
+      "language": "typescript",
+      "package": "crypto",
+      "type": null,
+      "method": "createDecipher",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.lodash.template.a0",
+      "language": "typescript",
+      "package": "lodash",
+      "type": null,
+      "method": "template",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336",
+        "CWE-94"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "typescript.underscore.template.a0",
+      "language": "typescript",
+      "package": "underscore",
+      "type": null,
+      "method": "template",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336",
+        "CWE-94"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.lodash.setwith.a1",
+      "language": "typescript",
+      "package": "lodash",
+      "type": null,
+      "method": "setWith",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "prototype-pollution",
+      "cwe": [
+        "CWE-1321"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.collection.updatemany.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Collection",
+      "method": "updateMany",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.collection.deletemany.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Collection",
+      "method": "deleteMany",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.collection.findoneandupdate.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Collection",
+      "method": "findOneAndUpdate",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.entitymanager.query.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "EntityManager",
+      "method": "query",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.repository.query.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Repository",
+      "method": "query",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
     }
   ]
 }

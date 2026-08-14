@@ -188,6 +188,108 @@
       "confidence": "low",
       "corroboration": 1,
       "notes": null
+    },
+    {
+      "id": "typescript.request.body.ret",
+      "language": "typescript",
+      "package": null,
+      "type": "Request",
+      "method": "body",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.request.query.ret",
+      "language": "typescript",
+      "package": null,
+      "type": "Request",
+      "method": "query",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.request.cookies.ret",
+      "language": "typescript",
+      "package": null,
+      "type": "Request",
+      "method": "cookies",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.location.hash.ret",
+      "language": "typescript",
+      "package": null,
+      "type": "Location",
+      "method": "hash",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.location.search.ret",
+      "language": "typescript",
+      "package": null,
+      "type": "Location",
+      "method": "search",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "typescript.process.argv.ret",
+      "language": "typescript",
+      "package": "process",
+      "type": null,
+      "method": "argv",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
     }
   ]
 }
