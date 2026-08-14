@@ -124,5 +124,34 @@ class BinderMechanics(unittest.TestCase):
         self.assertIn("receiver", r.get("detail", ""))
 
 
+class SummaryFixture(unittest.TestCase):
+    """Real catalog summary models bind to the correct src->dest / in->ret edge."""
+
+    @classmethod
+    def setUpClass(cls):
+        index = load_index("c_summary.index.json")
+        report = bind.bind_all(bind.load_models(), index)
+        cls.byid = {r["model_id"]: r for r in report["results"]}
+
+    def edge(self, mid):
+        r = self.byid[mid]
+        self.assertEqual(r["status"], "bound", f"{mid}: {r}")
+        self.assertEqual(len(r["attachments"]), 1)
+        return r["attachments"][0]["edge"]
+
+    def test_copy_src_to_dest(self):
+        self.assertEqual(self.edge("c.std.memcpy.a1-a0"), {"from": "v_src", "to": "v_dst"})
+        self.assertEqual(self.edge("c.std.strcpy.a1-a0"), {"from": "v2_src", "to": "v2_dst"})
+        self.assertEqual(self.edge("c.std.strcat.a1-a0"), {"from": "v3_src", "to": "v3_dst"})
+
+    def test_strdup_input_to_return(self):
+        self.assertEqual(self.edge("c.std.strdup.a0-ret"), {"from": "v_sd_in", "to": "v_sd_ret"})
+
+    def test_summaries_carry_no_cwe(self):
+        summ = [m for m in bind.load_models() if m["role"] == "summary"]
+        self.assertGreater(len(summ), 0)
+        self.assertTrue(all(m["cwe"] == [] for m in summ), "a summary is not a vulnerability")
+
+
 if __name__ == "__main__":
     unittest.main()
