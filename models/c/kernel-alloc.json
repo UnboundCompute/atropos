@@ -1,0 +1,584 @@
+{
+  "role_group": "sink",
+  "entries": [
+    {
+      "id": "c.kernel.kmalloc.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "kmalloc",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-789",
+        "CWE-770"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.kzalloc.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "kzalloc",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-789",
+        "CWE-770"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.kvmalloc.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "kvmalloc",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-789",
+        "CWE-770"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.kvzalloc.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "kvzalloc",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-789",
+        "CWE-770"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.vmalloc.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "vmalloc",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-789",
+        "CWE-770"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.vzalloc.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "vzalloc",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-789",
+        "CWE-770"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.kmalloc_node.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "kmalloc_node",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-789",
+        "CWE-770"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.kzalloc_node.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "kzalloc_node",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-789",
+        "CWE-770"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.vmalloc_user.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "vmalloc_user",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-789",
+        "CWE-770"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.kvmalloc_node.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "kvmalloc_node",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-789",
+        "CWE-770"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.kcalloc.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "kcalloc",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-190",
+        "CWE-789"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.kcalloc.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "kcalloc",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-190",
+        "CWE-789"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.kmalloc_array.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "kmalloc_array",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-190",
+        "CWE-789"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.kmalloc_array.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "kmalloc_array",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-190",
+        "CWE-789"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.kvmalloc_array.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "kvmalloc_array",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-190",
+        "CWE-789"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.kvmalloc_array.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "kvmalloc_array",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-190",
+        "CWE-789"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.kvcalloc.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "kvcalloc",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-190",
+        "CWE-789"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.kvcalloc.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "kvcalloc",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-190",
+        "CWE-789"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.krealloc.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "krealloc",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-789",
+        "CWE-770"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.kvrealloc.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "kvrealloc",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-789",
+        "CWE-770"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.devm_kmalloc.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "devm_kmalloc",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-789",
+        "CWE-770"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.devm_kzalloc.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "devm_kzalloc",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-789",
+        "CWE-770"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.devm_kcalloc.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "devm_kcalloc",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-190",
+        "CWE-789"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.devm_kcalloc.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "devm_kcalloc",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-190",
+        "CWE-789"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.devm_kmalloc_array.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "devm_kmalloc_array",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-190",
+        "CWE-789"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.devm_kmalloc_array.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "devm_kmalloc_array",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-190",
+        "CWE-789"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.kmemdup.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "kmemdup",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-789",
+        "CWE-770"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.kmemdup_nul.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "kmemdup_nul",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-789",
+        "CWE-770"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.kvmemdup.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "kvmemdup",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-789",
+        "CWE-770"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.memdup_user.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "memdup_user",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-190",
+        "CWE-789",
+        "CWE-770"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.vmemdup_user.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "vmemdup_user",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-190",
+        "CWE-789",
+        "CWE-770"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.memdup_user_nul.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "memdup_user_nul",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "alloc-size",
+      "cwe": [
+        "CWE-190",
+        "CWE-789",
+        "CWE-770"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    }
+  ]
+}
