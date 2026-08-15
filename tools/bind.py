@@ -101,12 +101,18 @@ def bind_model(model: dict, index: dict) -> dict:
         res["status"] = "symbol-not-found"
         return res
 
-    # Ambiguous when the match spans more than one distinct symbol identity and
-    # the model did not pin it down (name-only fallback hitting several symbols).
-    distinct = {(c["callee"].get("module"), c["callee"].get("receiver_type"),
-                 c["callee"].get("arity")) for c in callsites}
-    if len(distinct) > 1:
+    # Ambiguous when the name resolves to more than one distinct symbol identity
+    # -- a (module, receiver_type) pair -- that the model did not pin down (a
+    # libc symbol and an application symbol of the same name, say). Arity is NOT
+    # an identity axis: a variadic function (the printf family) legitimately
+    # appears at many arities, and a fixed positional access_path binds each
+    # callsite on its own, so an arity spread must not sink the whole model.
+    identities = {(c["callee"].get("module"), c["callee"].get("receiver_type"))
+                  for c in callsites}
+    if len(identities) > 1:
         res["status"] = "ambiguous"
+        distinct = {(c["callee"].get("module"), c["callee"].get("receiver_type"),
+                     c["callee"].get("arity")) for c in callsites}
         res["candidates"] = [dict(zip(("module", "receiver_type", "arity"), d))
                               for d in sorted(distinct, key=str)]
         return res
@@ -117,25 +123,41 @@ def bind_model(model: dict, index: dict) -> dict:
         res["status"] = "unsupported-path"
         return res
 
-    attachments = []
-    try:
-        for cs in callsites:
+    # Bind every callsite where the referenced position exists. A callsite too
+    # short for this argument is skipped and recorded -- never used to discard
+    # the callsites that do fit (the whole point of tolerating an arity spread).
+    attachments, skipped, unsupported = [], [], None
+    for cs in callsites:
+        try:
             nodes = [_resolve(ep, cs) for ep in endpoints]
-            if len(nodes) == 1:
-                nid, kind, idx = nodes[0]
-                attachments.append({"callsite": cs["id"], "node": nid, "kind": kind, "index": idx})
-            else:  # summary: an edge from first endpoint to last
-                (fnid, fk, fi), (tnid, tk, ti) = nodes[0], nodes[-1]
-                attachments.append({"callsite": cs["id"], "edge": {"from": fnid, "to": tnid},
-                                    "from_kind": fk, "to_kind": tk})
-    except LookupError as ex:
-        kind, detail = ex.args[0]
-        res["status"] = "arity-mismatch" if kind == "arity" else "unsupported-path"
-        res["detail"] = detail
-        return res
+        except LookupError as ex:
+            kind, detail = ex.args[0]
+            if kind == "arity":
+                skipped.append({"callsite": cs["id"], "detail": detail})
+                continue
+            unsupported = detail
+            break
+        if len(nodes) == 1:
+            nid, kind, idx = nodes[0]
+            attachments.append({"callsite": cs["id"], "node": nid, "kind": kind, "index": idx})
+        else:  # summary: an edge from first endpoint to last
+            (fnid, fk, fi), (tnid, tk, ti) = nodes[0], nodes[-1]
+            attachments.append({"callsite": cs["id"], "edge": {"from": fnid, "to": tnid},
+                                "from_kind": fk, "to_kind": tk})
 
+    if unsupported is not None:
+        res["status"] = "unsupported-path"
+        res["detail"] = unsupported
+        return res
+    if not attachments:
+        # Every matching callsite was too short for the referenced position.
+        res["status"] = "arity-mismatch"
+        res["detail"] = skipped[0]["detail"] if skipped else "no bindable callsite"
+        return res
     res["status"] = "bound"
     res["attachments"] = attachments
+    if skipped:
+        res["skipped"] = skipped
     return res
 
 
