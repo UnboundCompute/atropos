@@ -46,6 +46,11 @@
           "type": ["string", "null"],
           "description": "Human-readable signature. Documentation only; binding keys on symbol + access_path, not this."
         },
+        "arity": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Exact parameter count of the intended symbol. null leaves the name unconstrained; an integer rejects a same-named callsite of a different arity (e.g. a project's own function-pointer that shadows a libc name)."
+        },
         "access_path": {
           "type": "string",
           "pattern": "^(Argument\\[(\\*|[0-9]+)\\]|ReturnValue|Receiver)(\\s*->\\s*(Argument\\[(\\*|[0-9]+)\\]|ReturnValue|Receiver))?$",

@@ -123,6 +123,30 @@ class BinderMechanics(unittest.TestCase):
         self.assertEqual(r["status"], "unsupported-path")
         self.assertIn("receiver", r.get("detail", ""))
 
+    def test_arity_pin_rejects_shadowing_symbol(self):
+        # A project's own 5-arg recv[sockindex]() must not bind a libc-arity-4
+        # recv model: the pin makes it a different symbol, so symbol-not-found,
+        # never a wrong-argument stamp.
+        index = {"language": "c", "source": "synthetic", "callsites": [{
+            "id": "cs", "callee": {"name": "recv", "module": None,
+                                   "receiver_type": None, "arity": 5},
+            "call_value_id": "v_ret", "receiver_value_id": None,
+            "arg_value_ids": ["a0", "a1", "a2", "a3", "a4"]}]}
+        m = {"id": "x", "language": "c", "package": None, "type": None,
+             "method": "recv", "arity": 4, "access_path": "Argument[1]",
+             "role": "source"}
+        self.assertEqual(bind.bind_model(m, index)["status"], "symbol-not-found")
+        # ...and the genuine 4-arg libc callsite still binds Argument[1].
+        index["callsites"][0]["callee"]["arity"] = 4
+        index["callsites"][0]["arg_value_ids"] = ["a0", "a1", "a2", "a3"]
+        r = bind.bind_model(m, index)
+        self.assertEqual(r["status"], "bound")
+        self.assertEqual(r["attachments"][0]["node"], "a1")
+
+    def test_recv_model_pins_libc_arity(self):
+        # Lock the data fix: the committed recv source is arity-pinned to libc.
+        self.assertEqual(models_by_id()["c.std.recv.a1"].get("arity"), 4)
+
 
 class SummaryFixture(unittest.TestCase):
     """Real catalog summary models bind to the correct src->dest / in->ret edge."""

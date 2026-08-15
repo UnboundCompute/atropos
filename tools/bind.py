@@ -47,6 +47,13 @@ def _matches(model: dict, callee: dict) -> bool:
     typ = model.get("type")
     if typ is not None and callee.get("receiver_type") is not None and callee["receiver_type"] != typ:
         return False
+    # Arity, when pinned, is a hard discriminator: a same-named callsite with a
+    # different parameter count is a different symbol (a project's own recv[]()
+    # pointer, say, that shadows the libc name). Only constrains when the callsite
+    # actually carries an arity to check.
+    ar = model.get("arity")
+    if ar is not None and callee.get("arity") is not None and callee["arity"] != ar:
+        return False
     return True
 
 
