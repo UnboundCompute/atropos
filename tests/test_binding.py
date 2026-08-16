@@ -143,6 +143,33 @@ class BinderMechanics(unittest.TestCase):
         self.assertEqual(r["status"], "bound")
         self.assertEqual(r["attachments"][0]["node"], "a1")
 
+    def test_variadic_arity_spread_binds_all_in_range_not_ambiguous(self):
+        # snprintf appears at many arities (the variadic tail differs per call).
+        # A fixed positional model -- Argument[2] is the size at every callsite --
+        # must bind ALL callsites whose arity reaches the position, not bail to
+        # ambiguous, and must skip (not fail on) a callsite too short for it.
+        index = {"language": "c", "source": "synthetic", "callsites": [
+            {"id": "s4", "callee": {"name": "snprintf", "module": None,
+                                    "receiver_type": None, "arity": 4},
+             "call_value_id": "r4", "receiver_value_id": None,
+             "arg_value_ids": ["d4", "n4", "f4", "a4"]},
+            {"id": "s6", "callee": {"name": "snprintf", "module": None,
+                                    "receiver_type": None, "arity": 6},
+             "call_value_id": "r6", "receiver_value_id": None,
+             "arg_value_ids": ["d6", "n6", "f6", "a6", "b6", "c6"]},
+            {"id": "s2", "callee": {"name": "snprintf", "module": None,
+                                    "receiver_type": None, "arity": 2},
+             "call_value_id": "r2", "receiver_value_id": None,
+             "arg_value_ids": ["d2", "n2"]},
+        ]}
+        m = {"id": "x", "language": "c", "package": None, "type": None,
+             "method": "snprintf", "access_path": "Argument[2]", "role": "sink"}
+        r = bind.bind_model(m, index)
+        self.assertEqual(r["status"], "bound", r)
+        bound = {a["callsite"]: a["node"] for a in r["attachments"]}
+        self.assertEqual(bound, {"s4": "f4", "s6": "f6"})  # the two in-range calls
+        self.assertEqual([s["callsite"] for s in r.get("skipped", [])], ["s2"])
+
     def test_recv_model_pins_libc_arity(self):
         # Lock the data fix: the committed recv source is arity-pinned to libc.
         self.assertEqual(models_by_id()["c.std.recv.a1"].get("arity"), 4)

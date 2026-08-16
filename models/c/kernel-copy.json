@@ -1,0 +1,257 @@
+{
+  "role_group": "sink",
+  "entries": [
+    {
+      "id": "c.kernel.copy_from_user.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "copy_from_user",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.copy_from_user.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "copy_from_user",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.__copy_from_user.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "__copy_from_user",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.__copy_from_user.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "__copy_from_user",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel._copy_from_user.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "_copy_from_user",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel._copy_from_user.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "_copy_from_user",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.copy_from_user_nofault.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "copy_from_user_nofault",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.copy_from_user_nofault.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "copy_from_user_nofault",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.__copy_from_user_inatomic.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "__copy_from_user_inatomic",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.__copy_from_user_inatomic.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "__copy_from_user_inatomic",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.memcpy_fromio.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "memcpy_fromio",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.memcpy_fromio.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "memcpy_fromio",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.__memcpy_fromio.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "__memcpy_fromio",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "c.kernel.__memcpy_fromio.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "__memcpy_fromio",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    }
+  ]
+}

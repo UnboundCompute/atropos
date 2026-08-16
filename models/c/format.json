@@ -325,6 +325,114 @@
       "confidence": "medium",
       "corroboration": 2,
       "notes": "attacker-controlled format string"
+    },
+    {
+      "id": "c.std.snprintf.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "snprintf",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "destination buffer snprintf writes up to size-1 bytes into; overruns when the size argument exceeds the buffer's real capacity"
+    },
+    {
+      "id": "c.std.snprintf.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "snprintf",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "byte cap written into Argument[0]; bounded but misuse-prone when this value is input-derived or exceeds the destination's capacity"
+    },
+    {
+      "id": "c.std.vsnprintf.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "vsnprintf",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "buffer-write",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "destination buffer vsnprintf writes up to size-1 bytes into; overruns when the size argument exceeds the buffer's real capacity"
+    },
+    {
+      "id": "c.std.vsnprintf.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "vsnprintf",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "byte cap written into Argument[0]; bounded but misuse-prone when this value is input-derived or exceeds the destination's capacity"
+    },
+    {
+      "id": "c.std.swprintf.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "swprintf",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "wide-character cap written into Argument[0]; safety requires it not exceed the destination's capacity"
+    },
+    {
+      "id": "c.std.vswprintf.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "vswprintf",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "buffer-size",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "wide-character cap written into Argument[0]; safety requires it not exceed the destination's capacity"
     }
   ]
 }
