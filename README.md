@@ -68,7 +68,7 @@ tests/          test_models.py  test_binding.py
 docs/           binding.md
 ```
 
-1056 verified facts at the time of writing, covering all four languages Lachesis parses
+1076 verified facts at the time of writing, covering all four languages Lachesis parses
 (C, Python, JavaScript, TypeScript) across 27 taint kinds: buffer overflow,
 command / code / SQL / LDAP / XPath / NoSQL / template injection, path traversal,
 deserialization, SSRF, XXE, XSS, open redirect, prototype pollution, weak crypto
