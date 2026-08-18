@@ -81,28 +81,35 @@
       }
     },
     "per_sink_facts": {
-      "tainted": "the taint run reaches this sink's obligation value (bool)",
-      "cap": "destination_capacity status: within-capacity | exceeds-capacity | capacity-known-size-unknown | unknown",
-      "dom": "guard dominance: guarded-region (checked) | fall-through (guard exists, sink escapes it) | none-observed (no size guard)",
-      "size_expression": "the size/length operand as written",
-      "callee": "the called symbol",
-      "line": "source line -- gives flow order and nesting within the function"
+      "tainted": "the taint run reaches this sink's obligation value (bool) -- EMITTED",
+      "cap": "destination_capacity status: within-capacity | exceeds-capacity | capacity-known-size-unknown | unknown -- EMITTED as the sink's `bound` axis (bounded|unbounded)",
+      "dom": "guard dominance: guarded-region (checked) | fall-through (guard exists, sink escapes it) | none-observed (no size guard) -- EMITTED as the sink's `guarded` flag",
+      "size_expression": "the size/length operand as written -- EMITTED as `size_expr` on the sink token (the operand at the catalog's size_arg)",
+      "control_nesting": "the ordered enclosing control headers (outermost->innermost) the sink sits under -- EMITTED as `control` on the sink token, e.g. [\"for\"], [\"if\",\"while\"]; keywords normalized (else->if)",
+      "dst": "the destination pointer identity -- EMITTED as `dst` on the sink token (an allocator's assigned var, or a copy's arg0), so alloc-dst can be joined to copy-dst on one path",
+      "callee": "the called symbol -- EMITTED",
+      "line": "source line -- gives flow order and nesting within the function -- EMITTED"
     },
-    "control_alphabet": [
-      "if",
-      "else",
-      "for",
-      "while",
-      "switch",
-      "case",
-      "default",
-      "do",
-      "return",
-      "break",
-      "continue",
-      "goto",
-      "brace-nesting"
-    ]
+    "control_alphabet": {
+      "note": "The reader attaches enclosing control headers to each sink token as an ordered `control` list (outermost->innermost), NOT as standalone skeleton events. So loop/branch nesting of a sink is queryable today; the jump keywords and case labels are not yet materialized as their own events.",
+      "emitted_as_sink_nesting": [
+        "if",
+        "else",
+        "for",
+        "while",
+        "switch",
+        "do"
+      ],
+      "not_yet_emitted": [
+        "case",
+        "default",
+        "return",
+        "break",
+        "continue",
+        "goto",
+        "brace-nesting"
+      ]
+    }
   },
   "patterns": [
     {
@@ -145,16 +152,17 @@
         "CWE-120"
       ],
       "tier": 1,
-      "status": "todo",
+      "status": "substrate-ready",
+      "substrate": "the sink token now carries `control` (its enclosing for/while/do nesting) and `guarded`; the two facts this shape reads are both emitted. Not yet wired into the (currently hardcoded) matcher.",
       "requires": [
         "memory.copy",
         "for",
         "while",
         "do"
       ],
-      "shape": "a memory.copy sink nested (by brace depth / line span) under a for/while/do header, with dom != 'guarded-region' and the loop bound not derived from the destination capacity",
+      "shape": "a memory.copy sink whose `control` list contains a for/while/do header, with guarded == false and the loop bound not derived from the destination capacity",
       "signal": "the loop can iterate past the destination; the copy is not guarded per-iteration",
-      "note": "two-event shape over the control header + the copy, both already on the skeleton."
+      "note": "single-token shape now: the copy token's own `control` nesting + `guarded` flag carry the loop-membership, so no separate control event is needed."
     },
     {
       "id": "mem.alloc-copy.size-mismatch",
@@ -164,14 +172,15 @@
         "CWE-787"
       ],
       "tier": 1,
-      "status": "todo",
+      "status": "substrate-ready",
+      "substrate": "each sink token now carries `dst` (the pointer identity) and `size_expr` (the size operand), so an alloc token and a copy token sharing a `dst` can be joined and their `size_expr` compared. Not yet wired into the (currently hardcoded) matcher.",
       "requires": [
         "memory.alloc",
         "memory.copy"
       ],
-      "shape": "a memory.alloc(dst, sizeA) followed on the same path by a memory.copy(dst, src, sizeB) where sizeB is not derived from sizeA and cap != within-capacity",
+      "shape": "a memory.alloc token with dst==D, size_expr==sizeA followed on the same path by a memory.copy token with dst==D, size_expr==sizeB where sizeB is not syntactically derived from sizeA",
       "signal": "the destination was sized for sizeA but written sizeB",
-      "note": "two-node path pattern joining alloc dst to copy dst; both families emitted."
+      "note": "two-token path pattern joining alloc.dst to copy.dst; both dst and size_expr now emitted on every alloc/copy token."
     },
     {
       "id": "mem.lifetime.double-free",
@@ -241,7 +250,7 @@
     }
   ],
   "build_order": [
-    "Tier 1 runs over today's alphabet: mem.write.missing-bounds and mem.alloc.tainted-unbounded (shipped), then mem.copy.in-loop-unbounded and mem.alloc-copy.size-mismatch via a skeleton-sequence matcher.",
+    "Tier 1 runs over today's alphabet: mem.write.missing-bounds and mem.alloc.tainted-unbounded (shipped). mem.copy.in-loop-unbounded and mem.alloc-copy.size-mismatch are now SUBSTRATE-READY -- the sink token carries `control` (loop nesting), `size_expr`, and `dst`, the facts both shapes read -- and wait only on the skeleton-sequence matcher (the matcher is hardcoded today, so they are not yet wired).",
     "Tier 2 unblock = two reader constructors: memory.free (free-site + pointer identity) and memory.deref (deref-site + pointer identity), plus an address-of-local escape marker. Pure structure emission, siblings of memory.alloc/copy.",
     "Once emitted, the skeleton-sequence matcher runs the tier-2 typestate patterns (double-free, UAF, use-after-return, unchecked-return-deref)."
   ]
