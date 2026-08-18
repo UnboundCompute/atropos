@@ -33,8 +33,13 @@ class TestDetection(unittest.TestCase):
         self.assertTrue(self.d["kind_evaluator"])
 
     def test_recipe_targets_are_declared_evaluators(self):
+        # A recipe target is one evaluator name or a list of them; every name declared.
         for kind, ev in self.d["kind_evaluator"].items():
-            self.assertIn(ev, self.d["evaluators"], f"{kind} -> unknown evaluator {ev}")
+            names = [ev] if isinstance(ev, str) else ev
+            self.assertTrue(names, f"{kind} -> empty evaluator target")
+            for name in names:
+                self.assertIn(name, self.d["evaluators"],
+                              f"{kind} -> unknown evaluator {name}")
 
     def test_every_catalog_sink_kind_has_a_recipe(self):
         # A sink kind in the catalog with no evaluator is a silent coverage hole.

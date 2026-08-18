@@ -37,9 +37,15 @@ def load_detection(root: Path = DETECTION) -> dict:
     kind_evaluator = ev_doc["kind_evaluator"]
 
     # Every recipe target must name a declared evaluator -- the closed-set promise.
+    # A target is one evaluator name or a LIST of them (a kind can select several
+    # patterns over one flow, e.g. a memory copy is both a size and a guard check).
     for kind, ev in kind_evaluator.items():
-        if ev not in evaluators:
-            raise ValueError(f"kind '{kind}' routes to unknown evaluator '{ev}'")
+        names = [ev] if isinstance(ev, str) else ev
+        if not isinstance(names, list) or not names:
+            raise ValueError(f"kind '{kind}' has a malformed evaluator target '{ev}'")
+        for name in names:
+            if name not in evaluators:
+                raise ValueError(f"kind '{kind}' routes to unknown evaluator '{name}'")
 
     role_bridges: dict = {}
     for f in sorted(root.glob("sink-roles*.json")):
