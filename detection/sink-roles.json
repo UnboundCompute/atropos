@@ -1,0 +1,14 @@
+{
+  "layer": "detection",
+  "vocabulary": "generic-security-roles",
+  "note": "Bridge from a coarse runtime sink vocabulary to the catalog's per-argument kinds. A front-end that stamps sinks with a generic role vocabulary (here: Lachesis's `generic-security-roles` model -- filesystem-write, database, response, process, ...) coarser than the catalog kinds needs a translation before the detection recipe applies. This is catalog-to-catalog DATA: each row maps one external role to the atropos kind whose evaluator should run. Roles that denote a non-injection class (a size/memory or configuration weakness) would map to their own kind; the roles below all denote taint-reachability sinks. Adding support for another front-end vocabulary is a new file at this layer, not engine code.",
+  "role_kind": {
+    "filesystem-write": "path-traversal",
+    "filesystem-read": "path-traversal",
+    "database": "sql-injection",
+    "response": "xss",
+    "process": "command-injection",
+    "dynamic-code": "code-injection",
+    "deserialize": "deserialization"
+  }
+}

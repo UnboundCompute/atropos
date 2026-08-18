@@ -1,0 +1,33 @@
+{
+  "layer": "detection",
+  "note": "The CLASS-first detection recipe: which generic evaluator a sink kind selects. A sink argument's kind (the same `kind` the models/ catalog stamps -- command-injection, alloc-size, weak-crypto, ...) routes to one of a CLOSED set of evaluators. Adding a catalogued kind that maps to an existing evaluator adds a whole detection category with no engine code; only a genuinely new evaluation primitive needs code. Pure data; no engine coupling -- an engine reads `kind_evaluator[kind]` and dispatches. The three evaluators are a documented vocabulary, not data the engine keys on beyond the closed set.",
+  "evaluators": {
+    "reachability": "Injection / traversal. An attacker-controlled value reaching the sink argument IS the lead -- the argument carries no length obligation, so taint alone fires. (command/sql/xss/ssrf/path/...)",
+    "relational": "Size / memory. The delivered length must be BOTH attacker-influenced AND unbounded relative to the destination capacity. Either alone is normal (a bounded tainted length; an unbounded constant). No taint -> no lead.",
+    "presence": "Configuration weakness. The CALL ITSELF is the defect regardless of taint (weak crypto, insecure TLS, predictable temp file). Collected per-call and fires even with constant arguments; taint is not consulted."
+  },
+  "kind_evaluator": {
+    "command-injection": "reachability",
+    "code-injection": "reachability",
+    "sql-injection": "reachability",
+    "nosql-injection": "reachability",
+    "xss": "reachability",
+    "path-traversal": "reachability",
+    "ssrf": "reachability",
+    "template-injection": "reachability",
+    "deserialization": "reachability",
+    "format-string": "reachability",
+    "xxe": "reachability",
+    "open-redirect": "reachability",
+    "prototype-pollution": "reachability",
+    "ldap-injection": "reachability",
+    "xpath-injection": "reachability",
+    "redos": "reachability",
+    "alloc-size": "relational",
+    "buffer-size": "relational",
+    "buffer-write": "relational",
+    "weak-crypto": "presence",
+    "insecure-tls": "presence",
+    "insecure-temp-file": "presence"
+  }
+}
