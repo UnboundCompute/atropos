@@ -13,3 +13,6 @@ venv/
 
 # Claude Code worktrees / local
 .claude/
+
+# Internal design notes / roadmap -- never pushed.
+private/
