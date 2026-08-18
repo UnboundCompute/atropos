@@ -1,0 +1,21 @@
+{
+  "language": "python",
+  "layer": "dispatch",
+  "note": "Idiom manifest for dynamic/indirect calls in Python -- keyed by callee-expression shape. Reflective dispatch (getattr/eval) is an acknowledged blind spot but is marked 'unresolved' and counted, not dropped. Method calls on a known receiver are resolvable-by-idiom.",
+  "reflective": {
+    "shape": "Call-callee whose func is a reflective builtin",
+    "functions": ["getattr", "__getattribute__", "eval", "exec", "vars", "globals"],
+    "describe": "getattr(o, name)() / eval(...)() -- the target depends on runtime data. Known blind spot; mark unresolved.",
+    "classify": "unresolved"
+  },
+  "computed_member": {
+    "shape": "Subscript-callee",
+    "describe": "table[key](...) / handlers[name](...) -- dispatch through a dict/list of callables. Conservatively resolvable to the callables stored in that container; unresolved without the binding.",
+    "classify": "unresolved"
+  },
+  "method_dispatch": {
+    "shape": "Attribute-callee",
+    "describe": "recv.method(...) -- resolvable to the method when the receiver type is known (idiom), else a member the engine still sees.",
+    "classify": "idiom"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "language": "c",
+  "layer": "dispatch",
+  "note": "Idiom manifest for INDIRECT calls in C -- the ones a name-based resolver drops silently. Declarative data the front-end consumes to classify a call whose callee is not a direct function name: resolve it by idiom where the shape is known, else mark it 'unresolved' and expose it to the engine as a first-class node. A dropped edge is a blind taint/bound path; this makes the blindness explicit and countable.",
+  "member_dispatch": {
+    "shape": "MemberExpr-callee",
+    "describe": "x->field(...) / x.field(...) -- a call through a struct member function pointer. Conservatively resolvable to the functions bound to that field elsewhere in the tree; the field name is the idiom key.",
+    "known_ops_fields": [
+      "read", "write", "open", "release", "flush", "ioctl", "unlocked_ioctl",
+      "compat_ioctl", "mmap", "poll", "llseek", "fasync", "lock",
+      "recvmsg", "sendmsg", "connect", "accept", "bind", "listen",
+      "encrypt", "decrypt", "setkey", "init", "update", "final",
+      "probe", "remove", "suspend", "resume", "copy", "xmit", "start_xmit"
+    ],
+    "classify": "idiom"
+  },
+  "unresolvable": {
+    "shape": "DeclRefExpr-callee | ArraySubscript-callee",
+    "describe": "fp(...) through a bare function-pointer variable, or tbl[i](...) through a function-pointer array, with no catalogued binding. Mark unresolved; never drop.",
+    "shapes": ["local-fnptr", "param-fnptr", "array-of-fnptr", "returned-fnptr"],
+    "classify": "unresolved"
+  }
+}

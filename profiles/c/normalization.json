@@ -1,0 +1,48 @@
+{
+  "language": "c",
+  "layer": "normalization",
+  "note": "Syntactic (form) oracle for C -- the SIBLING layer to the semantic sink models. Declares, per clang AST node kind, whether the reader NORMALIZES it (has a canonical handling), actively LOWERS it (desugars a surface form to a canonical shape the engine reads), or treats it as a known OPAQUE blind spot. Anything a parse encounters that is in NONE of these lists is counted as 'unnormalized' -- blindness made explicit, never silent. Pure data; the front-end owns the mechanism that applies it.",
+  "normalized": [
+    "FunctionDecl", "ParmVarDecl", "VarDecl", "TypedefDecl", "RecordDecl",
+    "FieldDecl", "EnumDecl", "EnumConstantDecl", "StaticAssertDecl",
+    "CompoundStmt", "DeclStmt", "IfStmt", "ForStmt", "WhileStmt", "DoStmt",
+    "SwitchStmt", "CaseStmt", "DefaultStmt", "BreakStmt", "ContinueStmt",
+    "GotoStmt", "LabelStmt", "NullStmt", "ReturnStmt",
+    "CallExpr", "DeclRefExpr", "MemberExpr", "ArraySubscriptExpr",
+    "BinaryOperator", "UnaryOperator", "CompoundAssignOperator",
+    "ImplicitCastExpr", "CStyleCastExpr", "ParenExpr", "ConstantExpr",
+    "IntegerLiteral", "FloatingLiteral", "CharacterLiteral", "StringLiteral",
+    "InitListExpr", "ImplicitValueInitExpr", "UnaryExprOrTypeTraitExpr",
+    "PredefinedExpr", "CompoundLiteralExpr", "DesignatedInitExpr"
+  ],
+  "lowered": {
+    "ConditionalOperator": "branch-join"
+  },
+  "call_aliases": {
+    "_note": "Fortified (_FORTIFY_SOURCE) libc builtins are the SAME sink as their base symbol -- clang rewrites memcpy(a,b,n) to __builtin___memcpy_chk(a,b,n, __builtin_object_size(a,0)) on hardened/macOS builds. The size argument keeps its index, so the alias maps the fortified callee to the base name the semantic catalog already models. Without this the real copy sites are invisible on any fortified build.",
+    "__builtin___memcpy_chk": "memcpy",
+    "__builtin___memmove_chk": "memmove",
+    "__builtin___mempcpy_chk": "mempcpy",
+    "__builtin___memset_chk": "memset",
+    "__builtin___strcpy_chk": "strcpy",
+    "__builtin___strncpy_chk": "strncpy",
+    "__builtin___stpcpy_chk": "stpcpy",
+    "__builtin___strcat_chk": "strcat",
+    "__builtin___strncat_chk": "strncat",
+    "__builtin___snprintf_chk": "snprintf",
+    "__builtin___sprintf_chk": "sprintf",
+    "__builtin___vsnprintf_chk": "vsnprintf",
+    "__builtin___vsprintf_chk": "vsprintf"
+  },
+  "opaque": {
+    "StmtExpr": "gnu-statement-expression",
+    "GenericSelectionExpr": "c11-generic-selection",
+    "VAArgExpr": "varargs",
+    "GCCAsmStmt": "inline-asm",
+    "MSAsmStmt": "inline-asm",
+    "OffsetOfExpr": "offsetof-builtin",
+    "AtomicExpr": "atomic-builtin",
+    "ConvertVectorExpr": "vector-builtin",
+    "ChooseExpr": "gnu-choose"
+  }
+}
