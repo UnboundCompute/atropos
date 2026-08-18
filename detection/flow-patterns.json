@@ -18,14 +18,11 @@
         ]
       },
       "memory.free": {
-        "emitted": false,
+        "emitted": true,
         "lang": [
           "c"
         ],
-        "blocks": [
-          "mem.lifetime.double-free",
-          "mem.lifetime.use-after-free"
-        ]
+        "blocks": []
       },
       "memory.deref": {
         "emitted": false,
@@ -189,14 +186,13 @@
         "CWE-415"
       ],
       "tier": 2,
-      "status": "blocked",
-      "blocked_on": "reader must emit memory.free lifecycle nodes",
+      "status": "shipped",
       "requires": [
         "memory.free"
       ],
       "shape": "two memory.free sinks on the same path over the same pointer identity with no reassignment or reallocation of that pointer between them",
       "signal": "the second free is the lead",
-      "note": "canonical typestate example. Needs a memory.free constructor so free-sites land on the skeleton with a pointer identity to join on."
+      "note": "canonical typestate example. Matched PATH-SENSITIVELY: the reader replays a START->ALLOCATED->FREED property automaton as a forward may-analysis over the control-flow graph, so two frees on mutually-exclusive branches never meet (no false lead) while a free reachable across a loop back-edge does. Pointer identity is the alloc's destination variable."
     },
     {
       "id": "mem.lifetime.use-after-free",
@@ -205,15 +201,15 @@
         "CWE-416"
       ],
       "tier": 2,
-      "status": "blocked",
-      "blocked_on": "reader must emit memory.free AND memory.deref lifecycle nodes",
+      "status": "partial",
+      "blocked_on": "reader must emit memory.deref lifecycle nodes for the bare-dereference case",
       "requires": [
         "memory.free",
         "memory.deref"
       ],
       "shape": "a memory.free(x) followed on the same path by a memory.deref(x) or a memory.copy reading from x, with no reassignment of x between",
       "signal": "the post-free use is the lead",
-      "note": "pointer identity join is the same as double-free."
+      "note": "pointer identity join and the path-sensitive automaton are the same as double-free. The free side is emitted, so a post-free use that is a CALL passing x (a use event) is already matched today; the remaining gap is the standalone bare dereference (x[i], *x, x->f), which needs the memory.deref constructor to land on the skeleton."
     },
     {
       "id": "mem.lifetime.use-after-return",
