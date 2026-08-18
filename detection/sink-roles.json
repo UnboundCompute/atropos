@@ -9,6 +9,7 @@
     "response": "xss",
     "process": "command-injection",
     "dynamic-code": "code-injection",
-    "deserialize": "deserialization"
+    "deserialize": "deserialization",
+    "network": "ssrf"
   }
 }
