@@ -70,7 +70,13 @@ def load_detection(root: Path = DETECTION) -> dict:
     }
 
 
-_PATTERN_STATUS = {"shipped", "todo", "blocked"}
+# pattern lifecycle vocabulary, coarse -> ready:
+#   todo           named, no substrate yet
+#   blocked        needs a skeleton family the reader does not emit (carries blocked_on)
+#   substrate-ready the alphabet it needs is emitted; the matcher shape is not yet wired
+#   partial        matched today for some of its shape, a named sub-case still blocked
+#   shipped        matched end to end
+_PATTERN_STATUS = {"shipped", "partial", "substrate-ready", "todo", "blocked"}
 
 
 def _load_flow_patterns(root: Path = DETECTION) -> list:
@@ -85,8 +91,14 @@ def _load_flow_patterns(root: Path = DETECTION) -> list:
     if not f.exists():
         return []
     doc = json.loads(f.read_text())
-    known = set((doc.get("skeleton_alphabet") or {}).get("sink_families") or {})
-    known |= set((doc.get("skeleton_alphabet") or {}).get("control_alphabet") or [])
+    alpha = doc.get("skeleton_alphabet") or {}
+    known = set(alpha.get("sink_families") or {})
+    # control_alphabet is a structured object: control headers the reader attaches to sink
+    # tokens today live under `emitted_as_sink_nesting`; `not_yet_emitted` are intentionally
+    # excluded so a pattern requiring one is correctly flagged as needing an un-emitted token.
+    # (Tolerate a bare list too, for a future flattened alphabet.)
+    ctrl = alpha.get("control_alphabet") or []
+    known |= set(ctrl.get("emitted_as_sink_nesting") or []) if isinstance(ctrl, dict) else set(ctrl)
     seen: set = set()
     for p in doc.get("patterns", []):
         pid = p.get("id")
