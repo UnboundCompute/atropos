@@ -1,0 +1,29 @@
+{
+  "layer": "detection",
+  "vocabulary": "memory-lifecycle",
+  "_note": "Canonical object-lifetime roles, as DATA. The reader emits alloc/dealloc lifecycle events (the typestate skeleton the matcher walks for double-free / use-after-free / leak) from THIS file -- so teaching it a new kernel allocator or free is an edit here, never a code change in the engine. Roles are memory-lifecycle facts, not taint sink/source roles, which is why they live in their own detection-layer catalog rather than the models/ sink tree.",
+  "_derivation_note": "Sized allocators are NOT re-listed here: any sink in models/<lang> whose kind is in `alloc_kinds` (e.g. kmalloc, kzalloc, kcalloc -- all `alloc-size`) is already an allocation, and those models stay the single source of truth for it. The `alloc` lists below add only the size-LESS allocators (strdup-family: they return an owned pointer but carry no explicit size argument, so they never appear in the sized-sink catalog). `realloc`-family calls live in the alloc catalog (they reopen an object) and are treated as allocations.",
+  "alloc_kinds": ["alloc-size"],
+  "alloc": {
+    "c": [
+      "strdup", "strndup", "strdupa", "strndupa",
+      "kstrdup", "kstrndup", "kstrdup_const",
+      "vstrdup", "devm_kstrdup"
+    ]
+  },
+  "dealloc": {
+    "c": [
+      "free", "cfree",
+      "kfree", "kfree_const", "kfree_sensitive", "kzfree",
+      "kvfree", "kvfree_sensitive", "vfree", "vfree_atomic",
+      "kmem_cache_free", "kmem_cache_free_bulk", "kfree_bulk",
+      "kfree_rcu", "kvfree_rcu",
+      "free_percpu",
+      "vunmap", "iounmap",
+      "free_pages", "__free_pages", "free_page", "__free_page",
+      "free_pages_exact", "__free_pages_exact",
+      "dma_free_coherent", "dmam_free_coherent",
+      "devm_kfree", "mempool_free"
+    ]
+  }
+}
