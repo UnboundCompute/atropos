@@ -57,6 +57,19 @@ class TestDetection(unittest.TestCase):
                 self.assertIn(kind, self.d["kind_evaluator"],
                               f"bridge[{vocab}] {role} -> {kind} has no recipe")
 
+    def test_flow_patterns_load_and_self_check(self):
+        # The pattern directory loads (self-checks in the loader) and carries patterns.
+        pats = self.d["flow_patterns"]
+        self.assertTrue(pats, "flow-patterns.json present but empty")
+        ids = [p["id"] for p in pats]
+        self.assertEqual(len(ids), len(set(ids)), "duplicate pattern ids")
+        # the shipped guard pattern is the directory's anchor
+        self.assertIn("mem.write.missing-bounds", ids)
+        # every pattern names at least one CWE and a tier
+        for p in pats:
+            self.assertTrue(p.get("cwe"), f"{p['id']} has no cwe")
+            self.assertIn(p["tier"], (1, 2))
+
     def test_generic_security_roles_bridge_present(self):
         self.assertIn("generic-security-roles", self.d["role_bridges"])
 

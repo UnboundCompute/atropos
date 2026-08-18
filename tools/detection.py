@@ -60,16 +60,59 @@ def load_detection(root: Path = DETECTION) -> dict:
                 )
         role_bridges[vocab] = bridge
 
+    flow_patterns = _load_flow_patterns(root)
+
     return {
         "evaluators": evaluators,
         "kind_evaluator": kind_evaluator,
         "role_bridges": role_bridges,
+        "flow_patterns": flow_patterns,
     }
+
+
+_PATTERN_STATUS = {"shipped", "todo", "blocked"}
+
+
+def _load_flow_patterns(root: Path = DETECTION) -> list:
+    """The flow-skeleton pattern directory, self-checked. Empty list if absent.
+
+    A pattern is a structural shape over the control skeleton, a layer distinct from
+    the kind->evaluator recipe. Self-checks keep the directory honest: unique ids,
+    a valid tier/status, a non-empty ``requires`` naming only alphabet the file itself
+    declares, and a blocked pattern must say what it is ``blocked_on``.
+    """
+    f = root / "flow-patterns.json"
+    if not f.exists():
+        return []
+    doc = json.loads(f.read_text())
+    known = set((doc.get("skeleton_alphabet") or {}).get("sink_families") or {})
+    known |= set((doc.get("skeleton_alphabet") or {}).get("control_alphabet") or [])
+    seen: set = set()
+    for p in doc.get("patterns", []):
+        pid = p.get("id")
+        if not pid or pid in seen:
+            raise ValueError(f"flow-patterns: missing or duplicate id '{pid}'")
+        seen.add(pid)
+        if p.get("tier") not in (1, 2):
+            raise ValueError(f"flow-patterns: '{pid}' has bad tier {p.get('tier')}")
+        if p.get("status") not in _PATTERN_STATUS:
+            raise ValueError(f"flow-patterns: '{pid}' has bad status {p.get('status')}")
+        req = p.get("requires") or []
+        if not req:
+            raise ValueError(f"flow-patterns: '{pid}' declares no requires")
+        for token in req:
+            if token not in known:
+                raise ValueError(
+                    f"flow-patterns: '{pid}' requires '{token}' absent from the alphabet")
+        if p.get("status") == "blocked" and not p.get("blocked_on"):
+            raise ValueError(f"flow-patterns: blocked '{pid}' must state blocked_on")
+    return doc.get("patterns", [])
 
 
 if __name__ == "__main__":
     d = load_detection()
     print(f"evaluators:     {', '.join(sorted(d['evaluators']))}")
+    print(f"flow_patterns:  {len(d['flow_patterns'])} patterns")
     print(f"kind_evaluator: {len(d['kind_evaluator'])} kinds")
     for vocab, bridge in d["role_bridges"].items():
         print(f"bridge[{vocab}]: {len(bridge)} roles")
