@@ -1,0 +1,253 @@
+{
+  "layer": "detection",
+  "kind": "flow-patterns",
+  "note": "The flow-skeleton PATTERN directory -- a layer distinct from the sink/source CATALOGUE (models/) and from the kind->evaluator recipe (evaluators.json). The catalogue labels what a single node IS (this call is an alloc, this arg is a size). A PATTERN here is a structural query over the SHAPE of the taint-scoped control skeleton produced for one function -- an ordered, nesting-aware sequence of {control | sink} events. A double-free is not one node the catalogue can name; it is two `free` nodes on one path with no reallocation between them. That shape only exists at this layer. Pure data: each pattern names the skeleton alphabet it needs and the shape it matches; the engine that runs it lives outside this repo. Matches are LEADS, never verdicts.",
+  "skeleton_alphabet": {
+    "note": "What a rendered control skeleton puts on a line, and the per-sink facts a pattern predicates over. `emitted` marks whether the reader currently stamps that sink family onto the skeleton; a pattern requiring an un-emitted family is tier 2 (blocked) until the reader emits it.",
+    "sink_families": {
+      "memory.alloc": {
+        "emitted": true,
+        "lang": [
+          "c"
+        ]
+      },
+      "memory.copy": {
+        "emitted": true,
+        "lang": [
+          "c"
+        ]
+      },
+      "memory.free": {
+        "emitted": true,
+        "lang": [
+          "c"
+        ],
+        "blocks": []
+      },
+      "memory.deref": {
+        "emitted": false,
+        "lang": [
+          "c"
+        ],
+        "blocks": [
+          "mem.lifetime.use-after-free",
+          "ctrl.unchecked-return-deref"
+        ]
+      },
+      "injection.exec": {
+        "emitted": true
+      },
+      "injection.query": {
+        "emitted": true
+      },
+      "injection.markup": {
+        "emitted": true
+      },
+      "injection.format": {
+        "emitted": true
+      },
+      "injection.document": {
+        "emitted": true
+      },
+      "filesystem.path": {
+        "emitted": true
+      },
+      "filesystem.temp": {
+        "emitted": true
+      },
+      "navigation.fetch": {
+        "emitted": true
+      },
+      "navigation.redirect": {
+        "emitted": true
+      },
+      "object-integrity.deserialize": {
+        "emitted": true
+      },
+      "object-integrity.prototype": {
+        "emitted": true
+      },
+      "crypto-config.primitive": {
+        "emitted": true
+      },
+      "crypto-config.transport": {
+        "emitted": true
+      },
+      "resource.regex": {
+        "emitted": true
+      }
+    },
+    "per_sink_facts": {
+      "tainted": "the taint run reaches this sink's obligation value (bool) -- EMITTED",
+      "cap": "destination_capacity status: within-capacity | exceeds-capacity | capacity-known-size-unknown | unknown -- EMITTED as the sink's `bound` axis (bounded|unbounded)",
+      "dom": "guard dominance: guarded-region (checked) | fall-through (guard exists, sink escapes it) | none-observed (no size guard) -- EMITTED as the sink's `guarded` flag",
+      "size_expression": "the size/length operand as written -- EMITTED as `size_expr` on the sink token (the operand at the catalog's size_arg)",
+      "control_nesting": "the ordered enclosing control headers (outermost->innermost) the sink sits under -- EMITTED as `control` on the sink token, e.g. [\"for\"], [\"if\",\"while\"]; keywords normalized (else->if)",
+      "dst": "the destination pointer identity -- EMITTED as `dst` on the sink token (an allocator's assigned var, or a copy's arg0), so alloc-dst can be joined to copy-dst on one path",
+      "callee": "the called symbol -- EMITTED",
+      "line": "source line -- gives flow order and nesting within the function -- EMITTED"
+    },
+    "control_alphabet": {
+      "note": "The reader attaches enclosing control headers to each sink token as an ordered `control` list (outermost->innermost), NOT as standalone skeleton events. So loop/branch nesting of a sink is queryable today; the jump keywords and case labels are not yet materialized as their own events.",
+      "emitted_as_sink_nesting": [
+        "if",
+        "else",
+        "for",
+        "while",
+        "switch",
+        "do"
+      ],
+      "not_yet_emitted": [
+        "case",
+        "default",
+        "return",
+        "break",
+        "continue",
+        "goto",
+        "brace-nesting"
+      ]
+    }
+  },
+  "patterns": [
+    {
+      "id": "mem.write.missing-bounds",
+      "name": "Buffer write reached around its size guard",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "tier": 1,
+      "status": "shipped",
+      "requires": [
+        "memory.copy"
+      ],
+      "shape": "a memory.copy sink whose obligation value has dom == 'fall-through' -- a size-testing branch exists in the function but this copy is reached on the path that skips it",
+      "signal": "the escaped guard is the lead; taint is a stronger corroboration, not required",
+      "note": "implemented as the `missing-guard` evaluator + guard dimension (evaluators.json). Listed so the directory is complete."
+    },
+    {
+      "id": "mem.alloc.tainted-unbounded",
+      "name": "Allocation size is attacker-influenced and unbounded",
+      "cwe": [
+        "CWE-789",
+        "CWE-190"
+      ],
+      "tier": 1,
+      "status": "shipped",
+      "requires": [
+        "memory.alloc"
+      ],
+      "shape": "a memory.alloc sink with tainted == true and cap in {exceeds-capacity, capacity-known-size-unknown}",
+      "signal": "the size flows from a source and is not clamped to a bound",
+      "note": "covered by the `relational` evaluator over alloc-size kinds."
+    },
+    {
+      "id": "mem.copy.in-loop-unbounded",
+      "name": "Copy inside a loop with no bound on the iteration length",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "tier": 1,
+      "status": "substrate-ready",
+      "substrate": "the sink token now carries `control` (its enclosing for/while/do nesting) and `guarded`; the two facts this shape reads are both emitted. Not yet wired into the (currently hardcoded) matcher.",
+      "requires": [
+        "memory.copy",
+        "for",
+        "while",
+        "do"
+      ],
+      "shape": "a memory.copy sink whose `control` list contains a for/while/do header, with guarded == false and the loop bound not derived from the destination capacity",
+      "signal": "the loop can iterate past the destination; the copy is not guarded per-iteration",
+      "note": "single-token shape now: the copy token's own `control` nesting + `guarded` flag carry the loop-membership, so no separate control event is needed."
+    },
+    {
+      "id": "mem.alloc-copy.size-mismatch",
+      "name": "Allocate with one size, copy with another on the same path",
+      "cwe": [
+        "CWE-131",
+        "CWE-787"
+      ],
+      "tier": 1,
+      "status": "substrate-ready",
+      "substrate": "each sink token now carries `dst` (the pointer identity) and `size_expr` (the size operand), so an alloc token and a copy token sharing a `dst` can be joined and their `size_expr` compared. Not yet wired into the (currently hardcoded) matcher.",
+      "requires": [
+        "memory.alloc",
+        "memory.copy"
+      ],
+      "shape": "a memory.alloc token with dst==D, size_expr==sizeA followed on the same path by a memory.copy token with dst==D, size_expr==sizeB where sizeB is not syntactically derived from sizeA",
+      "signal": "the destination was sized for sizeA but written sizeB",
+      "note": "two-token path pattern joining alloc.dst to copy.dst; both dst and size_expr now emitted on every alloc/copy token."
+    },
+    {
+      "id": "mem.lifetime.double-free",
+      "name": "Free reached twice on one path (double free)",
+      "cwe": [
+        "CWE-415"
+      ],
+      "tier": 2,
+      "status": "shipped",
+      "requires": [
+        "memory.free"
+      ],
+      "shape": "two memory.free sinks on the same path over the same pointer identity with no reassignment or reallocation of that pointer between them",
+      "signal": "the second free is the lead",
+      "note": "canonical typestate example. Matched PATH-SENSITIVELY: the reader replays a START->ALLOCATED->FREED property automaton as a forward may-analysis over the control-flow graph, so two frees on mutually-exclusive branches never meet (no false lead) while a free reachable across a loop back-edge does. Pointer identity is the alloc's destination variable."
+    },
+    {
+      "id": "mem.lifetime.use-after-free",
+      "name": "Dereference or copy of a pointer after it was freed",
+      "cwe": [
+        "CWE-416"
+      ],
+      "tier": 2,
+      "status": "partial",
+      "blocked_on": "reader must emit memory.deref lifecycle nodes for the bare-dereference case",
+      "requires": [
+        "memory.free",
+        "memory.deref"
+      ],
+      "shape": "a memory.free(x) followed on the same path by a memory.deref(x) or a memory.copy reading from x, with no reassignment of x between",
+      "signal": "the post-free use is the lead",
+      "note": "pointer identity join and the path-sensitive automaton are the same as double-free. The free side is emitted, so a post-free use that is a CALL passing x (a use event) is already matched today; the remaining gap is the standalone bare dereference (x[i], *x, x->f), which needs the memory.deref constructor to land on the skeleton."
+    },
+    {
+      "id": "mem.lifetime.use-after-return",
+      "name": "Address of a local returned or stored past its scope",
+      "cwe": [
+        "CWE-562"
+      ],
+      "tier": 2,
+      "status": "blocked",
+      "blocked_on": "reader must emit an address-of-local escape node",
+      "requires": [
+        "memory.deref"
+      ],
+      "shape": "a return (or store into an out-param / global) of the address of a stack local",
+      "signal": "the escaping address is the lead",
+      "note": "needs escape modeling of &local; adjacent to the deref constructor."
+    },
+    {
+      "id": "ctrl.unchecked-return-deref",
+      "name": "Return value dereferenced without a null/error check",
+      "cwe": [
+        "CWE-476",
+        "CWE-252"
+      ],
+      "tier": 2,
+      "status": "blocked",
+      "blocked_on": "reader must emit memory.deref nodes and mark return-value origins",
+      "requires": [
+        "memory.deref"
+      ],
+      "shape": "a call whose return is bound to r, then a memory.deref(r) on a path with no if/guard testing r between the call and the deref",
+      "signal": "the unchecked deref is the lead",
+      "note": "sharpened by peer-differential guard analysis once deref nodes exist."
+    }
+  ],
+  "build_order": [
+    "Tier 1 runs over today's alphabet: mem.write.missing-bounds and mem.alloc.tainted-unbounded (shipped). mem.copy.in-loop-unbounded and mem.alloc-copy.size-mismatch are now SUBSTRATE-READY -- the sink token carries `control` (loop nesting), `size_expr`, and `dst`, the facts both shapes read -- and wait only on the skeleton-sequence matcher (the matcher is hardcoded today, so they are not yet wired).",
+    "Tier 2 unblock = two reader constructors: memory.free (free-site + pointer identity) and memory.deref (deref-site + pointer identity), plus an address-of-local escape marker. Pure structure emission, siblings of memory.alloc/copy.",
+    "Once emitted, the skeleton-sequence matcher runs the tier-2 typestate patterns (double-free, UAF, use-after-return, unchecked-return-deref)."
+  ]
+}

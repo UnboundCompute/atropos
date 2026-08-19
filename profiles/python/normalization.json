@@ -1,0 +1,36 @@
+{
+  "language": "python",
+  "layer": "normalization",
+  "note": "Syntactic (form) oracle for Python -- keyed by ast node type. Same three buckets as the C profile: normalized (canonical handling), lowered (desugared surface form), opaque (known blind spot). Anything encountered outside all three is counted 'unnormalized'. Pure data; the front-end applies it.",
+  "normalized": [
+    "Module", "FunctionDef", "AsyncFunctionDef", "arguments", "arg",
+    "Return", "Assign", "AugAssign", "AnnAssign", "Delete",
+    "If", "For", "While", "With", "withitem", "Try", "ExceptHandler",
+    "Raise", "Assert", "Import", "ImportFrom", "Global", "Nonlocal",
+    "Pass", "Break", "Continue", "Expr",
+    "Call", "Name", "Attribute", "Subscript", "Constant", "keyword", "comprehension",
+    "BinOp", "UnaryOp", "BoolOp", "Compare", "Slice", "Index",
+    "Tuple", "List", "Dict", "Set", "Load", "Store", "Del",
+    "Add", "Sub", "Mult", "Div", "Mod", "Pow", "LShift", "RShift",
+    "BitOr", "BitAnd", "BitXor", "FloorDiv", "MatMult",
+    "And", "Or", "Not", "Invert", "UAdd", "USub",
+    "Eq", "NotEq", "Lt", "LtE", "Gt", "GtE", "Is", "IsNot", "In", "NotIn"
+  ],
+  "lowered": {
+    "IfExp": "branch-join"
+  },
+  "opaque": {
+    "Lambda": "anonymous-function",
+    "ListComp": "comprehension",
+    "DictComp": "comprehension",
+    "SetComp": "comprehension",
+    "GeneratorExp": "comprehension",
+    "Await": "async-await",
+    "Yield": "generator",
+    "YieldFrom": "generator",
+    "NamedExpr": "walrus-assignment",
+    "JoinedStr": "f-string",
+    "FormattedValue": "f-string",
+    "Starred": "iterable-unpack"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "layer": "detection",
+  "note": "The CLASS-first detection recipe: which generic evaluator(s) a sink kind selects. A sink argument's kind (the same `kind` the models/ catalog stamps -- command-injection, alloc-size, weak-crypto, ...) routes to one or more of a CLOSED set of evaluators. A recipe target is either one evaluator name or a LIST of them: a kind can select several patterns over the one flow (a memory copy is both a `relational` size check and a `missing-guard` control-flow check), each firing its own lead. Adding a catalogued kind that maps to an existing evaluator adds a whole detection category with no engine code; only a genuinely new evaluation primitive needs code. Pure data; no engine coupling -- an engine reads `kind_evaluator[kind]` (a string or list) and dispatches. The evaluators are a documented vocabulary, not data the engine keys on beyond the closed set.",
+  "evaluators": {
+    "reachability": "Injection / traversal. An attacker-controlled value reaching the sink argument IS the lead -- the argument carries no length obligation, so taint alone fires. (command/sql/xss/ssrf/path/...)",
+    "relational": "Size / memory. The delivered length must be BOTH attacker-influenced AND unbounded relative to the destination capacity. Either alone is normal (a bounded tainted length; an unbounded constant). No taint -> no lead. A copy dominated by a size-testing branch (a checked copy) is suppressed.",
+    "presence": "Configuration weakness. The CALL ITSELF is the defect regardless of taint (weak crypto, insecure TLS, predictable temp file). Collected per-call and fires even with constant arguments; taint is not consulted.",
+    "missing-guard": "Control-flow anomaly. A validating branch that tests this obligation's variable EXISTS in the enclosing function, but the sink is reached on the fall-through path outside that branch's region. The absent check IS the lead, so this is taint-INDEPENDENT (like presence); attacker-reachability is a separate, stronger corroboration. Distinct from no-guard-at-all, which does not fire: the signal is specifically a guard this site escapes."
+  },
+  "kind_evaluator": {
+    "command-injection": "reachability",
+    "code-injection": "reachability",
+    "sql-injection": "reachability",
+    "nosql-injection": "reachability",
+    "xss": "reachability",
+    "path-traversal": "reachability",
+    "ssrf": "reachability",
+    "template-injection": "reachability",
+    "deserialization": "reachability",
+    "format-string": "reachability",
+    "xxe": "reachability",
+    "open-redirect": "reachability",
+    "prototype-pollution": "reachability",
+    "ldap-injection": "reachability",
+    "xpath-injection": "reachability",
+    "redos": "reachability",
+    "alloc-size": ["relational", "missing-guard"],
+    "buffer-size": ["relational", "missing-guard"],
+    "buffer-write": ["relational", "missing-guard"],
+    "weak-crypto": "presence",
+    "insecure-tls": "presence",
+    "insecure-temp-file": "presence"
+  }
+}
