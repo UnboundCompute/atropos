@@ -108,6 +108,23 @@ class BinderMechanics(unittest.TestCase):
                 "callsites": [{"id": "bad", "arg_value_ids": []}],
             })
 
+    def test_nested_index_types_are_checked_before_binding(self):
+        base = {
+            "format": "atropos-symbol-index", "version": 1, "language": "c",
+            "callsites": [{"id": "cs", "callee": {"name": "f"},
+                           "arg_value_ids": ["v0"]}],
+        }
+        malformed = dict(base)
+        malformed["callsites"] = [{**base["callsites"][0], "arg_value_ids": [None]}]
+        with self.assertRaisesRegex(bind.CatalogError, "array of strings"):
+            bind.validate_index(malformed)
+
+        malformed = dict(base)
+        malformed["callsites"] = [{**base["callsites"][0],
+                                    "callee": {"name": "f", "arity": -1}}]
+        with self.assertRaisesRegex(bind.CatalogError, "non-negative integer"):
+            bind.validate_index(malformed)
+
     def bind1(self, method, ap, role="summary"):
         m = {"id": "x", "language": "c", "package": None, "type": None,
              "method": method, "access_path": ap, "role": role}

@@ -51,24 +51,84 @@ def load_models(root: Path = MODELS) -> list:
 
 def validate_index(index: dict) -> None:
     """Check the binder's required index envelope before resolving any models."""
+    if not isinstance(index, dict):
+        raise CatalogError("symbol index must be an object")
+    allowed = {"format", "version", "language", "source", "callsites", "declarations"}
+    unknown = sorted(set(index) - allowed)
+    if unknown:
+        raise CatalogError(f"symbol index has unknown field(s): {', '.join(unknown)}")
     if index.get("format") != "atropos-symbol-index":
         raise CatalogError("symbol index has unsupported or missing format")
-    if not isinstance(index.get("version"), int) or index["version"] < 1:
+    if (not isinstance(index.get("version"), int)
+            or isinstance(index["version"], bool) or index["version"] < 1):
         raise CatalogError("symbol index version must be a positive integer")
     if index.get("language") not in {"c", "python", "javascript", "typescript"}:
         raise CatalogError("symbol index language is missing or unsupported")
+    if "source" in index and index["source"] is not None and not isinstance(index["source"], str):
+        raise CatalogError("symbol index source must be a string or null")
     callsites = index.get("callsites")
     if not isinstance(callsites, list):
         raise CatalogError("symbol index callsites must be an array")
     for position, callsite in enumerate(callsites):
-        if not isinstance(callsite, dict) or not isinstance(callsite.get("callee"), dict):
-            raise CatalogError(f"symbol index callsites[{position}] is missing a callee object")
+        prefix = f"symbol index callsites[{position}]"
+        if not isinstance(callsite, dict):
+            raise CatalogError(f"{prefix} must be an object")
+        unknown = sorted(set(callsite) - {
+            "id", "callee", "call_value_id", "receiver_value_id", "arg_value_ids",
+            "file", "line",
+        })
+        if unknown:
+            raise CatalogError(f"{prefix} has unknown field(s): {', '.join(unknown)}")
         if not isinstance(callsite.get("id"), str):
-            raise CatalogError(f"symbol index callsites[{position}] is missing a string id")
-        if not isinstance(callsite.get("arg_value_ids"), list):
-            raise CatalogError(f"symbol index callsites[{position}] arg_value_ids must be an array")
-        if not isinstance(callsite["callee"].get("name"), str):
-            raise CatalogError(f"symbol index callsites[{position}] callee.name must be a string")
+            raise CatalogError(f"{prefix} is missing a string id")
+        callee = callsite.get("callee")
+        if not isinstance(callee, dict):
+            raise CatalogError(f"{prefix} is missing a callee object")
+        unknown = sorted(set(callee) - {"name", "module", "receiver_type", "arity", "static"})
+        if unknown:
+            raise CatalogError(f"{prefix}.callee has unknown field(s): {', '.join(unknown)}")
+        if not isinstance(callee.get("name"), str):
+            raise CatalogError(f"{prefix} callee.name must be a string")
+        for field in ("module", "receiver_type"):
+            if field in callee and callee[field] is not None and not isinstance(callee[field], str):
+                raise CatalogError(f"{prefix} callee.{field} must be a string or null")
+        if "arity" in callee and callee["arity"] is not None:
+            arity = callee["arity"]
+            if not isinstance(arity, int) or isinstance(arity, bool) or arity < 0:
+                raise CatalogError(f"{prefix} callee.arity must be a non-negative integer or null")
+        if "static" in callee and callee["static"] is not None and not isinstance(callee["static"], bool):
+            raise CatalogError(f"{prefix} callee.static must be a boolean or null")
+        args = callsite.get("arg_value_ids")
+        if not isinstance(args, list) or not all(isinstance(node, str) for node in args):
+            raise CatalogError(f"{prefix} arg_value_ids must be an array of strings")
+        for field in ("call_value_id", "receiver_value_id", "file"):
+            if field in callsite and callsite[field] is not None and not isinstance(callsite[field], str):
+                raise CatalogError(f"{prefix} {field} must be a string or null")
+        if "line" in callsite and callsite["line"] is not None:
+            line = callsite["line"]
+            if not isinstance(line, int) or isinstance(line, bool):
+                raise CatalogError(f"{prefix} line must be an integer or null")
+
+    declarations = index.get("declarations", [])
+    if not isinstance(declarations, list):
+        raise CatalogError("symbol index declarations must be an array")
+    for position, declaration in enumerate(declarations):
+        prefix = f"symbol index declarations[{position}]"
+        if not isinstance(declaration, dict):
+            raise CatalogError(f"{prefix} must be an object")
+        if not isinstance(declaration.get("id"), str) or not isinstance(declaration.get("name"), str):
+            raise CatalogError(f"{prefix} requires string id and name")
+        for field in ("module", "receiver_type", "kind", "file"):
+            if field in declaration and declaration[field] is not None and not isinstance(declaration[field], str):
+                raise CatalogError(f"{prefix} {field} must be a string or null")
+        if "arity" in declaration and declaration["arity"] is not None:
+            arity = declaration["arity"]
+            if not isinstance(arity, int) or isinstance(arity, bool) or arity < 0:
+                raise CatalogError(f"{prefix} arity must be a non-negative integer or null")
+        if "line" in declaration and declaration["line"] is not None:
+            line = declaration["line"]
+            if not isinstance(line, int) or isinstance(line, bool):
+                raise CatalogError(f"{prefix} line must be an integer or null")
 
 
 def _matches(model: dict, callee: dict) -> bool:

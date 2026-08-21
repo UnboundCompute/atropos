@@ -10,6 +10,9 @@
   model files as actionable CLI errors instead of exposing a traceback.
 - `tools/bind.py` now rejects malformed symbol-index and catalog inputs before
   binding, with actionable diagnostics instead of partial reports or tracebacks.
+- `tools/bind.py` now validates nested symbol-index field types and unknown fields
+  before binding, so malformed node handles cannot produce partial or misleading
+  attachments.
 - Fixed the release workflow's catalog validation step so `make check` and the
   coverage snapshot run as two commands instead of one folded shell command.
 - The validator now reports missing, corrupt, or malformed schema files as
