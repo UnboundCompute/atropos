@@ -23,6 +23,13 @@ The `release catalog` workflow repeats this gate for every `v*` tag and publishe
 content-addressed source archive plus `SHA256SUMS` as workflow artifacts. It does not
 silently publish mutable catalog data.
 
+Verify a downloaded archive before unpacking it:
+
+```bash
+sha256sum -c SHA256SUMS --ignore-missing       # Linux
+shasum -a 256 -c SHA256SUMS                   # macOS
+```
+
 ## Versioning and publication
 
 Update the version in `README.md` and `CHANGELOG.md`, commit the model changes, then
