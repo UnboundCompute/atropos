@@ -44,6 +44,11 @@ jobs:
           git archive --format=tar --mtime="@${SOURCE_DATE_EPOCH}" \
             --prefix="atropos-${GITHUB_REF_NAME}/" HEAD \
             | gzip -n > "dist/atropos-${GITHUB_REF_NAME}.tar.gz"
+          sha256sum "dist/atropos-${GITHUB_REF_NAME}.tar.gz" > /tmp/atropos-first-build.sha256
+          git archive --format=tar --mtime="@${SOURCE_DATE_EPOCH}" \
+            --prefix="atropos-${GITHUB_REF_NAME}/" HEAD \
+            | gzip -n > "dist/atropos-${GITHUB_REF_NAME}.tar.gz"
+          sha256sum -c /tmp/atropos-first-build.sha256
           (cd dist && sha256sum "atropos-${GITHUB_REF_NAME}.tar.gz") > "dist/SHA256SUMS"
       - name: Upload release artifacts
         uses: actions/upload-artifact@v4
