@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 1.7.1
+
+- Release the production-readiness and release-reference fixes from `main`.
+
 - Align contributor documentation with the Python 3.10–3.12 compatibility window
   exercised by CI and release verification.
 - Added a machine-readable `VERSION` file; release CI now rejects tags that do not

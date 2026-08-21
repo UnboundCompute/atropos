@@ -13,7 +13,7 @@ argument or return value to watch.
 Put plainly: Lachesis figures out how code connects. Atropos is the lookup table
 that says "this specific argument is dangerous, and here is why."
 
-> **Status: v1.7.0, actively curated.** 1121 verified facts (plus 7 candidates under review). The data is
+> **Status: v1.7.1, actively curated.** 1121 verified facts (plus 7 candidates under review). The data is
 > validated on every change. Contributions are welcome, see
 > [Contributing](#contributing).
 
