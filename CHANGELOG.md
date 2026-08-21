@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Align contributor documentation with the Python 3.10–3.12 compatibility window
+  exercised by CI and release verification.
 - Added a machine-readable `VERSION` file; release CI now rejects tags that do not
   match the catalog version declared by the checkout.
 - The local model test gate now checks that `VERSION`, the README status, and the

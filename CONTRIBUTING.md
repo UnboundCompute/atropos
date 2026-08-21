@@ -3,8 +3,9 @@
 Thanks for helping grow the catalog. Atropos is **pure data**, a curated
 taint-model knowledge base, so contributing is mostly a matter of writing one clean
 JSON entry and proving it binds. There's no engine to build and nothing to
-`python -m pip install`. The tooling is stdlib-only Python 3.10+ (CI checks 3.10,
-3.11, and 3.12).
+`python -m pip install`. The tooling is stdlib-only Python 3.10–3.12 (the versions
+checked by CI); newer interpreters need to be added to that matrix before they are
+treated as release-supported.
 
 The most useful contribution is **a new model**: a sink, source, sanitizer, or
 summary that the catalog is missing. A missing sink is a whole class of bug a
