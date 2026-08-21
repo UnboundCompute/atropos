@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- `tools/stats.py` now reports malformed, unreadable, or structurally invalid
+  model files as actionable CLI errors instead of exposing a traceback.
 - Added a dependency-free `make check` target and made CI/release verification use
   the same catalog validation and binding-test command developers run locally.
 - The dependency-free `validate.py`, `stats.py`, and `bind.py` tools now expose
