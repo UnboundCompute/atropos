@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- The dependency-free `validate.py`, `stats.py`, and `bind.py` tools now expose
+  consistent `--help` output and reject unknown options instead of doing surprising
+  work or treating flags as file paths.
 - Added release guidance for deterministic catalog pinning, validation, and attribution.
 - Release archives are rebuilt and hash-compared in CI before checksums are published.
 - Validator and binder CLIs now report malformed, unreadable, or missing inputs without

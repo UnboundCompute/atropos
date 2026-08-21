@@ -174,6 +174,13 @@ def bind_all(models: list, index: dict) -> dict:
 
 
 def main(argv: list) -> int:
+    if argv[1:] in (["-h"], ["--help"]):
+        print("usage: bind.py <symbol-index.json>")
+        print("Bind catalog entries to a neutral symbol index and emit a JSON report.")
+        return 0
+    if len(argv) == 2 and argv[1].startswith("-"):
+        print("usage: bind.py <symbol-index.json>", file=sys.stderr)
+        return 2
     if len(argv) != 2:
         print("usage: bind.py <symbol-index.json>", file=sys.stderr)
         return 2

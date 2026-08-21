@@ -2,8 +2,17 @@
 """Quick coverage snapshot of the model set. Stdlib only."""
 from __future__ import annotations
 import json
+import sys
 from collections import Counter
 from pathlib import Path
+
+if len(sys.argv) > 1:
+    if sys.argv[1:] in (["-h"], ["--help"]):
+        print("usage: stats.py")
+        print("Print model coverage by language, role, and kind.")
+        raise SystemExit(0)
+    print("usage: stats.py", file=sys.stderr)
+    raise SystemExit(2)
 
 ROOT = Path(__file__).resolve().parent.parent
 by_lang_role = Counter()

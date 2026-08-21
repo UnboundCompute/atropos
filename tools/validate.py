@@ -75,7 +75,15 @@ def check(schema: dict, node: dict, value, where: str, errs: list) -> None:
             check(schema, node["items"], item, f"{where}[{i}]", errs)
 
 
-def main() -> int:
+def main(argv=None) -> int:
+    argv = [] if argv is None else argv
+    if argv:
+        if argv in (["-h"], ["--help"]):
+            print("usage: validate.py")
+            print("Validate every model and candidate JSON file against the catalog schema.")
+            return 0
+        print("usage: validate.py", file=sys.stderr)
+        return 2
     schema = json.loads(SCHEMA.read_text())
     entry_schema = schema["definitions"]["entry"]
     roles = entry_schema["properties"]["role"]["enum"]
@@ -136,4 +144,4 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(main(sys.argv[1:]))
