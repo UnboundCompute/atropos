@@ -27,12 +27,48 @@ STATUS = ("bound", "symbol-not-found", "ambiguous", "arity-mismatch", "unsupport
 _ARG = re.compile(r"^Argument\[([0-9]+)\]$")  # binder resolves concrete indices, not Argument[*]
 
 
+class CatalogError(ValueError):
+    """A catalog or symbol-index input that cannot be safely bound."""
+
+
 def load_models(root: Path = MODELS) -> list:
     out = []
     for f in sorted(root.rglob("*.json")):
-        for e in json.loads(f.read_text()).get("entries", []):
+        try:
+            doc = json.loads(f.read_text())
+        except OSError as error:
+            raise CatalogError(f"cannot read model file {f}: {error}") from error
+        except json.JSONDecodeError as error:
+            raise CatalogError(f"invalid JSON in model file {f}: {error}") from error
+        if not isinstance(doc, dict) or not isinstance(doc.get("entries"), list):
+            raise CatalogError(f"invalid model document shape: {f}")
+        for e in doc["entries"]:
+            if not isinstance(e, dict):
+                raise CatalogError(f"invalid model entry in {f}")
             out.append(e)
     return out
+
+
+def validate_index(index: dict) -> None:
+    """Check the binder's required index envelope before resolving any models."""
+    if index.get("format") != "atropos-symbol-index":
+        raise CatalogError("symbol index has unsupported or missing format")
+    if not isinstance(index.get("version"), int) or index["version"] < 1:
+        raise CatalogError("symbol index version must be a positive integer")
+    if index.get("language") not in {"c", "python", "javascript", "typescript"}:
+        raise CatalogError("symbol index language is missing or unsupported")
+    callsites = index.get("callsites")
+    if not isinstance(callsites, list):
+        raise CatalogError("symbol index callsites must be an array")
+    for position, callsite in enumerate(callsites):
+        if not isinstance(callsite, dict) or not isinstance(callsite.get("callee"), dict):
+            raise CatalogError(f"symbol index callsites[{position}] is missing a callee object")
+        if not isinstance(callsite.get("id"), str):
+            raise CatalogError(f"symbol index callsites[{position}] is missing a string id")
+        if not isinstance(callsite.get("arg_value_ids"), list):
+            raise CatalogError(f"symbol index callsites[{position}] arg_value_ids must be an array")
+        if not isinstance(callsite["callee"].get("name"), str):
+            raise CatalogError(f"symbol index callsites[{position}] callee.name must be a string")
 
 
 def _matches(model: dict, callee: dict) -> bool:
@@ -196,7 +232,13 @@ def main(argv: list) -> int:
     if not isinstance(index, dict):
         print(f"bind.py: symbol index {path} must be a JSON object", file=sys.stderr)
         return 2
-    report = bind_all(load_models(), index)
+    try:
+        validate_index(index)
+        models = load_models()
+    except CatalogError as error:
+        print(f"bind.py: {error}", file=sys.stderr)
+        return 2
+    report = bind_all(models, index)
     print(json.dumps(report, indent=2))
     s = report["summary"]
     # Report only; the caller decides what is acceptable. Surface the shape.

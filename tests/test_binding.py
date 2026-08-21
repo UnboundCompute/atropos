@@ -99,6 +99,15 @@ class BinderMechanics(unittest.TestCase):
         }],
     }
 
+    def test_index_envelope_is_checked_before_binding(self):
+        with self.assertRaisesRegex(bind.CatalogError, "format"):
+            bind.validate_index({"language": "c", "version": 1, "callsites": []})
+        with self.assertRaisesRegex(bind.CatalogError, "callee object"):
+            bind.validate_index({
+                "format": "atropos-symbol-index", "version": 1, "language": "c",
+                "callsites": [{"id": "bad", "arg_value_ids": []}],
+            })
+
     def bind1(self, method, ap, role="summary"):
         m = {"id": "x", "language": "c", "package": None, "type": None,
              "method": method, "access_path": ap, "role": role}

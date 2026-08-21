@@ -4,6 +4,8 @@
 
 - `tools/stats.py` now reports malformed, unreadable, or structurally invalid
   model files as actionable CLI errors instead of exposing a traceback.
+- `tools/bind.py` now rejects malformed symbol-index and catalog inputs before
+  binding, with actionable diagnostics instead of partial reports or tracebacks.
 - Added a dependency-free `make check` target and made CI/release verification use
   the same catalog validation and binding-test command developers run locally.
 - The dependency-free `validate.py`, `stats.py`, and `bind.py` tools now expose
