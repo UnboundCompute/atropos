@@ -6,4 +6,4 @@
 
 ## 1.7.0
 
-- 1,056 verified facts and 7 candidates under review, as recorded in the catalog README.
+- 1,121 verified facts and 7 candidates under review, as recorded in the catalog README.

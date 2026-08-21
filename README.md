@@ -13,7 +13,7 @@ argument or return value to watch.
 Put plainly: Lachesis figures out how code connects. Atropos is the lookup table
 that says "this specific argument is dangerous, and here is why."
 
-> **Status: v1.7, actively curated.** 1056 verified facts (plus 7 candidates under review). The data is
+> **Status: v1.7, actively curated.** 1121 verified facts (plus 7 candidates under review). The data is
 > validated on every change. Contributions are welcome, see
 > [Contributing](#contributing).
 
@@ -72,7 +72,7 @@ tests/          test_models.py  test_binding.py
 docs/           binding.md
 ```
 
-1076 verified facts at the time of writing, covering all four languages Lachesis parses
+1121 verified facts at the time of writing, covering all four languages Lachesis parses
 (C, Python, JavaScript, TypeScript) across 27 taint kinds: buffer overflow,
 command / code / SQL / LDAP / XPath / NoSQL / template injection, path traversal,
 deserialization, SSRF, XXE, XSS, open redirect, prototype pollution, weak crypto
