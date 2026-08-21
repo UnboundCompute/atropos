@@ -2,6 +2,7 @@
 import contextlib
 import io
 import json
+import re
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -31,6 +32,16 @@ class TestModels(unittest.TestCase):
 
     def test_have_models(self):
         self.assertGreater(len(self.entries), 0)
+
+    def test_release_metadata_is_consistent(self):
+        version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+        self.assertRegex(version, r"^\d+\.\d+\.\d+$")
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+        self.assertIn(f"Status: v{version}", readme)
+        self.assertRegex(
+            changelog, re.compile(rf"^## {re.escape(version)}$", re.MULTILINE),
+        )
 
     def test_ids_unique(self):
         ids = [e["id"] for _, e in self.entries]
