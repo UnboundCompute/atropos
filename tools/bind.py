@@ -177,7 +177,18 @@ def main(argv: list) -> int:
     if len(argv) != 2:
         print("usage: bind.py <symbol-index.json>", file=sys.stderr)
         return 2
-    index = json.loads(Path(argv[1]).read_text())
+    path = Path(argv[1])
+    try:
+        index = json.loads(path.read_text())
+    except OSError as error:
+        print(f"bind.py: cannot read {path}: {error}", file=sys.stderr)
+        return 2
+    except json.JSONDecodeError as error:
+        print(f"bind.py: invalid JSON in {path}: {error}", file=sys.stderr)
+        return 2
+    if not isinstance(index, dict):
+        print(f"bind.py: symbol index {path} must be a JSON object", file=sys.stderr)
+        return 2
     report = bind_all(load_models(), index)
     print(json.dumps(report, indent=2))
     s = report["summary"]
