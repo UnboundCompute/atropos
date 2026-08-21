@@ -17,6 +17,10 @@ that says "this specific argument is dangerous, and here is why."
 > validated on every change. Contributions are welcome, see
 > [Contributing](#contributing).
 
+Release and pinning guidance is in [`RELEASING.md`](RELEASING.md), and user-visible
+catalog changes are tracked in [`CHANGELOG.md`](CHANGELOG.md). Consumers should pin a
+tag or commit so model updates are explicit and reproducible.
+
 ## Why it's a separate repo
 
 Knowledge and reasoning change at different speeds. The fact that `memcpy`'s size
