@@ -90,6 +90,8 @@ python3 tools/stats.py        # coverage snapshot by language / role / kind
 python3 -m unittest discover -s tests   # gate 2: binding fixtures + schema
 ```
 
+For the complete local gate used by CI and release verification, run `make check`.
+
 Consuming the data is just reading JSON, with no import and no dependency. A binder
 in the engine walks `models/**/*.json`, resolves each
 `(language, package, type, method)` against its symbol index, and stamps
