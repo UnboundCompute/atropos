@@ -36,8 +36,14 @@ jobs:
           python3 tools/stats.py
       - name: Build immutable source archive
         run: |
+          set -euo pipefail
           mkdir -p dist
-          git archive --format=tar.gz --prefix="atropos-${GITHUB_REF_NAME}/" HEAD > "dist/atropos-${GITHUB_REF_NAME}.tar.gz"
+          # Keep both tar entry mtimes and the gzip header stable so rebuilding
+          # the same tag produces byte-identical release artifacts.
+          export SOURCE_DATE_EPOCH="$(git log -1 --format=%ct)"
+          git archive --format=tar --mtime="@${SOURCE_DATE_EPOCH}" \
+            --prefix="atropos-${GITHUB_REF_NAME}/" HEAD \
+            | gzip -n > "dist/atropos-${GITHUB_REF_NAME}.tar.gz"
           (cd dist && sha256sum "atropos-${GITHUB_REF_NAME}.tar.gz") > "dist/SHA256SUMS"
       - name: Upload release artifacts
         uses: actions/upload-artifact@v4

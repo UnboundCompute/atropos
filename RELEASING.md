@@ -20,8 +20,10 @@ fixtures must report only the documented `bound`, `ambiguous`, `symbol-not-found
 the gate green; move it to `candidates/` if it is not yet a verified fact.
 
 The `release catalog` workflow repeats this gate for every `v*` tag and publishes a
-content-addressed source archive plus `SHA256SUMS` as workflow artifacts. It does not
-silently publish mutable catalog data.
+deterministic, content-addressed source archive plus `SHA256SUMS` as workflow artifacts.
+The archive is built with the tag commit timestamp and a normalized gzip header, so
+rebuilding the same tag produces the same bytes. It does not silently publish mutable
+catalog data.
 
 Verify a downloaded archive before unpacking it:
 
