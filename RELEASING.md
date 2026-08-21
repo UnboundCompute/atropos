@@ -24,6 +24,10 @@ The archive is built with the tag commit timestamp and a normalized gzip header,
 rebuilding the same tag produces the same bytes. It does not silently publish mutable
 catalog data.
 
+The workflow also extracts the archive into a temporary directory and reruns `make check`
+from that extracted tree. This verifies that the uploaded artifact, rather than only the
+checkout used to build it, is complete and self-validating.
+
 Verify a downloaded archive before unpacking it:
 
 ```bash

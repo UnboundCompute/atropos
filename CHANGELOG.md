@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Release verification now smoke-tests the extracted source archive with `make check`,
+  catching incomplete or malformed uploaded artifacts before publication.
+
 - Contributor installation guidance now uses `python -m pip` to bind the
   command to the selected interpreter.
 - `make check` now includes the coverage/stats integrity check, so local, CI,

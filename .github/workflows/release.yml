@@ -48,6 +48,16 @@ jobs:
             | gzip -n > "dist/atropos-${GITHUB_REF_NAME}.tar.gz"
           sha256sum -c /tmp/atropos-first-build.sha256
           (cd dist && sha256sum "atropos-${GITHUB_REF_NAME}.tar.gz") > "dist/SHA256SUMS"
+      - name: Smoke-test extracted release archive
+        run: |
+          set -euo pipefail
+          verify_dir="$(mktemp -d)"
+          trap 'rm -rf "$verify_dir"' EXIT
+          tar -xzf "dist/atropos-${GITHUB_REF_NAME}.tar.gz" -C "$verify_dir"
+          extracted="$verify_dir/atropos-${GITHUB_REF_NAME}"
+          test -f "$extracted/Makefile"
+          test -f "$extracted/LICENSE"
+          make -C "$extracted" check
       - name: Upload release artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
