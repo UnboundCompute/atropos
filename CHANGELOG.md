@@ -8,6 +8,8 @@
   binding, with actionable diagnostics instead of partial reports or tracebacks.
 - Fixed the release workflow's catalog validation step so `make check` and the
   coverage snapshot run as two commands instead of one folded shell command.
+- The validator now reports missing, corrupt, or malformed schema files as
+  actionable gate failures instead of exposing a traceback.
 - Added a dependency-free `make check` target and made CI/release verification use
   the same catalog validation and binding-test command developers run locally.
 - The dependency-free `validate.py`, `stats.py`, and `bind.py` tools now expose

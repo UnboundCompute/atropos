@@ -84,9 +84,19 @@ def main(argv=None) -> int:
             return 0
         print("usage: validate.py", file=sys.stderr)
         return 2
-    schema = json.loads(SCHEMA.read_text())
-    entry_schema = schema["definitions"]["entry"]
-    roles = entry_schema["properties"]["role"]["enum"]
+    try:
+        schema = json.loads(SCHEMA.read_text())
+        entry_schema = schema["definitions"]["entry"]
+        roles = entry_schema["properties"]["role"]["enum"]
+    except OSError as error:
+        print(f"validate.py: cannot read schema {SCHEMA}: {error}", file=sys.stderr)
+        return 2
+    except json.JSONDecodeError as error:
+        print(f"validate.py: invalid JSON in schema {SCHEMA}: {error}", file=sys.stderr)
+        return 2
+    except (KeyError, TypeError) as error:
+        print(f"validate.py: schema {SCHEMA} has invalid shape: {error}", file=sys.stderr)
+        return 2
 
     errs: list = []
     seen: dict = {}

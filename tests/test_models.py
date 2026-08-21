@@ -1,7 +1,10 @@
 """Model-set invariants. Run: python3 -m unittest discover -s tests"""
+import contextlib
+import io
 import json
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parent.parent
 import sys
@@ -20,6 +23,11 @@ class TestModels(unittest.TestCase):
 
     def test_validator_passes(self):
         self.assertEqual(validate.main(), 0, "validate.py reported problems")
+
+    def test_broken_schema_is_an_actionable_gate_failure(self):
+        with patch.object(validate, "SCHEMA", Path("/definitely/missing/atropos-schema.json")), \
+             contextlib.redirect_stderr(io.StringIO()):
+            self.assertEqual(validate.main(), 2)
 
     def test_have_models(self):
         self.assertGreater(len(self.entries), 0)
