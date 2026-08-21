@@ -32,7 +32,6 @@ jobs:
       - name: Validate catalog and binding fixtures
         run: |
           make check
-          python3 tools/stats.py
       - name: Build immutable source archive
         run: |
           set -euo pipefail

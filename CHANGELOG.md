@@ -4,6 +4,8 @@
 
 - Contributor installation guidance now uses `python -m pip` to bind the
   command to the selected interpreter.
+- `make check` now includes the coverage/stats integrity check, so local, CI,
+  and release gates run the same catalog verification set.
 - `tools/stats.py` now reports malformed, unreadable, or structurally invalid
   model files as actionable CLI errors instead of exposing a traceback.
 - `tools/bind.py` now rejects malformed symbol-index and catalog inputs before
