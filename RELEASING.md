@@ -1,6 +1,7 @@
 # Releasing Atropos
 
-Atropos is a versioned data catalog, not an executable package. A release is the exact
+Atropos is a versioned data catalog, not an executable package. Its validation tooling
+supports Python 3.10 through 3.12. A release is the exact
 set of model files, schema, and validation tooling that a Lachesis consumer can bind
 deterministically.
 

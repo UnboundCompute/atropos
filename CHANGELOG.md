@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- The catalog validation workflow now exercises the supported Python 3.10, 3.11, and
+  3.12 interpreters instead of relying on an unbounded `3.x` runner.
+
 - Release verification now smoke-tests the extracted source archive with `make check`,
   catching incomplete or malformed uploaded artifacts before publication.
 

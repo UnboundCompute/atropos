@@ -22,6 +22,9 @@ catalog changes are tracked in [`CHANGELOG.md`](CHANGELOG.md). Consumers should 
 tag or commit so model updates are explicit and reproducible.
 Security reporting guidance is in [`SECURITY.md`](SECURITY.md).
 
+The catalog tooling supports Python 3.10 through 3.12 and uses only the standard
+library. The validation workflow exercises all three supported versions.
+
 ## Why it's a separate repo
 
 Knowledge and reasoning change at different speeds. The fact that `memcpy`'s size
