@@ -102,8 +102,7 @@ These are the house rules (they're also in [`CLAUDE.md`](CLAUDE.md)):
 2. Add or edit the entry in the right `models/<language>/<role>s.json`.
 3. Run the gate. Both commands must pass:
    ```bash
-   python3 tools/validate.py
-   python3 -m unittest discover -s tests
+   make check
    ```
    `validate.py` checks schema conformance, id uniqueness, access-path grammar, CWE
    format, and that each file's `role_group` matches every entry's `role`.

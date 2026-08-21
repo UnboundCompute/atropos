@@ -30,9 +30,7 @@ jobs:
           print(f"changelog entry: {heading}")
           PY
       - name: Validate catalog and binding fixtures
-        run: |
-          python3 tools/validate.py
-          python3 -m unittest discover -s tests
+        run: make check
           python3 tools/stats.py
       - name: Build immutable source archive
         run: |

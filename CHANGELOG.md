@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Added a dependency-free `make check` target and made CI/release verification use
+  the same catalog validation and binding-test command developers run locally.
 - The dependency-free `validate.py`, `stats.py`, and `bind.py` tools now expose
   consistent `--help` output and reject unknown options instead of doing surprising
   work or treating flags as file paths.

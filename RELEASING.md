@@ -9,8 +9,7 @@ deterministically.
 From a clean checkout, run:
 
 ```bash
-python3 tools/validate.py
-python3 -m unittest discover -s tests
+make check
 python3 tools/stats.py
 ```
 
