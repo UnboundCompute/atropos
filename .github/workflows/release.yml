@@ -27,7 +27,11 @@ jobs:
           heading = f"## {version}"
           if heading not in Path("CHANGELOG.md").read_text(encoding="utf-8"):
               raise SystemExit(f"CHANGELOG.md has no release heading for {version}")
+          declared = Path("VERSION").read_text(encoding="utf-8").strip()
+          if declared != version:
+              raise SystemExit(f"VERSION declares {declared}, but tag is {version}")
           print(f"changelog entry: {heading}")
+          print(f"catalog version: {declared}")
           PY
       - name: Validate catalog and binding fixtures
         run: |

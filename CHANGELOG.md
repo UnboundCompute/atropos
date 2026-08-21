@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Added a machine-readable `VERSION` file; release CI now rejects tags that do not
+  match the catalog version declared by the checkout.
+
 - The catalog validation workflow now exercises the supported Python 3.10, 3.11, and
   3.12 interpreters instead of relying on an unbounded `3.x` runner.
 

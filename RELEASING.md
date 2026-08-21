@@ -38,7 +38,7 @@ shasum -a 256 -c SHA256SUMS                   # macOS
 
 ## Versioning and publication
 
-Update the version in `README.md` and `CHANGELOG.md`, commit the model changes, then
+Update `VERSION`, the version in `README.md`, and `CHANGELOG.md`, commit the model changes, then
 create an annotated tag (`vMAJOR.MINOR.PATCH`). Consumers should pin a tag or commit,
 not fetch `main`, so a catalog update cannot silently change a scan result.
 

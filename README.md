@@ -13,13 +13,14 @@ argument or return value to watch.
 Put plainly: Lachesis figures out how code connects. Atropos is the lookup table
 that says "this specific argument is dangerous, and here is why."
 
-> **Status: v1.7, actively curated.** 1121 verified facts (plus 7 candidates under review). The data is
+> **Status: v1.7.0, actively curated.** 1121 verified facts (plus 7 candidates under review). The data is
 > validated on every change. Contributions are welcome, see
 > [Contributing](#contributing).
 
 Release and pinning guidance is in [`RELEASING.md`](RELEASING.md), and user-visible
 catalog changes are tracked in [`CHANGELOG.md`](CHANGELOG.md). Consumers should pin a
-tag or commit so model updates are explicit and reproducible.
+tag or commit so model updates are explicit and reproducible. The current catalog
+version is recorded in [`VERSION`](VERSION), and release tags must match it.
 Security reporting guidance is in [`SECURITY.md`](SECURITY.md).
 
 The catalog tooling supports Python 3.10 through 3.12 and uses only the standard
