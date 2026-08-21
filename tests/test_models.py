@@ -1,7 +1,11 @@
 """Model-set invariants. Run: python3 -m unittest discover -s tests"""
+import contextlib
+import io
 import json
+import re
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parent.parent
 import sys
@@ -21,8 +25,23 @@ class TestModels(unittest.TestCase):
     def test_validator_passes(self):
         self.assertEqual(validate.main(), 0, "validate.py reported problems")
 
+    def test_broken_schema_is_an_actionable_gate_failure(self):
+        with patch.object(validate, "SCHEMA", Path("/definitely/missing/atropos-schema.json")), \
+             contextlib.redirect_stderr(io.StringIO()):
+            self.assertEqual(validate.main(), 2)
+
     def test_have_models(self):
         self.assertGreater(len(self.entries), 0)
+
+    def test_release_metadata_is_consistent(self):
+        version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+        self.assertRegex(version, r"^\d+\.\d+\.\d+$")
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+        self.assertIn(f"Status: v{version}", readme)
+        self.assertRegex(
+            changelog, re.compile(rf"^## {re.escape(version)}$", re.MULTILINE),
+        )
 
     def test_ids_unique(self):
         ids = [e["id"] for _, e in self.entries]

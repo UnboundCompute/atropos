@@ -3,7 +3,9 @@
 Thanks for helping grow the catalog. Atropos is **pure data**, a curated
 taint-model knowledge base, so contributing is mostly a matter of writing one clean
 JSON entry and proving it binds. There's no engine to build and nothing to
-`pip install`. The tooling is stdlib-only Python 3.
+`python -m pip install`. The tooling is stdlib-only Python 3.10–3.12 (the versions
+checked by CI); newer interpreters need to be added to that matrix before they are
+treated as release-supported.
 
 The most useful contribution is **a new model**: a sink, source, sanitizer, or
 summary that the catalog is missing. A missing sink is a whole class of bug a
@@ -102,8 +104,7 @@ These are the house rules (they're also in [`CLAUDE.md`](CLAUDE.md)):
 2. Add or edit the entry in the right `models/<language>/<role>s.json`.
 3. Run the gate. Both commands must pass:
    ```bash
-   python3 tools/validate.py
-   python3 -m unittest discover -s tests
+   make check
    ```
    `validate.py` checks schema conformance, id uniqueness, access-path grammar, CWE
    format, and that each file's `role_group` matches every entry's `role`.

@@ -13,9 +13,18 @@ argument or return value to watch.
 Put plainly: Lachesis figures out how code connects. Atropos is the lookup table
 that says "this specific argument is dangerous, and here is why."
 
-> **Status: v1.7, actively curated.** 1056 verified facts (plus 7 candidates under review). The data is
+> **Status: v1.7.0, actively curated.** 1121 verified facts (plus 7 candidates under review). The data is
 > validated on every change. Contributions are welcome, see
 > [Contributing](#contributing).
+
+Release and pinning guidance is in [`RELEASING.md`](RELEASING.md), and user-visible
+catalog changes are tracked in [`CHANGELOG.md`](CHANGELOG.md). Consumers should pin a
+tag or commit so model updates are explicit and reproducible. The current catalog
+version is recorded in [`VERSION`](VERSION), and release tags must match it.
+Security reporting guidance is in [`SECURITY.md`](SECURITY.md).
+
+The catalog tooling supports Python 3.10 through 3.12 and uses only the standard
+library. The validation workflow exercises all three supported versions.
 
 ## Why it's a separate repo
 
@@ -68,7 +77,7 @@ tests/          test_models.py  test_binding.py
 docs/           binding.md
 ```
 
-1076 verified facts at the time of writing, covering all four languages Lachesis parses
+1121 verified facts at the time of writing, covering all four languages Lachesis parses
 (C, Python, JavaScript, TypeScript) across 27 taint kinds: buffer overflow,
 command / code / SQL / LDAP / XPath / NoSQL / template injection, path traversal,
 deserialization, SSRF, XXE, XSS, open redirect, prototype pollution, weak crypto
@@ -84,6 +93,8 @@ python3 tools/bind.py fixtures/c_buffer.index.json   # resolve models to exact g
 python3 tools/stats.py        # coverage snapshot by language / role / kind
 python3 -m unittest discover -s tests   # gate 2: binding fixtures + schema
 ```
+
+For the complete local gate used by CI and release verification, run `make check`.
 
 Consuming the data is just reading JSON, with no import and no dependency. A binder
 in the engine walks `models/**/*.json`, resolves each

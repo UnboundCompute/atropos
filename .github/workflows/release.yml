@@ -1,0 +1,69 @@
+name: release catalog
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    name: verify release catalog
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Verify tag has changelog entry
+        run: |
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+
+          version = os.environ["GITHUB_REF_NAME"].removeprefix("v")
+          heading = f"## {version}"
+          if heading not in Path("CHANGELOG.md").read_text(encoding="utf-8"):
+              raise SystemExit(f"CHANGELOG.md has no release heading for {version}")
+          declared = Path("VERSION").read_text(encoding="utf-8").strip()
+          if declared != version:
+              raise SystemExit(f"VERSION declares {declared}, but tag is {version}")
+          print(f"changelog entry: {heading}")
+          print(f"catalog version: {declared}")
+          PY
+      - name: Validate catalog and binding fixtures
+        run: |
+          make check
+      - name: Build immutable source archive
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          # Keep both tar entry mtimes and the gzip header stable so rebuilding
+          # the same tag produces byte-identical release artifacts.
+          export SOURCE_DATE_EPOCH="$(git log -1 --format=%ct)"
+          git archive --format=tar --mtime="@${SOURCE_DATE_EPOCH}" \
+            --prefix="atropos-${GITHUB_REF_NAME}/" HEAD \
+            | gzip -n > "dist/atropos-${GITHUB_REF_NAME}.tar.gz"
+          sha256sum "dist/atropos-${GITHUB_REF_NAME}.tar.gz" > /tmp/atropos-first-build.sha256
+          git archive --format=tar --mtime="@${SOURCE_DATE_EPOCH}" \
+            --prefix="atropos-${GITHUB_REF_NAME}/" HEAD \
+            | gzip -n > "dist/atropos-${GITHUB_REF_NAME}.tar.gz"
+          sha256sum -c /tmp/atropos-first-build.sha256
+          (cd dist && sha256sum "atropos-${GITHUB_REF_NAME}.tar.gz") > "dist/SHA256SUMS"
+      - name: Smoke-test extracted release archive
+        run: |
+          set -euo pipefail
+          verify_dir="$(mktemp -d)"
+          trap 'rm -rf "$verify_dir"' EXIT
+          tar -xzf "dist/atropos-${GITHUB_REF_NAME}.tar.gz" -C "$verify_dir"
+          extracted="$verify_dir/atropos-${GITHUB_REF_NAME}"
+          test -f "$extracted/Makefile"
+          test -f "$extracted/LICENSE"
+          make -C "$extracted" check
+      - name: Upload release artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: atropos-${{ github.ref_name }}
+          path: dist/

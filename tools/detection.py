@@ -23,7 +23,7 @@ DETECTION = ROOT / "detection"
 
 
 def _read(name: str) -> dict:
-    return json.loads((DETECTION / name).read_text())
+    return json.loads((DETECTION / name).read_text(encoding="utf-8"))
 
 
 def load_detection(root: Path = DETECTION) -> dict:
@@ -32,7 +32,7 @@ def load_detection(root: Path = DETECTION) -> dict:
     role_bridges is {vocabulary -> {role -> kind}}, one entry per sink-role file, so
     a consumer can select the bridge for whichever front-end stamped its graph.
     """
-    ev_doc = json.loads((root / "evaluators.json").read_text())
+    ev_doc = json.loads((root / "evaluators.json").read_text(encoding="utf-8"))
     evaluators = ev_doc["evaluators"]
     kind_evaluator = ev_doc["kind_evaluator"]
 
@@ -49,7 +49,7 @@ def load_detection(root: Path = DETECTION) -> dict:
 
     role_bridges: dict = {}
     for f in sorted(root.glob("sink-roles*.json")):
-        doc = json.loads(f.read_text())
+        doc = json.loads(f.read_text(encoding="utf-8"))
         vocab = doc["vocabulary"]
         bridge = doc["role_kind"]
         # Every bridge target must be a kind the recipe knows -- no dangling roles.
@@ -90,7 +90,7 @@ def _load_flow_patterns(root: Path = DETECTION) -> list:
     f = root / "flow-patterns.json"
     if not f.exists():
         return []
-    doc = json.loads(f.read_text())
+    doc = json.loads(f.read_text(encoding="utf-8"))
     alpha = doc.get("skeleton_alphabet") or {}
     known = set(alpha.get("sink_families") or {})
     # control_alphabet is a structured object: control headers the reader attaches to sink

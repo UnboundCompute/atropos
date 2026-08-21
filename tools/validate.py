@@ -75,10 +75,28 @@ def check(schema: dict, node: dict, value, where: str, errs: list) -> None:
             check(schema, node["items"], item, f"{where}[{i}]", errs)
 
 
-def main() -> int:
-    schema = json.loads(SCHEMA.read_text())
-    entry_schema = schema["definitions"]["entry"]
-    roles = entry_schema["properties"]["role"]["enum"]
+def main(argv=None) -> int:
+    argv = [] if argv is None else argv
+    if argv:
+        if argv in (["-h"], ["--help"]):
+            print("usage: validate.py")
+            print("Validate every model and candidate JSON file against the catalog schema.")
+            return 0
+        print("usage: validate.py", file=sys.stderr)
+        return 2
+    try:
+        schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
+        entry_schema = schema["definitions"]["entry"]
+        roles = entry_schema["properties"]["role"]["enum"]
+    except OSError as error:
+        print(f"validate.py: cannot read schema {SCHEMA}: {error}", file=sys.stderr)
+        return 2
+    except json.JSONDecodeError as error:
+        print(f"validate.py: invalid JSON in schema {SCHEMA}: {error}", file=sys.stderr)
+        return 2
+    except (KeyError, TypeError) as error:
+        print(f"validate.py: schema {SCHEMA} has invalid shape: {error}", file=sys.stderr)
+        return 2
 
     errs: list = []
     seen: dict = {}
@@ -91,16 +109,26 @@ def main() -> int:
     for f in files:
         rel = f.relative_to(ROOT)
         try:
-            doc = json.loads(f.read_text())
+            doc = json.loads(f.read_text(encoding="utf-8"))
+        except OSError as ex:
+            errs.append(f"{rel}: cannot read file: {ex}")
+            continue
         except json.JSONDecodeError as ex:
             errs.append(f"{rel}: invalid JSON: {ex}")
+            continue
+        if not isinstance(doc, dict):
+            errs.append(f"{rel}: top-level value must be an object")
             continue
         # File-level shape is the schema's top object (role_group + entries).
         rg = doc.get("role_group")
         if rg not in roles:
             errs.append(f"{rel}: bad or missing role_group '{rg}'")
             rg = None
-        for i, e in enumerate(doc.get("entries", [])):
+        entries = doc.get("entries", [])
+        if not isinstance(entries, list):
+            errs.append(f"{rel}: 'entries' must be an array")
+            continue
+        for i, e in enumerate(entries):
             total += 1
             where = f"{rel}[{i}] id={e.get('id','?') if isinstance(e, dict) else '?'}"
             check(schema, entry_schema, e, where, errs)
@@ -126,4 +154,4 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(main(sys.argv[1:]))
