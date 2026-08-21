@@ -95,12 +95,19 @@ def main() -> int:
         except json.JSONDecodeError as ex:
             errs.append(f"{rel}: invalid JSON: {ex}")
             continue
+        if not isinstance(doc, dict):
+            errs.append(f"{rel}: top-level value must be an object")
+            continue
         # File-level shape is the schema's top object (role_group + entries).
         rg = doc.get("role_group")
         if rg not in roles:
             errs.append(f"{rel}: bad or missing role_group '{rg}'")
             rg = None
-        for i, e in enumerate(doc.get("entries", [])):
+        entries = doc.get("entries", [])
+        if not isinstance(entries, list):
+            errs.append(f"{rel}: 'entries' must be an array")
+            continue
+        for i, e in enumerate(entries):
             total += 1
             where = f"{rel}[{i}] id={e.get('id','?') if isinstance(e, dict) else '?'}"
             check(schema, entry_schema, e, where, errs)
