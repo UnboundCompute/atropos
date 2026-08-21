@@ -20,6 +20,7 @@ that says "this specific argument is dangerous, and here is why."
 Release and pinning guidance is in [`RELEASING.md`](RELEASING.md), and user-visible
 catalog changes are tracked in [`CHANGELOG.md`](CHANGELOG.md). Consumers should pin a
 tag or commit so model updates are explicit and reproducible.
+Security reporting guidance is in [`SECURITY.md`](SECURITY.md).
 
 ## Why it's a separate repo
 
