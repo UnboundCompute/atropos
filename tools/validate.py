@@ -92,6 +92,9 @@ def main() -> int:
         rel = f.relative_to(ROOT)
         try:
             doc = json.loads(f.read_text())
+        except OSError as ex:
+            errs.append(f"{rel}: cannot read file: {ex}")
+            continue
         except json.JSONDecodeError as ex:
             errs.append(f"{rel}: invalid JSON: {ex}")
             continue
