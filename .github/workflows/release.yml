@@ -1,0 +1,33 @@
+name: release catalog
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    name: verify release catalog
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate catalog and binding fixtures
+        run: |
+          python3 tools/validate.py
+          python3 -m unittest discover -s tests
+          python3 tools/stats.py
+      - name: Build immutable source archive
+        run: |
+          mkdir -p dist
+          git archive --format=tar.gz --prefix="atropos-${GITHUB_REF_NAME}/" HEAD > "dist/atropos-${GITHUB_REF_NAME}.tar.gz"
+          sha256sum "dist/atropos-${GITHUB_REF_NAME}.tar.gz" > "dist/SHA256SUMS"
+      - name: Upload release artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: atropos-${{ github.ref_name }}
+          path: dist/

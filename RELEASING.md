@@ -19,6 +19,10 @@ fixtures must report only the documented `bound`, `ambiguous`, `symbol-not-found
 `arity-mismatch`, or `unsupported-path` outcomes. Never remove an unbound model to make
 the gate green; move it to `candidates/` if it is not yet a verified fact.
 
+The `release catalog` workflow repeats this gate for every `v*` tag and publishes a
+content-addressed source archive plus `SHA256SUMS` as workflow artifacts. It does not
+silently publish mutable catalog data.
+
 ## Versioning and publication
 
 Update the version in `README.md` and `CHANGELOG.md`, commit the model changes, then
