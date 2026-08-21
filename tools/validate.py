@@ -85,7 +85,7 @@ def main(argv=None) -> int:
         print("usage: validate.py", file=sys.stderr)
         return 2
     try:
-        schema = json.loads(SCHEMA.read_text())
+        schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
         entry_schema = schema["definitions"]["entry"]
         roles = entry_schema["properties"]["role"]["enum"]
     except OSError as error:
@@ -109,7 +109,7 @@ def main(argv=None) -> int:
     for f in files:
         rel = f.relative_to(ROOT)
         try:
-            doc = json.loads(f.read_text())
+            doc = json.loads(f.read_text(encoding="utf-8"))
         except OSError as ex:
             errs.append(f"{rel}: cannot read file: {ex}")
             continue

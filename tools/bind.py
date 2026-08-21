@@ -35,7 +35,7 @@ def load_models(root: Path = MODELS) -> list:
     out = []
     for f in sorted(root.rglob("*.json")):
         try:
-            doc = json.loads(f.read_text())
+            doc = json.loads(f.read_text(encoding="utf-8"))
         except OSError as error:
             raise CatalogError(f"cannot read model file {f}: {error}") from error
         except json.JSONDecodeError as error:
@@ -282,7 +282,7 @@ def main(argv: list) -> int:
         return 2
     path = Path(argv[1])
     try:
-        index = json.loads(path.read_text())
+        index = json.loads(path.read_text(encoding="utf-8"))
     except OSError as error:
         print(f"bind.py: cannot read {path}: {error}", file=sys.stderr)
         return 2

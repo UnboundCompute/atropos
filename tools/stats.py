@@ -24,7 +24,7 @@ def main(argv=None) -> int:
     total = 0
     for f in sorted((root / "models").rglob("*.json")):
         try:
-            doc = json.loads(f.read_text())
+            doc = json.loads(f.read_text(encoding="utf-8"))
         except OSError as error:
             print(f"stats.py: cannot read {f}: {error}", file=sys.stderr)
             return 2
