@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Contributor installation guidance now uses `python -m pip` to bind the
+  command to the selected interpreter.
 - `tools/stats.py` now reports malformed, unreadable, or structurally invalid
   model files as actionable CLI errors instead of exposing a traceback.
 - `tools/bind.py` now rejects malformed symbol-index and catalog inputs before
