@@ -30,7 +30,8 @@ jobs:
           print(f"changelog entry: {heading}")
           PY
       - name: Validate catalog and binding fixtures
-        run: make check
+        run: |
+          make check
           python3 tools/stats.py
       - name: Build immutable source archive
         run: |
