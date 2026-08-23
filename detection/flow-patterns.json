@@ -141,6 +141,23 @@
       "note": "covered by the `relational` evaluator over alloc-size kinds."
     },
     {
+      "id": "mem.write.inverted-capacity-guard",
+      "name": "Copy is enabled by an inverted capacity guard",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "tier": 1,
+      "status": "shipped",
+      "requires": [
+        "memory.copy"
+      ],
+      "shape": "a tainted copy whose normalized size expression is on the left of a strict-or-equal greater-than capacity comparison in a dominating guard",
+      "signal": "the guarded arm permits the copy when delivered length is at or beyond capacity",
+      "matcher": {"pattern": "inverted-capacity-guard", "families": ["buffer-write", "buffer-size"]},
+      "note": "uses the generic comparator-aware evaluator over translator-provided guard predicates; no language-specific variable names are assumed."
+    },
+    {
       "id": "mem.copy.in-loop-unbounded",
       "name": "Copy inside a loop with no bound on the iteration length",
       "cwe": [
