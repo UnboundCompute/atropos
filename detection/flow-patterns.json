@@ -294,6 +294,7 @@
       "shape": "two memory.free sinks on the same path over the same pointer identity with no reassignment or reallocation of that pointer between them",
       "signal": "the second free is the lead",
       "matcher": {"pattern": "double-free", "families": []},
+      "candidate": {"domain": "lifecycle", "family": "double-free"},
       "note": "canonical typestate example. Matched PATH-SENSITIVELY: the reader replays a START->ALLOCATED->FREED property automaton as a forward may-analysis over the control-flow graph, so two frees on mutually-exclusive branches never meet (no false lead) while a free reachable across a loop back-edge does. Pointer identity is the alloc's destination variable."
     },
     {
@@ -311,6 +312,7 @@
       "shape": "a memory.free(x) followed on the same path by a memory.deref(x) or a memory.copy reading from x, with no reassignment of x between",
       "signal": "the post-free use is the lead",
       "matcher": {"pattern": "uaf.deref", "families": []},
+      "candidate": {"domain": "lifecycle", "family": "use-after-free"},
       "note": "The semantic graph emits READ_STORAGE, WRITE_STORAGE, PASS_VALUE, COMPARE_VALUE, and RETURN_VALUE, so both direct dereferences and value uses are matched path-sensitively."
     },
     {
