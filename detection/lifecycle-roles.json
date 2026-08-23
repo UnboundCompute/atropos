@@ -6,6 +6,12 @@
   "_realloc_note": "`realloc`-family calls are BOTH: they free the block their first argument names (it may be relocated) AND return a fresh allocation. They keep their `alloc-size` sink identity in the models/ catalog (their size argument is still a spatial sink), and the `realloc` list below adds the lifetime fact the catalog cannot carry -- that the old generation is (may-be) freed. An interior pointer or alias captured before the realloc and not rebased to the returned pointer dangles: a use-after-free the reader emits from this datum with no bug-specific engine logic. First argument = the reallocated pointer.",
   "_aggregate_copy_note": "Aggregate-copy roles identify calls whose size/form proves a whole object is copied. The reader expands these calls into field-wise alias facts; ordinary byte-buffer copies remain spatial operations only.",
   "alloc_kinds": ["alloc-size"],
+  "families": {
+    "acquire": "lifecycle.acquire",
+    "release": "lifecycle.release",
+    "use": "lifecycle.use",
+    "escape": "lifecycle.escape"
+  },
   "realloc": {
     "c": [
       "realloc", "reallocf", "reallocarray",
@@ -44,5 +50,14 @@
       "dma_free_coherent", "dmam_free_coherent",
       "devm_kfree", "mempool_free"
     ]
+  },
+  "release_methods": {
+    "python": ["close", "__exit__", "__del__", "release"],
+    "javascript": ["close", "destroy", "dispose", "revoke", "terminate", "release"],
+    "typescript": ["close", "destroy", "dispose", "revoke", "terminate", "release"]
+  },
+  "release_qualified": {
+    "javascript": ["URL.revokeObjectURL"],
+    "typescript": ["URL.revokeObjectURL"]
   }
 }
