@@ -246,14 +246,13 @@
         "CWE-562"
       ],
       "tier": 2,
-      "status": "blocked",
-      "blocked_on": "reader must emit an address-of-local escape node",
+      "status": "shipped",
       "requires": [
         "memory.deref"
       ],
       "shape": "a return (or store into an out-param / global) of the address of a stack local",
       "signal": "the escaping address is the lead",
-      "note": "needs escape modeling of &local; adjacent to the deref constructor."
+      "note": "the semantic reader marks returned automatic arrays and explicit address-of-local paths; the matcher emits a use-after-return witness."
     },
     {
       "id": "ctrl.unchecked-return-deref",
