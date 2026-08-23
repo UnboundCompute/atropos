@@ -181,6 +181,55 @@
       "note": "two-token path pattern joining alloc.dst to copy.dst; both dst and size_expr now emitted on every alloc/copy token."
     },
     {
+      "id": "mem.write.tainted-unbounded",
+      "name": "Tainted unbounded write reaches a memory sink",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "tier": 1,
+      "status": "shipped",
+      "requires": [
+        "memory.copy"
+      ],
+      "shape": "a buffer-write or buffer-size sink whose tainted obligation is unbounded relative to the destination",
+      "signal": "the delivered write length is attacker-influenced and not discharged by a bound",
+      "matcher": {"pattern": "relational", "families": ["buffer-write", "buffer-size"]},
+      "note": "The evaluator name remains `relational`; this public ID distinguishes write-size findings from tainted allocation-size findings."
+    },
+    {
+      "id": "mem.lifetime.leak",
+      "name": "Allocated object remains live at an exit",
+      "cwe": [
+        "CWE-401"
+      ],
+      "tier": 2,
+      "status": "shipped",
+      "requires": [
+        "memory.alloc"
+      ],
+      "shape": "an allocation origin reaches an enclosing exit without release, escape, or a surviving ownership alias",
+      "signal": "the object is no longer recoverable by the owning scope",
+      "matcher": {"pattern": "leak", "families": []},
+      "note": "Path-specific leak matching remains in the semantic graph; Atropos supplies the public taxonomy."
+    },
+    {
+      "id": "mem.lifetime.dangling-use",
+      "name": "Freed pointer is passed or compared as a value",
+      "cwe": [
+        "CWE-825"
+      ],
+      "tier": 2,
+      "status": "shipped",
+      "requires": [
+        "memory.free"
+      ],
+      "shape": "a freed object is passed, compared, or returned without a storage dereference",
+      "signal": "the value use preserves a dangling pointer beyond its lifetime",
+      "matcher": {"pattern": "use.dangling", "families": []},
+      "note": "This is intentionally distinct from use-after-free dereference findings."
+    },
+    {
       "id": "mem.lifetime.double-free",
       "name": "Free reached twice on one path (double free)",
       "cwe": [
