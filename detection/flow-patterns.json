@@ -146,8 +146,8 @@
         "CWE-120"
       ],
       "tier": 1,
-      "status": "substrate-ready",
-      "substrate": "the sink token now carries `control` (its enclosing for/while/do nesting) and `guarded`; the two facts this shape reads are both emitted. Not yet wired into the (currently hardcoded) matcher.",
+      "status": "shipped",
+      "substrate": "the semantic sink event carries `control` (its enclosing for/while/do nesting) and `guarded`; the matcher consumes both facts.",
       "requires": [
         "memory.copy",
         "for",
@@ -156,7 +156,7 @@
       ],
       "shape": "a memory.copy sink whose `control` list contains a for/while/do header, with guarded == false and the loop bound not derived from the destination capacity",
       "signal": "the loop can iterate past the destination; the copy is not guarded per-iteration",
-      "note": "single-token shape now: the copy token's own `control` nesting + `guarded` flag carry the loop-membership, so no separate control event is needed."
+      "note": "shipped in the semantic skeleton matcher: the copy sink's `control` nesting + `guarded` flag carry the loop-membership, so no separate control event is needed."
     },
     {
       "id": "mem.alloc-copy.size-mismatch",
