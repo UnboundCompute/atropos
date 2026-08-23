@@ -175,6 +175,23 @@
       "note": "generic expression-shape coverage for arithmetic-overflow-driven memory safety; language-specific range proofs remain future refinement."
     },
     {
+      "id": "mem.pointer-arithmetic.before-validation",
+      "name": "Pointer arithmetic is performed before validation",
+      "cwe": [
+        "CWE-823",
+        "CWE-125"
+      ],
+      "tier": 1,
+      "status": "shipped",
+      "requires": [
+        "memory.deref"
+      ],
+      "shape": "a pointer derived through arithmetic is later dereferenced on the same path before the source offset is validated",
+      "signal": "the computed pointer may already be invalid when the later validation executes",
+      "matcher": {"pattern": "pointer-arithmetic-before-validation", "families": []},
+      "note": "the semantic graph preserves the derived pointer and later dereference order; the matcher does not reparse source expressions."
+    },
+    {
       "id": "mem.copy.in-loop-unbounded",
       "name": "Copy inside a loop with no bound on the iteration length",
       "cwe": [
