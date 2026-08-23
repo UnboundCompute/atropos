@@ -158,6 +158,23 @@
       "note": "uses the generic comparator-aware evaluator over translator-provided guard predicates; no language-specific variable names are assumed."
     },
     {
+      "id": "mem.arithmetic.overflow-before-bound",
+      "name": "Arithmetic addition precedes a memory bound check",
+      "cwe": [
+        "CWE-190",
+        "CWE-680"
+      ],
+      "tier": 1,
+      "status": "shipped",
+      "requires": [
+        "memory.copy"
+      ],
+      "shape": "a tainted memory-size sink dominated by a guard whose normalized predicate adds values before comparing against an upper bound",
+      "signal": "the addition can wrap before the bound comparison and invalidate the memory-safety check",
+      "matcher": {"pattern": "arithmetic-overflow-guard", "families": ["buffer-write", "buffer-size"]},
+      "note": "generic expression-shape coverage for arithmetic-overflow-driven memory safety; language-specific range proofs remain future refinement."
+    },
+    {
       "id": "mem.copy.in-loop-unbounded",
       "name": "Copy inside a loop with no bound on the iteration length",
       "cwe": [
