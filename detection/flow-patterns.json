@@ -121,6 +121,7 @@
       "shape": "a memory.copy sink whose obligation value has dom == 'fall-through' -- a size-testing branch exists in the function but this copy is reached on the path that skips it",
       "signal": "the escaped guard is the lead; taint is a stronger corroboration, not required",
       "matcher": {"pattern": "missing-guard", "families": ["buffer-write", "buffer-size"]},
+      "evaluator": "missing-guard",
       "note": "implemented as the `missing-guard` evaluator + guard dimension (evaluators.json). Listed so the directory is complete."
     },
     {
@@ -138,6 +139,7 @@
       "shape": "a memory.alloc sink with tainted == true and cap in {exceeds-capacity, capacity-known-size-unknown}",
       "signal": "the size flows from a source and is not clamped to a bound",
       "matcher": {"pattern": "relational", "families": ["alloc-size"]},
+      "evaluator": "relational",
       "note": "covered by the `relational` evaluator over alloc-size kinds."
     },
     {
@@ -155,6 +157,7 @@
       "shape": "a tainted copy whose normalized size expression is on the left of a strict-or-equal greater-than capacity comparison in a dominating guard",
       "signal": "the guarded arm permits the copy when delivered length is at or beyond capacity",
       "matcher": {"pattern": "inverted-capacity-guard", "families": ["buffer-write", "buffer-size"]},
+      "evaluator": "inverted-capacity-guard",
       "note": "uses the generic comparator-aware evaluator over translator-provided guard predicates; no language-specific variable names are assumed."
     },
     {
@@ -172,6 +175,7 @@
       "shape": "a tainted memory-size sink dominated by a guard whose normalized predicate adds values before comparing against an upper bound",
       "signal": "the addition can wrap before the bound comparison and invalidate the memory-safety check",
       "matcher": {"pattern": "arithmetic-overflow-guard", "families": ["buffer-write", "buffer-size"]},
+      "evaluator": "arithmetic-overflow-guard",
       "note": "generic expression-shape coverage for arithmetic-overflow-driven memory safety; language-specific range proofs remain future refinement."
     },
     {
@@ -189,6 +193,7 @@
       "shape": "a pointer derived through arithmetic is later dereferenced on the same path before the source offset is validated",
       "signal": "the computed pointer may already be invalid when the later validation executes",
       "matcher": {"pattern": "pointer-arithmetic-before-validation", "families": []},
+      "evaluator": "typestate",
       "note": "the semantic graph preserves the derived pointer and later dereference order; the matcher does not reparse source expressions."
     },
     {
@@ -210,6 +215,7 @@
       "shape": "a memory.copy sink whose `control` list contains a for/while/do header, with guarded == false and the loop bound not derived from the destination capacity",
       "signal": "the loop can iterate past the destination; the copy is not guarded per-iteration",
       "matcher": {"pattern": "mem.copy.in-loop-unbounded", "families": ["buffer-write", "buffer-size"]},
+      "evaluator": "relational",
       "note": "shipped in the semantic skeleton matcher: the copy sink's `control` nesting + `guarded` flag carry the loop-membership, so no separate control event is needed."
     },
     {
@@ -229,6 +235,7 @@
       "shape": "a memory.alloc token with dst==D, size_expr==sizeA followed on the same path by a memory.copy token with dst==D, size_expr==sizeB where sizeB is not syntactically derived from sizeA",
       "signal": "the destination was sized for sizeA but written sizeB",
       "matcher": {"pattern": "mem.alloc-copy.size-mismatch", "families": []},
+      "evaluator": "relational",
       "note": "two-token path pattern joining alloc.dst to copy.dst; both dst and size_expr now emitted on every alloc/copy token."
     },
     {
@@ -246,6 +253,7 @@
       "shape": "a buffer-write or buffer-size sink whose tainted obligation is unbounded relative to the destination",
       "signal": "the delivered write length is attacker-influenced and not discharged by a bound",
       "matcher": {"pattern": "relational", "families": ["buffer-write", "buffer-size"]},
+      "evaluator": "relational",
       "note": "The evaluator name remains `relational`; this public ID distinguishes write-size findings from tainted allocation-size findings."
     },
     {
@@ -398,7 +406,10 @@
       ],
       "shape": "a call whose return is bound to r, then a memory.deref(r) on a path with no if/guard testing r between the call and the deref",
       "signal": "the unchecked deref is the lead",
-      "matcher": {"pattern": "unchecked-return-deref", "families": []},
+      "matcher": {"pattern": "unchecked-return-deref", "families": [],
+                   "event_kinds": ["read_storage", "write_storage"]},
+      "evaluator": "typestate",
+      "candidate": {"domain": "lifecycle", "family": "unchecked-return-deref"},
       "note": "the semantic reader marks pointer call results as nullable origins; compatible NONNULL/ISNULL guards discharge the unchecked-return obligation before dereference."
     }
   ],
