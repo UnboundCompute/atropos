@@ -262,19 +262,18 @@
         "CWE-252"
       ],
       "tier": 2,
-      "status": "blocked",
-      "blocked_on": "reader must emit memory.deref nodes and mark return-value origins",
+      "status": "shipped",
       "requires": [
         "memory.deref"
       ],
       "shape": "a call whose return is bound to r, then a memory.deref(r) on a path with no if/guard testing r between the call and the deref",
       "signal": "the unchecked deref is the lead",
-      "note": "sharpened by peer-differential guard analysis once deref nodes exist."
+      "note": "the semantic reader marks pointer call results as nullable origins; compatible NONNULL/ISNULL guards discharge the unchecked-return obligation before dereference."
     }
   ],
   "build_order": [
-    "Tier 1 runs over today's alphabet: mem.write.missing-bounds and mem.alloc.tainted-unbounded (shipped). mem.copy.in-loop-unbounded and mem.alloc-copy.size-mismatch are now SUBSTRATE-READY -- the sink token carries `control` (loop nesting), `size_expr`, and `dst`, the facts both shapes read -- and wait only on the skeleton-sequence matcher (the matcher is hardcoded today, so they are not yet wired).",
-    "Tier 2 unblock = two reader constructors: memory.free (free-site + pointer identity) and memory.deref (deref-site + pointer identity), plus an address-of-local escape marker. Pure structure emission, siblings of memory.alloc/copy.",
-    "Once emitted, the skeleton-sequence matcher runs the tier-2 typestate patterns (double-free, UAF, use-after-return, unchecked-return-deref)."
+    "Tier 1 runs over the semantic sink alphabet: missing-bounds, tainted-unbounded allocation, loop-contained copies, and allocation/copy size mismatch are shipped through the Atropos evaluator and semantic matcher.",
+    "Tier 2 lifetime facts are emitted by the semantic reader: free/release and dereference identities share the same field-sensitive object graph, with address-of-local escape and nullable return-origin facts.",
+    "The semantic matcher runs double-free, UAF, use-after-return, unchecked-return-deref, realloc-failure-leak, and null-deref patterns path-sensitively."
   ]
 }
