@@ -36,6 +36,14 @@
       "vstrdup", "devm_kstrdup"
     ]
   },
+  "acquire_methods": {
+    "python": ["open", "socket.socket", "socket.create_connection",
+      "tempfile.NamedTemporaryFile", "tempfile.TemporaryFile"],
+    "javascript": ["fs.open", "fs.openSync", "fs.createReadStream",
+      "fs.createWriteStream", "URL.createObjectURL"],
+    "typescript": ["fs.open", "fs.openSync", "fs.createReadStream",
+      "fs.createWriteStream", "URL.createObjectURL"]
+  },
   "dealloc": {
     "c": [
       "free", "cfree",
@@ -52,6 +60,7 @@
     ]
   },
   "release_methods": {
+    "c": ["g_free", "reset", "operator delete", "operator delete[]"],
     "python": ["close", "__exit__", "__del__", "release"],
     "javascript": ["close", "destroy", "dispose", "revoke", "terminate", "release"],
     "typescript": ["close", "destroy", "dispose", "revoke", "terminate", "release"]
