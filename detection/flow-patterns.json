@@ -120,6 +120,7 @@
       ],
       "shape": "a memory.copy sink whose obligation value has dom == 'fall-through' -- a size-testing branch exists in the function but this copy is reached on the path that skips it",
       "signal": "the escaped guard is the lead; taint is a stronger corroboration, not required",
+      "matcher": {"pattern": "missing-guard", "families": ["buffer-write", "buffer-size"]},
       "note": "implemented as the `missing-guard` evaluator + guard dimension (evaluators.json). Listed so the directory is complete."
     },
     {
@@ -136,6 +137,7 @@
       ],
       "shape": "a memory.alloc sink with tainted == true and cap in {exceeds-capacity, capacity-known-size-unknown}",
       "signal": "the size flows from a source and is not clamped to a bound",
+      "matcher": {"pattern": "relational", "families": ["alloc-size"]},
       "note": "covered by the `relational` evaluator over alloc-size kinds."
     },
     {
@@ -156,6 +158,7 @@
       ],
       "shape": "a memory.copy sink whose `control` list contains a for/while/do header, with guarded == false and the loop bound not derived from the destination capacity",
       "signal": "the loop can iterate past the destination; the copy is not guarded per-iteration",
+      "matcher": {"pattern": "mem.copy.in-loop-unbounded", "families": ["buffer-write", "buffer-size"]},
       "note": "shipped in the semantic skeleton matcher: the copy sink's `control` nesting + `guarded` flag carry the loop-membership, so no separate control event is needed."
     },
     {
@@ -174,6 +177,7 @@
       ],
       "shape": "a memory.alloc token with dst==D, size_expr==sizeA followed on the same path by a memory.copy token with dst==D, size_expr==sizeB where sizeB is not syntactically derived from sizeA",
       "signal": "the destination was sized for sizeA but written sizeB",
+      "matcher": {"pattern": "mem.alloc-copy.size-mismatch", "families": []},
       "note": "two-token path pattern joining alloc.dst to copy.dst; both dst and size_expr now emitted on every alloc/copy token."
     },
     {
@@ -189,6 +193,7 @@
       ],
       "shape": "two memory.free sinks on the same path over the same pointer identity with no reassignment or reallocation of that pointer between them",
       "signal": "the second free is the lead",
+      "matcher": {"pattern": "double-free", "families": []},
       "note": "canonical typestate example. Matched PATH-SENSITIVELY: the reader replays a START->ALLOCATED->FREED property automaton as a forward may-analysis over the control-flow graph, so two frees on mutually-exclusive branches never meet (no false lead) while a free reachable across a loop back-edge does. Pointer identity is the alloc's destination variable."
     },
     {
@@ -205,6 +210,7 @@
       ],
       "shape": "a memory.free(x) followed on the same path by a memory.deref(x) or a memory.copy reading from x, with no reassignment of x between",
       "signal": "the post-free use is the lead",
+      "matcher": {"pattern": "uaf.deref", "families": []},
       "note": "The semantic graph emits READ_STORAGE, WRITE_STORAGE, PASS_VALUE, COMPARE_VALUE, and RETURN_VALUE, so both direct dereferences and value uses are matched path-sensitively."
     },
     {
@@ -222,6 +228,7 @@
       ],
       "shape": "REALLOC_FAILED followed by WRITE_STORAGE(slot, NULL) and LOST_FROM_SLOT(object, slot), with no release or surviving alias before exit",
       "signal": "the failed realloc path drops the last owning slot; an existing alias suppresses this leak",
+      "matcher": {"pattern": "mem.lifetime.realloc-failure-leak", "families": []},
       "note": "The semantic graph matcher treats realloc failure as non-freeing, then evaluates slot loss and alias roots at the enclosing exit."
     },
     {
@@ -237,6 +244,7 @@
       ],
       "shape": "WRITE_STORAGE(slot, NULL) followed on a compatible path by READ_STORAGE or WRITE_STORAGE through that slot",
       "signal": "the storage slot is proven null at the dereference",
+      "matcher": {"pattern": "null-deref", "families": []},
       "note": "NULL is represented as a WRITE_STORAGE fact with null=true, keeping the event alphabet uniform."
     },
     {
@@ -252,6 +260,7 @@
       ],
       "shape": "a return (or store into an out-param / global) of the address of a stack local",
       "signal": "the escaping address is the lead",
+      "matcher": {"pattern": "use-after-return", "families": []},
       "note": "the semantic reader marks returned automatic arrays and explicit address-of-local paths; the matcher emits a use-after-return witness."
     },
     {
@@ -268,6 +277,7 @@
       ],
       "shape": "a call whose return is bound to r, then a memory.deref(r) on a path with no if/guard testing r between the call and the deref",
       "signal": "the unchecked deref is the lead",
+      "matcher": {"pattern": "unchecked-return-deref", "families": []},
       "note": "the semantic reader marks pointer call results as nullable origins; compatible NONNULL/ISNULL guards discharge the unchecked-return obligation before dereference."
     }
   ],
