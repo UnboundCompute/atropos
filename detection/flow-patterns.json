@@ -166,8 +166,8 @@
         "CWE-787"
       ],
       "tier": 1,
-      "status": "substrate-ready",
-      "substrate": "each sink token now carries `dst` (the pointer identity) and `size_expr` (the size operand), so an alloc token and a copy token sharing a `dst` can be joined and their `size_expr` compared. Not yet wired into the (currently hardcoded) matcher.",
+      "status": "shipped",
+      "substrate": "each semantic sink event carries `dst` (the pointer identity) and `size_expr` (the size operand); path-local matcher state compares an allocation sink with a later copy sink sharing that destination.",
       "requires": [
         "memory.alloc",
         "memory.copy"
