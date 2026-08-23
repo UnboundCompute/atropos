@@ -25,14 +25,11 @@
         "blocks": []
       },
       "memory.deref": {
-        "emitted": false,
+        "emitted": true,
         "lang": [
           "c"
         ],
-        "blocks": [
-          "mem.lifetime.use-after-free",
-          "ctrl.unchecked-return-deref"
-        ]
+        "blocks": []
       },
       "injection.exec": {
         "emitted": true
@@ -201,15 +198,46 @@
         "CWE-416"
       ],
       "tier": 2,
-      "status": "partial",
-      "blocked_on": "reader must emit memory.deref lifecycle nodes for the bare-dereference case",
+      "status": "shipped",
       "requires": [
         "memory.free",
         "memory.deref"
       ],
       "shape": "a memory.free(x) followed on the same path by a memory.deref(x) or a memory.copy reading from x, with no reassignment of x between",
       "signal": "the post-free use is the lead",
-      "note": "pointer identity join and the path-sensitive automaton are the same as double-free. The free side is emitted, so a post-free use that is a CALL passing x (a use event) is already matched today; the remaining gap is the standalone bare dereference (x[i], *x, x->f), which needs the memory.deref constructor to land on the skeleton."
+      "note": "The semantic graph emits READ_STORAGE, WRITE_STORAGE, PASS_VALUE, COMPARE_VALUE, and RETURN_VALUE, so both direct dereferences and value uses are matched path-sensitively."
+    },
+    {
+      "id": "mem.lifetime.realloc-failure-leak",
+      "name": "Failed reallocation loses the only owning slot",
+      "cwe": [
+        "CWE-401",
+        "CWE-772"
+      ],
+      "tier": 1,
+      "status": "shipped",
+      "requires": [
+        "memory.alloc",
+        "memory.free"
+      ],
+      "shape": "REALLOC_FAILED followed by WRITE_STORAGE(slot, NULL) and LOST_FROM_SLOT(object, slot), with no release or surviving alias before exit",
+      "signal": "the failed realloc path drops the last owning slot; an existing alias suppresses this leak",
+      "note": "The semantic graph matcher treats realloc failure as non-freeing, then evaluates slot loss and alias roots at the enclosing exit."
+    },
+    {
+      "id": "mem.lifetime.null-deref",
+      "name": "Dereference of a known-null storage slot",
+      "cwe": [
+        "CWE-476"
+      ],
+      "tier": 1,
+      "status": "shipped",
+      "requires": [
+        "memory.deref"
+      ],
+      "shape": "WRITE_STORAGE(slot, NULL) followed on a compatible path by READ_STORAGE or WRITE_STORAGE through that slot",
+      "signal": "the storage slot is proven null at the dereference",
+      "note": "NULL is represented as a WRITE_STORAGE fact with null=true, keeping the event alphabet uniform."
     },
     {
       "id": "mem.lifetime.use-after-return",
