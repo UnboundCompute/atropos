@@ -263,6 +263,7 @@
       "signal": "the object is no longer recoverable by the owning scope",
       "matcher": {"pattern": "leak", "families": [],
                    "event_kinds": ["origin"]},
+      "evaluator": "typestate",
       "candidate": {"domain": "lifecycle", "family": "leak"},
       "note": "Path-specific leak matching remains in the semantic graph; Atropos supplies the public taxonomy."
     },
@@ -281,6 +282,7 @@
       "signal": "the value use preserves a dangling pointer beyond its lifetime",
       "matcher": {"pattern": "use.dangling", "families": [],
                    "event_kinds": ["pass_value", "compare_value", "return_value"]},
+      "evaluator": "typestate",
       "candidate": {"domain": "lifecycle", "family": "dangling-use"},
       "note": "This is intentionally distinct from use-after-free dereference findings."
     },
@@ -299,6 +301,7 @@
       "signal": "the second free is the lead",
       "matcher": {"pattern": "double-free", "families": [],
                    "event_kinds": ["release"]},
+      "evaluator": "typestate",
       "candidate": {"domain": "lifecycle", "family": "double-free"},
       "note": "canonical typestate example. Matched PATH-SENSITIVELY: the reader replays a START->ALLOCATED->FREED property automaton as a forward may-analysis over the control-flow graph, so two frees on mutually-exclusive branches never meet (no false lead) while a free reachable across a loop back-edge does. Pointer identity is the alloc's destination variable."
     },
@@ -318,6 +321,7 @@
       "signal": "the post-free use is the lead",
       "matcher": {"pattern": "uaf.deref", "families": [],
                    "event_kinds": ["read", "write", "read_storage", "write_storage"]},
+      "evaluator": "typestate",
       "candidate": {"domain": "lifecycle", "family": "use-after-free"},
       "note": "The semantic graph emits READ_STORAGE, WRITE_STORAGE, PASS_VALUE, COMPARE_VALUE, and RETURN_VALUE, so both direct dereferences and value uses are matched path-sensitively."
     },
@@ -338,6 +342,7 @@
       "signal": "the failed realloc path drops the last owning slot; an existing alias suppresses this leak",
       "matcher": {"pattern": "mem.lifetime.realloc-failure-leak", "families": [],
                    "event_kinds": ["realloc_failed"]},
+      "evaluator": "typestate",
       "candidate": {"domain": "lifecycle", "family": "realloc-failure-leak"},
       "note": "The semantic graph matcher treats realloc failure as non-freeing, then evaluates slot loss and alias roots at the enclosing exit."
     },
@@ -356,6 +361,7 @@
       "signal": "the storage slot is proven null at the dereference",
       "matcher": {"pattern": "null-deref", "families": [],
                    "event_kinds": ["read", "write", "read_storage", "write_storage"]},
+      "evaluator": "typestate",
       "candidate": {"domain": "lifecycle", "family": "null-deref"},
       "note": "NULL is represented as a WRITE_STORAGE fact with null=true, keeping the event alphabet uniform."
     },
@@ -374,6 +380,7 @@
       "signal": "the escaping address is the lead",
       "matcher": {"pattern": "use-after-return", "families": [],
                    "event_kinds": ["return_value"]},
+      "evaluator": "typestate",
       "candidate": {"domain": "lifecycle", "family": "use-after-return"},
       "note": "the semantic reader marks returned automatic arrays and explicit address-of-local paths; the matcher emits a use-after-return witness."
     },
