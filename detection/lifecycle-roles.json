@@ -15,10 +15,12 @@
   },
   "aggregate_copy": {
     "c": {
-      "memcpy": "sizeof",
-      "memmove": "sizeof",
-      "__builtin_memcpy": "sizeof",
-      "__builtin_memmove": "sizeof"
+    "memcpy": "sizeof",
+    "memmove": "sizeof",
+    "__builtin_memcpy": "sizeof",
+    "__builtin_memmove": "sizeof",
+    "__builtin___memcpy_chk": "sizeof",
+    "__builtin___memmove_chk": "sizeof"
     }
   },
   "alloc": {
