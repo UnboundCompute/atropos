@@ -262,6 +262,7 @@
       "shape": "an allocation origin reaches an enclosing exit without release, escape, or a surviving ownership alias",
       "signal": "the object is no longer recoverable by the owning scope",
       "matcher": {"pattern": "leak", "families": []},
+      "candidate": {"domain": "lifecycle", "family": "leak"},
       "note": "Path-specific leak matching remains in the semantic graph; Atropos supplies the public taxonomy."
     },
     {
@@ -278,6 +279,7 @@
       "shape": "a freed object is passed, compared, or returned without a storage dereference",
       "signal": "the value use preserves a dangling pointer beyond its lifetime",
       "matcher": {"pattern": "use.dangling", "families": []},
+      "candidate": {"domain": "lifecycle", "family": "dangling-use"},
       "note": "This is intentionally distinct from use-after-free dereference findings."
     },
     {
@@ -331,6 +333,7 @@
       "shape": "REALLOC_FAILED followed by WRITE_STORAGE(slot, NULL) and LOST_FROM_SLOT(object, slot), with no release or surviving alias before exit",
       "signal": "the failed realloc path drops the last owning slot; an existing alias suppresses this leak",
       "matcher": {"pattern": "mem.lifetime.realloc-failure-leak", "families": []},
+      "candidate": {"domain": "lifecycle", "family": "realloc-failure-leak"},
       "note": "The semantic graph matcher treats realloc failure as non-freeing, then evaluates slot loss and alias roots at the enclosing exit."
     },
     {
@@ -347,6 +350,7 @@
       "shape": "WRITE_STORAGE(slot, NULL) followed on a compatible path by READ_STORAGE or WRITE_STORAGE through that slot",
       "signal": "the storage slot is proven null at the dereference",
       "matcher": {"pattern": "null-deref", "families": []},
+      "candidate": {"domain": "lifecycle", "family": "null-deref"},
       "note": "NULL is represented as a WRITE_STORAGE fact with null=true, keeping the event alphabet uniform."
     },
     {
@@ -363,6 +367,7 @@
       "shape": "a return (or store into an out-param / global) of the address of a stack local",
       "signal": "the escaping address is the lead",
       "matcher": {"pattern": "use-after-return", "families": []},
+      "candidate": {"domain": "lifecycle", "family": "use-after-return"},
       "note": "the semantic reader marks returned automatic arrays and explicit address-of-local paths; the matcher emits a use-after-return witness."
     },
     {
