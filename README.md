@@ -94,7 +94,8 @@ python3 tools/validate_pack.py # pack metadata, version authority, and coverage
 python3 tools/build_pack.py --output /tmp/atropos-core-$(cat VERSION).zip \
   --checksums /tmp/atropos-core.sha256 \
   --provenance /tmp/atropos-core.provenance.json # deterministic archive + evidence
-python3 tools/bind.py fixtures/c_buffer.index.json   # resolve models to exact graph nodes
+python3 tools/bind.py fixtures/c_buffer.index.json   # resolve local models to exact graph nodes
+python3 tools/bind.py fixtures/c_buffer.index.json --models-root /tmp/unpacked-pack/models
 python3 tools/stats.py        # human-readable coverage snapshot
 python3 tools/stats.py --json # machine-readable coverage for release/docs automation
 python3 -m unittest discover -s tests   # gate 2: binding fixtures + schema

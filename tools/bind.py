@@ -271,16 +271,20 @@ def bind_all(models: list, index: dict) -> dict:
 
 def main(argv: list) -> int:
     if argv[1:] in (["-h"], ["--help"]):
-        print("usage: bind.py <symbol-index.json>")
+        print("usage: bind.py <symbol-index.json> [--models-root PATH]")
         print("Bind catalog entries to a neutral symbol index and emit a JSON report.")
         return 0
     if len(argv) == 2 and argv[1].startswith("-"):
-        print("usage: bind.py <symbol-index.json>", file=sys.stderr)
+        print("usage: bind.py <symbol-index.json> [--models-root PATH]", file=sys.stderr)
         return 2
-    if len(argv) != 2:
-        print("usage: bind.py <symbol-index.json>", file=sys.stderr)
+    if len(argv) == 2:
+        index_arg, models_root = argv[1], MODELS
+    elif len(argv) == 4 and argv[2] == "--models-root":
+        index_arg, models_root = argv[1], Path(argv[3])
+    else:
+        print("usage: bind.py <symbol-index.json> [--models-root PATH]", file=sys.stderr)
         return 2
-    path = Path(argv[1])
+    path = Path(index_arg)
     try:
         index = json.loads(path.read_text(encoding="utf-8"))
     except OSError as error:
@@ -294,7 +298,7 @@ def main(argv: list) -> int:
         return 2
     try:
         validate_index(index)
-        models = load_models()
+        models = load_models(models_root)
     except CatalogError as error:
         print(f"bind.py: {error}", file=sys.stderr)
         return 2

@@ -11,6 +11,7 @@
 - Add deterministic `tools/build_pack.py` archives with printed SHA-256 digests,
   plus external-root validation for framework-pack development.
 - Add optional checksum and JSON provenance sidecars to pack builds.
+- Allow `tools/bind.py` to consume an extracted pack through `--models-root`.
 
 ## 1.7.1
 
