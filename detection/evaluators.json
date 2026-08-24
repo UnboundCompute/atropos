@@ -37,6 +37,7 @@
     "lifecycle.escape": "typestate"
   },
   "event_evaluator": {
+    "alloc_attempt": "typestate",
     "acquire": "typestate",
     "origin": "typestate",
     "release": "typestate",
@@ -44,6 +45,7 @@
     "use": "typestate",
     "read_storage": "typestate",
     "write_storage": "typestate",
+    "write_storage_null": "typestate",
     "pass_value": "typestate",
     "compare_value": "typestate",
     "return_value": "typestate",
