@@ -51,6 +51,11 @@
           "minimum": 0,
           "description": "Exact parameter count of the intended symbol. null leaves the name unconstrained; an integer rejects a same-named callsite of a different arity (e.g. a project's own function-pointer that shadows a libc name)."
         },
+        "element_count_arg": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "For an allocation model, the argument counting elements rather than bytes."
+        },
         "access_path": {
           "type": "string",
           "pattern": "^(Argument\\[(\\*|[0-9]+)\\]|ReturnValue|Receiver)(\\s*->\\s*(Argument\\[(\\*|[0-9]+)\\]|ReturnValue|Receiver))?$",
