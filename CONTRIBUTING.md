@@ -25,6 +25,22 @@ python3 tools/stats.py --json                 # machine-readable coverage snapsh
 No virtualenv, no dependencies. If `python3 tools/validate.py` prints `OK`, you're
 set up.
 
+## Scaffold a model
+
+Use the stdlib-only scaffold to avoid hand-writing the role-grouped envelope:
+
+```bash
+python3 tools/new_model.py python.demo.exec.arg0 \
+  --language python --role sink --method exec \
+  --package demo --access-path 'Argument[0]' \
+  --kind command-injection --cwe CWE-78
+python3 tools/validate.py
+```
+
+The command refuses duplicate IDs and prints the next required step: add a
+binding fixture and review the symbol/access-path assumptions. It does not mark
+the model verified; schema validation and binding evidence remain mandatory.
+
 ## Where entries live
 
 ```

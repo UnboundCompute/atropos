@@ -93,6 +93,11 @@ python3 tools/bind.py fixtures/c_buffer.index.json   # resolve models to exact g
 python3 tools/stats.py        # human-readable coverage snapshot
 python3 tools/stats.py --json # machine-readable coverage for release/docs automation
 python3 -m unittest discover -s tests   # gate 2: binding fixtures + schema
+
+# scaffold a new entry, then validate and add a binding fixture
+python3 tools/new_model.py python.demo.exec.arg0 --language python --role sink \
+  --method exec --package demo --access-path 'Argument[0]' \
+  --kind command-injection --cwe CWE-78
 ```
 
 For the complete local gate used by CI and release verification, run `make check`.
