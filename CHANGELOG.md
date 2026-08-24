@@ -12,6 +12,7 @@
   plus external-root validation for framework-pack development.
 - Add optional checksum and JSON provenance sidecars to pack builds.
 - Allow `tools/bind.py` to consume an extracted pack through `--models-root`.
+- Require and include the declared license file in distributable pack archives.
 
 ## 1.7.1
 

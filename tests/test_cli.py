@@ -2,6 +2,7 @@ import subprocess
 import sys
 import json
 import tempfile
+import zipfile
 import unittest
 from pathlib import Path
 
@@ -92,11 +93,12 @@ class ToolCliTests(unittest.TestCase):
             root = Path(directory) / "pack"
             root.mkdir()
             (root / "VERSION").write_text("0.0.1\n")
+            (root / "LICENSE").write_text("demo license\n")
             (root / "models.json").write_text(json.dumps({"entries": [{"id": "x"}]}))
             (root / "pack.json").write_text(json.dumps({
                 "format": "atropos-model-pack", "schema_version": 1,
                 "id": "demo.pack", "name": "Demo", "version": "0.0.1",
-                "license": "CC0", "languages": ["python"], "model_globs": ["models.json"],
+                "license": "CC0", "license_file": "LICENSE", "languages": ["python"], "model_globs": ["models.json"],
                 "verified_entries": 1, "provenance": {
                     "source_of_truth": "test", "binding_required": True,
                     "candidate_rows_are_consumed": False,
@@ -116,6 +118,8 @@ class ToolCliTests(unittest.TestCase):
             self.assertEqual(0, result.returncode, result.stderr)
             self.assertIn("one.zip", checksums.read_text())
             self.assertEqual("demo.pack", json.loads(provenance.read_text())["pack"]["id"])
+            with zipfile.ZipFile(first) as archive:
+                self.assertIn("LICENSE", archive.namelist())
 
 
 if __name__ == "__main__":

@@ -31,6 +31,9 @@ def validate(root: Path) -> tuple[dict, list[Path], list[str]]:
         errors.append("provenance.binding_required must be true")
     if pack.get("provenance", {}).get("candidate_rows_are_consumed"):
         errors.append("candidate rows must remain outside verified consumer models")
+    license_file = pack.get("license_file")
+    if not isinstance(license_file, str) or not license_file or not (root / license_file).is_file():
+        errors.append(f"license_file is missing: {license_file or 'not declared'}")
     files = []
     for pattern in pack.get("model_globs", []):
         files.extend(root.glob(pattern))

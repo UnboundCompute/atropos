@@ -27,7 +27,12 @@ def main(argv=None) -> int:
         for error in errors:
             print(f"build_pack.py: {error}", file=sys.stderr)
         return 1
-    files = [root / "pack.json", *model_files]
+    package_files = [root / "pack.json", root / pack["license_file"], *model_files]
+    for optional in ("README.md", "CHANGELOG.md"):
+        candidate = root / optional
+        if candidate.is_file():
+            package_files.append(candidate)
+    files = list(dict.fromkeys(package_files))
     if output in {path.resolve() for path in files}:
         print("build_pack.py: output must be outside the pack files", file=sys.stderr)
         return 2

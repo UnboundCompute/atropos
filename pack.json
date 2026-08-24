@@ -5,6 +5,7 @@
   "name": "Atropos Core Models",
   "version": "1.7.1",
   "license": "CC-BY-4.0",
+  "license_file": "LICENSE",
   "languages": ["c", "javascript", "python", "typescript"],
   "model_globs": ["models/**/*.json"],
   "verified_entries": 1121,
