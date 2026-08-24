@@ -13,7 +13,7 @@ argument or return value to watch.
 Put plainly: Lachesis figures out how code connects. Atropos is the lookup table
 that says "this specific argument is dangerous, and here is why."
 
-> **Status: v1.7.1, actively curated.** 1121 verified facts (plus 7 candidates under review). The data is
+> **Status: v1.8.0, actively curated.** 1121 verified facts (plus 7 candidates under review). The data is
 > validated on every change. Contributions are welcome, see
 > [Contributing](#contributing).
 
@@ -131,10 +131,10 @@ Download the consumer-ready pack from the [Atropos GitHub Releases](https://gith
 then verify the publisher's checksum and install it without manually extracting it:
 
 ```bash
-python3 tools/install_pack.py /path/to/atropos-core-1.7.1.zip \
+python3 tools/install_pack.py /path/to/atropos-core-1.8.0.zip \
   --sha256 "<64-character digest>"
 # then point a consumer at the printed directory:
-ATROPOS_ROOT="$HOME/.atropos/packs/atropos.core/1.7.1" lachesis scan ./repository
+ATROPOS_ROOT="$HOME/.atropos/packs/atropos.core/1.8.0" lachesis scan ./repository
 ```
 
 The installer rejects unsafe archive paths, special files, checksum mismatches, and

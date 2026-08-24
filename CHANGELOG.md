@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 1.8.0
+
 - Add `pack.json` core-pack metadata and `tools/validate_pack.py` coverage/version
   gate for distributable catalog provenance.
 - Add `tools/new_model.py` to scaffold role-grouped entries and reject duplicate IDs
