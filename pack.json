@@ -1,6 +1,6 @@
 {
   "format": "atropos-model-pack",
-  "schema_version": 1,
+  "schema_version": 2,
   "id": "atropos.core",
   "name": "Atropos Core Models",
   "version": "1.7.1",
