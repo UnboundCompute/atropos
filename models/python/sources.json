@@ -918,6 +918,40 @@
       "confidence": "medium",
       "corroboration": 1,
       "notes": null
+    },
+    {
+      "id": "python.archive.getmembers.ret",
+      "language": "python",
+      "package": null,
+      "type": null,
+      "method": "getmembers",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "archive-entry",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "archive member metadata can carry attacker-controlled names"
+    },
+    {
+      "id": "python.archive.namelist.ret",
+      "language": "python",
+      "package": null,
+      "type": null,
+      "method": "namelist",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "archive-entry",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "archive entry names are external path components"
     }
   ]
 }
