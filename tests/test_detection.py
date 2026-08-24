@@ -47,9 +47,17 @@ class TestDetection(unittest.TestCase):
         self.assertEqual(missing, set(), f"catalog sink kinds without a recipe: {missing}")
 
     def test_no_recipe_for_a_kind_the_catalog_never_stamps(self):
-        # Keeps the table honest: no evaluator rows for kinds nothing produces.
+        # Sink recipes must correspond to model kinds.  Lifecycle recipes are a
+        # separate event vocabulary consumed by the semantic skeleton, not sink
+        # rows in models/; those are validated through event_evaluator below.
         extra = set(self.d["kind_evaluator"]) - _catalog_sink_kinds()
-        self.assertEqual(extra, set(), f"recipe rows with no catalog sink kind: {extra}")
+        lifecycle = {kind for kind in extra if kind.startswith("lifecycle.")}
+        self.assertEqual(extra, lifecycle,
+                         f"recipe rows with no catalog sink kind: {extra - lifecycle}")
+        self.assertEqual(lifecycle, {
+            "lifecycle.acquire", "lifecycle.release",
+            "lifecycle.use", "lifecycle.escape",
+        })
 
     def test_bridge_targets_have_recipes(self):
         for vocab, bridge in self.d["role_bridges"].items():
