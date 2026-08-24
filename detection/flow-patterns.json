@@ -143,6 +143,24 @@
       "note": "covered by the `relational` evaluator over alloc-size kinds."
     },
     {
+      "id": "mem.alloc.missing-guard",
+      "name": "Allocation reached around its size guard",
+      "cwe": [
+        "CWE-789",
+        "CWE-190"
+      ],
+      "tier": 1,
+      "status": "shipped",
+      "requires": [
+        "memory.alloc"
+      ],
+      "shape": "a memory.alloc sink whose size-testing guard exists but is escaped on the path reaching the allocation",
+      "signal": "the allocation is reached outside the validating size region",
+      "matcher": {"pattern": "missing-guard", "families": ["alloc-size"]},
+      "evaluator": "missing-guard",
+      "note": "Keeps allocation-size guard leads distinct from buffer-write missing-bounds leads while reusing the generic evaluator."
+    },
+    {
       "id": "mem.write.inverted-capacity-guard",
       "name": "Copy is enabled by an inverted capacity guard",
       "cwe": [
