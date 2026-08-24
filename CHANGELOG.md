@@ -10,6 +10,7 @@
   symbol-index fixture from an existing model ID.
 - Add deterministic `tools/build_pack.py` archives with printed SHA-256 digests,
   plus external-root validation for framework-pack development.
+- Add optional checksum and JSON provenance sidecars to pack builds.
 
 ## 1.7.1
 

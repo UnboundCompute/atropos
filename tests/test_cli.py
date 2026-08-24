@@ -107,6 +107,15 @@ class ToolCliTests(unittest.TestCase):
                 result = self.run_tool("build_pack.py", "--root", str(root), "--output", str(output))
                 self.assertEqual(0, result.returncode, result.stderr)
             self.assertEqual(first.read_bytes(), second.read_bytes())
+            checksums = Path(directory) / "one.sha256"
+            provenance = Path(directory) / "one.provenance.json"
+            result = self.run_tool(
+                "build_pack.py", "--root", str(root), "--output", str(first),
+                "--checksums", str(checksums), "--provenance", str(provenance),
+            )
+            self.assertEqual(0, result.returncode, result.stderr)
+            self.assertIn("one.zip", checksums.read_text())
+            self.assertEqual("demo.pack", json.loads(provenance.read_text())["pack"]["id"])
 
 
 if __name__ == "__main__":

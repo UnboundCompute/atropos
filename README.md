@@ -91,7 +91,9 @@ engine drop its conservative every-argument-flows-to-return default).
 ```bash
 python3 tools/validate.py     # gate 1: schema shape, unique ids, grammatical access paths
 python3 tools/validate_pack.py # pack metadata, version authority, and coverage
-python3 tools/build_pack.py --output /tmp/atropos-core-$(cat VERSION).zip # deterministic archive
+python3 tools/build_pack.py --output /tmp/atropos-core-$(cat VERSION).zip \
+  --checksums /tmp/atropos-core.sha256 \
+  --provenance /tmp/atropos-core.provenance.json # deterministic archive + evidence
 python3 tools/bind.py fixtures/c_buffer.index.json   # resolve models to exact graph nodes
 python3 tools/stats.py        # human-readable coverage snapshot
 python3 tools/stats.py --json # machine-readable coverage for release/docs automation
@@ -116,7 +118,9 @@ framework packs can use the same contract.
 To create a portable artifact, run `make pack` or invoke `build_pack.py` with an
 output path. The archive uses stable file ordering and timestamps, then prints a
 SHA-256 digest suitable for release checksums. Pack archives contain metadata and
-verified model files only; candidates remain outside the consumer glob.
+verified model files only; candidates remain outside the consumer glob. The
+optional checksum and provenance sidecars record the artifact digest, pack
+identity/version, source revision when available, and exact archive file list.
 
 Consuming the data is just reading JSON, with no import and no dependency. A binder
 in the engine walks `models/**/*.json`, resolves each

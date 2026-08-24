@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
+import subprocess
 import sys
 import zipfile
 from pathlib import Path
@@ -15,6 +17,8 @@ def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description="Build a deterministic Atropos model-pack archive.")
     parser.add_argument("--root", type=Path, default=validate_pack.ROOT, help="pack directory")
     parser.add_argument("--output", type=Path, required=True, help="output .zip path")
+    parser.add_argument("--checksums", type=Path, help="optional sha256sum-format sidecar")
+    parser.add_argument("--provenance", type=Path, help="optional JSON provenance sidecar")
     args = parser.parse_args([] if argv is None else argv)
     root = args.root.resolve()
     output = args.output.resolve()
@@ -37,6 +41,28 @@ def main(argv=None) -> int:
             info.external_attr = 0o644 << 16
             archive.writestr(info, path.read_bytes())
     digest = hashlib.sha256(output.read_bytes()).hexdigest()
+    if args.checksums:
+        args.checksums.parent.mkdir(parents=True, exist_ok=True)
+        args.checksums.write_text(f"{digest}  {output.name}\n", encoding="utf-8")
+    if args.provenance:
+        try:
+            source_revision = subprocess.check_output(
+                ["git", "-C", str(root), "rev-parse", "HEAD"],
+                text=True,
+                stderr=subprocess.DEVNULL,
+            ).strip()
+        except (OSError, subprocess.CalledProcessError):
+            source_revision = None
+        provenance = {
+            "schema_version": 1,
+            "artifact": output.name,
+            "sha256": digest,
+            "pack": {"id": pack.get("id"), "version": pack.get("version")},
+            "source_revision": source_revision,
+            "files": [path.relative_to(root).as_posix() for path in sorted(files, key=lambda item: item.relative_to(root).as_posix())],
+        }
+        args.provenance.parent.mkdir(parents=True, exist_ok=True)
+        args.provenance.write_text(json.dumps(provenance, indent=2) + "\n", encoding="utf-8")
     print(f"built {output} for {pack.get('id')} v{pack.get('version')}")
     print(f"sha256 {digest}")
     return 0

@@ -134,7 +134,9 @@ These are the house rules (they're also in [`CLAUDE.md`](CLAUDE.md)):
    globs.
 5. Build a review artifact without installing dependencies:
    ```bash
-   python3 tools/build_pack.py --output /tmp/atropos-pack.zip
+   python3 tools/build_pack.py --output /tmp/atropos-pack.zip \
+     --checksums /tmp/atropos-pack.sha256 \
+     --provenance /tmp/atropos-pack.provenance.json
    sha256sum /tmp/atropos-pack.zip
    ```
 6. Open a pull request describing the symbols you added and why they belong in the
