@@ -20,14 +20,14 @@ class ToolCliTests(unittest.TestCase):
         )
 
     def test_help_is_fast_and_explicit(self):
-        for name in ("validate.py", "stats.py", "bind.py", "new_model.py", "validate_pack.py"):
+        for name in ("validate.py", "stats.py", "bind.py", "new_model.py", "new_fixture.py", "validate_pack.py"):
             with self.subTest(name=name):
                 result = self.run_tool(name, "--help")
                 self.assertEqual(0, result.returncode)
                 self.assertIn("usage:", result.stdout)
 
     def test_unknown_arguments_are_usage_errors(self):
-        for name in ("validate.py", "stats.py", "bind.py", "new_model.py", "validate_pack.py"):
+        for name in ("validate.py", "stats.py", "bind.py", "new_model.py", "new_fixture.py", "validate_pack.py"):
             with self.subTest(name=name):
                 result = self.run_tool(name, "--unknown")
                 self.assertEqual(2, result.returncode)
@@ -63,6 +63,29 @@ class ToolCliTests(unittest.TestCase):
             )
             self.assertEqual(1, result.returncode)
             self.assertIn("already exists", result.stderr)
+
+    def test_new_fixture_generates_bindable_index_and_source(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            model_file = root / "models" / "python" / "sinks.json"
+            output = root / "fixtures"
+            model_file.parent.mkdir(parents=True)
+            output.mkdir()
+            model_file.write_text(json.dumps({"role_group": "sink", "entries": [{
+                "id": "python.demo.exec.arg0", "language": "python", "package": "demo",
+                "type": None, "method": "exec", "access_path": "Argument[0]",
+                "role": "sink", "kind": "command-injection", "cwe": ["CWE-78"],
+                "confidence": "high"
+            }]}))
+            result = self.run_tool(
+                "new_fixture.py", "python.demo.exec.arg0", "--root", str(root),
+                "--output-dir", str(output),
+            )
+            self.assertEqual(0, result.returncode, result.stderr)
+            index = json.loads(next(output.glob("*.index.json")).read_text())
+            self.assertEqual("atropos-symbol-index", index["format"])
+            self.assertEqual("exec", index["callsites"][0]["callee"]["name"])
+            self.assertEqual(["v_arg0"], index["callsites"][0]["arg_value_ids"])
 
 
 if __name__ == "__main__":

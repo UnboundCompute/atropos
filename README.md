@@ -100,6 +100,8 @@ python3 -m unittest discover -s tests   # gate 2: binding fixtures + schema
 python3 tools/new_model.py python.demo.exec.arg0 --language python --role sink \
   --method exec --package demo --access-path 'Argument[0]' \
   --kind command-injection --cwe CWE-78
+# then generate a neutral binding fixture for the new model
+python3 tools/new_fixture.py python.demo.exec.arg0 --output-dir fixtures
 ```
 
 For the complete local gate used by CI and release verification, run `make check`.

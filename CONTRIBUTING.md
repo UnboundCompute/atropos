@@ -36,11 +36,14 @@ python3 tools/new_model.py python.demo.exec.arg0 \
   --package demo --access-path 'Argument[0]' \
   --kind command-injection --cwe CWE-78
 python3 tools/validate.py
+python3 tools/new_fixture.py python.demo.exec.arg0 --output-dir fixtures
+python3 tools/bind.py fixtures/python_demo_exec_arg0.index.json
 ```
 
-The command refuses duplicate IDs and prints the next required step: add a
-binding fixture and review the symbol/access-path assumptions. It does not mark
-the model verified; schema validation and binding evidence remain mandatory.
+The model command refuses duplicate IDs and the fixture command generates a tiny
+source reference plus neutral symbol index. The fixture is evidence for binding,
+not a claim that the source is a realistic application. Review the generated
+index and keep the fixture in the PR when it captures a regression.
 
 ## Where entries live
 
