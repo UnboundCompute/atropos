@@ -71,6 +71,7 @@ models/
   typescript/   sinks sources sanitizers summaries
 candidates/     known-dangerous symbols not yet precisely bindable (never loaded by consumers)
 schema/         model.schema.json  symbol-index.schema.json
+pack.json       versioned core-pack metadata and provenance policy
 tools/          validate.py  bind.py  stats.py   # stdlib only, zero deps
 fixtures/       tiny symbol-index exports with verified node handles
 tests/          test_models.py  test_binding.py
@@ -89,12 +90,56 @@ engine drop its conservative every-argument-flows-to-return default).
 
 ```bash
 python3 tools/validate.py     # gate 1: schema shape, unique ids, grammatical access paths
-python3 tools/bind.py fixtures/c_buffer.index.json   # resolve models to exact graph nodes
-python3 tools/stats.py        # coverage snapshot by language / role / kind
+python3 tools/validate_pack.py # pack metadata, version authority, and coverage
+python3 tools/build_pack.py --output /tmp/atropos-core-$(cat VERSION).zip \
+  --checksums /tmp/atropos-core.sha256 \
+  --provenance /tmp/atropos-core.provenance.json # deterministic archive + evidence
+python3 tools/bind.py fixtures/c_buffer.index.json   # resolve local models to exact graph nodes
+python3 tools/bind.py fixtures/c_buffer.index.json --models-root /tmp/unpacked-pack/models
+python3 tools/stats.py        # human-readable coverage snapshot
+python3 tools/stats.py --json # machine-readable coverage for release/docs automation
 python3 -m unittest discover -s tests   # gate 2: binding fixtures + schema
+
+# scaffold a new entry, then validate and add a binding fixture
+python3 tools/new_model.py python.demo.exec.arg0 --language python --role sink \
+  --method exec --package demo --access-path 'Argument[0]' \
+  --kind command-injection --cwe CWE-78
+# then generate a neutral binding fixture for the new model
+python3 tools/new_fixture.py python.demo.exec.arg0 --output-dir fixtures
 ```
 
 For the complete local gate used by CI and release verification, run `make check`.
+
+`pack.json` is the machine-readable boundary for the current core catalog. It
+records supported languages, model coverage, license, source repository, and
+whether consumers must bind facts before use. `tools/validate_pack.py` checks it
+against `VERSION` and the files in `models/`; future independently distributed
+framework packs can use the same contract.
+
+To create a portable artifact, run `make pack` or invoke `build_pack.py` with an
+output path. The archive uses stable file ordering and timestamps, then prints a
+SHA-256 digest suitable for release checksums. Pack archives contain metadata,
+verified model files, runtime profiles/detection catalogs, license, and optional
+package documentation; candidates remain outside the consumer glob. The runtime
+catalogs are included because Lachesis reads them for normalization, dispatch, and
+evaluator behavior, so an installed pack is self-contained rather than just a
+model-row snapshot. The
+optional checksum and provenance sidecars record the artifact digest, pack
+identity/version, source revision when available, and exact archive file list.
+
+Download the consumer-ready pack from the [Atropos GitHub Releases](https://github.com/UnboundCompute/atropos/releases),
+then verify the publisher's checksum and install it without manually extracting it:
+
+```bash
+python3 tools/install_pack.py /path/to/atropos-core-1.7.1.zip \
+  --sha256 "<64-character digest>"
+# then point a consumer at the printed directory:
+ATROPOS_ROOT="$HOME/.atropos/packs/atropos.core/1.7.1" lachesis scan ./repository
+```
+
+The installer rejects unsafe archive paths, special files, checksum mismatches, and
+packs that fail the manifest/license/coverage validator. It installs atomically under
+`~/.atropos/packs/<pack-id>/<version>` and never replaces an existing version.
 
 Consuming the data is just reading JSON, with no import and no dependency. A binder
 in the engine walks `models/**/*.json`, resolves each

@@ -17,12 +17,33 @@ consumer can never flag, so new entries are always welcome.
 git clone https://github.com/UnboundCompute/atropos.git
 cd atropos
 python3 tools/validate.py                    # the gate, must pass
+python3 tools/validate_pack.py               # pack metadata and coverage, must pass
 python3 -m unittest discover -s tests        # must pass
-python3 tools/stats.py                        # coverage snapshot
+python3 tools/stats.py                        # human-readable coverage snapshot
+python3 tools/stats.py --json                 # machine-readable coverage snapshot
 ```
 
 No virtualenv, no dependencies. If `python3 tools/validate.py` prints `OK`, you're
 set up.
+
+## Scaffold a model
+
+Use the stdlib-only scaffold to avoid hand-writing the role-grouped envelope:
+
+```bash
+python3 tools/new_model.py python.demo.exec.arg0 \
+  --language python --role sink --method exec \
+  --package demo --access-path 'Argument[0]' \
+  --kind command-injection --cwe CWE-78
+python3 tools/validate.py
+python3 tools/new_fixture.py python.demo.exec.arg0 --output-dir fixtures
+python3 tools/bind.py fixtures/python_demo_exec_arg0.index.json
+```
+
+The model command refuses duplicate IDs and the fixture command generates a tiny
+source reference plus neutral symbol index. The fixture is evidence for binding,
+not a claim that the source is a realistic application. Review the generated
+index and keep the fixture in the PR when it captures a regression.
 
 ## Where entries live
 
@@ -108,7 +129,17 @@ These are the house rules (they're also in [`CLAUDE.md`](CLAUDE.md)):
    ```
    `validate.py` checks schema conformance, id uniqueness, access-path grammar, CWE
    format, and that each file's `role_group` matches every entry's `role`.
-4. Open a pull request describing the symbols you added and why they belong in the
+4. If the change alters pack scope or coverage, update the pack manifest and run
+   `python3 tools/validate_pack.py`. Keep candidate rows outside verified model
+   globs.
+5. Build a review artifact without installing dependencies:
+   ```bash
+   python3 tools/build_pack.py --output /tmp/atropos-pack.zip \
+     --checksums /tmp/atropos-pack.sha256 \
+     --provenance /tmp/atropos-pack.provenance.json
+   sha256sum /tmp/atropos-pack.zip
+   ```
+6. Open a pull request describing the symbols you added and why they belong in the
    class you assigned. CI runs the same gate on every push.
 
 ## Reporting a gap

@@ -1,14 +1,17 @@
 {
   "layer": "detection",
   "kind": "flow-patterns",
-  "note": "The flow-skeleton PATTERN directory -- a layer distinct from the sink/source CATALOGUE (models/) and from the kind->evaluator recipe (evaluators.json). The catalogue labels what a single node IS (this call is an alloc, this arg is a size). A PATTERN here is a structural query over the SHAPE of the taint-scoped control skeleton produced for one function -- an ordered, nesting-aware sequence of {control | sink} events. A double-free is not one node the catalogue can name; it is two `free` nodes on one path with no reallocation between them. That shape only exists at this layer. Pure data: each pattern names the skeleton alphabet it needs and the shape it matches; the engine that runs it lives outside this repo. Matches are LEADS, never verdicts.",
+  "note": "The flow-skeleton PATTERN directory -- a layer distinct from the sink/source CATALOGUE (models/) and from the kind->evaluator recipe (evaluators.json). The catalogue labels what a single node IS (this call is an alloc, this arg is a size). A PATTERN here is a structural query over the SHAPE of the taint-scoped control skeleton produced for one function -- an ordered, nesting-aware sequence of {control | sink} events. A double-free is not one node the catalogue can name; it is two `free` nodes on one path with no reallocation between them. That shape only exists at this layer. Pure data: each pattern names the skeleton alphabet it needs and the shape it matches; Lachesis executes these declarations through its semantic graph matcher. Matches are LEADS, never verdicts.",
   "skeleton_alphabet": {
     "note": "What a rendered control skeleton puts on a line, and the per-sink facts a pattern predicates over. `emitted` marks whether the reader currently stamps that sink family onto the skeleton; a pattern requiring an un-emitted family is tier 2 (blocked) until the reader emits it.",
     "sink_families": {
       "memory.alloc": {
         "emitted": true,
         "lang": [
-          "c"
+          "c",
+          "python",
+          "javascript",
+          "typescript"
         ]
       },
       "memory.copy": {
@@ -20,19 +23,22 @@
       "memory.free": {
         "emitted": true,
         "lang": [
-          "c"
+          "c",
+          "python",
+          "javascript",
+          "typescript"
         ],
         "blocks": []
       },
       "memory.deref": {
-        "emitted": false,
+        "emitted": true,
         "lang": [
-          "c"
+          "c",
+          "python",
+          "javascript",
+          "typescript"
         ],
-        "blocks": [
-          "mem.lifetime.use-after-free",
-          "ctrl.unchecked-return-deref"
-        ]
+        "blocks": []
       },
       "injection.exec": {
         "emitted": true
@@ -123,6 +129,8 @@
       ],
       "shape": "a memory.copy sink whose obligation value has dom == 'fall-through' -- a size-testing branch exists in the function but this copy is reached on the path that skips it",
       "signal": "the escaped guard is the lead; taint is a stronger corroboration, not required",
+      "matcher": {"pattern": "missing-guard", "families": ["buffer-write", "buffer-size"]},
+      "evaluator": "missing-guard",
       "note": "implemented as the `missing-guard` evaluator + guard dimension (evaluators.json). Listed so the directory is complete."
     },
     {
@@ -139,7 +147,81 @@
       ],
       "shape": "a memory.alloc sink with tainted == true and cap in {exceeds-capacity, capacity-known-size-unknown}",
       "signal": "the size flows from a source and is not clamped to a bound",
+      "matcher": {"pattern": "relational", "families": ["alloc-size"]},
+      "evaluator": "relational",
       "note": "covered by the `relational` evaluator over alloc-size kinds."
+    },
+    {
+      "id": "mem.alloc.missing-guard",
+      "name": "Allocation reached around its size guard",
+      "cwe": [
+        "CWE-789",
+        "CWE-190"
+      ],
+      "tier": 1,
+      "status": "shipped",
+      "requires": [
+        "memory.alloc"
+      ],
+      "shape": "a memory.alloc sink whose size-testing guard exists but is escaped on the path reaching the allocation",
+      "signal": "the allocation is reached outside the validating size region",
+      "matcher": {"pattern": "missing-guard", "families": ["alloc-size"]},
+      "evaluator": "missing-guard",
+      "note": "Keeps allocation-size guard leads distinct from buffer-write missing-bounds leads while reusing the generic evaluator."
+    },
+    {
+      "id": "mem.write.inverted-capacity-guard",
+      "name": "Copy is enabled by an inverted capacity guard",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "tier": 1,
+      "status": "shipped",
+      "requires": [
+        "memory.copy"
+      ],
+      "shape": "a tainted copy whose normalized size expression is on the left of a strict-or-equal greater-than capacity comparison in a dominating guard",
+      "signal": "the guarded arm permits the copy when delivered length is at or beyond capacity",
+      "matcher": {"pattern": "inverted-capacity-guard", "families": ["buffer-write", "buffer-size"]},
+      "evaluator": "inverted-capacity-guard",
+      "note": "uses the generic comparator-aware evaluator over translator-provided guard predicates; no language-specific variable names are assumed."
+    },
+    {
+      "id": "mem.arithmetic.overflow-before-bound",
+      "name": "Arithmetic addition precedes a memory bound check",
+      "cwe": [
+        "CWE-190",
+        "CWE-680"
+      ],
+      "tier": 1,
+      "status": "shipped",
+      "requires": [
+        "memory.copy"
+      ],
+      "shape": "a tainted memory-size sink dominated by a guard whose normalized predicate adds values before comparing against an upper bound",
+      "signal": "the addition can wrap before the bound comparison and invalidate the memory-safety check",
+      "matcher": {"pattern": "arithmetic-overflow-guard", "families": ["buffer-write", "buffer-size"]},
+      "evaluator": "arithmetic-overflow-guard",
+      "note": "generic expression-shape coverage for arithmetic-overflow-driven memory safety; language-specific range proofs remain future refinement."
+    },
+    {
+      "id": "mem.pointer-arithmetic.before-validation",
+      "name": "Pointer arithmetic is performed before validation",
+      "cwe": [
+        "CWE-823",
+        "CWE-125"
+      ],
+      "tier": 1,
+      "status": "shipped",
+      "requires": [
+        "memory.deref"
+      ],
+      "shape": "a pointer derived through arithmetic is later dereferenced on the same path before the source offset is validated",
+      "signal": "the computed pointer may already be invalid when the later validation executes",
+      "matcher": {"pattern": "pointer-arithmetic-before-validation", "families": []},
+      "evaluator": "typestate",
+      "note": "the semantic graph preserves the derived pointer and later dereference order; the matcher does not reparse source expressions."
     },
     {
       "id": "mem.copy.in-loop-unbounded",
@@ -149,8 +231,8 @@
         "CWE-120"
       ],
       "tier": 1,
-      "status": "substrate-ready",
-      "substrate": "the sink token now carries `control` (its enclosing for/while/do nesting) and `guarded`; the two facts this shape reads are both emitted. Not yet wired into the (currently hardcoded) matcher.",
+      "status": "shipped",
+      "substrate": "the semantic sink event carries `control` (its enclosing for/while/do nesting) and `guarded`; the matcher consumes both facts.",
       "requires": [
         "memory.copy",
         "for",
@@ -159,7 +241,27 @@
       ],
       "shape": "a memory.copy sink whose `control` list contains a for/while/do header, with guarded == false and the loop bound not derived from the destination capacity",
       "signal": "the loop can iterate past the destination; the copy is not guarded per-iteration",
-      "note": "single-token shape now: the copy token's own `control` nesting + `guarded` flag carry the loop-membership, so no separate control event is needed."
+      "matcher": {"pattern": "mem.copy.in-loop-unbounded", "families": ["buffer-write", "buffer-size"]},
+      "evaluator": "relational",
+      "note": "shipped in the semantic skeleton matcher: the copy sink's `control` nesting + `guarded` flag carry the loop-membership, so no separate control event is needed."
+    },
+    {
+      "id": "mem.alloc.arithmetic-overflow",
+      "name": "Multiplicative allocation size can wrap",
+      "cwe": [
+        "CWE-190",
+        "CWE-680"
+      ],
+      "tier": 1,
+      "status": "shipped",
+      "requires": [
+        "memory.alloc"
+      ],
+      "shape": "a tainted memory.alloc size expression contains a non-constant multiplicative factor",
+      "signal": "the product may wrap before the allocator receives the requested byte count",
+      "matcher": {"pattern": "allocation-overflow-size", "families": ["alloc-size"]},
+      "evaluator": "allocation-overflow-size",
+      "note": "generic expression-shape coverage; exact numeric range proofs remain a separate capability."
     },
     {
       "id": "mem.alloc-copy.size-mismatch",
@@ -169,15 +271,112 @@
         "CWE-787"
       ],
       "tier": 1,
-      "status": "substrate-ready",
-      "substrate": "each sink token now carries `dst` (the pointer identity) and `size_expr` (the size operand), so an alloc token and a copy token sharing a `dst` can be joined and their `size_expr` compared. Not yet wired into the (currently hardcoded) matcher.",
+      "status": "shipped",
+      "substrate": "each semantic sink event carries `dst` (the pointer identity) and `size_expr` (the size operand); path-local matcher state compares an allocation sink with a later copy sink sharing that destination.",
       "requires": [
         "memory.alloc",
         "memory.copy"
       ],
       "shape": "a memory.alloc token with dst==D, size_expr==sizeA followed on the same path by a memory.copy token with dst==D, size_expr==sizeB where sizeB is not syntactically derived from sizeA",
       "signal": "the destination was sized for sizeA but written sizeB",
+      "matcher": {"pattern": "mem.alloc-copy.size-mismatch", "families": []},
+      "evaluator": "relational",
       "note": "two-token path pattern joining alloc.dst to copy.dst; both dst and size_expr now emitted on every alloc/copy token."
+    },
+    {
+      "id": "mem.write.tainted-unbounded",
+      "name": "Tainted unbounded write reaches a memory sink",
+      "cwe": [
+        "CWE-787",
+        "CWE-120"
+      ],
+      "tier": 1,
+      "status": "shipped",
+      "requires": [
+        "memory.copy"
+      ],
+      "shape": "a buffer-write or buffer-size sink whose tainted obligation is unbounded relative to the destination",
+      "signal": "the delivered write length is attacker-influenced and not discharged by a bound",
+      "matcher": {"pattern": "relational", "families": ["buffer-write", "buffer-size"]},
+      "evaluator": "relational",
+      "note": "The evaluator name remains `relational`; this public ID distinguishes write-size findings from tainted allocation-size findings."
+    },
+    {
+      "id": "mem.lifetime.leak",
+      "name": "Allocated object remains live at an exit",
+      "cwe": [
+        "CWE-401"
+      ],
+      "tier": 2,
+      "status": "shipped",
+      "requires": [
+        "memory.alloc"
+      ],
+      "shape": "an allocation origin reaches an enclosing exit without release, escape, or a surviving ownership alias",
+      "signal": "the object is no longer recoverable by the owning scope",
+      "matcher": {"pattern": "leak", "families": [],
+                   "event_kinds": ["origin"]},
+      "evaluator": "typestate",
+      "candidate": {"domain": "lifecycle", "family": "leak"},
+      "note": "Path-specific leak matching remains in the semantic graph; Atropos supplies the public taxonomy."
+    },
+    {
+      "id": "mem.lifetime.aggregate-copy-alias",
+      "name": "Aggregate copy duplicates pointer-bearing fields",
+      "cwe": [
+        "CWE-415",
+        "CWE-416"
+      ],
+      "tier": 2,
+      "status": "shipped",
+      "requires": [
+        "memory.copy"
+      ],
+      "shape": "a field-wise semantic alias is created by an aggregate copy, preserving pointer-bearing storage in both aggregates",
+      "signal": "the copied field is a candidate for duplicated ownership; later release/use patterns can prove the concrete violation",
+      "matcher": {"pattern": "aggregate-copy-alias", "families": [],
+                   "event_kinds": ["derive"]},
+      "evaluator": "typestate",
+      "candidate": {"domain": "lifecycle", "family": "aggregate-copy-alias"},
+      "note": "This is an ownership-shape lead, not a verdict: the reusable semantic graph records the field alias once, and double-free/UAF patterns can use it when a downstream path proves the violation."
+    },
+    {
+      "id": "mem.lifetime.uninitialized-use",
+      "name": "Use of an indeterminate pointer value",
+      "cwe": [
+        "CWE-457"
+      ],
+      "tier": 2,
+      "status": "shipped",
+      "requires": [
+        "memory.deref"
+      ],
+      "shape": "an uninitialized pointer declaration reaches a value use or dereference before a compatible initialization",
+      "signal": "the use observes an indeterminate pointer value",
+      "matcher": {"pattern": "uninitialized-use", "families": [],
+                   "event_kinds": ["read_storage", "write_storage", "pass_value", "compare_value"]},
+      "evaluator": "typestate",
+      "candidate": {"domain": "lifecycle", "family": "uninitialized-use"},
+      "note": "The declaration is emitted as an indeterminate semantic fact; path-sensitive initialization, allocation, and assignment state remain matcher decisions."
+    },
+    {
+      "id": "mem.lifetime.dangling-use",
+      "name": "Freed pointer is passed or compared as a value",
+      "cwe": [
+        "CWE-825"
+      ],
+      "tier": 2,
+      "status": "shipped",
+      "requires": [
+        "memory.free"
+      ],
+      "shape": "a freed object is passed, compared, or returned without a storage dereference",
+      "signal": "the value use preserves a dangling pointer beyond its lifetime",
+      "matcher": {"pattern": "use.dangling", "families": [],
+                   "event_kinds": ["pass_value", "compare_value", "return_value"]},
+      "evaluator": "typestate",
+      "candidate": {"domain": "lifecycle", "family": "dangling-use"},
+      "note": "This is intentionally distinct from use-after-free dereference findings."
     },
     {
       "id": "mem.lifetime.double-free",
@@ -192,6 +391,10 @@
       ],
       "shape": "two memory.free sinks on the same path over the same pointer identity with no reassignment or reallocation of that pointer between them",
       "signal": "the second free is the lead",
+      "matcher": {"pattern": "double-free", "families": [],
+                   "event_kinds": ["release"]},
+      "evaluator": "typestate",
+      "candidate": {"domain": "lifecycle", "family": "double-free"},
       "note": "canonical typestate example. Matched PATH-SENSITIVELY: the reader replays a START->ALLOCATED->FREED property automaton as a forward may-analysis over the control-flow graph, so two frees on mutually-exclusive branches never meet (no false lead) while a free reachable across a loop back-edge does. Pointer identity is the alloc's destination variable."
     },
     {
@@ -201,15 +404,58 @@
         "CWE-416"
       ],
       "tier": 2,
-      "status": "partial",
-      "blocked_on": "reader must emit memory.deref lifecycle nodes for the bare-dereference case",
+      "status": "shipped",
       "requires": [
         "memory.free",
         "memory.deref"
       ],
       "shape": "a memory.free(x) followed on the same path by a memory.deref(x) or a memory.copy reading from x, with no reassignment of x between",
       "signal": "the post-free use is the lead",
-      "note": "pointer identity join and the path-sensitive automaton are the same as double-free. The free side is emitted, so a post-free use that is a CALL passing x (a use event) is already matched today; the remaining gap is the standalone bare dereference (x[i], *x, x->f), which needs the memory.deref constructor to land on the skeleton."
+      "matcher": {"pattern": "uaf.deref", "families": [],
+                   "event_kinds": ["read", "write", "read_storage", "write_storage"]},
+      "evaluator": "typestate",
+      "candidate": {"domain": "lifecycle", "family": "use-after-free"},
+      "note": "The semantic graph emits READ_STORAGE, WRITE_STORAGE, PASS_VALUE, COMPARE_VALUE, and RETURN_VALUE, so both direct dereferences and value uses are matched path-sensitively."
+    },
+    {
+      "id": "mem.lifetime.realloc-failure-leak",
+      "name": "Failed reallocation loses the only owning slot",
+      "cwe": [
+        "CWE-401",
+        "CWE-772"
+      ],
+      "tier": 1,
+      "status": "shipped",
+      "requires": [
+        "memory.alloc",
+        "memory.free"
+      ],
+      "shape": "REALLOC_FAILED followed by WRITE_STORAGE(slot, NULL) and LOST_FROM_SLOT(object, slot), with no release or surviving alias before exit",
+      "signal": "the failed realloc path drops the last owning slot; an existing alias suppresses this leak",
+      "matcher": {"pattern": "mem.lifetime.realloc-failure-leak", "families": [],
+                   "event_kinds": ["realloc_failed"]},
+      "evaluator": "typestate",
+      "candidate": {"domain": "lifecycle", "family": "realloc-failure-leak"},
+      "note": "The semantic graph matcher treats realloc failure as non-freeing, then evaluates slot loss and alias roots at the enclosing exit."
+    },
+    {
+      "id": "mem.lifetime.null-deref",
+      "name": "Dereference of a known-null storage slot",
+      "cwe": [
+        "CWE-476"
+      ],
+      "tier": 1,
+      "status": "shipped",
+      "requires": [
+        "memory.deref"
+      ],
+      "shape": "WRITE_STORAGE(slot, NULL) followed on a compatible path by READ_STORAGE or WRITE_STORAGE through that slot",
+      "signal": "the storage slot is proven null at the dereference",
+      "matcher": {"pattern": "null-deref", "families": [],
+                   "event_kinds": ["read", "write", "read_storage", "write_storage"]},
+      "evaluator": "typestate",
+      "candidate": {"domain": "lifecycle", "family": "null-deref"},
+      "note": "NULL is represented as a WRITE_STORAGE fact with null=true, keeping the event alphabet uniform."
     },
     {
       "id": "mem.lifetime.use-after-return",
@@ -218,14 +464,17 @@
         "CWE-562"
       ],
       "tier": 2,
-      "status": "blocked",
-      "blocked_on": "reader must emit an address-of-local escape node",
+      "status": "shipped",
       "requires": [
         "memory.deref"
       ],
       "shape": "a return (or store into an out-param / global) of the address of a stack local",
       "signal": "the escaping address is the lead",
-      "note": "needs escape modeling of &local; adjacent to the deref constructor."
+      "matcher": {"pattern": "use-after-return", "families": [],
+                   "event_kinds": ["return_value"]},
+      "evaluator": "typestate",
+      "candidate": {"domain": "lifecycle", "family": "use-after-return"},
+      "note": "the semantic reader marks returned automatic arrays and explicit address-of-local paths; the matcher emits a use-after-return witness."
     },
     {
       "id": "ctrl.unchecked-return-deref",
@@ -235,19 +484,22 @@
         "CWE-252"
       ],
       "tier": 2,
-      "status": "blocked",
-      "blocked_on": "reader must emit memory.deref nodes and mark return-value origins",
+      "status": "shipped",
       "requires": [
         "memory.deref"
       ],
       "shape": "a call whose return is bound to r, then a memory.deref(r) on a path with no if/guard testing r between the call and the deref",
       "signal": "the unchecked deref is the lead",
-      "note": "sharpened by peer-differential guard analysis once deref nodes exist."
+      "matcher": {"pattern": "unchecked-return-deref", "families": [],
+                   "event_kinds": ["read_storage", "write_storage"]},
+      "evaluator": "typestate",
+      "candidate": {"domain": "lifecycle", "family": "unchecked-return-deref"},
+      "note": "the semantic reader marks pointer call results as nullable origins; compatible NONNULL/ISNULL guards discharge the unchecked-return obligation before dereference."
     }
   ],
   "build_order": [
-    "Tier 1 runs over today's alphabet: mem.write.missing-bounds and mem.alloc.tainted-unbounded (shipped). mem.copy.in-loop-unbounded and mem.alloc-copy.size-mismatch are now SUBSTRATE-READY -- the sink token carries `control` (loop nesting), `size_expr`, and `dst`, the facts both shapes read -- and wait only on the skeleton-sequence matcher (the matcher is hardcoded today, so they are not yet wired).",
-    "Tier 2 unblock = two reader constructors: memory.free (free-site + pointer identity) and memory.deref (deref-site + pointer identity), plus an address-of-local escape marker. Pure structure emission, siblings of memory.alloc/copy.",
-    "Once emitted, the skeleton-sequence matcher runs the tier-2 typestate patterns (double-free, UAF, use-after-return, unchecked-return-deref)."
+    "Tier 1 runs over the semantic sink alphabet: missing-bounds, tainted-unbounded allocation, loop-contained copies, and allocation/copy size mismatch are shipped through the Atropos evaluator and semantic matcher.",
+    "Tier 2 lifetime facts are emitted by the semantic reader: free/release and dereference identities share the same field-sensitive object graph, with address-of-local escape and nullable return-origin facts.",
+    "The semantic matcher runs double-free, UAF, use-after-return, unchecked-return-deref, realloc-failure-leak, and null-deref patterns path-sensitively."
   ]
 }

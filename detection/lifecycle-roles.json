@@ -2,14 +2,47 @@
   "layer": "detection",
   "vocabulary": "memory-lifecycle",
   "_note": "Canonical object-lifetime roles, as DATA. The reader emits alloc/dealloc lifecycle events (the typestate skeleton the matcher walks for double-free / use-after-free / leak) from THIS file -- so teaching it a new kernel allocator or free is an edit here, never a code change in the engine. Roles are memory-lifecycle facts, not taint sink/source roles, which is why they live in their own detection-layer catalog rather than the models/ sink tree.",
-  "_derivation_note": "Sized allocators are NOT re-listed here: any sink in models/<lang> whose kind is in `alloc_kinds` (e.g. kmalloc, kzalloc, kcalloc -- all `alloc-size`) is already an allocation, and those models stay the single source of truth for it. The `alloc` lists below add only the size-LESS allocators (strdup-family: they return an owned pointer but carry no explicit size argument, so they never appear in the sized-sink catalog). `realloc`-family calls live in the alloc catalog (they reopen an object) and are treated as allocations.",
+  "_derivation_note": "Sized allocators are NOT re-listed here: any sink in models/<lang> whose kind is in `alloc_kinds` (e.g. kmalloc, kzalloc, kcalloc -- all `alloc-size`) is already an allocation, and those models stay the single source of truth for it. The `alloc` lists below add only the size-LESS allocators (strdup-family: they return an owned pointer but carry no explicit size argument, so they never appear in the sized-sink catalog).",
+  "_realloc_note": "`realloc`-family calls are BOTH: they free the block their first argument names (it may be relocated) AND return a fresh allocation. They keep their `alloc-size` sink identity in the models/ catalog (their size argument is still a spatial sink), and the `realloc` list below adds the lifetime fact the catalog cannot carry -- that the old generation is (may-be) freed. An interior pointer or alias captured before the realloc and not rebased to the returned pointer dangles: a use-after-free the reader emits from this datum with no bug-specific engine logic. First argument = the reallocated pointer.",
+  "_aggregate_copy_note": "Aggregate-copy roles identify calls whose size/form proves a whole object is copied. The reader expands these calls into field-wise alias facts; ordinary byte-buffer copies remain spatial operations only.",
   "alloc_kinds": ["alloc-size"],
+  "families": {
+    "acquire": "lifecycle.acquire",
+    "release": "lifecycle.release",
+    "use": "lifecycle.use",
+    "escape": "lifecycle.escape"
+  },
+  "realloc": {
+    "c": [
+      "realloc", "reallocf", "reallocarray",
+      "krealloc", "krealloc_array", "kvrealloc",
+      "vrealloc", "devm_krealloc"
+    ]
+  },
+  "aggregate_copy": {
+    "c": {
+    "memcpy": "sizeof",
+    "memmove": "sizeof",
+    "__builtin_memcpy": "sizeof",
+    "__builtin_memmove": "sizeof",
+    "__builtin___memcpy_chk": "sizeof",
+    "__builtin___memmove_chk": "sizeof"
+    }
+  },
   "alloc": {
     "c": [
       "strdup", "strndup", "strdupa", "strndupa",
       "kstrdup", "kstrndup", "kstrdup_const",
       "vstrdup", "devm_kstrdup"
     ]
+  },
+  "acquire_methods": {
+    "python": ["open", "socket.socket", "socket.create_connection",
+      "tempfile.NamedTemporaryFile", "tempfile.TemporaryFile"],
+    "javascript": ["fs.open", "fs.openSync", "fs.createReadStream",
+      "fs.createWriteStream", "URL.createObjectURL"],
+    "typescript": ["fs.open", "fs.openSync", "fs.createReadStream",
+      "fs.createWriteStream", "URL.createObjectURL"]
   },
   "dealloc": {
     "c": [
@@ -25,5 +58,15 @@
       "dma_free_coherent", "dmam_free_coherent",
       "devm_kfree", "mempool_free"
     ]
+  },
+  "release_methods": {
+    "c": ["g_free", "reset", "operator delete", "operator delete[]"],
+    "python": ["close", "__exit__", "__del__", "release"],
+    "javascript": ["close", "destroy", "dispose", "revoke", "terminate", "release"],
+    "typescript": ["close", "destroy", "dispose", "revoke", "terminate", "release"]
+  },
+  "release_qualified": {
+    "javascript": ["URL.revokeObjectURL"],
+    "typescript": ["URL.revokeObjectURL"]
   }
 }

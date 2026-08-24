@@ -11,11 +11,13 @@ from pathlib import Path
 def main(argv=None) -> int:
     argv = [] if argv is None else argv
     if argv in (["-h"], ["--help"]):
-        print("usage: stats.py")
+        print("usage: stats.py [--json]")
         print("Print model coverage by language, role, and kind.")
+        print("--json  emit a machine-readable coverage snapshot")
         return 0
-    if argv:
-        print("usage: stats.py", file=sys.stderr)
+    json_output = argv == ["--json"]
+    if argv and not json_output:
+        print("usage: stats.py [--json]", file=sys.stderr)
         return 2
 
     root = Path(__file__).resolve().parent.parent
@@ -45,6 +47,18 @@ def main(argv=None) -> int:
             except KeyError as error:
                 print(f"stats.py: entry in {f} is missing {error.args[0]!r}", file=sys.stderr)
                 return 2
+
+    if json_output:
+        payload = {
+            "total": total,
+            "by_language_role": {
+                f"{lang}:{role}": n
+                for (lang, role), n in sorted(by_lang_role.items())
+            },
+            "by_kind": dict(sorted(by_kind.items(), key=lambda item: (-item[1], item[0]))),
+        }
+        print(json.dumps(payload, indent=2, sort_keys=True))
+        return 0
 
     print(f"Atropos model coverage: {total} entries\n")
     print("by language / role:")
