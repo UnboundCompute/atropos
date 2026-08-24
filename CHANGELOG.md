@@ -8,6 +8,8 @@
   across verified models and candidates.
 - Add `tools/new_fixture.py` to generate a minimal source reference and neutral
   symbol-index fixture from an existing model ID.
+- Add deterministic `tools/build_pack.py` archives with printed SHA-256 digests,
+  plus external-root validation for framework-pack development.
 
 ## 1.7.1
 

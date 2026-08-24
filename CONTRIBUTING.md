@@ -132,7 +132,12 @@ These are the house rules (they're also in [`CLAUDE.md`](CLAUDE.md)):
 4. If the change alters pack scope or coverage, update the pack manifest and run
    `python3 tools/validate_pack.py`. Keep candidate rows outside verified model
    globs.
-5. Open a pull request describing the symbols you added and why they belong in the
+5. Build a review artifact without installing dependencies:
+   ```bash
+   python3 tools/build_pack.py --output /tmp/atropos-pack.zip
+   sha256sum /tmp/atropos-pack.zip
+   ```
+6. Open a pull request describing the symbols you added and why they belong in the
    class you assigned. CI runs the same gate on every push.
 
 ## Reporting a gap

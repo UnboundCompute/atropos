@@ -1,6 +1,6 @@
 PYTHON ?= python3
 
-.PHONY: check validate validate-pack test stats
+.PHONY: check validate validate-pack test stats pack
 
 ## Run the complete catalog gate used by CI and release verification.
 check: validate validate-pack test stats
@@ -16,3 +16,6 @@ test:
 
 stats:
 	$(PYTHON) tools/stats.py
+
+pack:
+	$(PYTHON) tools/build_pack.py --output atropos-core-$$(cat VERSION).zip

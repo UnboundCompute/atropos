@@ -20,14 +20,14 @@ class ToolCliTests(unittest.TestCase):
         )
 
     def test_help_is_fast_and_explicit(self):
-        for name in ("validate.py", "stats.py", "bind.py", "new_model.py", "new_fixture.py", "validate_pack.py"):
+        for name in ("validate.py", "stats.py", "bind.py", "new_model.py", "new_fixture.py", "validate_pack.py", "build_pack.py"):
             with self.subTest(name=name):
                 result = self.run_tool(name, "--help")
                 self.assertEqual(0, result.returncode)
                 self.assertIn("usage:", result.stdout)
 
     def test_unknown_arguments_are_usage_errors(self):
-        for name in ("validate.py", "stats.py", "bind.py", "new_model.py", "new_fixture.py", "validate_pack.py"):
+        for name in ("validate.py", "stats.py", "bind.py", "new_model.py", "new_fixture.py", "validate_pack.py", "build_pack.py"):
             with self.subTest(name=name):
                 result = self.run_tool(name, "--unknown")
                 self.assertEqual(2, result.returncode)
@@ -86,6 +86,27 @@ class ToolCliTests(unittest.TestCase):
             self.assertEqual("atropos-symbol-index", index["format"])
             self.assertEqual("exec", index["callsites"][0]["callee"]["name"])
             self.assertEqual(["v_arg0"], index["callsites"][0]["arg_value_ids"])
+
+    def test_build_pack_is_deterministic_for_a_minimal_pack(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "pack"
+            root.mkdir()
+            (root / "VERSION").write_text("0.0.1\n")
+            (root / "models.json").write_text(json.dumps({"entries": [{"id": "x"}]}))
+            (root / "pack.json").write_text(json.dumps({
+                "format": "atropos-model-pack", "schema_version": 1,
+                "id": "demo.pack", "name": "Demo", "version": "0.0.1",
+                "license": "CC0", "languages": ["python"], "model_globs": ["models.json"],
+                "verified_entries": 1, "provenance": {
+                    "source_of_truth": "test", "binding_required": True,
+                    "candidate_rows_are_consumed": False,
+                },
+            }))
+            first, second = Path(directory) / "one.zip", Path(directory) / "two.zip"
+            for output in (first, second):
+                result = self.run_tool("build_pack.py", "--root", str(root), "--output", str(output))
+                self.assertEqual(0, result.returncode, result.stderr)
+            self.assertEqual(first.read_bytes(), second.read_bytes())
 
 
 if __name__ == "__main__":
