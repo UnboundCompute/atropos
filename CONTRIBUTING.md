@@ -18,7 +18,8 @@ git clone https://github.com/UnboundCompute/atropos.git
 cd atropos
 python3 tools/validate.py                    # the gate, must pass
 python3 -m unittest discover -s tests        # must pass
-python3 tools/stats.py                        # coverage snapshot
+python3 tools/stats.py                        # human-readable coverage snapshot
+python3 tools/stats.py --json                 # machine-readable coverage snapshot
 ```
 
 No virtualenv, no dependencies. If `python3 tools/validate.py` prints `OK`, you're

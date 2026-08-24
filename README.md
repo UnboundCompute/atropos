@@ -90,7 +90,8 @@ engine drop its conservative every-argument-flows-to-return default).
 ```bash
 python3 tools/validate.py     # gate 1: schema shape, unique ids, grammatical access paths
 python3 tools/bind.py fixtures/c_buffer.index.json   # resolve models to exact graph nodes
-python3 tools/stats.py        # coverage snapshot by language / role / kind
+python3 tools/stats.py        # human-readable coverage snapshot
+python3 tools/stats.py --json # machine-readable coverage for release/docs automation
 python3 -m unittest discover -s tests   # gate 2: binding fixtures + schema
 ```
 
