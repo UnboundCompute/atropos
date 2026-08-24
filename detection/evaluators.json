@@ -49,6 +49,7 @@
     "pass_value": "typestate",
     "compare_value": "typestate",
     "return_value": "typestate",
+    "derive": "typestate",
     "escape": "typestate",
     "realloc_attempt": "typestate",
     "realloc_failed": "typestate",
