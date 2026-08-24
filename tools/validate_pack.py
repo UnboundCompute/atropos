@@ -48,6 +48,13 @@ def validate(root: Path) -> tuple[dict, list[Path], list[str]]:
         errors.append(f"verified_entries {pack.get('verified_entries')} != counted models {entries}")
     if not files:
         errors.append("model_globs matched no files")
+    runtime_globs = pack.get("runtime_globs")
+    if not isinstance(runtime_globs, list):
+        errors.append("runtime_globs must be declared as an array")
+    elif runtime_globs and not any(
+        path.is_file() for pattern in runtime_globs for path in root.glob(pattern)
+    ):
+        errors.append("runtime_globs matched no files")
     return pack, files, errors
 
 

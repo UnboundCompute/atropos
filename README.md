@@ -118,8 +118,12 @@ framework packs can use the same contract.
 
 To create a portable artifact, run `make pack` or invoke `build_pack.py` with an
 output path. The archive uses stable file ordering and timestamps, then prints a
-SHA-256 digest suitable for release checksums. Pack archives contain metadata and
-verified model files, license, and optional package documentation only; candidates remain outside the consumer glob. The
+SHA-256 digest suitable for release checksums. Pack archives contain metadata,
+verified model files, runtime profiles/detection catalogs, license, and optional
+package documentation; candidates remain outside the consumer glob. The runtime
+catalogs are included because Lachesis reads them for normalization, dispatch, and
+evaluator behavior, so an installed pack is self-contained rather than just a
+model-row snapshot. The
 optional checksum and provenance sidecars record the artifact digest, pack
 identity/version, source revision when available, and exact archive file list.
 

@@ -98,7 +98,7 @@ class ToolCliTests(unittest.TestCase):
             (root / "pack.json").write_text(json.dumps({
                 "format": "atropos-model-pack", "schema_version": 1,
                 "id": "demo.pack", "name": "Demo", "version": "0.0.1",
-                "license": "CC0", "license_file": "LICENSE", "languages": ["python"], "model_globs": ["models.json"],
+                "license": "CC0", "license_file": "LICENSE", "languages": ["python"], "model_globs": ["models.json"], "runtime_globs": [],
                 "verified_entries": 1, "provenance": {
                     "source_of_truth": "test", "binding_required": True,
                     "candidate_rows_are_consumed": False,
@@ -130,7 +130,7 @@ class ToolCliTests(unittest.TestCase):
             (root / "pack.json").write_text(json.dumps({
                 "format": "atropos-model-pack", "schema_version": 1,
                 "id": "demo.pack", "name": "Demo", "version": "0.0.1",
-                "license": "CC0", "license_file": "LICENSE", "languages": ["python"], "model_globs": ["models.json"],
+                "license": "CC0", "license_file": "LICENSE", "languages": ["python"], "model_globs": ["models.json"], "runtime_globs": [],
                 "verified_entries": 1, "provenance": {
                     "source_of_truth": "test", "binding_required": True,
                     "candidate_rows_are_consumed": False,

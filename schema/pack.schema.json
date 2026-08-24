@@ -4,7 +4,7 @@
   "title": "Atropos model pack manifest",
   "type": "object",
   "additionalProperties": false,
-  "required": ["format", "schema_version", "id", "name", "version", "license", "license_file", "languages", "model_globs", "verified_entries", "provenance"],
+  "required": ["format", "schema_version", "id", "name", "version", "license", "license_file", "languages", "model_globs", "runtime_globs", "verified_entries", "provenance"],
   "properties": {
     "format": {"const": "atropos-model-pack"},
     "schema_version": {"type": "integer", "minimum": 1},
@@ -15,6 +15,7 @@
     "license_file": {"type": "string", "minLength": 1},
     "languages": {"type": "array", "items": {"type": "string", "enum": ["c", "javascript", "python", "typescript"]}},
     "model_globs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "runtime_globs": {"type": "array", "items": {"type": "string", "minLength": 1}},
     "verified_entries": {"type": "integer", "minimum": 0},
     "candidate_files": {"type": "array", "items": {"type": "string"}},
     "source_repository": {"type": "string", "minLength": 1},

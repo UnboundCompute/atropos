@@ -27,7 +27,11 @@ def main(argv=None) -> int:
         for error in errors:
             print(f"build_pack.py: {error}", file=sys.stderr)
         return 1
-    package_files = [root / "pack.json", root / pack["license_file"], *model_files]
+    runtime_files = [
+        path for pattern in pack.get("runtime_globs", [])
+        for path in root.glob(pattern) if path.is_file()
+    ]
+    package_files = [root / "pack.json", root / pack["license_file"], *model_files, *runtime_files]
     for optional in ("README.md", "CHANGELOG.md"):
         candidate = root / optional
         if candidate.is_file():
