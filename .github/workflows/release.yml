@@ -81,7 +81,7 @@ jobs:
             --sha256 "$digest" --destination "$verify_dir/packs"
           test -f "$verify_dir/packs/atropos.core/$(cat VERSION)/install.json"
       - name: Upload release artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: atropos-${{ github.ref_name }}
           path: dist/
