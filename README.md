@@ -127,8 +127,8 @@ model-row snapshot. The
 optional checksum and provenance sidecars record the artifact digest, pack
 identity/version, source revision when available, and exact archive file list.
 
-To install a published pack without manually extracting it, verify the publisher's
-checksum and run:
+Download the consumer-ready pack from the [Atropos GitHub Releases](https://github.com/UnboundCompute/atropos/releases),
+then verify the publisher's checksum and install it without manually extracting it:
 
 ```bash
 python3 tools/install_pack.py /path/to/atropos-core-1.7.1.zip \

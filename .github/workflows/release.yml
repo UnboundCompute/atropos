@@ -85,3 +85,21 @@ jobs:
         with:
           name: atropos-${{ github.ref_name }}
           path: dist/
+
+  publish:
+    name: publish GitHub release
+    needs: package
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Collect release artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: atropos-${{ github.ref_name }}
+          path: dist
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          generate_release_notes: true

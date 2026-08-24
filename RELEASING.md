@@ -20,10 +20,11 @@ fixtures must report only the documented `bound`, `ambiguous`, `symbol-not-found
 the gate green; move it to `candidates/` if it is not yet a verified fact.
 
 The `release catalog` workflow repeats this gate for every `v*` tag and publishes a
-deterministic, content-addressed source archive plus `SHA256SUMS` as workflow artifacts.
+deterministic, content-addressed source archive plus `SHA256SUMS` in a GitHub Release.
 It also publishes the consumer-ready `atropos-core-<version>.zip` model pack with a
 SHA-256 sidecar and provenance JSON. The pack is the recommended artifact for Lachesis
-consumers; the source archive is for contributors and auditors.
+consumers; the source archive is for contributors and auditors. The release workflow
+smoke-tests the exact artifacts before publishing them.
 The archive is built with the tag commit timestamp and a normalized gzip header, so
 rebuilding the same tag produces the same bytes. It does not silently publish mutable
 catalog data.
