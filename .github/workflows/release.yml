@@ -92,12 +92,19 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      attestations: write
     steps:
       - name: Collect release artifacts
         uses: actions/download-artifact@v4
         with:
           name: atropos-${{ github.ref_name }}
           path: dist
+      - name: Attest release archives
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: |
+            dist/*.tar.gz
+            dist/*.zip
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
