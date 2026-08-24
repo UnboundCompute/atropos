@@ -246,6 +246,24 @@
       "note": "shipped in the semantic skeleton matcher: the copy sink's `control` nesting + `guarded` flag carry the loop-membership, so no separate control event is needed."
     },
     {
+      "id": "mem.alloc.arithmetic-overflow",
+      "name": "Multiplicative allocation size can wrap",
+      "cwe": [
+        "CWE-190",
+        "CWE-680"
+      ],
+      "tier": 1,
+      "status": "shipped",
+      "requires": [
+        "memory.alloc"
+      ],
+      "shape": "a tainted memory.alloc size expression contains a non-constant multiplicative factor",
+      "signal": "the product may wrap before the allocator receives the requested byte count",
+      "matcher": {"pattern": "allocation-overflow-size", "families": ["alloc-size"]},
+      "evaluator": "allocation-overflow-size",
+      "note": "generic expression-shape coverage; exact numeric range proofs remain a separate capability."
+    },
+    {
       "id": "mem.alloc-copy.size-mismatch",
       "name": "Allocate with one size, copy with another on the same path",
       "cwe": [

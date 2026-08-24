@@ -6,6 +6,7 @@
     "relational": "Size / memory. The delivered length must be BOTH attacker-influenced AND unbounded relative to the destination capacity. Either alone is normal (a bounded tainted length; an unbounded constant). No taint -> no lead. A copy dominated by a size-testing branch (a checked copy) is suppressed.",
     "presence": "Configuration weakness. The CALL ITSELF is the defect regardless of taint (weak crypto, insecure TLS, predictable temp file). Collected per-call and fires even with constant arguments; taint is not consulted.",
     "missing-guard": "Control-flow anomaly. A validating branch that tests this obligation's variable EXISTS in the enclosing function, but the sink is reached on the fall-through path outside that branch's region. The absent check IS the lead, so this is taint-INDEPENDENT (like presence); attacker-reachability is a separate, stronger corroboration. Distinct from no-guard-at-all, which does not fire: the signal is specifically a guard this site escapes."
+    ,"allocation-overflow-size": "Expression-shape arithmetic evaluator. A tainted allocation size containing a non-constant multiplication may wrap before allocation; exact range proof is intentionally separate."
     ,"typestate": "Temporal lifecycle ordering. A reusable semantic skeleton carries acquire, release, use, escape, and generation transitions; the graph matcher evaluates compatible paths and object identity to report lifecycle violations such as use-after-release, double-release, leaks, and dangling uses."
   },
   "kind_evaluator": {
@@ -25,7 +26,7 @@
     "ldap-injection": "reachability",
     "xpath-injection": "reachability",
     "redos": "reachability",
-    "alloc-size": ["relational", "missing-guard"],
+    "alloc-size": ["relational", "missing-guard", "allocation-overflow-size"],
     "buffer-size": ["relational", "missing-guard"],
     "buffer-write": ["relational", "missing-guard"],
     "weak-crypto": "presence",
