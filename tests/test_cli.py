@@ -21,14 +21,14 @@ class ToolCliTests(unittest.TestCase):
         )
 
     def test_help_is_fast_and_explicit(self):
-        for name in ("validate.py", "stats.py", "bind.py", "new_model.py", "new_fixture.py", "validate_pack.py", "build_pack.py"):
+        for name in ("validate.py", "stats.py", "bind.py", "new_model.py", "new_fixture.py", "validate_pack.py", "build_pack.py", "install_pack.py"):
             with self.subTest(name=name):
                 result = self.run_tool(name, "--help")
                 self.assertEqual(0, result.returncode)
                 self.assertIn("usage:", result.stdout)
 
     def test_unknown_arguments_are_usage_errors(self):
-        for name in ("validate.py", "stats.py", "bind.py", "new_model.py", "new_fixture.py", "validate_pack.py", "build_pack.py"):
+        for name in ("validate.py", "stats.py", "bind.py", "new_model.py", "new_fixture.py", "validate_pack.py", "build_pack.py", "install_pack.py"):
             with self.subTest(name=name):
                 result = self.run_tool(name, "--unknown")
                 self.assertEqual(2, result.returncode)
@@ -120,6 +120,39 @@ class ToolCliTests(unittest.TestCase):
             self.assertEqual("demo.pack", json.loads(provenance.read_text())["pack"]["id"])
             with zipfile.ZipFile(first) as archive:
                 self.assertIn("LICENSE", archive.namelist())
+
+    def test_install_pack_validates_checksum_and_returns_consumable_root(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "pack"
+            root.mkdir()
+            (root / "LICENSE").write_text("demo license\n")
+            (root / "models.json").write_text(json.dumps({"entries": [{"id": "x"}]}))
+            (root / "pack.json").write_text(json.dumps({
+                "format": "atropos-model-pack", "schema_version": 1,
+                "id": "demo.pack", "name": "Demo", "version": "0.0.1",
+                "license": "CC0", "license_file": "LICENSE", "languages": ["python"], "model_globs": ["models.json"],
+                "verified_entries": 1, "provenance": {
+                    "source_of_truth": "test", "binding_required": True,
+                    "candidate_rows_are_consumed": False,
+                },
+            }))
+            archive = Path(directory) / "demo.zip"
+            self.assertEqual(0, self.run_tool("build_pack.py", "--root", str(root), "--output", str(archive)).returncode)
+            digest = __import__("hashlib").sha256(archive.read_bytes()).hexdigest()
+            store = Path(directory) / "store"
+            result = self.run_tool("install_pack.py", str(archive), "--destination", str(store), "--sha256", digest)
+            self.assertEqual(0, result.returncode, result.stderr)
+            installed = store / "demo.pack" / "0.0.1"
+            self.assertTrue((installed / "pack.json").is_file())
+            self.assertEqual(str(installed.resolve()), result.stdout.splitlines()[0].removeprefix("installed "))
+
+    def test_install_pack_rejects_bad_checksum(self):
+        with tempfile.TemporaryDirectory() as directory:
+            archive = Path(directory) / "not-a-pack.zip"
+            archive.write_bytes(b"archive")
+            result = self.run_tool("install_pack.py", str(archive), "--sha256", "0" * 64)
+            self.assertEqual(1, result.returncode)
+            self.assertIn("sha256 mismatch", result.stderr)
 
 
 if __name__ == "__main__":

@@ -123,6 +123,20 @@ verified model files, license, and optional package documentation only; candidat
 optional checksum and provenance sidecars record the artifact digest, pack
 identity/version, source revision when available, and exact archive file list.
 
+To install a published pack without manually extracting it, verify the publisher's
+checksum and run:
+
+```bash
+python3 tools/install_pack.py /path/to/atropos-core-1.7.1.zip \
+  --sha256 "<64-character digest>"
+# then point a consumer at the printed directory:
+ATROPOS_ROOT="$HOME/.atropos/packs/atropos.core/1.7.1" lachesis scan ./repository
+```
+
+The installer rejects unsafe archive paths, special files, checksum mismatches, and
+packs that fail the manifest/license/coverage validator. It installs atomically under
+`~/.atropos/packs/<pack-id>/<version>` and never replaces an existing version.
+
 Consuming the data is just reading JSON, with no import and no dependency. A binder
 in the engine walks `models/**/*.json`, resolves each
 `(language, package, type, method)` against its symbol index, and stamps
