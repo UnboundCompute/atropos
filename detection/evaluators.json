@@ -55,5 +55,6 @@
     "realloc_failed": "typestate",
     "lost_from_slot": "typestate",
     "pointer_arithmetic": "typestate"
+    ,"uninitialized": "typestate"
   }
 }

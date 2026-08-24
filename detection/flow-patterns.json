@@ -323,6 +323,25 @@
       "note": "This is an ownership-shape lead, not a verdict: the reusable semantic graph records the field alias once, and double-free/UAF patterns can use it when a downstream path proves the violation."
     },
     {
+      "id": "mem.lifetime.uninitialized-use",
+      "name": "Use of an indeterminate pointer value",
+      "cwe": [
+        "CWE-457"
+      ],
+      "tier": 2,
+      "status": "shipped",
+      "requires": [
+        "memory.deref"
+      ],
+      "shape": "an uninitialized pointer declaration reaches a value use or dereference before a compatible initialization",
+      "signal": "the use observes an indeterminate pointer value",
+      "matcher": {"pattern": "uninitialized-use", "families": [],
+                   "event_kinds": ["read_storage", "write_storage", "pass_value", "compare_value"]},
+      "evaluator": "typestate",
+      "candidate": {"domain": "lifecycle", "family": "uninitialized-use"},
+      "note": "The declaration is emitted as an indeterminate semantic fact; path-sensitive initialization, allocation, and assignment state remain matcher decisions."
+    },
+    {
       "id": "mem.lifetime.dangling-use",
       "name": "Freed pointer is passed or compared as a value",
       "cwe": [
