@@ -6,6 +6,8 @@
   gate for distributable catalog provenance.
 - Add `tools/new_model.py` to scaffold role-grouped entries and reject duplicate IDs
   across verified models and candidates.
+- Add `tools/new_fixture.py` to generate a minimal source reference and neutral
+  symbol-index fixture from an existing model ID.
 
 ## 1.7.1
 
