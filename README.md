@@ -71,6 +71,7 @@ models/
   typescript/   sinks sources sanitizers summaries
 candidates/     known-dangerous symbols not yet precisely bindable (never loaded by consumers)
 schema/         model.schema.json  symbol-index.schema.json
+pack.json       versioned core-pack metadata and provenance policy
 tools/          validate.py  bind.py  stats.py   # stdlib only, zero deps
 fixtures/       tiny symbol-index exports with verified node handles
 tests/          test_models.py  test_binding.py
@@ -89,6 +90,7 @@ engine drop its conservative every-argument-flows-to-return default).
 
 ```bash
 python3 tools/validate.py     # gate 1: schema shape, unique ids, grammatical access paths
+python3 tools/validate_pack.py # pack metadata, version authority, and coverage
 python3 tools/bind.py fixtures/c_buffer.index.json   # resolve models to exact graph nodes
 python3 tools/stats.py        # human-readable coverage snapshot
 python3 tools/stats.py --json # machine-readable coverage for release/docs automation
@@ -101,6 +103,12 @@ python3 tools/new_model.py python.demo.exec.arg0 --language python --role sink \
 ```
 
 For the complete local gate used by CI and release verification, run `make check`.
+
+`pack.json` is the machine-readable boundary for the current core catalog. It
+records supported languages, model coverage, license, source repository, and
+whether consumers must bind facts before use. `tools/validate_pack.py` checks it
+against `VERSION` and the files in `models/`; future independently distributed
+framework packs can use the same contract.
 
 Consuming the data is just reading JSON, with no import and no dependency. A binder
 in the engine walks `models/**/*.json`, resolves each

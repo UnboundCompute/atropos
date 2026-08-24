@@ -17,6 +17,7 @@ consumer can never flag, so new entries are always welcome.
 git clone https://github.com/UnboundCompute/atropos.git
 cd atropos
 python3 tools/validate.py                    # the gate, must pass
+python3 tools/validate_pack.py               # pack metadata and coverage, must pass
 python3 -m unittest discover -s tests        # must pass
 python3 tools/stats.py                        # human-readable coverage snapshot
 python3 tools/stats.py --json                 # machine-readable coverage snapshot
@@ -125,7 +126,10 @@ These are the house rules (they're also in [`CLAUDE.md`](CLAUDE.md)):
    ```
    `validate.py` checks schema conformance, id uniqueness, access-path grammar, CWE
    format, and that each file's `role_group` matches every entry's `role`.
-4. Open a pull request describing the symbols you added and why they belong in the
+4. If the change alters pack scope or coverage, update the pack manifest and run
+   `python3 tools/validate_pack.py`. Keep candidate rows outside verified model
+   globs.
+5. Open a pull request describing the symbols you added and why they belong in the
    class you assigned. CI runs the same gate on every push.
 
 ## Reporting a gap

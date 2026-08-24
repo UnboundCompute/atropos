@@ -20,14 +20,14 @@ class ToolCliTests(unittest.TestCase):
         )
 
     def test_help_is_fast_and_explicit(self):
-        for name in ("validate.py", "stats.py", "bind.py", "new_model.py"):
+        for name in ("validate.py", "stats.py", "bind.py", "new_model.py", "validate_pack.py"):
             with self.subTest(name=name):
                 result = self.run_tool(name, "--help")
                 self.assertEqual(0, result.returncode)
                 self.assertIn("usage:", result.stdout)
 
     def test_unknown_arguments_are_usage_errors(self):
-        for name in ("validate.py", "stats.py", "bind.py", "new_model.py"):
+        for name in ("validate.py", "stats.py", "bind.py", "new_model.py", "validate_pack.py"):
             with self.subTest(name=name):
                 result = self.run_tool(name, "--unknown")
                 self.assertEqual(2, result.returncode)

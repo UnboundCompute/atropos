@@ -1,0 +1,18 @@
+{
+  "format": "atropos-model-pack",
+  "schema_version": 1,
+  "id": "atropos.core",
+  "name": "Atropos Core Models",
+  "version": "1.7.1",
+  "license": "CC-BY-4.0",
+  "languages": ["c", "javascript", "python", "typescript"],
+  "model_globs": ["models/**/*.json"],
+  "verified_entries": 1121,
+  "candidate_files": ["candidates/**/*.json"],
+  "source_repository": "https://github.com/UnboundCompute/atropos",
+  "provenance": {
+    "source_of_truth": "VERSION plus model files in this checkout",
+    "binding_required": true,
+    "candidate_rows_are_consumed": false
+  }
+}

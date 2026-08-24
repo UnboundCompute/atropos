@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://unboundcompute.dev/atropos/pack.schema.json",
+  "title": "Atropos model pack manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["format", "schema_version", "id", "name", "version", "license", "languages", "model_globs", "verified_entries", "provenance"],
+  "properties": {
+    "format": {"const": "atropos-model-pack"},
+    "schema_version": {"type": "integer", "minimum": 1},
+    "id": {"type": "string", "pattern": "^[a-z0-9]+(\\.[a-z0-9-]+)+$"},
+    "name": {"type": "string", "minLength": 1},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "license": {"type": "string", "minLength": 1},
+    "languages": {"type": "array", "items": {"type": "string", "enum": ["c", "javascript", "python", "typescript"]}},
+    "model_globs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "verified_entries": {"type": "integer", "minimum": 0},
+    "candidate_files": {"type": "array", "items": {"type": "string"}},
+    "source_repository": {"type": "string", "minLength": 1},
+    "provenance": {"type": "object", "additionalProperties": false, "required": ["source_of_truth", "binding_required", "candidate_rows_are_consumed"], "properties": {
+      "source_of_truth": {"type": "string", "minLength": 1},
+      "binding_required": {"type": "boolean"},
+      "candidate_rows_are_consumed": {"type": "boolean"}
+    }}
+  }
+}
