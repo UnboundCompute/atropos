@@ -52,6 +52,14 @@ jobs:
             | gzip -n > "dist/atropos-${GITHUB_REF_NAME}.tar.gz"
           sha256sum -c /tmp/atropos-first-build.sha256
           (cd dist && sha256sum "atropos-${GITHUB_REF_NAME}.tar.gz") > "dist/SHA256SUMS"
+      - name: Build portable model pack
+        run: |
+          set -euo pipefail
+          version="$(cat VERSION)"
+          python3 tools/build_pack.py \
+            --output "dist/atropos-core-${version}.zip" \
+            --checksums "dist/atropos-core-${version}.sha256" \
+            --provenance "dist/atropos-core-${version}.provenance.json"
       - name: Smoke-test extracted release archive
         run: |
           set -euo pipefail
@@ -62,6 +70,16 @@ jobs:
           test -f "$extracted/Makefile"
           test -f "$extracted/LICENSE"
           make -C "$extracted" check
+      - name: Smoke-test installed model pack
+        run: |
+          set -euo pipefail
+          verify_dir="$(mktemp -d)"
+          trap 'rm -rf "$verify_dir"' EXIT
+          archive="dist/atropos-core-$(cat VERSION).zip"
+          digest="$(awk '{print $1}' "${archive%.zip}.sha256")"
+          python3 tools/install_pack.py "$archive" \
+            --sha256 "$digest" --destination "$verify_dir/packs"
+          test -f "$verify_dir/packs/atropos.core/$(cat VERSION)/install.json"
       - name: Upload release artifacts
         uses: actions/upload-artifact@v4
         with:

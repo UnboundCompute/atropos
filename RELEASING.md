@@ -21,13 +21,18 @@ the gate green; move it to `candidates/` if it is not yet a verified fact.
 
 The `release catalog` workflow repeats this gate for every `v*` tag and publishes a
 deterministic, content-addressed source archive plus `SHA256SUMS` as workflow artifacts.
+It also publishes the consumer-ready `atropos-core-<version>.zip` model pack with a
+SHA-256 sidecar and provenance JSON. The pack is the recommended artifact for Lachesis
+consumers; the source archive is for contributors and auditors.
 The archive is built with the tag commit timestamp and a normalized gzip header, so
 rebuilding the same tag produces the same bytes. It does not silently publish mutable
 catalog data.
 
-The workflow also extracts the archive into a temporary directory and reruns `make check`
-from that extracted tree. This verifies that the uploaded artifact, rather than only the
-checkout used to build it, is complete and self-validating.
+The workflow extracts the source archive into a temporary directory and reruns `make check`
+from that extracted tree. It also installs the model pack into a temporary pack store with
+its published digest and checks the resulting `install.json`. This verifies that the
+uploaded artifacts, rather than only the checkout used to build them, are complete and
+self-validating.
 
 Verify a downloaded archive before unpacking it:
 
