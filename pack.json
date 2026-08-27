@@ -9,7 +9,7 @@
   "languages": ["c", "javascript", "python", "typescript"],
   "model_globs": ["models/**/*.json"],
   "runtime_globs": ["profiles/**/*.json", "detection/**/*.json"],
-  "verified_entries": 1121,
+  "verified_entries": 1125,
   "candidate_files": ["candidates/**/*.json"],
   "source_repository": "https://github.com/UnboundCompute/atropos",
   "provenance": {
