@@ -43,6 +43,9 @@
         "callee": { "$ref": "#/definitions/callee" },
         "call_value_id": { "type": ["string", "null"], "description": "Node for the call result (ReturnValue attaches here)." },
         "receiver_value_id": { "type": ["string", "null"], "description": "Node for the receiver (Receiver attaches here)." },
+        "receiver_expression": { "type": ["string", "null"], "description": "Source-level receiver spelling, when available." },
+        "receiver_name": { "type": ["string", "null"], "description": "Lexical receiver name, when available." },
+        "receiver_provenance": { "type": ["string", "null"], "description": "Neutral provenance such as cursor-factory; not a static type claim." },
         "arg_value_ids": { "type": "array", "items": { "type": "string" }, "description": "Argument value nodes in order; Argument[n] attaches to element n." },
         "file": { "type": ["string", "null"] },
         "line": { "type": ["integer", "null"] }
