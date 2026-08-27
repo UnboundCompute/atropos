@@ -75,7 +75,7 @@ def validate_index(index: dict) -> None:
             raise CatalogError(f"{prefix} must be an object")
         unknown = sorted(set(callsite) - {
             "id", "callee", "call_value_id", "receiver_value_id", "arg_value_ids",
-            "file", "line",
+            "receiver_expression", "receiver_name", "receiver_provenance", "file", "line",
         })
         if unknown:
             raise CatalogError(f"{prefix} has unknown field(s): {', '.join(unknown)}")
@@ -101,7 +101,8 @@ def validate_index(index: dict) -> None:
         args = callsite.get("arg_value_ids")
         if not isinstance(args, list) or not all(isinstance(node, str) for node in args):
             raise CatalogError(f"{prefix} arg_value_ids must be an array of strings")
-        for field in ("call_value_id", "receiver_value_id", "file"):
+        for field in ("call_value_id", "receiver_value_id", "receiver_expression",
+                      "receiver_name", "receiver_provenance", "file"):
             if field in callsite and callsite[field] is not None and not isinstance(callsite[field], str):
                 raise CatalogError(f"{prefix} {field} must be a string or null")
         if "line" in callsite and callsite["line"] is not None:
@@ -131,7 +132,21 @@ def validate_index(index: dict) -> None:
                 raise CatalogError(f"{prefix} line must be an integer or null")
 
 
-def _matches(model: dict, callee: dict) -> bool:
+def _cursor_receiver_evidence(callsite: dict) -> bool:
+    """Recognize a DB-API cursor without pretending it has a static type."""
+    callee = callsite.get("callee") or {}
+    if callee.get("receiver_type") == "Cursor":
+        return True
+    if callsite.get("receiver_provenance") == "cursor-factory":
+        return True
+    expression = str(callsite.get("receiver_expression") or "")
+    if re.search(r"\.cursor\s*\(\s*\)\s*$", expression):
+        return True
+    name = str(callsite.get("receiver_name") or "").lower()
+    return name in {"cursor", "cur"}
+
+
+def _matches(model: dict, callee: dict, callsite: dict | None = None) -> bool:
     """A model matches a callsite's callee by name, with package/type as
     disambiguating hints. A hint constrains only when the model supplies it and
     the callsite carries a value to check it against."""
@@ -143,6 +158,13 @@ def _matches(model: dict, callee: dict) -> bool:
     typ = model.get("type")
     if typ is not None and callee.get("receiver_type") is not None and callee["receiver_type"] != typ:
         return False
+    # Cursor is a structural DB-API role rather than a reliably recoverable
+    # Python type.  Require lexical/factory evidence when the graph has no type;
+    # otherwise a method named ``execute`` on an unrelated object would bind the
+    # SQL model merely because its type was unknown.
+    if typ == "Cursor" and callee.get("receiver_type") is None:
+        if callsite is None or not _cursor_receiver_evidence(callsite):
+            return False
     # Arity, when pinned, is a hard discriminator: a same-named callsite with a
     # different parameter count is a different symbol (a project's own recv[]()
     # pointer, say, that shadows the libc name). Only constrains when the callsite
@@ -189,7 +211,8 @@ def _resolve(endpoint, callsite: dict):
 def bind_model(model: dict, index: dict) -> dict:
     lang = index.get("language")
     callsites = [c for c in index.get("callsites", [])
-                 if (lang is None or model.get("language") == lang) and _matches(model, c["callee"])]
+                 if (lang is None or model.get("language") == lang)
+                 and _matches(model, c["callee"], c)]
     res = {"model_id": model.get("id"), "method": model.get("method"),
            "access_path": model.get("access_path"), "role": model.get("role")}
 

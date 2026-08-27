@@ -149,6 +149,39 @@ class BinderMechanics(unittest.TestCase):
         self.assertEqual(r["status"], "unsupported-path")
         self.assertIn("receiver", r.get("detail", ""))
 
+    def test_dbapi_cursor_sink_uses_lexical_receiver_fallback(self):
+        index = {"language": "python", "source": "synthetic", "callsites": [
+            {"id": "cursor", "callee": {"name": "cursor", "arity": 0},
+             "call_value_id": "cursor-result", "receiver_value_id": "connection",
+             "arg_value_ids": []},
+            {"id": "execute", "callee": {"name": "execute", "arity": 1,
+                                              "receiver_type": None},
+             "receiver_name": "cursor", "receiver_expression": "cursor",
+             "call_value_id": "result", "receiver_value_id": "cursor-value",
+             "arg_value_ids": ["sql"]},
+            {"id": "unrelated", "callee": {"name": "execute", "arity": 1,
+                                                "receiver_type": None},
+             "receiver_name": "worker", "receiver_expression": "worker",
+             "call_value_id": "other-result", "receiver_value_id": "worker-value",
+             "arg_value_ids": ["other-sql"]},
+        ]}
+        model = models_by_id()["python.cursor.execute.a0"]
+        result = bind.bind_model(model, index)
+        self.assertEqual(result["status"], "bound", result)
+        self.assertEqual([item["callsite"] for item in result["attachments"]], ["execute"])
+
+    def test_dbapi_cursor_factory_expression_is_evidence(self):
+        index = {"language": "python", "source": "synthetic", "callsites": [{
+            "id": "execute", "callee": {"name": "execute", "arity": 1,
+                                              "receiver_type": None},
+            "receiver_expression": "self.connection.cursor()",
+            "receiver_name": "cursor", "receiver_provenance": "cursor-factory",
+            "call_value_id": "result", "receiver_value_id": "cursor-value",
+            "arg_value_ids": ["sql"],
+        }]}
+        model = models_by_id()["python.cursor.execute.a0"]
+        self.assertEqual(bind.bind_model(model, index)["status"], "bound")
+
     def test_arity_pin_rejects_shadowing_symbol(self):
         # A project's own 5-arg recv[sockindex]() must not bind a libc-arity-4
         # recv model: the pin makes it a different symbol, so symbol-not-found,
