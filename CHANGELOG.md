@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+## 1.9.0
+
+- Add receiver-access regex sinks for JavaScript and TypeScript (`match`/`search`
+  on the receiver, `test`/`exec` on the argument) so subject-tainted regular
+  expression evaluation is watchable — the shape behind catastrophic-backtracking
+  denial of service.
+- Add DOM write sinks for `innerHTML` and `outerHTML` (assignment argument) in
+  JavaScript and TypeScript, the markup path behind DOM-based cross-site scripting.
+- Add a computed property-write sink for prototype-pollution watchpoints in
+  JavaScript and TypeScript.
+
 ## 1.8.0
 
 - Add `pack.json` core-pack metadata and `tools/validate_pack.py` coverage/version
