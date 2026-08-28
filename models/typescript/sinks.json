@@ -1906,6 +1906,125 @@
       "confidence": "low",
       "corroboration": 1,
       "notes": null
+    },
+    {
+      "id": "typescript.regex.match.recv",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "match",
+      "signature": null,
+      "access_path": "Receiver",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "tainted subject .match(regex) risks catastrophic backtracking"
+    },
+    {
+      "id": "typescript.regex.search.recv",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "search",
+      "signature": null,
+      "access_path": "Receiver",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "tainted subject .search(regex)"
+    },
+    {
+      "id": "typescript.regex.test.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "test",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "regex.test(taintedSubject)"
+    },
+    {
+      "id": "typescript.regex.exec.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "exec",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "regex.exec(taintedSubject)"
+    },
+    {
+      "id": "typescript.dom.inner-html.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "innerHTML",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "el.innerHTML = tainted"
+    },
+    {
+      "id": "typescript.dom.outer-html.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "outerHTML",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "el.outerHTML = tainted"
+    },
+    {
+      "id": "typescript.proto.computed-write.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "computed-property-write",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "prototype-pollution",
+      "cwe": [
+        "CWE-1321"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "obj[tainted]=v computed write"
     }
   ]
 }
