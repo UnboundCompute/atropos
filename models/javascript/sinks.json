@@ -1976,7 +1976,7 @@
       "notes": "regex.exec(taintedSubject)"
     },
     {
-      "id": "javascript.dom.innerHTML.a0",
+      "id": "javascript.dom.inner-html.a0",
       "language": "javascript",
       "package": null,
       "type": null,
@@ -1993,7 +1993,7 @@
       "notes": "el.innerHTML = tainted"
     },
     {
-      "id": "javascript.dom.outerHTML.a0",
+      "id": "javascript.dom.outer-html.a0",
       "language": "javascript",
       "package": null,
       "type": null,
