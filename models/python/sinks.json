@@ -480,6 +480,159 @@
       "notes": null
     },
     {
+      "id": "python.re.compile.a0",
+      "language": "python",
+      "package": "re",
+      "type": null,
+      "method": "compile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "the compiled pattern is the regex whose structure governs backtracking; nested quantifiers here catastrophically backtrack on crafted input"
+    },
+    {
+      "id": "python.re.match.a0",
+      "language": "python",
+      "package": "re",
+      "type": null,
+      "method": "match",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.re.search.a0",
+      "language": "python",
+      "package": "re",
+      "type": null,
+      "method": "search",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.re.fullmatch.a0",
+      "language": "python",
+      "package": "re",
+      "type": null,
+      "method": "fullmatch",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.re.sub.a0",
+      "language": "python",
+      "package": "re",
+      "type": null,
+      "method": "sub",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.re.subn.a0",
+      "language": "python",
+      "package": "re",
+      "type": null,
+      "method": "subn",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.re.split.a0",
+      "language": "python",
+      "package": "re",
+      "type": null,
+      "method": "split",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": null
+    },
+    {
+      "id": "python.re.findall.a0",
+      "language": "python",
+      "package": "re",
+      "type": null,
+      "method": "findall",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
+      "id": "python.re.finditer.a0",
+      "language": "python",
+      "package": "re",
+      "type": null,
+      "method": "finditer",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": null
+    },
+    {
       "id": "python.builtins.import.a0",
       "language": "python",
       "package": "builtins",
