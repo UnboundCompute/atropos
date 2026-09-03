@@ -296,6 +296,22 @@ def _cmd_audit(cat: Catalog, args) -> int:
     return 0
 
 
+def _cmd_coverage(cat: Catalog, args) -> int:
+    from .resolve.engine import Auditor
+    from .resolve.coverage import summarize, render_text
+
+    roles = args.role or ["sink"]
+    auditor = Auditor(cat, roles=roles, min_match=args.min_match)
+    report = auditor.audit_path(args.path)
+    summary = summarize(report, cat, top=args.top)
+    if args.json:
+        print(json.dumps(summary, indent=2))
+        return 0
+    for line in render_text(summary):
+        print(line)
+    return 0
+
+
 def _cmd_where(cat: Catalog, args) -> int:
     root = find_catalog_root(args.root)
     info = {
@@ -415,6 +431,20 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--limit", type=int, default=0)
     sp.add_argument("--json", action="store_true", help="alias for --format json")
     sp.set_defaults(func=_cmd_audit)
+
+    sp = sub.add_parser(
+        "coverage",
+        help="summarize catalogued symbol usage across a tree (kinds, hot files, gaps)",
+    )
+    sp.add_argument("path", help="file or directory to summarize")
+    sp.add_argument("--role", action="append",
+                    choices=["sink", "source", "sanitizer"],
+                    help="role(s) to count (repeatable; default: sink)")
+    sp.add_argument("--min-match", choices=["exact", "heuristic", "name-only"],
+                    default="heuristic", help="weakest binding to count")
+    sp.add_argument("--top", type=int, default=15, help="rows in the top-N lists")
+    sp.add_argument("--json", action="store_true")
+    sp.set_defaults(func=_cmd_coverage)
 
     sp = sub.add_parser("where", help="show the catalog root and versions")
     sp.add_argument("--json", action="store_true")

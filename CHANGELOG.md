@@ -10,6 +10,13 @@
   — `exact`, `heuristic`, or `name-only` — separate from the catalog's own
   per-fact confidence. Still no engine and no verdict: it enumerates where
   catalogued symbols are used, not whether tainted data reaches them.
+- Add SARIF 2.1.0 output to `atropos audit` (`-f sarif`): a full log with one
+  reporting rule per kind, a CWE taxonomy, per-result regions, and stable
+  partial fingerprints, for GitHub code scanning / CI / IDE ingestion.
+- Add `atropos coverage <path>`: roll the audit up into counts by kind, language,
+  role, and binding confidence, the top symbols and hottest files, and the gap —
+  catalogued sink kinds (for the languages present) that the target never
+  exercised, so a genuinely clean class is distinguishable from an unmodelled one.
 
 ## 1.10.0
 

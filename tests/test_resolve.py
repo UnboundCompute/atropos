@@ -219,5 +219,34 @@ class TestSarif(unittest.TestCase):
         self.assertEqual(doc["version"], "2.1.0")
 
 
+class TestCoverage(unittest.TestCase):
+    def test_summary_counts_and_gap(self):
+        from atropos.resolve.model import AuditReport
+        from atropos.resolve.coverage import summarize
+        cat = atropos.load()
+        au = Auditor(cat, roles=["sink"], min_match=MATCH_EXACT)
+        rep = AuditReport()
+        au.audit_source("x.py", "python", "import os\nos.system(cmd)\n", rep)
+        s = summarize(rep, cat)
+        self.assertEqual(s["by_language"], {"python": 1})
+        self.assertIn("command-injection", s["by_kind"])
+        # a python target should not report C-only kinds as its own gap
+        self.assertNotIn("buffer-write", s["unexercised_sink_kinds"])
+        # but a python sink kind not used here should be named as a gap
+        self.assertIn("sql-injection", s["unexercised_sink_kinds"])
+
+    def test_coverage_cli_json(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = os.path.join(d, "x.py")
+            with open(p, "w") as fh:
+                fh.write("import os\nos.system(cmd)\n")
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                rc = cli.main(["coverage", p, "--json"])
+        self.assertEqual(rc, 0)
+        s = json.loads(buf.getvalue())
+        self.assertEqual(s["total_findings"], s["by_confidence"].get("exact", 0))
+
+
 if __name__ == "__main__":
     unittest.main()
