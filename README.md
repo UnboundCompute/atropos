@@ -26,8 +26,9 @@ tag or commit so model updates are explicit and reproducible. The current catalo
 version is recorded in [`VERSION`](VERSION), and release tags must match it.
 Security reporting guidance is in [`SECURITY.md`](SECURITY.md).
 
-The catalog tooling supports Python 3.10 through 3.12 and uses only the standard
-library. The validation workflow exercises all three supported versions.
+The catalog tooling and the installable package support Python 3.9 through 3.12
+and use only the standard library. The validation workflow exercises all four
+supported versions.
 
 ## Install the package
 
