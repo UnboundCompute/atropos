@@ -13,9 +13,12 @@ argument or return value to watch.
 Put plainly: Lachesis figures out how code connects. Atropos is the lookup table
 that says "this specific argument is dangerous, and here is why."
 
-> **Status: v1.9.0, actively curated.** 1139 verified facts (plus 7 candidates under review). The data is
+> **Status: v1.10.0, actively curated.** 1618 verified facts (plus 7 candidates under review). The data is
 > validated on every change. Contributions are welcome, see
 > [Contributing](#contributing).
+
+The catalog is also installable as a zero-dependency Python package with a query
+API and a `atropos` command line — see [Install the package](#install-the-package).
 
 Release and pinning guidance is in [`RELEASING.md`](RELEASING.md), and user-visible
 catalog changes are tracked in [`CHANGELOG.md`](CHANGELOG.md). Consumers should pin a
@@ -25,6 +28,47 @@ Security reporting guidance is in [`SECURITY.md`](SECURITY.md).
 
 The catalog tooling supports Python 3.10 through 3.12 and uses only the standard
 library. The validation workflow exercises all three supported versions.
+
+## Install the package
+
+The catalog ships as a self-contained Python package (Python 3.9+, no
+dependencies) that bundles the data, so you can query sinks, sources, sanitizers,
+and flow summaries without cloning this repo.
+
+```bash
+pip install atropos
+```
+
+Command line:
+
+```bash
+atropos stats                              # coverage snapshot
+atropos sinks -l python --kind sql-injection
+atropos sources -l javascript
+atropos resolve python execute --type Cursor   # what is this symbol?
+atropos search deserialize                 # free-text over symbols and notes
+atropos show c.std.memcpy.a2               # one fact by id
+atropos export -l c --role sink -f csv     # json | jsonl | csv for pipelines
+```
+
+Library:
+
+```python
+import atropos
+
+cat = atropos.load()                       # discovers the bundled catalog
+for e in cat.find(language="python", role="sink", kind="command-injection"):
+    print(e.id, e.symbol, e.access_path, e.cwe)
+
+cat.resolve("javascript", "exec", package="child_process")  # bind a call site
+cat.stats()                                # counts by language/role/kind
+```
+
+Every fact is an `Entry` with the schema fields (`id`, `language`, `package`,
+`type`, `method`, `access_path`, `role`, `kind`, `cwe`, …). By default the loader
+discovers the data bundled in the wheel; point it at a specific catalog with the
+`ATROPOS_ROOT` environment variable or `atropos.load(root=...)` to run against a
+checkout or an installed pack.
 
 ## Why it's a separate repo
 
@@ -44,11 +88,11 @@ Each entry is one row of data: a resolvable symbol, an access path, and a role.
 
 ```json
 {
-  "id": "c.mem.memcpy.n",
+  "id": "c.std.memcpy.a2",
   "language": "c", "package": null, "type": null, "method": "memcpy",
-  "signature": "void *memcpy(void *dest, const void *src, size_t n)",
+  "signature": null,
   "access_path": "Argument[2]", "role": "sink", "kind": "buffer-size",
-  "cwe": ["CWE-787", "CWE-120", "CWE-190"], "confidence": "high", "corroboration": 3
+  "cwe": ["CWE-787", "CWE-120"], "confidence": "high", "corroboration": 3
 }
 ```
 
@@ -72,17 +116,19 @@ models/
 candidates/     known-dangerous symbols not yet precisely bindable (never loaded by consumers)
 schema/         model.schema.json  symbol-index.schema.json
 pack.json       versioned core-pack metadata and provenance policy
+atropos/        installable Python package: loader, Catalog query API, and CLI
 tools/          validate.py  bind.py  stats.py   # stdlib only, zero deps
 fixtures/       tiny symbol-index exports with verified node handles
-tests/          test_models.py  test_binding.py
+tests/          test_models.py  test_binding.py  test_package.py
 docs/           binding.md
 ```
 
-1139 verified facts at the time of writing, covering all four languages Lachesis parses
-(C, Python, JavaScript, TypeScript) across 27 taint kinds: buffer overflow,
+1618 verified facts at the time of writing, covering all four languages Lachesis parses
+(C, Python, JavaScript, TypeScript) across 23 sink kinds: buffer overflow,
 command / code / SQL / LDAP / XPath / NoSQL / template injection, path traversal,
-deserialization, SSRF, XXE, XSS, open redirect, prototype pollution, weak crypto
-and randomness, insecure TLS, and more. Sinks, sources, sanitizers, and
+deserialization, unsafe reflection, SSRF, XXE, XSS, open redirect, prototype
+pollution, ReDoS, format string, weak crypto and randomness, insecure TLS, and
+more. Sinks, sources, sanitizers, and
 flow summaries (documented src->dest / input->return behavior that lets the
 engine drop its conservative every-argument-flows-to-return default).
 
@@ -131,10 +177,10 @@ Download the consumer-ready pack from the [Atropos GitHub Releases](https://gith
 then verify the publisher's checksum and install it without manually extracting it:
 
 ```bash
-python3 tools/install_pack.py /path/to/atropos-core-1.9.0.zip \
+python3 tools/install_pack.py /path/to/atropos-core-1.10.0.zip \
   --sha256 "<64-character digest>"
 # then point a consumer at the printed directory:
-ATROPOS_ROOT="$HOME/.atropos/packs/atropos.core/1.9.0" lachesis scan ./repository
+ATROPOS_ROOT="$HOME/.atropos/packs/atropos.core/1.10.0" lachesis scan ./repository
 ```
 
 The installer rejects unsafe archive paths, special files, checksum mismatches, and

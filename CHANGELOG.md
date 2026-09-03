@@ -2,6 +2,31 @@
 
 ## Unreleased
 
+## 1.10.0
+
+- Grow the catalog from 1139 to 1618 verified facts across all four languages,
+  filling the largest coverage gaps found in an ecosystem audit.
+- C: add weak-crypto primitives (MD5/SHA1/DES/RC4/Blowfish), insecure-TLS method
+  selectors, SQL/LDAP/XPath injection sinks, format-string and path-traversal
+  sinks, predictable-seed sinks, untrusted-input sources, and SQL-escaper
+  sanitizers.
+- Python: add pandas/numexpr/sympy code execution, pathlib file I/O and Zip-Slip
+  archive extraction, SSRF clients, ML deserialization loaders, reflection sinks
+  (getattr/setattr/pydoc.locate/importlib), framework request sources
+  (Flask/Django/FastAPI/aiohttp/Tornado), and coercion/normalization sanitizers.
+- JavaScript: add SQL drivers, Mongoose NoSQL, synchronous fs traversal, HTTP
+  client SSRF/redirect, jQuery/DOM XSS, template engines, and deserializers, plus
+  process.env/req.params/document.cookie sources and escaping sanitizers.
+- TypeScript: mirror the JavaScript library surfaces and add framework-specific
+  sinks — Angular DomSanitizer/Renderer2 (XSS), Router (open redirect), HttpClient
+  (SSRF), TypeORM/Sequelize/Knex/Drizzle raw SQL, Deno command/file APIs,
+  class-transformer, and NestJS parameter-decorator sources.
+- Add the `unsafe-reflection` sink kind (CWE-470/CWE-915), routed to the
+  reachability detection recipe.
+- Ship an installable, zero-dependency `atropos` Python package: a catalog loader
+  with `ATROPOS_ROOT`/checkout/bundle discovery, a `Catalog` query API, and an
+  `atropos` command line (sinks/sources/resolve/search/show/export/stats).
+
 ## 1.9.0
 
 - Add receiver-access regex sinks for JavaScript and TypeScript (`match`/`search`
