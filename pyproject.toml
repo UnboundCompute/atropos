@@ -41,8 +41,12 @@ Changelog = "https://github.com/UnboundCompute/atropos/blob/main/CHANGELOG.md"
 atropos = "atropos.cli:main"
 
 [tool.setuptools]
-packages = ["atropos"]
 license-files = ["LICENSE", "LICENSE-CODE"]
+
+# Discover atropos and every subpackage (atropos.resolve, and any added later) so a
+# new subpackage cannot silently be left out of the wheel.
+[tool.setuptools.packages.find]
+include = ["atropos*"]
 
 [tool.setuptools.dynamic]
 version = { attr = "atropos._version.__version__" }
