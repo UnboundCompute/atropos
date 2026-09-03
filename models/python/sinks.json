@@ -7611,6 +7611,91 @@
       "confidence": "medium",
       "corroboration": 1,
       "notes": "CWE-1333; tainted pattern arg."
+    },
+    {
+      "id": "python.builtins.getattr.a1",
+      "language": "python",
+      "package": "builtins",
+      "type": null,
+      "method": "getattr",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "unsafe-reflection",
+      "cwe": [
+        "CWE-470"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Reflective attribute resolution: an attacker-controlled attribute name selects which member is fetched, enabling access to unintended callables or state (CWE-470)."
+    },
+    {
+      "id": "python.builtins.setattr.a1",
+      "language": "python",
+      "package": "builtins",
+      "type": null,
+      "method": "setattr",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "unsafe-reflection",
+      "cwe": [
+        "CWE-470"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Reflective attribute assignment: an attacker-controlled attribute name writes an unintended member, corrupting object state or overriding methods (CWE-470)."
+    },
+    {
+      "id": "python.operator.attrgetter.a0",
+      "language": "python",
+      "package": "operator",
+      "type": null,
+      "method": "attrgetter",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "unsafe-reflection",
+      "cwe": [
+        "CWE-470"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Reflective attribute resolution via a built factory: an attacker-controlled name selects the attribute later fetched from targets (CWE-470)."
+    },
+    {
+      "id": "python.pydoc.locate.a0",
+      "language": "python",
+      "package": "pydoc",
+      "type": null,
+      "method": "locate",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "unsafe-reflection",
+      "cwe": [
+        "CWE-470"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Dotted-path object lookup: an attacker-controlled path resolves and imports an arbitrary module attribute, executing import side effects (CWE-470)."
+    },
+    {
+      "id": "python.importlibutil.specfromfilelocation.a1",
+      "language": "python",
+      "package": "importlib.util",
+      "type": null,
+      "method": "spec_from_file_location",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "unsafe-reflection",
+      "cwe": [
+        "CWE-470"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Dynamic module load from an attacker-controlled file path executes that module's top-level code on import (CWE-470)."
     }
   ]
 }
