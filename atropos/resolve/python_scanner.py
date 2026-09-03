@@ -44,19 +44,32 @@ class _Imports:
                 self.from_names[bound] = (node.module, a.name)
 
 
-def _source_segment(source: str, node: ast.AST) -> str:
-    seg = ast.get_source_segment(source, node)
-    return seg if seg is not None else ""
+def _line_starts(source: str) -> List[int]:
+    """Byte offset of the start of each 1-indexed line (index 0 unused)."""
+    starts = [0, 0]
+    for i, ch in enumerate(source):
+        if ch == "\n":
+            starts.append(i + 1)
+    return starts
 
 
-def _receiver_text(source: str, node: ast.AST) -> Optional[str]:
-    return _source_segment(source, node) or None
+def _segment(source: str, starts: List[int], node: ast.AST) -> str:
+    """Exact source text of ``node`` using precomputed line starts -- O(1) per node,
+    where ``ast.get_source_segment`` re-scans the whole file each call (quadratic)."""
+    lineno = getattr(node, "lineno", None)
+    end_lineno = getattr(node, "end_lineno", None)
+    if lineno is None or end_lineno is None or end_lineno >= len(starts):
+        return ""
+    start = starts[lineno] + node.col_offset
+    end = starts[end_lineno] + node.end_col_offset
+    return source[start:end]
 
 
 def scan(file: str, source: str) -> "List[CallSite]":
     """Return every call site in ``source``. ``file`` is used only for labelling."""
     tree = ast.parse(source)  # may raise SyntaxError; caller handles it
     lines = source.splitlines()
+    starts = _line_starts(source)
     imports = _Imports()
     for node in ast.walk(tree):
         imports.visit(node)
@@ -66,7 +79,7 @@ def scan(file: str, source: str) -> "List[CallSite]":
         if not isinstance(node, ast.Call):
             continue
         func = node.func
-        args = tuple(_source_segment(source, a) for a in node.args)
+        args = tuple(_segment(source, starts, a) for a in node.args)
         line = getattr(func, "lineno", node.lineno)
         col = getattr(func, "col_offset", node.col_offset)
         snippet = lines[node.lineno - 1].strip() if 0 < node.lineno <= len(lines) else ""
@@ -100,8 +113,8 @@ def scan(file: str, source: str) -> "List[CallSite]":
                 # receiver.method(...) with an unresolved receiver type.
                 sites.append(CallSite(
                     file=file, line=line, col=col, callee=callee,
-                    receiver=_receiver_text(source, value), module=None, args=args,
-                    is_method=True, snippet=snippet,
+                    receiver=_segment(source, starts, value) or None, module=None,
+                    args=args, is_method=True, snippet=snippet,
                 ))
         # a call of a call, subscript, lambda, etc. carries no stable symbol name.
     return sites
