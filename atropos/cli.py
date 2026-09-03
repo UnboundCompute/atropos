@@ -272,9 +272,9 @@ def _render_audit(report, as_json: bool, limit: int) -> None:
 
 
 def _cmd_audit(cat: Catalog, args) -> int:
-    from .resolve.engine import Auditor  # local import: scanners only load on demand
-
     import os as _os
+
+    from .resolve.engine import Auditor  # local import: scanners only load on demand
     from .resolve.model import AuditReport
 
     roles = args.role or ["sink"]
@@ -286,7 +286,13 @@ def _cmd_audit(cat: Catalog, args) -> int:
         report = auditor.audit_path(args.path)
     if args.kind:
         report.findings = [f for f in report.findings if f.entry.kind == args.kind]
-    _render_audit(report, args.json, args.limit)
+
+    fmt = "json" if args.json else args.format
+    if fmt == "sarif":
+        from .resolve.sarif import to_sarif
+        print(json.dumps(to_sarif(report), indent=2))
+    else:
+        _render_audit(report, fmt == "json", args.limit)
     return 0
 
 
@@ -404,8 +410,10 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--min-match", choices=["exact", "heuristic", "name-only"],
                     default="heuristic",
                     help="weakest binding to report (default: heuristic)")
+    sp.add_argument("--format", "-f", choices=["table", "json", "sarif"],
+                    default="table", help="output format (default: table)")
     sp.add_argument("--limit", type=int, default=0)
-    sp.add_argument("--json", action="store_true")
+    sp.add_argument("--json", action="store_true", help="alias for --format json")
     sp.set_defaults(func=_cmd_audit)
 
     sp = sub.add_parser("where", help="show the catalog root and versions")

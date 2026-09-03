@@ -169,5 +169,55 @@ class TestAuditCLI(unittest.TestCase):
         self.assertTrue(all(f["match"] == "exact" for f in payload["findings"]))
 
 
+class TestSarif(unittest.TestCase):
+    def _sarif(self, src):
+        from atropos.resolve.model import AuditReport
+        from atropos.resolve.sarif import to_sarif
+        cat = atropos.load()
+        au = Auditor(cat, roles=["sink"], min_match=MATCH_NAME_ONLY)
+        rep = AuditReport()
+        au.audit_source("x.py", "python", src, rep)
+        return to_sarif(rep)
+
+    def test_sarif_shape_and_backreferences(self):
+        doc = self._sarif("import os\nos.system(cmd)\ncur.execute(q)\n")
+        self.assertEqual(doc["version"], "2.1.0")
+        run = doc["runs"][0]
+        rules = run["tool"]["driver"]["rules"]
+        self.assertTrue(rules)
+        for r in run["results"]:
+            # ruleIndex must point back at the matching ruleId
+            self.assertEqual(rules[r["ruleIndex"]]["id"], r["ruleId"])
+            self.assertIn(r["level"], ("warning", "note"))
+            self.assertIn("atroposMatch/v1", r["partialFingerprints"])
+
+    def test_sarif_cwe_taxonomy_resolves(self):
+        doc = self._sarif("import os\nos.system(cmd)\n")
+        run = doc["runs"][0]
+        taxa = {t["id"] for t in run["taxonomies"][0]["taxa"]}
+        for rule in run["tool"]["driver"]["rules"]:
+            for rel in rule.get("relationships", []):
+                self.assertIn(rel["target"]["id"], taxa)
+
+    def test_sarif_fingerprint_is_stable(self):
+        a = self._sarif("import os\nos.system(cmd)\n")
+        b = self._sarif("import os\nos.system(cmd)\n")
+        fa = a["runs"][0]["results"][0]["partialFingerprints"]["atroposMatch/v1"]
+        fb = b["runs"][0]["results"][0]["partialFingerprints"]["atroposMatch/v1"]
+        self.assertEqual(fa, fb)
+
+    def test_audit_sarif_via_cli(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = os.path.join(d, "x.py")
+            with open(p, "w") as fh:
+                fh.write("import os\nos.system(cmd)\n")
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                rc = cli.main(["audit", p, "-f", "sarif"])
+        self.assertEqual(rc, 0)
+        doc = json.loads(buf.getvalue())
+        self.assertEqual(doc["version"], "2.1.0")
+
+
 if __name__ == "__main__":
     unittest.main()
