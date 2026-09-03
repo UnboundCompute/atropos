@@ -13,6 +13,7 @@ import csv
 import io
 import json
 import sys
+import time
 from typing import List, Optional
 
 from ._version import __version__
@@ -226,6 +227,40 @@ def _cmd_detection(cat: Catalog, args) -> int:
     return 0
 
 
+# Default table-mode row cap (overridden by --limit; --json always shows all).
+_TABLE_ROW_CAP = 40
+
+
+def _clip(s: str, width: int, keep_tail: bool = False) -> str:
+    """Clip ``s`` to ``width`` with an ellipsis, keeping the tail (for paths) or the
+    head. Never returns more than ``width`` display columns."""
+    if len(s) <= width:
+        return s
+    if width <= 1:
+        return s[:width]
+    return ("…" + s[-(width - 1):]) if keep_tail else (s[:width - 1] + "…")
+
+
+def _audit_progress(n: int, found: int, path: str) -> None:
+    """Show scan activity on stderr, throttled, only when stderr is a TTY so pipes
+    and redirects stay clean."""
+    if not sys.stderr.isatty():
+        return
+    now = time.time()
+    last = getattr(_audit_progress, "_last", 0.0)
+    if n % 25 and now - last < 0.15:
+        return
+    _audit_progress._last = now
+    sys.stderr.write("\r\033[K  scanning… %d files, %d finding(s)" % (n, found))
+    sys.stderr.flush()
+
+
+def _audit_progress_done() -> None:
+    if sys.stderr.isatty():
+        sys.stderr.write("\r\033[K")
+        sys.stderr.flush()
+
+
 def _render_audit(report, as_json: bool, limit: int) -> None:
     findings = report.sorted()
     if limit:
@@ -238,34 +273,55 @@ def _render_audit(report, as_json: bool, limit: int) -> None:
             "errors": report.errors,
         }, indent=2))
         return
+    # --- headline: give the reader a mental model before any rows --------------
+    from collections import Counter
+    by_match = Counter(f.match for f in report.findings)
+    by_kind = Counter(f.entry.kind for f in report.findings)
+    tally = ", ".join(f"{by_match[m]} {m}"
+                      for m in ("exact", "heuristic", "name-only") if by_match.get(m))
+    print(f"Audited {report.files_scanned} files"
+          f"{f' ({report.files_skipped} skipped)' if report.files_skipped else ''}: "
+          f"{len(report.findings)} finding(s) — {tally or 'none'}")
     if not findings:
-        print(f"(no findings; scanned {report.files_scanned} files)")
+        print("(no findings)")
         return
+    kbits = ", ".join(f"{k} {n}" for k, n in by_kind.most_common(6))
+    if kbits:
+        extra = "" if len(by_kind) <= 6 else f", +{len(by_kind) - 6} more"
+        print(f"by kind: {kbits}{extra}")
+
+    # --- bounded sample: a big tree must never flood or pad the terminal --------
+    # (one huge focus expression once padded every row to screenfuls of space).
+    # --limit overrides the cap; --json / -f json emits everything.
+    total = len(findings)
+    shown = findings if limit else findings[:_TABLE_ROW_CAP]
+    soft_capped = not limit and total > _TABLE_ROW_CAP
+
     cols = ("MATCH", "LANG", "SYMBOL", "KIND", "FOCUS", "LOCATION")
+    caps = (9, 10, 40, 22, 48, 64)
+    keep_tail = (False, False, False, False, False, True)  # paths clip from the left
     rows = []
-    for f in findings:
+    for f in shown:
+        focus = f.focus + (f" = {f.focus_expr}" if f.focus_expr else "")
         rows.append([
-            f.match,
-            f.entry.language,
-            f.entry.symbol,
-            f.entry.kind,
-            (f.focus + (f" = {f.focus_expr}" if f.focus_expr else "")),
-            f"{f.site.file}:{f.site.line}",
+            f.match, f.entry.language, f.entry.symbol, f.entry.kind,
+            " ".join(focus.split()), f"{f.site.file}:{f.site.line}",
         ])
     widths = [len(c) for c in cols]
     for r in rows:
         for i, cell in enumerate(r):
-            widths[i] = max(widths[i], len(str(cell)))
+            widths[i] = min(caps[i], max(widths[i], len(str(cell))))
+    label = (f"top {len(rows)}" if soft_capped else f"all {len(rows)}")
+    print(f"\n{label} finding(s), strongest binding first:")
     print("  ".join(cols[i].ljust(widths[i]) for i in range(len(cols))))
     print("  ".join("-" * widths[i] for i in range(len(cols))))
     for r in rows:
-        print("  ".join(str(c).ljust(widths[i]) for i, c in enumerate(r)))
-    by_match = {}
-    for f in report.findings:
-        by_match[f.match] = by_match.get(f.match, 0) + 1
-    tally = ", ".join(f"{by_match[m]} {m}" for m in ("exact", "heuristic", "name-only") if by_match.get(m))
-    print(f"\n{len(report.findings)} finding(s) [{tally}] across "
-          f"{report.files_scanned} files ({report.files_skipped} skipped)")
+        print("  ".join(_clip(str(c), widths[i], keep_tail[i]).ljust(widths[i])
+                        for i, c in enumerate(r)))
+    if soft_capped:
+        print(f"\n… {total - _TABLE_ROW_CAP} more not shown. Narrow with "
+              f"--kind KIND / --min-match exact, cap with --limit N, or --json for all.")
+        print("  For the rolled-up picture instead of a list, use: atropos coverage <path>")
     if report.errors:
         print(f"{len(report.errors)} file error(s); rerun with --json to see them",
               file=sys.stderr)
@@ -283,7 +339,8 @@ def _cmd_audit(cat: Catalog, args) -> int:
         report = AuditReport()
         auditor.audit_file(args.path, report, language=args.language)
     else:
-        report = auditor.audit_path(args.path)
+        report = auditor.audit_path(args.path, progress=_audit_progress)
+        _audit_progress_done()
     if args.kind:
         report.findings = [f for f in report.findings if f.entry.kind == args.kind]
 

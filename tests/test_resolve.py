@@ -168,6 +168,43 @@ class TestAuditCLI(unittest.TestCase):
         self.assertTrue(payload["findings"])
         self.assertTrue(all(f["match"] == "exact" for f in payload["findings"]))
 
+    def test_table_is_bounded_and_has_headline(self):
+        # Many findings must not flood: headline first, sample capped, note shown.
+        from atropos.cli import _TABLE_ROW_CAP
+        with tempfile.TemporaryDirectory() as d:
+            p = os.path.join(d, "x.py")
+            with open(p, "w") as fh:
+                fh.write("import os\n" + "".join(
+                    "os.system(cmd%d)\n" % i for i in range(_TABLE_ROW_CAP + 25)))
+            rc, out = self._run("audit", p)
+        self.assertEqual(rc, 0)
+        lines = out.splitlines()
+        self.assertTrue(lines[0].startswith("Audited "))
+        self.assertIn("by kind:", out)
+        self.assertIn("more not shown", out)
+        # No line blows up to a monster width regardless of expression length.
+        self.assertLessEqual(max(len(ln) for ln in lines), 220)
+
+    def test_clip_bounds_width_and_keeps_tail(self):
+        from atropos.cli import _clip
+        self.assertEqual(_clip("abcdef", 4), "abc…")
+        self.assertEqual(_clip("abcdef", 4, keep_tail=True), "…def")
+        self.assertEqual(_clip("ab", 4), "ab")
+
+    def test_build_output_dirs_are_skipped(self):
+        # A generated dir like .next must not be walked; hand-written source is.
+        with tempfile.TemporaryDirectory() as d:
+            os.makedirs(os.path.join(d, ".next"))
+            with open(os.path.join(d, ".next", "gen.py"), "w") as fh:
+                fh.write("import os\nos.system(a)\n")
+            with open(os.path.join(d, "real.py"), "w") as fh:
+                fh.write("import os\nos.system(b)\n")
+            rc, out = self._run("audit", d, "--json")
+        payload = json.loads(out)
+        files = {f["file"] for f in payload["findings"]}
+        self.assertTrue(any("real.py" in f for f in files))
+        self.assertFalse(any(".next" in f for f in files))
+
 
 class TestSarif(unittest.TestCase):
     def _sarif(self, src):
