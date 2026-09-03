@@ -25,6 +25,7 @@
     "prototype-pollution": "reachability",
     "ldap-injection": "reachability",
     "xpath-injection": "reachability",
+    "unsafe-reflection": "reachability",
     "redos": "reachability",
     "alloc-size": ["relational", "missing-guard", "allocation-overflow-size"],
     "buffer-size": ["relational", "missing-guard"],
