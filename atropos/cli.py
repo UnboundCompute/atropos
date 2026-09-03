@@ -312,6 +312,38 @@ def _cmd_coverage(cat: Catalog, args) -> int:
     return 0
 
 
+def _cmd_ground(cat: Catalog, args) -> int:
+    from .ground import retrieve, render_context
+
+    result = retrieve(cat, text=args.text, cwe=args.cwe, kind=args.kind,
+                      language=args.language, limit=args.limit or 40)
+    if args.json:
+        print(json.dumps(result, indent=2))
+        return 0
+    if result["match_count"] == 0:
+        print("no catalog facts match this query", file=sys.stderr)
+        return 0
+    print(render_context(result))
+    return 0
+
+
+def _cmd_validate(cat: Catalog, args) -> int:
+    from .ground import validate
+
+    result = validate(cat, args.language, args.method, access_path=args.access_path,
+                      role=args.role, package=args.package, type=args.type, cwe=args.cwe)
+    if args.json:
+        print(json.dumps(result, indent=2))
+    else:
+        print(f"verdict: {result['verdict']}")
+        if result["note"]:
+            print(result["note"])
+        for e in result["evidence"]:
+            print(f"  {e['id']}  {e['symbol']}  {e['role']}  {e['access_path']}  {e['kind']}")
+    # Non-confirmed proposals return non-zero so a pipeline can gate on grounding.
+    return 0 if result["verdict"] in ("confirmed", "partial") else 1
+
+
 def _cmd_rules(cat: Catalog, args) -> int:
     from .resolve.policy import build, render_text
 
@@ -504,6 +536,32 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--limit", type=int, default=0)
     sp.add_argument("--json", action="store_true", help="alias for --format json")
     sp.set_defaults(func=_cmd_audit)
+
+    sp = sub.add_parser(
+        "ground",
+        help="retrieve catalog facts as grounding context for a language model",
+    )
+    sp.add_argument("text", nargs="?", help="free-text query (symbol, term)")
+    sp.add_argument("--cwe", help="ground on a CWE id, e.g. CWE-89 or 89")
+    sp.add_argument("--kind", "-k", help="ground on a vulnerability kind")
+    sp.add_argument("--language", "-l", help="restrict to one language")
+    sp.add_argument("--limit", type=int, default=0, help="max facts per role (default 40)")
+    sp.add_argument("--json", action="store_true")
+    sp.set_defaults(func=_cmd_ground)
+
+    sp = sub.add_parser(
+        "validate",
+        help="adjudicate a proposed sink/source against the catalog (grounding oracle)",
+    )
+    sp.add_argument("language")
+    sp.add_argument("method", help="bare callee, e.g. system or execute")
+    sp.add_argument("--access-path", "-a", help="e.g. Argument[0], Receiver, ReturnValue")
+    sp.add_argument("--role", choices=["sink", "source", "sanitizer"])
+    sp.add_argument("--package", "-p")
+    sp.add_argument("--type", "-t", help="receiver type for a member call")
+    sp.add_argument("--cwe")
+    sp.add_argument("--json", action="store_true")
+    sp.set_defaults(func=_cmd_validate)
 
     sp = sub.add_parser(
         "rules",
