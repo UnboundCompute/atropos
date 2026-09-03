@@ -226,6 +226,70 @@ def _cmd_detection(cat: Catalog, args) -> int:
     return 0
 
 
+def _render_audit(report, as_json: bool, limit: int) -> None:
+    findings = report.sorted()
+    if limit:
+        findings = findings[:limit]
+    if as_json:
+        print(json.dumps({
+            "files_scanned": report.files_scanned,
+            "files_skipped": report.files_skipped,
+            "findings": [f.to_dict() for f in findings],
+            "errors": report.errors,
+        }, indent=2))
+        return
+    if not findings:
+        print(f"(no findings; scanned {report.files_scanned} files)")
+        return
+    cols = ("MATCH", "LANG", "SYMBOL", "KIND", "FOCUS", "LOCATION")
+    rows = []
+    for f in findings:
+        rows.append([
+            f.match,
+            f.entry.language,
+            f.entry.symbol,
+            f.entry.kind,
+            (f.focus + (f" = {f.focus_expr}" if f.focus_expr else "")),
+            f"{f.site.file}:{f.site.line}",
+        ])
+    widths = [len(c) for c in cols]
+    for r in rows:
+        for i, cell in enumerate(r):
+            widths[i] = max(widths[i], len(str(cell)))
+    print("  ".join(cols[i].ljust(widths[i]) for i in range(len(cols))))
+    print("  ".join("-" * widths[i] for i in range(len(cols))))
+    for r in rows:
+        print("  ".join(str(c).ljust(widths[i]) for i, c in enumerate(r)))
+    by_match = {}
+    for f in report.findings:
+        by_match[f.match] = by_match.get(f.match, 0) + 1
+    tally = ", ".join(f"{by_match[m]} {m}" for m in ("exact", "heuristic", "name-only") if by_match.get(m))
+    print(f"\n{len(report.findings)} finding(s) [{tally}] across "
+          f"{report.files_scanned} files ({report.files_skipped} skipped)")
+    if report.errors:
+        print(f"{len(report.errors)} file error(s); rerun with --json to see them",
+              file=sys.stderr)
+
+
+def _cmd_audit(cat: Catalog, args) -> int:
+    from .resolve.engine import Auditor  # local import: scanners only load on demand
+
+    import os as _os
+    from .resolve.model import AuditReport
+
+    roles = args.role or ["sink"]
+    auditor = Auditor(cat, roles=roles, min_match=args.min_match)
+    if args.language and _os.path.isfile(args.path):
+        report = AuditReport()
+        auditor.audit_file(args.path, report, language=args.language)
+    else:
+        report = auditor.audit_path(args.path)
+    if args.kind:
+        report.findings = [f for f in report.findings if f.entry.kind == args.kind]
+    _render_audit(report, args.json, args.limit)
+    return 0
+
+
 def _cmd_where(cat: Catalog, args) -> int:
     root = find_catalog_root(args.root)
     info = {
@@ -326,6 +390,23 @@ def build_parser() -> argparse.ArgumentParser:
     sp = sub.add_parser("detection", help="show the kind->evaluator recipe layer")
     sp.add_argument("--json", action="store_true")
     sp.set_defaults(func=_cmd_detection)
+
+    sp = sub.add_parser(
+        "audit",
+        help="enumerate catalogued symbol uses in a file or directory tree",
+    )
+    sp.add_argument("path", help="file or directory to scan")
+    sp.add_argument("--language", "-l", help="force a language instead of by extension")
+    sp.add_argument("--role", action="append",
+                    choices=["sink", "source", "sanitizer"],
+                    help="role(s) to enumerate (repeatable; default: sink)")
+    sp.add_argument("--kind", "-k", help="restrict to one vulnerability kind")
+    sp.add_argument("--min-match", choices=["exact", "heuristic", "name-only"],
+                    default="heuristic",
+                    help="weakest binding to report (default: heuristic)")
+    sp.add_argument("--limit", type=int, default=0)
+    sp.add_argument("--json", action="store_true")
+    sp.set_defaults(func=_cmd_audit)
 
     sp = sub.add_parser("where", help="show the catalog root and versions")
     sp.add_argument("--json", action="store_true")
