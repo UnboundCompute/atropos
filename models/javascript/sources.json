@@ -256,6 +256,193 @@
       "confidence": "low",
       "corroboration": 1,
       "notes": null
+    },
+    {
+      "id": "javascript.process.env.ret",
+      "language": "javascript",
+      "package": "process",
+      "type": null,
+      "method": "env",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "process.env values are externally controllable configuration; untrusted when attacker-influenced."
+    },
+    {
+      "id": "javascript.express.request.params.ret",
+      "language": "javascript",
+      "package": null,
+      "type": "Request",
+      "method": "params",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "req.params holds route parameters straight from the URL path (attacker-controlled)."
+    },
+    {
+      "id": "javascript.express.request.headers.ret",
+      "language": "javascript",
+      "package": null,
+      "type": "Request",
+      "method": "headers",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "req.headers is fully attacker-controlled request input (Host, X-Forwarded-*, etc.)."
+    },
+    {
+      "id": "javascript.express.request.originalurl.ret",
+      "language": "javascript",
+      "package": null,
+      "type": "Request",
+      "method": "originalUrl",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "req.originalUrl reflects the raw request URL, an untrusted source."
+    },
+    {
+      "id": "javascript.express.request.hostname.ret",
+      "language": "javascript",
+      "package": null,
+      "type": "Request",
+      "method": "hostname",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "req.hostname derives from the client-supplied Host header; spoofable untrusted input."
+    },
+    {
+      "id": "javascript.dom.document.cookie.ret",
+      "language": "javascript",
+      "package": null,
+      "type": "Document",
+      "method": "cookie",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 3,
+      "notes": "document.cookie is attacker-influenceable and a classic DOM-XSS source."
+    },
+    {
+      "id": "javascript.dom.document.referrer.ret",
+      "language": "javascript",
+      "package": null,
+      "type": "Document",
+      "method": "referrer",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 3,
+      "notes": "document.referrer is set by the navigating page; untrusted DOM-XSS source."
+    },
+    {
+      "id": "javascript.dom.window.name.ret",
+      "language": "javascript",
+      "package": null,
+      "type": "Window",
+      "method": "name",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "window.name persists across origins and is attacker-controllable (DOM-XSS source)."
+    },
+    {
+      "id": "javascript.dom.location.href.ret",
+      "language": "javascript",
+      "package": null,
+      "type": "Location",
+      "method": "href",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "location.href exposes the full URL (incl. attacker-controlled query/fragment); DOM-XSS source."
+    },
+    {
+      "id": "javascript.dom.messageevent.data.ret",
+      "language": "javascript",
+      "package": null,
+      "type": "MessageEvent",
+      "method": "data",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "event.data from postMessage/WebSocket onmessage is cross-origin untrusted input (DOM-XSS source)."
+    },
+    {
+      "id": "javascript.http.incomingmessage.headers.ret",
+      "language": "javascript",
+      "package": null,
+      "type": "IncomingMessage",
+      "method": "headers",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Node http IncomingMessage.headers is raw client-supplied request headers."
     }
   ]
 }
