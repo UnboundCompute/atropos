@@ -48,9 +48,17 @@ _EXT_LANG = {
 
 # Directories never worth walking: vendored code, VCS metadata, build output.
 _SKIP_DIRS = {
-    ".git", "node_modules", "__pycache__", ".venv", "venv", "env",
-    "dist", "build", ".mypy_cache", ".pytest_cache", ".tox", "vendor",
-    "site-packages", ".idea", ".vscode",
+    # VCS / editor
+    ".git", ".hg", ".svn", ".idea", ".vscode",
+    # dependency trees
+    "node_modules", "vendor", "site-packages", "bower_components",
+    # python envs / caches
+    "__pycache__", ".venv", "venv", "env", ".mypy_cache", ".pytest_cache",
+    ".tox", ".ruff_cache",
+    # build / generated output (framework bundles land here, not hand-written source)
+    "dist", "build", "out", "target", "coverage",
+    ".next", ".nuxt", ".svelte-kit", ".output", ".turbo", ".cache",
+    ".parcel-cache", ".gradle",
 }
 
 _ARG_RE = re.compile(r"Argument\[(\d+)\]")
@@ -172,16 +180,26 @@ class Auditor:
             return
         self.audit_source(path, language, source, report)
 
-    def audit_path(self, root: str) -> AuditReport:
-        """Audit a single file or a directory tree, returning one report."""
+    def audit_path(self, root: str, progress=None) -> AuditReport:
+        """Audit a single file or a directory tree, returning one report.
+
+        ``progress``, if given, is called as ``progress(files_scanned,
+        findings_so_far, current_path)`` after each file so a caller can show
+        activity on a large tree. It must not raise.
+        """
         report = AuditReport()
         if os.path.isfile(root):
             self.audit_file(root, report)
+            if progress:
+                progress(report.files_scanned, len(report.findings), root)
             return report
         for dirpath, dirnames, filenames in os.walk(root):
             dirnames[:] = [d for d in dirnames if d not in _SKIP_DIRS]
             for name in filenames:
                 ext = os.path.splitext(name)[1].lower()
                 if ext in _EXT_LANG:
-                    self.audit_file(os.path.join(dirpath, name), report)
+                    path = os.path.join(dirpath, name)
+                    self.audit_file(path, report)
+                    if progress:
+                        progress(report.files_scanned, len(report.findings), path)
         return report
