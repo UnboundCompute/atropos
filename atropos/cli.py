@@ -312,6 +312,24 @@ def _cmd_coverage(cat: Catalog, args) -> int:
     return 0
 
 
+def _cmd_rules(cat: Catalog, args) -> int:
+    from .resolve.policy import build, render_text
+
+    policy = build(cat, language=args.language, role=args.role,
+                   banned_only=args.banned_only)
+    if args.output:
+        with open(args.output, "w", encoding="utf-8") as fh:
+            json.dump(policy, fh, indent=2)
+        print(f"wrote {policy['rule_count']} rules to {args.output}", file=sys.stderr)
+        return 0
+    if args.json:
+        print(json.dumps(policy, indent=2))
+        return 0
+    for line in render_text(policy):
+        print(line)
+    return 0
+
+
 def _cmd_surface(cat: Catalog, args) -> int:
     from .resolve.surface import build, render_text
 
@@ -486,6 +504,19 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--limit", type=int, default=0)
     sp.add_argument("--json", action="store_true", help="alias for --format json")
     sp.set_defaults(func=_cmd_audit)
+
+    sp = sub.add_parser(
+        "rules",
+        help="emit the catalog as a portable enforcement policy (lint / banned-API)",
+    )
+    sp.add_argument("--language", "-l", help="restrict to one language")
+    sp.add_argument("--role", choices=["sink", "source", "sanitizer"],
+                    help="restrict to one role")
+    sp.add_argument("--banned-only", action="store_true",
+                    help="only the hard-ban tier (severity error)")
+    sp.add_argument("--output", "-o", help="write JSON to a file instead of stdout")
+    sp.add_argument("--json", action="store_true")
+    sp.set_defaults(func=_cmd_rules)
 
     sp = sub.add_parser(
         "surface",

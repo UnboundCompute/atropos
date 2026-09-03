@@ -27,6 +27,12 @@
   listing each file's sources and sink kinds. No flow is claimed — same-file
   co-location is the precondition for the shortest flow, i.e. where a reviewer or a
   real taint engine should look first.
+- Add `atropos rules`: project the catalog into a portable enforcement policy
+  (`atropos-watchlist/v1`) — one row per catalogued symbol with the slot to watch,
+  kind, CWE, a severity tier (high-confidence sink = error, other sink = warning,
+  source/sanitizer = note), and a ready-to-show message, so a team that cannot run
+  Atropos in CI can still bind the watch-list into whatever gate they have.
+  `--banned-only` keeps just the hard-ban tier; `-l`/`--role` filter.
 
 ## 1.10.0
 

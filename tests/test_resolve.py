@@ -248,6 +248,36 @@ class TestCoverage(unittest.TestCase):
         self.assertEqual(s["total_findings"], s["by_confidence"].get("exact", 0))
 
 
+class TestPolicy(unittest.TestCase):
+    def test_policy_severity_tiers(self):
+        from atropos.resolve.policy import build
+        cat = atropos.load()
+        p = build(cat)
+        self.assertEqual(p["policy"], "atropos-watchlist/v1")
+        self.assertEqual(p["rule_count"], sum(p["by_severity"].values()))
+        # no summaries leak into an enforcement policy
+        self.assertFalse(any("->" in r["access_path"] for r in p["rules"]))
+        # sources/sanitizers are notes, never error
+        for r in p["rules"]:
+            if r["role"] in ("source", "sanitizer"):
+                self.assertEqual(r["severity"], "note")
+
+    def test_banned_only_is_all_error(self):
+        from atropos.resolve.policy import build
+        cat = atropos.load()
+        p = build(cat, banned_only=True)
+        self.assertTrue(p["rules"])
+        self.assertTrue(all(r["severity"] == "error" for r in p["rules"]))
+
+    def test_rules_cli_json(self):
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            rc = cli.main(["rules", "-l", "python", "--json"])
+        self.assertEqual(rc, 0)
+        p = json.loads(buf.getvalue())
+        self.assertTrue(all(r["language"] == "python" for r in p["rules"]))
+
+
 class TestSurface(unittest.TestCase):
     def test_file_with_both_ranks_first(self):
         from atropos.resolve.surface import build
