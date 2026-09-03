@@ -358,5 +358,42 @@ class TestDiffGate(unittest.TestCase):
         self.assertEqual(rc, 0)
 
 
+class TestConformance(unittest.TestCase):
+    def _conf(self, source: str):
+        from atropos.resolve.conformance import build, C_NO_SANITIZER_SEEN, \
+            C_SANITIZER_PRESENT
+        with tempfile.TemporaryDirectory() as d:
+            with open(os.path.join(d, "x.py"), "w") as fh:
+                fh.write(source)
+            return build(atropos.load(), d), C_NO_SANITIZER_SEEN, C_SANITIZER_PRESENT
+
+    def test_sink_without_sanitizer_is_flagged(self):
+        conf, SEEN, _ = self._conf("import os\nos.system(cmd)\n")
+        ci = [k for k in conf["kinds"] if k["kind"] == "command-injection"]
+        self.assertTrue(ci)
+        self.assertEqual(ci[0]["status"], SEEN)
+        self.assertGreaterEqual(conf["flagged"], 1)
+
+    def test_sink_with_sanitizer_present(self):
+        conf, _, PRESENT = self._conf(
+            "import os, shlex\nos.system(shlex.quote(cmd))\n")
+        ci = [k for k in conf["kinds"] if k["kind"] == "command-injection"]
+        self.assertTrue(ci)
+        self.assertEqual(ci[0]["status"], PRESENT)
+        self.assertIn("shlex.quote", ci[0]["sanitizers_used"])
+
+    def test_conformance_cli_json(self):
+        with tempfile.TemporaryDirectory() as d:
+            with open(os.path.join(d, "x.py"), "w") as fh:
+                fh.write("import os\nos.system(cmd)\n")
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                rc = cli.main(["conformance", d, "--json"])
+        self.assertEqual(rc, 0)
+        payload = json.loads(buf.getvalue())
+        self.assertIn("kinds", payload)
+        self.assertGreaterEqual(payload["kinds_with_sinks"], 1)
+
+
 if __name__ == "__main__":
     unittest.main()

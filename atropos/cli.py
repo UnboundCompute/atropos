@@ -374,6 +374,18 @@ def _cmd_surface(cat: Catalog, args) -> int:
     return 0
 
 
+def _cmd_conformance(cat: Catalog, args) -> int:
+    from .resolve.conformance import build, render_text
+
+    conf = build(cat, args.path, min_match=args.min_match)
+    if args.json:
+        print(json.dumps(conf, indent=2))
+        return 0
+    for line in render_text(conf):
+        print(line)
+    return 0
+
+
 def _cmd_diff(cat: Catalog, args) -> int:
     from .resolve.engine import Auditor
     from .resolve.model import AuditReport
@@ -586,6 +598,16 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--top", type=int, default=25, help="files to list")
     sp.add_argument("--json", action="store_true")
     sp.set_defaults(func=_cmd_surface)
+
+    sp = sub.add_parser(
+        "conformance",
+        help="per sink kind used, whether a catalogued sanitizer appears in the code",
+    )
+    sp.add_argument("path", help="file or directory to check")
+    sp.add_argument("--min-match", choices=["exact", "heuristic", "name-only"],
+                    default="heuristic", help="weakest binding to count")
+    sp.add_argument("--json", action="store_true")
+    sp.set_defaults(func=_cmd_conformance)
 
     sp = sub.add_parser(
         "diff",

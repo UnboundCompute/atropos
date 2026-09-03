@@ -108,10 +108,15 @@ class Auditor:
         catalog: Catalog,
         roles: Optional[Iterable[str]] = None,
         min_match: str = MATCH_NAME_ONLY,
+        include_summaries: bool = False,
     ):
         self.catalog = catalog
         self.roles = set(roles) if roles else None
         self._max_rank = _MATCH_RANK.get(min_match, 2)
+        # By default a summary-shaped access path (``in -> out``) is skipped: it
+        # names a propagation, not a watchpoint. A presence check (e.g. sanitizer
+        # conformance) wants the call recorded regardless, so it opts in here.
+        self._include_summaries = include_summaries
 
     # -- per-site join -------------------------------------------------------
 
@@ -120,8 +125,10 @@ class Auditor:
         for entry in self.catalog.resolve(language, site.callee):
             if self.roles is not None and entry.role not in self.roles:
                 continue
-            if entry.role == "summary" or "->" in entry.access_path:
-                continue  # summaries describe propagation, not a watchpoint
+            if entry.role == "summary":
+                continue  # the summary role is propagation modelling, never a site
+            if "->" in entry.access_path and not self._include_summaries:
+                continue  # a summary-shaped path is propagation, not a watchpoint
             match = _classify(entry, site)
             if match is None or _MATCH_RANK[match] > self._max_rank:
                 continue
