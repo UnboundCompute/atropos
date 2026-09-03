@@ -72,6 +72,25 @@ It is an enumerator, not an engine: it says where a catalogued symbol is *used* 
 how sure the binding is, never whether tainted data actually reaches it. That
 verdict stays with the graph engine and the reviewer.
 
+The audit feeds several consumption modes, each a different way to spend the same
+findings:
+
+```bash
+atropos audit ./src -f sarif > out.sarif    # GitHub code scanning / CI / IDE
+atropos coverage ./src                      # counts by kind/lang, hot files, gaps
+atropos surface ./src                       # files with both a source and a sink
+atropos diff ./src -b baseline.json         # CI gate: fail on new findings only
+atropos rules -l python -o policy.json      # portable lint / banned-API watch-list
+```
+
+`coverage` rolls findings up into the shape of a codebase's attack surface and names
+the kinds the catalog covers but the target never used. `surface` ranks the files
+that hold both a catalogued source and a sink — where the shortest flow could live —
+into a review worklist. `diff` re-audits against a recorded baseline and exits
+non-zero only on findings new since it, with line-independent fingerprints so moved
+code does not read as new. `rules` projects the catalog itself into an enforceable
+policy other tools can bind without Atropos. None of them makes a verdict.
+
 Library:
 
 ```python
