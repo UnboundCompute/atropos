@@ -312,6 +312,49 @@ def _cmd_coverage(cat: Catalog, args) -> int:
     return 0
 
 
+def _cmd_diff(cat: Catalog, args) -> int:
+    from .resolve.engine import Auditor
+    from .resolve.model import AuditReport
+    from .resolve.diff import diff as diff_findings
+
+    try:
+        with open(args.baseline, "r", encoding="utf-8") as fh:
+            baseline_doc = json.load(fh)
+    except (OSError, ValueError) as error:
+        print(f"atropos: cannot read baseline {args.baseline!r}: {error}", file=sys.stderr)
+        return 2
+    if isinstance(baseline_doc, dict):
+        baseline = baseline_doc.get("findings", baseline_doc.get("new", []))
+    else:
+        baseline = baseline_doc  # a bare list of finding dicts
+
+    roles = args.role or ["sink"]
+    auditor = Auditor(cat, roles=roles, min_match=args.min_match)
+    report = auditor.audit_path(args.path)
+    if args.kind:
+        report.findings = [f for f in report.findings if f.entry.kind == args.kind]
+
+    new, fixed = diff_findings(report.findings, baseline, min_match=args.min_match)
+    new_report = AuditReport(findings=new, files_scanned=report.files_scanned,
+                             files_skipped=report.files_skipped, errors=report.errors)
+    if args.json:
+        print(json.dumps({
+            "new": [f.to_dict() for f in new_report.sorted()],
+            "new_count": len(new),
+            "fixed_count": fixed,
+        }, indent=2))
+    else:
+        if new:
+            print(f"{len(new)} new finding(s) vs baseline "
+                  f"({fixed} no longer present):\n")
+            _render_audit(new_report, False, args.limit)
+        else:
+            print(f"no new findings vs baseline ({fixed} no longer present)")
+    if new and not args.exit_zero:
+        return 1
+    return 0
+
+
 def _cmd_where(cat: Catalog, args) -> int:
     root = find_catalog_root(args.root)
     info = {
@@ -431,6 +474,26 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--limit", type=int, default=0)
     sp.add_argument("--json", action="store_true", help="alias for --format json")
     sp.set_defaults(func=_cmd_audit)
+
+    sp = sub.add_parser(
+        "diff",
+        help="fail on findings new since a recorded audit baseline (CI gate)",
+    )
+    sp.add_argument("path", help="file or directory to re-audit")
+    sp.add_argument("--baseline", "-b", required=True,
+                    help="a prior `audit --json` (or `diff --json`) file")
+    sp.add_argument("--role", action="append",
+                    choices=["sink", "source", "sanitizer"],
+                    help="role(s) to enumerate (repeatable; default: sink)")
+    sp.add_argument("--kind", "-k", help="restrict to one vulnerability kind")
+    sp.add_argument("--min-match", choices=["exact", "heuristic", "name-only"],
+                    default="heuristic",
+                    help="weakest new binding that fails the gate (default: heuristic)")
+    sp.add_argument("--exit-zero", action="store_true",
+                    help="report new findings but always exit 0")
+    sp.add_argument("--limit", type=int, default=0)
+    sp.add_argument("--json", action="store_true")
+    sp.set_defaults(func=_cmd_diff)
 
     sp = sub.add_parser(
         "coverage",

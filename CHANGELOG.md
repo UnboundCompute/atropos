@@ -17,6 +17,11 @@
   role, and binding confidence, the top symbols and hottest files, and the gap —
   catalogued sink kinds (for the languages present) that the target never
   exercised, so a genuinely clean class is distinguishable from an unmodelled one.
+- Add `atropos diff <path> --baseline <audit.json>`: a CI gate that re-audits and
+  reports only findings new since a recorded baseline, exiting non-zero when any
+  appear (`--exit-zero` to report without failing). Fingerprints exclude line and
+  column so moving or reformatting code does not read as new, while adding a second
+  identical call still does.
 
 ## 1.10.0
 

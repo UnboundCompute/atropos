@@ -248,5 +248,57 @@ class TestCoverage(unittest.TestCase):
         self.assertEqual(s["total_findings"], s["by_confidence"].get("exact", 0))
 
 
+class TestDiffGate(unittest.TestCase):
+    def _write(self, d, body):
+        p = os.path.join(d, "app.py")
+        with open(p, "w") as fh:
+            fh.write(body)
+        return p
+
+    def _audit_json(self, path):
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            cli.main(["audit", path, "--json"])
+        return buf.getvalue()
+
+    def test_no_new_findings_exits_zero(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._write(d, "import os\nos.system(a)\n")
+            base = os.path.join(d, "b.json")
+            with open(base, "w") as fh:
+                fh.write(self._audit_json(d))
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                rc = cli.main(["diff", d, "-b", base])
+        self.assertEqual(rc, 0)
+
+    def test_new_finding_fails_gate(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._write(d, "import os\nos.system(a)\n")
+            base = os.path.join(d, "b.json")
+            with open(base, "w") as fh:
+                fh.write(self._audit_json(d))
+            self._write(d, "import os\nos.system(a)\neval(c)\n")
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                rc = cli.main(["diff", d, "-b", base, "--json"])
+        self.assertEqual(rc, 1)
+        payload = json.loads(buf.getvalue())
+        self.assertEqual(payload["new_count"], 1)
+        self.assertEqual(payload["new"][0]["symbol"], "builtins.eval")
+
+    def test_exit_zero_flag_suppresses_failure(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._write(d, "import os\n")
+            base = os.path.join(d, "b.json")
+            with open(base, "w") as fh:
+                fh.write(self._audit_json(d))
+            self._write(d, "import os\nos.system(a)\n")
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                rc = cli.main(["diff", d, "-b", base, "--exit-zero"])
+        self.assertEqual(rc, 0)
+
+
 if __name__ == "__main__":
     unittest.main()
