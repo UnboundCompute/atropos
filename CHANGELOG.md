@@ -22,6 +22,11 @@
   appear (`--exit-zero` to report without failing). Fingerprints exclude line and
   column so moving or reformatting code does not read as new, while adding a second
   identical call still does.
+- Add `atropos surface <path>`: a threat-surface worklist that ranks files holding
+  both a catalogued source (where untrusted input enters) and a catalogued sink,
+  listing each file's sources and sink kinds. No flow is claimed — same-file
+  co-location is the precondition for the shortest flow, i.e. where a reviewer or a
+  real taint engine should look first.
 
 ## 1.10.0
 

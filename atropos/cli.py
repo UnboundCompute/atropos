@@ -312,6 +312,18 @@ def _cmd_coverage(cat: Catalog, args) -> int:
     return 0
 
 
+def _cmd_surface(cat: Catalog, args) -> int:
+    from .resolve.surface import build, render_text
+
+    surface = build(cat, args.path, min_match=args.min_match)
+    if args.json:
+        print(json.dumps(surface, indent=2))
+        return 0
+    for line in render_text(surface, top=args.top):
+        print(line)
+    return 0
+
+
 def _cmd_diff(cat: Catalog, args) -> int:
     from .resolve.engine import Auditor
     from .resolve.model import AuditReport
@@ -474,6 +486,17 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--limit", type=int, default=0)
     sp.add_argument("--json", action="store_true", help="alias for --format json")
     sp.set_defaults(func=_cmd_audit)
+
+    sp = sub.add_parser(
+        "surface",
+        help="rank files that hold both a catalogued source and sink (review worklist)",
+    )
+    sp.add_argument("path", help="file or directory to map")
+    sp.add_argument("--min-match", choices=["exact", "heuristic", "name-only"],
+                    default="heuristic", help="weakest binding to count")
+    sp.add_argument("--top", type=int, default=25, help="files to list")
+    sp.add_argument("--json", action="store_true")
+    sp.set_defaults(func=_cmd_surface)
 
     sp = sub.add_parser(
         "diff",

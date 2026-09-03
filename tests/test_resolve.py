@@ -248,6 +248,34 @@ class TestCoverage(unittest.TestCase):
         self.assertEqual(s["total_findings"], s["by_confidence"].get("exact", 0))
 
 
+class TestSurface(unittest.TestCase):
+    def test_file_with_both_ranks_first(self):
+        from atropos.resolve.surface import build
+        cat = atropos.load()
+        with tempfile.TemporaryDirectory() as d:
+            # a source (os.getenv) and a sink (os.system) in one file
+            with open(os.path.join(d, "both.py"), "w") as fh:
+                fh.write("import os\nx = os.getenv('X')\nos.system(x)\n")
+            # only a sink in another
+            with open(os.path.join(d, "sink.py"), "w") as fh:
+                fh.write("import os\nos.system('ls')\n")
+            surface = build(cat, d, min_match="name-only")
+        self.assertGreaterEqual(surface["files_with_both"], 1)
+        first = surface["files"][0]
+        self.assertTrue(first["file"].endswith("both.py"))
+        self.assertTrue(first["both"])
+
+    def test_surface_cli_json(self):
+        with tempfile.TemporaryDirectory() as d:
+            with open(os.path.join(d, "x.py"), "w") as fh:
+                fh.write("import os\nx=os.getenv('X')\nos.system(x)\n")
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                rc = cli.main(["surface", d, "--json"])
+        self.assertEqual(rc, 0)
+        self.assertIn("files_with_both", json.loads(buf.getvalue()))
+
+
 class TestDiffGate(unittest.TestCase):
     def _write(self, d, body):
         p = os.path.join(d, "app.py")
