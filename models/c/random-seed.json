@@ -1,0 +1,77 @@
+{
+  "role_group": "sink",
+  "entries": [
+    {
+      "id": "c.std.srand.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "srand",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-330",
+        "CWE-337"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "CWE-337: a predictable seed (e.g. time(NULL)) into Argument[0] makes the whole rand() stream predictable"
+    },
+    {
+      "id": "c.std.srandom.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "srandom",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-330",
+        "CWE-337"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "CWE-337: predictable seed Argument[0] renders the random() sequence guessable"
+    },
+    {
+      "id": "c.std.srand48.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "srand48",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-330",
+        "CWE-337"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "CWE-337: predictable seed Argument[0] makes the drand48 family output predictable"
+    },
+    {
+      "id": "c.std.seed48.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "seed48",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-330",
+        "CWE-337"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "CWE-337: seeds the 48-bit LCG from Argument[0]; a known seed exposes future outputs"
+    }
+  ]
+}

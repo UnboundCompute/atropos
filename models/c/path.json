@@ -665,6 +665,127 @@
       "confidence": "low",
       "corroboration": 1,
       "notes": null
+    },
+    {
+      "id": "c.std.chroot.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "chroot",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-22: a tainted path Argument[0] can point the root at an attacker-chosen directory"
+    },
+    {
+      "id": "c.std.chdir.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "chdir",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "CWE-22: tainted path Argument[0] moves the working dir, enabling traversal in later relative ops"
+    },
+    {
+      "id": "c.std.mkfifo.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "mkfifo",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22",
+        "CWE-59"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-22/59: creates a FIFO at pathname Argument[0]; tainted path traverses or follows a link"
+    },
+    {
+      "id": "c.std.scandir.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "scandir",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-22: lists the directory named in Argument[0]; tainted path enables directory traversal"
+    },
+    {
+      "id": "c.std.glob.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "glob",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-22: expands the pattern Argument[0] to pathnames; tainted pattern escapes intended dir"
+    },
+    {
+      "id": "c.std.canonicalizefilename.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "canonicalize_file_name",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "CWE-22: resolves the tainted path Argument[0]; result must still be prefix-checked before use"
+    },
+    {
+      "id": "c.std.lchown.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "lchown",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22",
+        "CWE-59"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-22/59: changes owner of pathname Argument[0] without following links; tainted path traverses"
     }
   ]
 }

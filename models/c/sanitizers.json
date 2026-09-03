@@ -1,0 +1,56 @@
+{
+  "role_group": "sanitizer",
+  "entries": [
+    {
+      "id": "c.libpq.escapeliteral.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "PQescapeLiteral",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "sanitizer",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-89: returns a fully quoted/escaped SQL literal safe to interpolate into a query"
+    },
+    {
+      "id": "c.libpq.escapestringconn.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "PQescapeStringConn",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sanitizer",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "CWE-89: writes the connection-aware escaped form into the `to` buffer Argument[1]"
+    },
+    {
+      "id": "c.mysql.realescapestring.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "mysql_real_escape_string",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sanitizer",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-89: writes the charset-aware SQL-escaped form of `from` into the `to` buffer Argument[1]"
+    }
+  ]
+}
