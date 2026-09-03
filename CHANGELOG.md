@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Fix packaging: the wheel omitted the `atropos.resolve` subpackage, so an
+  installed `atropos audit` raised `ModuleNotFoundError: No module named
+  'atropos.resolve'`. Package discovery now includes every subpackage.
+- `atropos audit` is legible on a real tree: it leads with a summary (files,
+  finding count, confidence tally, by-kind breakdown), then shows a bounded,
+  column-clipped sample instead of dumping every row padded to the widest cell
+  (which produced screenfuls of whitespace), with a footer on how to narrow,
+  cap, or dump in full. It also skips generated/build directories (`.next`,
+  `.nuxt`, `out`, `target`, `coverage`, …) as it already skipped `node_modules`,
+  and shows a scan-progress line on a TTY. `--json`/`-f sarif` are unchanged.
 - Add a resolver/enumerator and the `atropos audit <path>` command: walk a file
   or directory, extract call sites (Python via the stdlib `ast` with import
   resolution; C/JS/TS via a lexical scanner that masks strings and comments), and
