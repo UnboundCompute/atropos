@@ -47,10 +47,30 @@ atropos stats                              # coverage snapshot
 atropos sinks -l python --kind sql-injection
 atropos sources -l javascript
 atropos resolve python execute --type Cursor   # what is this symbol?
+atropos audit ./path/to/code               # enumerate catalogued symbol uses
 atropos search deserialize                 # free-text over symbols and notes
 atropos show c.std.memcpy.a2               # one fact by id
 atropos export -l c --role sink -f csv     # json | jsonl | csv for pipelines
 ```
+
+`atropos audit` walks a file or directory, finds every call site, and reports the
+ones a catalogued symbol attaches to — pointing each fact at the concrete argument,
+receiver, or return value to watch. Python is parsed with the standard-library
+`ast` (with import resolution, so `os.system` binds exactly); C, JavaScript, and
+TypeScript use a lexical scanner that masks strings and comments. Each finding
+carries a binding confidence — `exact`, `heuristic`, or `name-only` — kept separate
+from the catalog's own per-fact confidence, so you can filter by how sure the match
+is:
+
+```bash
+atropos audit ./src --min-match exact          # only pinned bindings
+atropos audit ./src -k sql-injection --json    # one kind, machine-readable
+atropos audit app.py --role sink --role source # enumerate more than sinks
+```
+
+It is an enumerator, not an engine: it says where a catalogued symbol is *used* and
+how sure the binding is, never whether tainted data actually reaches it. That
+verdict stays with the graph engine and the reviewer.
 
 Library:
 

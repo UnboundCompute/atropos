@@ -14,6 +14,12 @@ resolved module function ``child_process.exec`` rather than a bare name. This is
 best effort by design: it recovers the common, unambiguous binding forms and leaves
 anything dynamic as an unresolved (heuristic-strength) name. It is a scanner, not a
 type system.
+
+One honest limitation follows from being lexical: it recognises the *shape* ``name(``,
+so a C function definition or prototype (``ssize_t read(...)``) looks the same as a
+call to ``read`` and is reported too. The enumerator treats these as call-shaped
+occurrences to review, not as proven calls; a consumer that needs call-vs-declaration
+precision should bind against the graph engine's symbol index instead.
 """
 from __future__ import annotations
 

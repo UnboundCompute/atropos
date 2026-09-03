@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Add a resolver/enumerator and the `atropos audit <path>` command: walk a file
+  or directory, extract call sites (Python via the stdlib `ast` with import
+  resolution; C/JS/TS via a lexical scanner that masks strings and comments), and
+  join each site to the catalog facts that attach to it, pointing every fact at the
+  concrete argument/receiver/return slot. Each finding carries a binding confidence
+  — `exact`, `heuristic`, or `name-only` — separate from the catalog's own
+  per-fact confidence. Still no engine and no verdict: it enumerates where
+  catalogued symbols are used, not whether tainted data reaches them.
+
 ## 1.10.0
 
 - Grow the catalog from 1139 to 1618 verified facts across all four languages,
