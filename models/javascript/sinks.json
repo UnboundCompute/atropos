@@ -2025,6 +2025,176 @@
       "confidence": "low",
       "corroboration": 1,
       "notes": "obj[tainted]=v computed write"
+    },
+    {
+      "id": "javascript.vm2.vm-run.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "VM",
+      "method": "run",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-94"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "vm2 VM#run executes the string argument inside a sandbox marketed as safe; vm2 is deprecated precisely because its escapes proved unfixable (host RCE), so untrusted code reaching it is a sandbox-escape lead"
+    },
+    {
+      "id": "javascript.vm2.nodevm-run.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "NodeVM",
+      "method": "run",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-94"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "vm2 NodeVM#run compiles and runs the source string in a sandbox with the same known-unfixable escape exposure as VM#run"
+    },
+    {
+      "id": "javascript.vm2.vmscript.a0",
+      "language": "javascript",
+      "package": "vm2",
+      "type": null,
+      "method": "VMScript",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-94"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "new VMScript(code) compiles untrusted source for a vm2 sandbox whose isolation has known host-RCE escapes"
+    },
+    {
+      "id": "javascript.isolated-vm.context-eval.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Context",
+      "method": "eval",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-94"
+      ],
+      "confidence": "low",
+      "corroboration": 2,
+      "notes": "isolated-vm Context#eval runs the string in a V8 isolate; a reach is a sandbox-escape lead where the isolate boundary is bridged or a leaked Reference is callable"
+    },
+    {
+      "id": "javascript.isolated-vm.context-evalsync.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Context",
+      "method": "evalSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-94"
+      ],
+      "confidence": "low",
+      "corroboration": 2,
+      "notes": "synchronous form of isolated-vm Context#eval; same isolate-boundary exposure"
+    },
+    {
+      "id": "javascript.isolated-vm.context-evalclosure.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Context",
+      "method": "evalClosure",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-94"
+      ],
+      "confidence": "low",
+      "corroboration": 2,
+      "notes": "isolated-vm Context#evalClosure runs a closure body string with bound references; a reach is a sandbox-escape lead when the bound references reach host capabilities"
+    },
+    {
+      "id": "javascript.isolated-vm.isolate-compilescript.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Isolate",
+      "method": "compileScript",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-94"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "isolated-vm Isolate#compileScript compiles untrusted source that a later Script#run executes in the isolate"
+    },
+    {
+      "id": "javascript.isolated-vm.isolate-compilescriptsync.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Isolate",
+      "method": "compileScriptSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-94"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "synchronous form of isolated-vm Isolate#compileScript"
+    },
+    {
+      "id": "javascript.safe-eval.safeeval.a0",
+      "language": "javascript",
+      "package": "safe-eval",
+      "type": null,
+      "method": "safeEval",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "safe-eval evaluates the string via a vm context with a timeout; documented-unsafe with public host-escape payloads, so treat it as eval"
+    },
+    {
+      "id": "javascript.static-eval.evaluate.a0",
+      "language": "javascript",
+      "package": "static-eval",
+      "type": null,
+      "method": "evaluate",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-94"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "static-eval evaluate() interprets an expression AST derived from untrusted input; crafted ASTs achieve RCE (known CVEs)"
     }
   ]
 }
