@@ -79,6 +79,7 @@ findings:
 atropos audit ./src -f sarif > out.sarif    # GitHub code scanning / CI / IDE
 atropos coverage ./src                      # counts by kind/lang, hot files, gaps
 atropos surface ./src                       # files with both a source and a sink
+atropos conformance ./src                   # sink kinds used with no sanitizer present
 atropos diff ./src -b baseline.json         # CI gate: fail on new findings only
 atropos rules -l python -o policy.json      # portable lint / banned-API watch-list
 atropos ground --cwe 89 -l python           # catalog facts as LLM grounding context
@@ -88,7 +89,10 @@ atropos validate python system -a 'Argument[0]' --role sink -p os   # adjudicate
 `coverage` rolls findings up into the shape of a codebase's attack surface and names
 the kinds the catalog covers but the target never used. `surface` ranks the files
 that hold both a catalogued source and a sink — where the shortest flow could live —
-into a review worklist. `diff` re-audits against a recorded baseline and exits
+into a review worklist. `conformance` asks, per sink kind the code exercises, whether
+a sanitizer the catalog models for that kind appears anywhere in the code — flagging
+the kinds used with none present, without claiming any particular sink is guarded.
+`diff` re-audits against a recorded baseline and exits
 non-zero only on findings new since it, with line-independent fingerprints so moved
 code does not read as new. `rules` projects the catalog itself into an enforceable
 policy other tools can bind without Atropos. None of them makes a verdict.

@@ -34,6 +34,13 @@
   Atropos in CI can still bind the watch-list into whatever gate they have.
   `--banned-only` keeps just the hard-ban tier; `-l`/`--role` filter.
 
+- Add `atropos conformance <path>`: a sanitizer-hygiene check. For every sink kind
+  the target exercises, report whether a sanitizer the catalog models for that kind
+  appears in the code at all — `no-sanitizer-seen` (sinks used, a sanitizer modeled,
+  none present: the actionable flag), `sanitizer-present` (a catalogued sanitizer is
+  called, not proof any sink is guarded), or `no-sanitizer-modeled` (the catalog
+  models none, so it cannot be assessed). Needs no flow: a whole-target check at kind
+  granularity, same co-occurrence-is-a-lead discipline as `surface`.
 - Add a grounding layer for language-model reasoning, `atropos ground` and
   `atropos validate`. `ground <query>` (by `--cwe`, `--kind`, or free text) pulls
   the catalog facts for a taint class and renders them as a compact, quotable
