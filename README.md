@@ -81,6 +81,8 @@ atropos coverage ./src                      # counts by kind/lang, hot files, ga
 atropos surface ./src                       # files with both a source and a sink
 atropos diff ./src -b baseline.json         # CI gate: fail on new findings only
 atropos rules -l python -o policy.json      # portable lint / banned-API watch-list
+atropos ground --cwe 89 -l python           # catalog facts as LLM grounding context
+atropos validate python system -a 'Argument[0]' --role sink -p os   # adjudicate a claim
 ```
 
 `coverage` rolls findings up into the shape of a codebase's attack surface and names
@@ -90,6 +92,16 @@ into a review worklist. `diff` re-audits against a recorded baseline and exits
 non-zero only on findings new since it, with line-independent fingerprints so moved
 code does not read as new. `rules` projects the catalog itself into an enforceable
 policy other tools can bind without Atropos. None of them makes a verdict.
+
+`ground` and `validate` put the catalog underneath a language model. `ground`
+gathers the facts for a taint class (by `--cwe`, `--kind`, or free text) into a
+compact block — sinks with the slot to watch, plus sanitizers and sources — to drop
+into a prompt as ground truth instead of the model's own recall. `validate`
+adjudicates a fact the model *proposed* against the catalog — `confirmed`, `partial`
+(right symbol, wrong watchpoint), `role-conflict`, or `unknown` — exiting non-zero
+when a claim is uncorroborated, so a hallucinated sink is caught before it is
+trusted. Both ground claims about the catalog's knowledge; neither reasons about a
+program.
 
 Library:
 

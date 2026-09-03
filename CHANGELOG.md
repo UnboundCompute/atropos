@@ -34,6 +34,18 @@
   Atropos in CI can still bind the watch-list into whatever gate they have.
   `--banned-only` keeps just the hard-ban tier; `-l`/`--role` filter.
 
+- Add a grounding layer for language-model reasoning, `atropos ground` and
+  `atropos validate`. `ground <query>` (by `--cwe`, `--kind`, or free text) pulls
+  the catalog facts for a taint class and renders them as a compact, quotable
+  block — the sinks with the exact slot to watch, plus the sanitizers and sources
+  catalogued for the same kind — to drop into a prompt as ground truth instead of
+  a model's own recall. `validate <language> <method>` adjudicates a fact a model
+  *proposed* (symbol, access path, role) against the catalog: `confirmed`,
+  `partial` (right symbol, different watchpoint), `role-conflict`, or `unknown`,
+  exiting non-zero when a claim is not corroborated — so a hallucinated sink is
+  caught before it is trusted. Grounds claims about the catalog's knowledge only;
+  no taint reasoning and no verdict about a program.
+
 ## 1.10.0
 
 - Grow the catalog from 1139 to 1618 verified facts across all four languages,
