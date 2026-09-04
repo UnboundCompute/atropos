@@ -36,40 +36,6 @@
       "notes": "new Function(body)"
     },
     {
-      "id": "javascript.std.settimeout.a0",
-      "language": "javascript",
-      "package": null,
-      "type": null,
-      "method": "setTimeout",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "code-injection",
-      "cwe": [
-        "CWE-95"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "string-body form is eval-like"
-    },
-    {
-      "id": "javascript.std.setinterval.a0",
-      "language": "javascript",
-      "package": null,
-      "type": null,
-      "method": "setInterval",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "code-injection",
-      "cwe": [
-        "CWE-95"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": null
-    },
-    {
       "id": "javascript.std.require.a0",
       "language": "javascript",
       "package": null,
