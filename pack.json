@@ -19,7 +19,7 @@
     "profiles/**/*.json",
     "detection/**/*.json"
   ],
-  "verified_entries": 1618,
+  "verified_entries": 1617,
   "candidate_files": [
     "candidates/**/*.json"
   ],
