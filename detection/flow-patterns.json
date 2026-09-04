@@ -389,6 +389,7 @@
       ],
       "tier": 2,
       "status": "shipped",
+      "confirmable": false,
       "requires": [
         "memory.free"
       ],
@@ -408,6 +409,7 @@
       ],
       "tier": 2,
       "status": "shipped",
+      "confirmable": false,
       "requires": [
         "memory.free",
         "memory.deref"
@@ -469,6 +471,7 @@
       ],
       "tier": 2,
       "status": "shipped",
+      "confirmable": false,
       "requires": [
         "memory.deref"
       ],
