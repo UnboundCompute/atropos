@@ -515,7 +515,7 @@
       "id": "javascript.std.html.a0",
       "language": "javascript",
       "package": null,
-      "type": null,
+      "type": "JQuery",
       "method": "html",
       "signature": null,
       "access_path": "Argument[0]",
@@ -526,7 +526,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "jQuery .html(x) sets innerHTML"
+      "notes": "jQuery .html(x) sets innerHTML; type-keyed to JQuery so a concrete non-jQuery receiver (e.g. a first-party Fetcher.html content accessor) is rejected while an untyped jQuery object still binds via the loose gate"
     },
     {
       "id": "javascript.http.request.a0",
