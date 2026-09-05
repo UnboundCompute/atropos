@@ -40,6 +40,14 @@ and flow summaries without cloning this repo.
 pip install atropos
 ```
 
+The installable `atropos` package reaches **1.0.0** with this release. The package
+and the catalog carry **independent versions**: the package version (its loader,
+query API, and CLI, reported by `atropos --version`) moves on its own schedule,
+while the catalog version — the taint facts themselves — is the one recorded in
+[`VERSION`](VERSION) and matched by the git release tag (v1.10.0 here). Pin whichever
+matters to you: the `atropos` package for the tooling, a git tag or installed pack
+for the data.
+
 Command line:
 
 ```bash
