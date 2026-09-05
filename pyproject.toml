@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "atropos"
+description = "A queryable taint-model catalog: sinks, sources, sanitizers, and flow summaries for C, Python, JavaScript, and TypeScript."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT AND CC-BY-4.0" }
+authors = [{ name = "Unbound Compute" }]
+keywords = [
+  "security", "taint-analysis", "static-analysis", "sinks", "sources",
+  "sanitizers", "cwe", "vulnerability", "dataflow", "sast",
+]
+dynamic = ["version"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Security",
+  "Topic :: Software Development :: Quality Assurance",
+]
+
+# Zero runtime dependencies: the catalog is JSON and the loader/CLI use only the
+# standard library. This is a deliberate promise -- installing atropos pulls in nothing.
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/UnboundCompute/atropos"
+Source = "https://github.com/UnboundCompute/atropos"
+Changelog = "https://github.com/UnboundCompute/atropos/blob/main/CHANGELOG.md"
+
+[project.scripts]
+atropos = "atropos.cli:main"
+
+[tool.setuptools]
+license-files = ["LICENSE", "LICENSE-CODE"]
+
+# Discover atropos and every subpackage (atropos.resolve, and any added later) so a
+# new subpackage cannot silently be left out of the wheel.
+[tool.setuptools.packages.find]
+include = ["atropos*"]
+
+[tool.setuptools.dynamic]
+version = { attr = "atropos._version.__version__" }
+
+# The catalog data is copied under atropos/_bundle at build time (see setup.py) so an
+# installed wheel is self-contained; this glob ships that bundle inside the package.
+[tool.setuptools.package-data]
+atropos = ["_bundle/**/*.json", "_bundle/VERSION", "_bundle/LICENSE", "_bundle/LICENSE-CODE"]

@@ -3139,6 +3139,57 @@
       "notes": null
     },
     {
+      "id": "python.asyncio.createsubprocessexec.a0.ns",
+      "language": "python",
+      "package": "asyncio",
+      "type": null,
+      "method": "create_subprocess_exec",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "public asyncio namespace re-export of the asyncio.subprocess coroutine"
+    },
+    {
+      "id": "python.asyncio.createsubprocessexec.a1.ns",
+      "language": "python",
+      "package": "asyncio",
+      "type": null,
+      "method": "create_subprocess_exec",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "public asyncio namespace re-export of the asyncio.subprocess coroutine"
+    },
+    {
+      "id": "python.asyncio.createsubprocessshell.a0.ns",
+      "language": "python",
+      "package": "asyncio",
+      "type": null,
+      "method": "create_subprocess_shell",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-94"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "public asyncio namespace re-export of the asyncio.subprocess coroutine"
+    },
+    {
       "id": "python.asyncioeventsabstracteventloop.subprocessexec.a0",
       "language": "python",
       "package": "asyncio.events.AbstractEventLoop",
@@ -6061,6 +6112,1641 @@
       "confidence": "medium",
       "corroboration": 1,
       "notes": null
+    },
+    {
+      "id": "python.paramiko.execcommand.a0",
+      "language": "python",
+      "package": null,
+      "type": "SSHClient",
+      "method": "exec_command",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "CWE-78; SSH command string run in a remote shell; metacharacters (; | ` $) inject extra remote commands."
+    },
+    {
+      "id": "python.paramiko.channel.execcommand.a0",
+      "language": "python",
+      "package": null,
+      "type": "Channel",
+      "method": "exec_command",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-78; low-level channel variant of the same SSH shell-injection sink."
+    },
+    {
+      "id": "python.pexpect.run.a0",
+      "language": "python",
+      "package": "pexpect",
+      "type": null,
+      "method": "run",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-78; spawns a command via the shell; a tainted argument yields OS command injection."
+    },
+    {
+      "id": "python.pexpect.spawn.a0",
+      "language": "python",
+      "package": "pexpect",
+      "type": null,
+      "method": "spawn",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-78; child process launched from the command string."
+    },
+    {
+      "id": "python.invoke.context.run.a0",
+      "language": "python",
+      "package": null,
+      "type": "Context",
+      "method": "run",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "CWE-78; task-runner executes the string in a shell (pty/shell default)."
+    },
+    {
+      "id": "python.fabric.connection.run.a0",
+      "language": "python",
+      "package": null,
+      "type": "Connection",
+      "method": "run",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "CWE-78; remote shell exec over SSH; a tainted command string injects remote commands."
+    },
+    {
+      "id": "python.pandas.eval.a0",
+      "language": "python",
+      "package": "pandas",
+      "type": null,
+      "method": "eval",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-95; the expression string is evaluated and can run arbitrary code (documented security note)."
+    },
+    {
+      "id": "python.pandas.dataframe.query.a0",
+      "language": "python",
+      "package": null,
+      "type": "DataFrame",
+      "method": "query",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "CVE-2024-9880, CWE-95; expr reaches the expression engine enabling arbitrary code execution."
+    },
+    {
+      "id": "python.pandas.dataframe.eval.a0",
+      "language": "python",
+      "package": null,
+      "type": "DataFrame",
+      "method": "eval",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-95; same evaluator backend as DataFrame.query."
+    },
+    {
+      "id": "python.numexpr.evaluate.a0",
+      "language": "python",
+      "package": "numexpr",
+      "type": null,
+      "method": "evaluate",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-95; compiles and evaluates the expression string."
+    },
+    {
+      "id": "python.sympy.sympify.a0",
+      "language": "python",
+      "package": "sympy",
+      "type": null,
+      "method": "sympify",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "CWE-95; sympify falls back to eval on the input string (documented security caveat)."
+    },
+    {
+      "id": "python.redis.eval.a0",
+      "language": "python",
+      "package": null,
+      "type": "Redis",
+      "method": "eval",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-94"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "CWE-94; server-side Lua script body run by the Redis server; a tainted script is arbitrary code."
+    },
+    {
+      "id": "python.sqlalchemy.session.execute.a0",
+      "language": "python",
+      "package": null,
+      "type": "Session",
+      "method": "execute",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-89; raw textual SQL passed to Session.execute is not parameterized."
+    },
+    {
+      "id": "python.sqlalchemy.connection.execdriversql.a0",
+      "language": "python",
+      "package": null,
+      "type": "Connection",
+      "method": "exec_driver_sql",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-89; bypasses the expression layer and sends the string straight to the DBAPI driver."
+    },
+    {
+      "id": "python.pandas.readsql.a0",
+      "language": "python",
+      "package": "pandas",
+      "type": null,
+      "method": "read_sql",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-89; the sql argument is executed against the connection with no parameter binding."
+    },
+    {
+      "id": "python.pandas.readsqlquery.a0",
+      "language": "python",
+      "package": "pandas",
+      "type": null,
+      "method": "read_sql_query",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-89; the string query is executed verbatim."
+    },
+    {
+      "id": "python.peewee.database.executesql.a0",
+      "language": "python",
+      "package": null,
+      "type": "Database",
+      "method": "execute_sql",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-89; the raw-SQL escape hatch runs the string directly."
+    },
+    {
+      "id": "python.peewee.rawquery.a0",
+      "language": "python",
+      "package": "peewee",
+      "type": null,
+      "method": "RawQuery",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-89; constructs a query from a raw SQL string."
+    },
+    {
+      "id": "python.asyncpg.connection.execute.a0",
+      "language": "python",
+      "package": null,
+      "type": "Connection",
+      "method": "execute",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-89; asyncpg runs the query text; only $n positional args are safe."
+    },
+    {
+      "id": "python.asyncpg.connection.fetch.a0",
+      "language": "python",
+      "package": null,
+      "type": "Connection",
+      "method": "fetch",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-89; fetch executes the query string."
+    },
+    {
+      "id": "python.pymongo.collection.countdocuments.a0",
+      "language": "python",
+      "package": null,
+      "type": "Collection",
+      "method": "count_documents",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "CWE-943; a dict filter built from input allows $where/operator injection."
+    },
+    {
+      "id": "python.pymongo.collection.distinct.a1",
+      "language": "python",
+      "package": null,
+      "type": "Collection",
+      "method": "distinct",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "CWE-943; the optional filter (arg 1) is an attacker-shapable query."
+    },
+    {
+      "id": "python.pymongo.collection.replaceone.a0",
+      "language": "python",
+      "package": null,
+      "type": "Collection",
+      "method": "replace_one",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "CWE-943; the match filter (arg 0) accepts injected operators."
+    },
+    {
+      "id": "python.pymongo.collection.mapreduce.a0",
+      "language": "python",
+      "package": null,
+      "type": "Collection",
+      "method": "map_reduce",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "CWE-943; the map function is server-side JavaScript; tainted code runs in the DB engine."
+    },
+    {
+      "id": "python.lxml.etree.xpath.a0",
+      "language": "python",
+      "package": "lxml.etree",
+      "type": null,
+      "method": "XPath",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xpath-injection",
+      "cwe": [
+        "CWE-643"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-643; compiles an XPath expression from a tainted string."
+    },
+    {
+      "id": "python.xml.etree.element.findall.a0",
+      "language": "python",
+      "package": null,
+      "type": "Element",
+      "method": "findall",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xpath-injection",
+      "cwe": [
+        "CWE-643"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-643; a limited XPath path built from input selects arbitrary nodes."
+    },
+    {
+      "id": "python.xml.etree.element.find.a0",
+      "language": "python",
+      "package": null,
+      "type": "Element",
+      "method": "find",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xpath-injection",
+      "cwe": [
+        "CWE-643"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-643; tainted path expression."
+    },
+    {
+      "id": "python.xml.etree.element.iterfind.a0",
+      "language": "python",
+      "package": null,
+      "type": "Element",
+      "method": "iterfind",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xpath-injection",
+      "cwe": [
+        "CWE-643"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-643; tainted path expression."
+    },
+    {
+      "id": "python.bottle.template.a0",
+      "language": "python",
+      "package": "bottle",
+      "type": null,
+      "method": "template",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-1336; renders a template from a string; input in the template source is SSTI leading to RCE."
+    },
+    {
+      "id": "python.bottle.simpletemplate.a0",
+      "language": "python",
+      "package": "bottle",
+      "type": null,
+      "method": "SimpleTemplate",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-1336; SimpleTemplate source is compiled and executed."
+    },
+    {
+      "id": "python.chameleon.pagetemplate.a0",
+      "language": "python",
+      "package": "chameleon",
+      "type": null,
+      "method": "PageTemplate",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-1336; template text is compiled to Python; a tainted source is server-side template injection."
+    },
+    {
+      "id": "python.cloudpickle.load.a0",
+      "language": "python",
+      "package": "cloudpickle",
+      "type": null,
+      "method": "load",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-502; cloudpickle uses the pickle protocol; an untrusted stream runs __reduce__ gadgets."
+    },
+    {
+      "id": "python.cloudpickle.loads.a0",
+      "language": "python",
+      "package": "cloudpickle",
+      "type": null,
+      "method": "loads",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-502; bytes variant of the cloudpickle deserialization sink."
+    },
+    {
+      "id": "python.picklec.load.a0",
+      "language": "python",
+      "package": "_pickle",
+      "type": null,
+      "method": "load",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-502; _pickle is the C-accelerated pickle backend with identical gadget-execution risk."
+    },
+    {
+      "id": "python.picklec.loads.a0",
+      "language": "python",
+      "package": "_pickle",
+      "type": null,
+      "method": "loads",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-502; bytes variant of the _pickle sink."
+    },
+    {
+      "id": "python.ruamelyaml.yaml.load.a0",
+      "language": "python",
+      "package": null,
+      "type": "YAML",
+      "method": "load",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-502; ruamel YAML(typ='unsafe').load constructs arbitrary Python objects from YAML tags."
+    },
+    {
+      "id": "python.keras.loadmodel.a0",
+      "language": "python",
+      "package": "keras.models",
+      "type": null,
+      "method": "load_model",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "CVE-2024-3660, CWE-502; Lambda layers deserialize marshalled Python code, executing on load."
+    },
+    {
+      "id": "python.pathlib.path.open.recv",
+      "language": "python",
+      "package": null,
+      "type": "Path",
+      "method": "open",
+      "signature": null,
+      "access_path": "Receiver",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-22; the Path receiver built from input opens an arbitrary file."
+    },
+    {
+      "id": "python.pathlib.path.readtext.recv",
+      "language": "python",
+      "package": null,
+      "type": "Path",
+      "method": "read_text",
+      "signature": null,
+      "access_path": "Receiver",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-22; reads arbitrary file contents from a tainted path."
+    },
+    {
+      "id": "python.pathlib.path.readbytes.recv",
+      "language": "python",
+      "package": null,
+      "type": "Path",
+      "method": "read_bytes",
+      "signature": null,
+      "access_path": "Receiver",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-22; reads arbitrary bytes from a tainted path."
+    },
+    {
+      "id": "python.pathlib.path.writetext.recv",
+      "language": "python",
+      "package": null,
+      "type": "Path",
+      "method": "write_text",
+      "signature": null,
+      "access_path": "Receiver",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-22; arbitrary file write to a tainted path."
+    },
+    {
+      "id": "python.pathlib.path.writebytes.recv",
+      "language": "python",
+      "package": null,
+      "type": "Path",
+      "method": "write_bytes",
+      "signature": null,
+      "access_path": "Receiver",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-22; arbitrary byte write to a tainted path."
+    },
+    {
+      "id": "python.pathlib.path.unlink.recv",
+      "language": "python",
+      "package": null,
+      "type": "Path",
+      "method": "unlink",
+      "signature": null,
+      "access_path": "Receiver",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-22; deletes an arbitrary file."
+    },
+    {
+      "id": "python.pathlib.path.mkdir.recv",
+      "language": "python",
+      "package": null,
+      "type": "Path",
+      "method": "mkdir",
+      "signature": null,
+      "access_path": "Receiver",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-22; creates a directory at a tainted path."
+    },
+    {
+      "id": "python.pathlib.path.touch.recv",
+      "language": "python",
+      "package": null,
+      "type": "Path",
+      "method": "touch",
+      "signature": null,
+      "access_path": "Receiver",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-22; creates/updates an arbitrary file."
+    },
+    {
+      "id": "python.lzma.open.a0",
+      "language": "python",
+      "package": "lzma",
+      "type": null,
+      "method": "open",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "CWE-22; opens a tainted path (sibling of gzip.open/bz2.open)."
+    },
+    {
+      "id": "python.lzma.lzmafile.a0",
+      "language": "python",
+      "package": "lzma",
+      "type": null,
+      "method": "LZMAFile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "CWE-22; file object over a tainted path."
+    },
+    {
+      "id": "python.os.scandir.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "scandir",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-22; lists an arbitrary directory."
+    },
+    {
+      "id": "python.os.listdir.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "listdir",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "CWE-22; enumerates an arbitrary directory (information disclosure)."
+    },
+    {
+      "id": "python.os.readlink.a0",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "readlink",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-22; reads a symlink target at a tainted path."
+    },
+    {
+      "id": "python.os.symlink.a1",
+      "language": "python",
+      "package": "os",
+      "type": null,
+      "method": "symlink",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22",
+        "CWE-59"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "CWE-59/CWE-22; the link path (arg 1) is created at a tainted location."
+    },
+    {
+      "id": "python.fileinput.input.a0",
+      "language": "python",
+      "package": "fileinput",
+      "type": null,
+      "method": "input",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-22; opens and reads the tainted list of files."
+    },
+    {
+      "id": "python.dbm.open.a0",
+      "language": "python",
+      "package": "dbm",
+      "type": null,
+      "method": "open",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-22; opens a database file at a tainted path."
+    },
+    {
+      "id": "python.sqlite3.connect.a0",
+      "language": "python",
+      "package": "sqlite3",
+      "type": null,
+      "method": "connect",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "CWE-22; the database path argument opens/creates an arbitrary file."
+    },
+    {
+      "id": "python.configparser.read.a0",
+      "language": "python",
+      "package": null,
+      "type": "ConfigParser",
+      "method": "read",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-22; reads config from tainted file path(s)."
+    },
+    {
+      "id": "python.aiofiles.open.a0",
+      "language": "python",
+      "package": "aiofiles",
+      "type": null,
+      "method": "open",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "CWE-22; async open over a tainted path."
+    },
+    {
+      "id": "python.werkzeugutils.sendfromdirectory.a1",
+      "language": "python",
+      "package": "werkzeug.utils",
+      "type": null,
+      "method": "send_from_directory",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-22; the filename (arg 1) is joined under the directory; .. escapes the served root."
+    },
+    {
+      "id": "python.werkzeugutils.sendfile.a0",
+      "language": "python",
+      "package": "werkzeug.utils",
+      "type": null,
+      "method": "send_file",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-22; serves an arbitrary file path to the client."
+    },
+    {
+      "id": "python.django.views.static.serve.a1",
+      "language": "python",
+      "package": "django.views.static",
+      "type": null,
+      "method": "serve",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-22; the path arg (index 1) is resolved under document_root; traversal serves arbitrary files."
+    },
+    {
+      "id": "python.starlette.responses.fileresponse.a0",
+      "language": "python",
+      "package": "starlette.responses",
+      "type": null,
+      "method": "FileResponse",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-22; streams the given file path to the client."
+    },
+    {
+      "id": "python.zipfile.zipfile.extract.a0",
+      "language": "python",
+      "package": null,
+      "type": "ZipFile",
+      "method": "extract",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-22; single-member extract honors ../absolute member names (Zip Slip), same class as extractall."
+    },
+    {
+      "id": "python.tarfile.tarfile.extract.a0",
+      "language": "python",
+      "package": null,
+      "type": "TarFile",
+      "method": "extract",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-22; single-member tar extract is vulnerable to path traversal / symlink escape."
+    },
+    {
+      "id": "python.xmlrpc.serverproxy.a0",
+      "language": "python",
+      "package": "xmlrpc.client",
+      "type": null,
+      "method": "ServerProxy",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-918; the endpoint URI is attacker-controllable, driving requests to internal hosts (also XXE-prone)."
+    },
+    {
+      "id": "python.urllibrequest.request.a0",
+      "language": "python",
+      "package": "urllib.request",
+      "type": null,
+      "method": "Request",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-918; the Request URL feeds urlopen; a tainted URL reaches internal services."
+    },
+    {
+      "id": "python.httplib2.http.request.a0",
+      "language": "python",
+      "package": null,
+      "type": "Http",
+      "method": "request",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-918; the URI arg controls the request target."
+    },
+    {
+      "id": "python.aiohttp.request.a1",
+      "language": "python",
+      "package": "aiohttp",
+      "type": null,
+      "method": "request",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-918; module-level helper; arg 1 is the URL (arg 0 is the method)."
+    },
+    {
+      "id": "python.tornado.asynchttpclient.fetch.a0",
+      "language": "python",
+      "package": null,
+      "type": "AsyncHTTPClient",
+      "method": "fetch",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-918; the request URL/HTTPRequest arg is fetched server-side."
+    },
+    {
+      "id": "python.ftplib.ftp.a0",
+      "language": "python",
+      "package": "ftplib",
+      "type": null,
+      "method": "FTP",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-918; the host arg opens a connection to an attacker-chosen server."
+    },
+    {
+      "id": "python.smtplib.smtp.a0",
+      "language": "python",
+      "package": "smtplib",
+      "type": null,
+      "method": "SMTP",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-918; the host arg drives a connection to an internal/arbitrary host."
+    },
+    {
+      "id": "python.telnetlib.telnet.a0",
+      "language": "python",
+      "package": "telnetlib",
+      "type": null,
+      "method": "Telnet",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-918; the host arg opens an arbitrary TCP connection."
+    },
+    {
+      "id": "python.werkzeugutils.redirect.a0",
+      "language": "python",
+      "package": "werkzeug.utils",
+      "type": null,
+      "method": "redirect",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "open-redirect",
+      "cwe": [
+        "CWE-601"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-601; the location becomes the Location header; a tainted URL redirects off-site."
+    },
+    {
+      "id": "python.starlette.responses.redirectresponse.a0",
+      "language": "python",
+      "package": "starlette.responses",
+      "type": null,
+      "method": "RedirectResponse",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "open-redirect",
+      "cwe": [
+        "CWE-601"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-601; the URL arg sets the redirect target."
+    },
+    {
+      "id": "python.fastapi.responses.redirectresponse.a0",
+      "language": "python",
+      "package": "fastapi.responses",
+      "type": null,
+      "method": "RedirectResponse",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "open-redirect",
+      "cwe": [
+        "CWE-601"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-601; FastAPI re-export of the Starlette redirect sink."
+    },
+    {
+      "id": "python.bottle.redirect.a0",
+      "language": "python",
+      "package": "bottle",
+      "type": null,
+      "method": "redirect",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "open-redirect",
+      "cwe": [
+        "CWE-601"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "CWE-601; sets the redirect Location from the argument."
+    },
+    {
+      "id": "python.markupsafe.markup.a0",
+      "language": "python",
+      "package": "markupsafe",
+      "type": null,
+      "method": "Markup",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-79; wrapping a tainted string as Markup marks it safe, bypassing autoescape."
+    },
+    {
+      "id": "python.jinja2.markup.a0",
+      "language": "python",
+      "package": "jinja2",
+      "type": null,
+      "method": "Markup",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-79; jinja2 re-export of markupsafe.Markup."
+    },
+    {
+      "id": "python.starlette.responses.htmlresponse.a0",
+      "language": "python",
+      "package": "starlette.responses",
+      "type": null,
+      "method": "HTMLResponse",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-79; the body is returned as text/html without escaping."
+    },
+    {
+      "id": "python.fastapi.responses.htmlresponse.a0",
+      "language": "python",
+      "package": "fastapi.responses",
+      "type": null,
+      "method": "HTMLResponse",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-79; FastAPI re-export of the raw HTML response sink."
+    },
+    {
+      "id": "python.tornado.requesthandler.write.a0",
+      "language": "python",
+      "package": null,
+      "type": "RequestHandler",
+      "method": "write",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "CWE-79; a string written to the response body is reflected to the client unescaped."
+    },
+    {
+      "id": "python.django.utils.safestring.safestring.a0",
+      "language": "python",
+      "package": "django.utils.safestring",
+      "type": null,
+      "method": "SafeString",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "CWE-79; marks the string safe for template rendering, disabling autoescape."
+    },
+    {
+      "id": "python.lxml.objectify.fromstring.a0",
+      "language": "python",
+      "package": "lxml.objectify",
+      "type": null,
+      "method": "fromstring",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xxe",
+      "cwe": [
+        "CWE-611"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-611; lxml resolves external entities by default, enabling file read / SSRF via a malicious DTD."
+    },
+    {
+      "id": "python.lxml.objectify.parse.a0",
+      "language": "python",
+      "package": "lxml.objectify",
+      "type": null,
+      "method": "parse",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xxe",
+      "cwe": [
+        "CWE-611"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-611; objectify parse shares lxml's entity-resolving default."
+    },
+    {
+      "id": "python.xml.sax.parsestring.a0",
+      "language": "python",
+      "package": "xml.sax",
+      "type": null,
+      "method": "parseString",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xxe",
+      "cwe": [
+        "CWE-611"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-611; the default SAX parser processes DTDs/external entities."
+    },
+    {
+      "id": "python.xmlrpc.loads.a0",
+      "language": "python",
+      "package": "xmlrpc.client",
+      "type": null,
+      "method": "loads",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xxe",
+      "cwe": [
+        "CWE-611"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "CWE-611; unmarshals an XML-RPC payload with the vulnerable expat configuration."
+    },
+    {
+      "id": "python.crypto.cipher.des3.new.a0",
+      "language": "python",
+      "package": "Crypto.Cipher.DES3",
+      "type": null,
+      "method": "new",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327",
+        "CWE-328"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "CWE-327; 3DES is a deprecated 64-bit-block cipher (Sweet32); the key arg flags the weak primitive."
+    },
+    {
+      "id": "python.cryptodome.cipher.des3.new.a0",
+      "language": "python",
+      "package": "Cryptodome.Cipher.DES3",
+      "type": null,
+      "method": "new",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327",
+        "CWE-328"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "CWE-327; PyCryptodome 3DES, same weakness as the Crypto namespace."
+    },
+    {
+      "id": "python.regex.compile.a0",
+      "language": "python",
+      "package": "regex",
+      "type": null,
+      "method": "compile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-1333; the third-party regex module mirrors re; a tainted pattern can be catastrophically backtracking."
+    },
+    {
+      "id": "python.regex.search.a0",
+      "language": "python",
+      "package": "regex",
+      "type": null,
+      "method": "search",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-1333; a tainted pattern arg is compiled and matched."
+    },
+    {
+      "id": "python.regex.match.a0",
+      "language": "python",
+      "package": "regex",
+      "type": null,
+      "method": "match",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-1333; tainted pattern arg."
+    },
+    {
+      "id": "python.regex.sub.a0",
+      "language": "python",
+      "package": "regex",
+      "type": null,
+      "method": "sub",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-1333; tainted pattern arg."
+    },
+    {
+      "id": "python.regex.findall.a0",
+      "language": "python",
+      "package": "regex",
+      "type": null,
+      "method": "findall",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-1333; tainted pattern arg."
+    },
+    {
+      "id": "python.builtins.getattr.a1",
+      "language": "python",
+      "package": "builtins",
+      "type": null,
+      "method": "getattr",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "unsafe-reflection",
+      "cwe": [
+        "CWE-470"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Reflective attribute resolution: an attacker-controlled attribute name selects which member is fetched, enabling access to unintended callables or state (CWE-470)."
+    },
+    {
+      "id": "python.builtins.setattr.a1",
+      "language": "python",
+      "package": "builtins",
+      "type": null,
+      "method": "setattr",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "unsafe-reflection",
+      "cwe": [
+        "CWE-470"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Reflective attribute assignment: an attacker-controlled attribute name writes an unintended member, corrupting object state or overriding methods (CWE-470)."
+    },
+    {
+      "id": "python.operator.attrgetter.a0",
+      "language": "python",
+      "package": "operator",
+      "type": null,
+      "method": "attrgetter",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "unsafe-reflection",
+      "cwe": [
+        "CWE-470"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Reflective attribute resolution via a built factory: an attacker-controlled name selects the attribute later fetched from targets (CWE-470)."
+    },
+    {
+      "id": "python.pydoc.locate.a0",
+      "language": "python",
+      "package": "pydoc",
+      "type": null,
+      "method": "locate",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "unsafe-reflection",
+      "cwe": [
+        "CWE-470"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Dotted-path object lookup: an attacker-controlled path resolves and imports an arbitrary module attribute, executing import side effects (CWE-470)."
+    },
+    {
+      "id": "python.importlibutil.specfromfilelocation.a1",
+      "language": "python",
+      "package": "importlib.util",
+      "type": null,
+      "method": "spec_from_file_location",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "unsafe-reflection",
+      "cwe": [
+        "CWE-470"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Dynamic module load from an attacker-controlled file path executes that module's top-level code on import (CWE-470)."
     }
   ]
 }

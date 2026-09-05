@@ -952,6 +952,618 @@
       "confidence": "medium",
       "corroboration": 2,
       "notes": "archive entry names are external path components"
+    },
+    {
+      "id": "python.request.args.ret",
+      "language": "python",
+      "package": null,
+      "type": "Request",
+      "method": "args",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "Untrusted query-string MultiDict (Flask/Werkzeug request.args)."
+    },
+    {
+      "id": "python.request.form.ret",
+      "language": "python",
+      "package": null,
+      "type": "Request",
+      "method": "form",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "Untrusted POST form MultiDict."
+    },
+    {
+      "id": "python.request.values.ret",
+      "language": "python",
+      "package": null,
+      "type": "Request",
+      "method": "values",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Combined args+form untrusted input."
+    },
+    {
+      "id": "python.request.json.ret",
+      "language": "python",
+      "package": null,
+      "type": "Request",
+      "method": "json",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Parsed untrusted JSON body (attribute form)."
+    },
+    {
+      "id": "python.request.data.ret",
+      "language": "python",
+      "package": null,
+      "type": "Request",
+      "method": "data",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Raw untrusted request body bytes."
+    },
+    {
+      "id": "python.request.files.ret",
+      "language": "python",
+      "package": null,
+      "type": "Request",
+      "method": "files",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Uploaded files (untrusted names/content)."
+    },
+    {
+      "id": "python.request.cookies.ret",
+      "language": "python",
+      "package": null,
+      "type": "Request",
+      "method": "cookies",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Untrusted cookie values."
+    },
+    {
+      "id": "python.request.headers.ret",
+      "language": "python",
+      "package": null,
+      "type": "Request",
+      "method": "headers",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Untrusted request headers."
+    },
+    {
+      "id": "python.request.getdata.ret",
+      "language": "python",
+      "package": null,
+      "type": "Request",
+      "method": "get_data",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Raw untrusted body via get_data()."
+    },
+    {
+      "id": "python.request.querystring.ret",
+      "language": "python",
+      "package": null,
+      "type": "Request",
+      "method": "query_string",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "Raw untrusted query string bytes."
+    },
+    {
+      "id": "python.request.queryparams.ret",
+      "language": "python",
+      "package": null,
+      "type": "Request",
+      "method": "query_params",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Starlette/FastAPI untrusted query params."
+    },
+    {
+      "id": "python.request.pathparams.ret",
+      "language": "python",
+      "package": null,
+      "type": "Request",
+      "method": "path_params",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Starlette/FastAPI untrusted path params."
+    },
+    {
+      "id": "python.request.body.ret",
+      "language": "python",
+      "package": null,
+      "type": "Request",
+      "method": "body",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Starlette/FastAPI untrusted request body (awaited)."
+    },
+    {
+      "id": "python.request.query.ret",
+      "language": "python",
+      "package": null,
+      "type": "Request",
+      "method": "query",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "aiohttp request.query untrusted query MultiDict."
+    },
+    {
+      "id": "python.request.matchinfo.ret",
+      "language": "python",
+      "package": null,
+      "type": "Request",
+      "method": "match_info",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "aiohttp untrusted dynamic path segments."
+    },
+    {
+      "id": "python.request.post.ret",
+      "language": "python",
+      "package": null,
+      "type": "Request",
+      "method": "post",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "aiohttp await request.post() untrusted form data."
+    },
+    {
+      "id": "python.request.read.ret",
+      "language": "python",
+      "package": null,
+      "type": "Request",
+      "method": "read",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "aiohttp await request.read() untrusted body."
+    },
+    {
+      "id": "python.request.text.ret",
+      "language": "python",
+      "package": null,
+      "type": "Request",
+      "method": "text",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "aiohttp await request.text() untrusted body."
+    },
+    {
+      "id": "python.httprequest.get.ret",
+      "language": "python",
+      "package": null,
+      "type": "HttpRequest",
+      "method": "GET",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "Django untrusted query params (request.GET)."
+    },
+    {
+      "id": "python.httprequest.post.ret",
+      "language": "python",
+      "package": null,
+      "type": "HttpRequest",
+      "method": "POST",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "Django untrusted form data (request.POST)."
+    },
+    {
+      "id": "python.httprequest.body.ret",
+      "language": "python",
+      "package": null,
+      "type": "HttpRequest",
+      "method": "body",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Django raw untrusted request body."
+    },
+    {
+      "id": "python.httprequest.meta.ret",
+      "language": "python",
+      "package": null,
+      "type": "HttpRequest",
+      "method": "META",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Django header/server dict including client-controlled HTTP_* keys."
+    },
+    {
+      "id": "python.httprequest.cookies.ret",
+      "language": "python",
+      "package": null,
+      "type": "HttpRequest",
+      "method": "COOKIES",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Django untrusted cookies."
+    },
+    {
+      "id": "python.httprequest.files.ret",
+      "language": "python",
+      "package": null,
+      "type": "HttpRequest",
+      "method": "FILES",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Django uploaded files."
+    },
+    {
+      "id": "python.httprequest.gethost.ret",
+      "language": "python",
+      "package": null,
+      "type": "HttpRequest",
+      "method": "get_host",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "Django Host header (client-controlled unless ALLOWED_HOSTS enforced)."
+    },
+    {
+      "id": "python.httprequest.read.ret",
+      "language": "python",
+      "package": null,
+      "type": "HttpRequest",
+      "method": "read",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "Django streaming body read."
+    },
+    {
+      "id": "python.requesthandler.getargument.ret",
+      "language": "python",
+      "package": null,
+      "type": "RequestHandler",
+      "method": "get_argument",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Tornado untrusted request argument."
+    },
+    {
+      "id": "python.requesthandler.getqueryargument.ret",
+      "language": "python",
+      "package": null,
+      "type": "RequestHandler",
+      "method": "get_query_argument",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Tornado untrusted query argument."
+    },
+    {
+      "id": "python.requesthandler.getbodyargument.ret",
+      "language": "python",
+      "package": null,
+      "type": "RequestHandler",
+      "method": "get_body_argument",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Tornado untrusted body argument."
+    },
+    {
+      "id": "python.requesthandler.getcookie.ret",
+      "language": "python",
+      "package": null,
+      "type": "RequestHandler",
+      "method": "get_cookie",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "Tornado untrusted cookie value."
+    },
+    {
+      "id": "python.cgi.fieldstorage.ret",
+      "language": "python",
+      "package": "cgi",
+      "type": null,
+      "method": "FieldStorage",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "CGI form parser wrapping an untrusted request body."
+    },
+    {
+      "id": "python.sys.argv.ret",
+      "language": "python",
+      "package": "sys",
+      "type": null,
+      "method": "argv",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "Process command-line arguments, externally controlled input."
+    },
+    {
+      "id": "python.socket.recv.ret",
+      "language": "python",
+      "package": null,
+      "type": "socket",
+      "method": "recv",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Raw network bytes from the peer."
+    },
+    {
+      "id": "python.socket.recvfrom.ret",
+      "language": "python",
+      "package": null,
+      "type": "socket",
+      "method": "recvfrom",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "Raw datagram bytes plus peer address from the network."
+    },
+    {
+      "id": "python.socket.recvmsg.ret",
+      "language": "python",
+      "package": null,
+      "type": "socket",
+      "method": "recvmsg",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "Raw network message data."
+    },
+    {
+      "id": "python.getpass.getpass.ret",
+      "language": "python",
+      "package": "getpass",
+      "type": null,
+      "method": "getpass",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "Interactive terminal input (untrusted)."
     }
   ]
 }

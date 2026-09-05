@@ -433,6 +433,176 @@
       "confidence": "low",
       "corroboration": 1,
       "notes": "wide-character cap written into Argument[0]; safety requires it not exceed the destination's capacity"
+    },
+    {
+      "id": "c.std.err.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "err",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-134: fmt is Argument[1]; a tainted format lets %n/%s read or write memory"
+    },
+    {
+      "id": "c.std.errx.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "errx",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-134: fmt is Argument[1]; tainted format string enables info leak or memory write"
+    },
+    {
+      "id": "c.std.warn.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "warn",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-134: fmt is Argument[0]; tainted format string enables format-string attack"
+    },
+    {
+      "id": "c.std.warnx.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "warnx",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-134: fmt is Argument[0]; tainted format lets attacker leak stack or write via %n"
+    },
+    {
+      "id": "c.std.verr.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "verr",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-134: va_list variant; fmt Argument[1] under attacker control is exploitable"
+    },
+    {
+      "id": "c.std.verrx.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "verrx",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-134: va_list variant; tainted fmt Argument[1] is a format-string sink"
+    },
+    {
+      "id": "c.std.vwarn.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "vwarn",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-134: va_list variant; tainted fmt Argument[0] is a format-string sink"
+    },
+    {
+      "id": "c.std.vwarnx.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "vwarnx",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-134: va_list variant; tainted fmt Argument[0] is a format-string sink"
+    },
+    {
+      "id": "c.std.asprintf.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "asprintf",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-134: fmt is Argument[1]; a tainted format string enables format-string exploitation"
+    },
+    {
+      "id": "c.std.vasprintf.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "vasprintf",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "format-string",
+      "cwe": [
+        "CWE-134"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-134: fmt is Argument[1]; va_list variant of the asprintf format-string sink"
     }
   ]
 }

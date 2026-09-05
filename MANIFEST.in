@@ -1,0 +1,22 @@
+# Ship the canonical catalog data in the sdist so a wheel can be rebuilt from it.
+# The build step (setup.py) copies these into atropos/_bundle for the wheel.
+graft models
+graft detection
+graft profiles
+graft schema
+include pack.json
+include VERSION
+include LICENSE
+include LICENSE-CODE
+include README.md
+include CHANGELOG.md
+include CONTRIBUTING.md
+include RELEASING.md
+
+# Never ship build artifacts, tests scaffolding, or internal dirs.
+prune tmp
+prune private
+prune candidates
+prune atropos/_bundle
+global-exclude *.pyc
+global-exclude __pycache__

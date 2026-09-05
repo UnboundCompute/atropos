@@ -188,6 +188,160 @@
       "confidence": "low",
       "corroboration": 1,
       "notes": null
+    },
+    {
+      "id": "c.std.recvmmsg.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "recvmmsg",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "source",
+      "kind": "network-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-20: fills the mmsghdr vector Argument[1] with attacker-controlled datagrams"
+    },
+    {
+      "id": "c.std.readv.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "readv",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-20: scatters read bytes into the iovec buffers Argument[1]; content is untrusted"
+    },
+    {
+      "id": "c.std.getchar.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "getchar",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "CWE-20: returns one attacker-controlled byte from stdin"
+    },
+    {
+      "id": "c.std.fgetc.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "fgetc",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "CWE-20: returns one attacker-controlled byte from the stream"
+    },
+    {
+      "id": "c.std.getdelim.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "getdelim",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "CWE-20: allocates and fills *lineptr Argument[0] with an untrusted delimited record"
+    },
+    {
+      "id": "c.std.gets.src.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "gets",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "CWE-20: writes an untrusted stdin line into Argument[0] (also an unbounded buffer-write sink)"
+    },
+    {
+      "id": "c.std.fgetws.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "fgetws",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "CWE-20: reads an untrusted wide-char line into Argument[0]"
+    },
+    {
+      "id": "c.std.mmap.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "mmap",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "CWE-20: the returned mapping exposes untrusted file/shared-memory contents"
+    },
+    {
+      "id": "c.openssl.randpseudobytes.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "RAND_pseudo_bytes",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "source",
+      "kind": "weak-random",
+      "cwe": [
+        "CWE-330",
+        "CWE-338"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "CWE-338: deprecated non-cryptographic PRNG fills buf Argument[0]; output is predictable"
     }
   ]
 }

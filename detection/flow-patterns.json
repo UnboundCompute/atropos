@@ -329,6 +329,7 @@
       ],
       "tier": 2,
       "status": "shipped",
+      "lead": true,
       "requires": [
         "memory.copy"
       ],
@@ -338,7 +339,7 @@
                    "event_kinds": ["derive"]},
       "evaluator": "typestate",
       "candidate": {"domain": "lifecycle", "family": "aggregate-copy-alias"},
-      "note": "This is an ownership-shape lead, not a verdict: the reusable semantic graph records the field alias once, and double-free/UAF patterns can use it when a downstream path proves the violation."
+      "note": "This is an ownership-shape lead, not a verdict: the reusable semantic graph records the field alias once, and double-free/UAF patterns can use it when a downstream path proves the violation. The `lead` flag keeps a matcher-recorded alias PARTIAL in the census -- it is never promoted to a COMPLETE typestate verdict on its own; the downstream double-free/UAF pattern that composes through the alias is the verdict."
     },
     {
       "id": "mem.lifetime.uninitialized-use",
@@ -348,6 +349,7 @@
       ],
       "tier": 2,
       "status": "shipped",
+      "confirmable": false,
       "requires": [
         "memory.deref"
       ],
@@ -367,6 +369,7 @@
       ],
       "tier": 2,
       "status": "shipped",
+      "confirmable": false,
       "requires": [
         "memory.free"
       ],
@@ -386,6 +389,7 @@
       ],
       "tier": 2,
       "status": "shipped",
+      "confirmable": false,
       "requires": [
         "memory.free"
       ],
@@ -405,6 +409,7 @@
       ],
       "tier": 2,
       "status": "shipped",
+      "confirmable": false,
       "requires": [
         "memory.free",
         "memory.deref"
@@ -446,6 +451,7 @@
       ],
       "tier": 1,
       "status": "shipped",
+      "confirmable": false,
       "requires": [
         "memory.deref"
       ],
@@ -465,6 +471,7 @@
       ],
       "tier": 2,
       "status": "shipped",
+      "confirmable": false,
       "requires": [
         "memory.deref"
       ],
@@ -485,6 +492,7 @@
       ],
       "tier": 2,
       "status": "shipped",
+      "confirmable": false,
       "requires": [
         "memory.deref"
       ],

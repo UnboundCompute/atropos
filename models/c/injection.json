@@ -1,0 +1,350 @@
+{
+  "role_group": "sink",
+  "entries": [
+    {
+      "id": "c.sqlite3.exec.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "sqlite3_exec",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "CWE-89: executes the SQL text in Argument[1]; a concatenated tainted string injects SQL"
+    },
+    {
+      "id": "c.sqlite3.prepare.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "sqlite3_prepare",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-89: compiles zSql Argument[1]; tainted concatenation injects rather than parameterizes"
+    },
+    {
+      "id": "c.sqlite3.preparev2.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "sqlite3_prepare_v2",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "CWE-89: compiles zSql Argument[1]; safe only when values are bound, not concatenated"
+    },
+    {
+      "id": "c.sqlite3.gettable.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "sqlite3_get_table",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-89: runs the SQL text in Argument[1]; tainted input alters the query"
+    },
+    {
+      "id": "c.mysql.query.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "mysql_query",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "CWE-89: sends stmt_str Argument[1] to the server; concatenated user input injects SQL"
+    },
+    {
+      "id": "c.mysql.realquery.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "mysql_real_query",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-89: sends the length-counted query Argument[1]; tainted content injects SQL"
+    },
+    {
+      "id": "c.libpq.exec.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "PQexec",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "CWE-89: executes the command string Argument[1]; concatenated input injects SQL"
+    },
+    {
+      "id": "c.libpq.execparams.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "PQexecParams",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-89: the command template Argument[1] must use $n placeholders, not interpolated input"
+    },
+    {
+      "id": "c.libpq.prepare.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "PQprepare",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-89: prepares the query text Argument[2]; tainted concatenation injects SQL"
+    },
+    {
+      "id": "c.ldap.searchexts.a3",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "ldap_search_ext_s",
+      "signature": null,
+      "access_path": "Argument[3]",
+      "role": "sink",
+      "kind": "ldap-injection",
+      "cwe": [
+        "CWE-90"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-90: the filter Argument[3] is an LDAP search filter; unescaped input alters the query"
+    },
+    {
+      "id": "c.ldap.searchs.a3",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "ldap_search_s",
+      "signature": null,
+      "access_path": "Argument[3]",
+      "role": "sink",
+      "kind": "ldap-injection",
+      "cwe": [
+        "CWE-90"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-90: filter Argument[3]; metacharacters like *,(,) rewrite the filter logic"
+    },
+    {
+      "id": "c.ldap.searchext.a3",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "ldap_search_ext",
+      "signature": null,
+      "access_path": "Argument[3]",
+      "role": "sink",
+      "kind": "ldap-injection",
+      "cwe": [
+        "CWE-90"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-90: async search filter Argument[3]; unescaped input injects LDAP filter clauses"
+    },
+    {
+      "id": "c.libxml2.xpatheval.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "xmlXPathEval",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xpath-injection",
+      "cwe": [
+        "CWE-643"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-643: evaluates the XPath string Argument[0]; concatenated input alters node selection"
+    },
+    {
+      "id": "c.libxml2.xpathevalexpr.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "xmlXPathEvalExpression",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xpath-injection",
+      "cwe": [
+        "CWE-643"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-643: evaluates XPath expression Argument[0]; tainted input injects XPath"
+    },
+    {
+      "id": "c.libxml2.xpathcompile.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "xmlXPathCompile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xpath-injection",
+      "cwe": [
+        "CWE-643"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-643: compiles the XPath string Argument[0] for reuse; tainted pattern injects XPath"
+    },
+    {
+      "id": "c.std.regcomp.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "regcomp",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333",
+        "CWE-730"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "CWE-1333: compiles the pattern Argument[1]; a tainted pattern can force catastrophic backtracking (ReDoS)"
+    },
+    {
+      "id": "c.pcre.compile.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "pcre_compile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333",
+        "CWE-730"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-1333: PCRE backtracking on a tainted pattern Argument[0] gives exponential match time"
+    },
+    {
+      "id": "c.std.dlopen.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "dlopen",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-114",
+        "CWE-426"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-114/426: loads the shared object named in Argument[0]; a tainted path executes attacker code (cf. CVE-2025-4802)"
+    },
+    {
+      "id": "c.std.dlmopen.a1",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "dlmopen",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-114",
+        "CWE-426"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-114: loads the library named in Argument[1] into a namespace; tainted path loads arbitrary code"
+    },
+    {
+      "id": "c.win.loadlibrarya.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "LoadLibraryA",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-114",
+        "CWE-426"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-114/426: loads the DLL named in Argument[0]; tainted/relative name enables DLL hijack"
+    }
+  ]
+}

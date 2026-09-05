@@ -221,6 +221,210 @@
       "confidence": "medium",
       "corroboration": 2,
       "notes": "HTML sanitizer (ammonia binding)"
+    },
+    {
+      "id": "python.django.utils.html.escape.a0-ret",
+      "language": "python",
+      "package": "django.utils.html",
+      "type": null,
+      "method": "escape",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "HTML-escapes < > & ' \", neutralizing reflected/stored XSS."
+    },
+    {
+      "id": "python.django.utils.html.striptags.a0-ret",
+      "language": "python",
+      "package": "django.utils.html",
+      "type": null,
+      "method": "strip_tags",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "Removes markup; weaker than escaping (documented as not XSS-safe on its own)."
+    },
+    {
+      "id": "python.django.utils.html.escapejs.a0-ret",
+      "language": "python",
+      "package": "django.utils.html",
+      "type": null,
+      "method": "escapejs",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "Escapes a string for safe embedding in a JS/HTML context."
+    },
+    {
+      "id": "python.xmlsaxutils.escape.a0-ret",
+      "language": "python",
+      "package": "xml.sax.saxutils",
+      "type": null,
+      "method": "escape",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "Escapes XML/HTML special characters."
+    },
+    {
+      "id": "python.xmlsaxutils.quoteattr.a0-ret",
+      "language": "python",
+      "package": "xml.sax.saxutils",
+      "type": null,
+      "method": "quoteattr",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "Escapes and quotes a value for use as an XML/HTML attribute."
+    },
+    {
+      "id": "python.ldap3.escapefilterchars.a0-ret",
+      "language": "python",
+      "package": "ldap3.utils.conv",
+      "type": null,
+      "method": "escape_filter_chars",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "ldap-injection",
+      "cwe": [
+        "CWE-90"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "Escapes RFC-4515 filter metacharacters; returns input untouched if it contains a backslash."
+    },
+    {
+      "id": "python.ldap.filter.escapefilterchars.a0-ret",
+      "language": "python",
+      "package": "ldap.filter",
+      "type": null,
+      "method": "escape_filter_chars",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "ldap-injection",
+      "cwe": [
+        "CWE-90"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "python-ldap RFC-4515 filter escaping."
+    },
+    {
+      "id": "python.psycopg2.sql.identifier.a0-ret",
+      "language": "python",
+      "package": "psycopg2.sql",
+      "type": null,
+      "method": "Identifier",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Safely quotes an SQL identifier for composition, preventing identifier injection."
+    },
+    {
+      "id": "python.psycopg2.sql.literal.a0-ret",
+      "language": "python",
+      "package": "psycopg2.sql",
+      "type": null,
+      "method": "Literal",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "Adapts a value to a safely-quoted SQL literal."
+    },
+    {
+      "id": "python.ospath.basename.traversal.a0-ret",
+      "language": "python",
+      "package": "os.path",
+      "type": null,
+      "method": "basename",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "Strips directory components, collapsing a traversal path to a bare filename."
+    },
+    {
+      "id": "python.builtins.int.a0-ret",
+      "language": "python",
+      "package": "builtins",
+      "type": null,
+      "method": "int",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "Numeric coercion; a value forced to int cannot carry injection metacharacters (applies across injection classes)."
+    },
+    {
+      "id": "python.builtins.float.a0-ret",
+      "language": "python",
+      "package": "builtins",
+      "type": null,
+      "method": "float",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "Numeric coercion; non-numeric input raises, so the result is injection-inert."
     }
   ]
 }

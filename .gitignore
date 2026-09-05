@@ -8,6 +8,13 @@ __pycache__/
 venv/
 .pytest_cache/
 
+# Packaging build artifacts. The wheel bundles the catalog under atropos/_bundle at
+# build time from the canonical repo-root data; that copy is generated, never committed.
+build/
+dist/
+*.egg-info/
+atropos/_bundle/
+
 # OS
 .DS_Store
 

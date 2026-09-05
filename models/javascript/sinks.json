@@ -36,40 +36,6 @@
       "notes": "new Function(body)"
     },
     {
-      "id": "javascript.std.settimeout.a0",
-      "language": "javascript",
-      "package": null,
-      "type": null,
-      "method": "setTimeout",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "code-injection",
-      "cwe": [
-        "CWE-95"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "string-body form is eval-like"
-    },
-    {
-      "id": "javascript.std.setinterval.a0",
-      "language": "javascript",
-      "package": null,
-      "type": null,
-      "method": "setInterval",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "code-injection",
-      "cwe": [
-        "CWE-95"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": null
-    },
-    {
       "id": "javascript.std.require.a0",
       "language": "javascript",
       "package": null,
@@ -549,7 +515,7 @@
       "id": "javascript.std.html.a0",
       "language": "javascript",
       "package": null,
-      "type": null,
+      "type": "JQuery",
       "method": "html",
       "signature": null,
       "access_path": "Argument[0]",
@@ -560,7 +526,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "jQuery .html(x) sets innerHTML"
+      "notes": "jQuery .html(x) sets innerHTML; type-keyed to JQuery so a concrete non-jQuery receiver (e.g. a first-party Fetcher.html content accessor) is rejected while an untyped jQuery object still binds via the loose gate"
     },
     {
       "id": "javascript.http.request.a0",
@@ -2195,6 +2161,1129 @@
       "confidence": "medium",
       "corroboration": 1,
       "notes": "static-eval evaluate() interprets an expression AST derived from untrusted input; crafted ASTs achieve RCE (known CVEs)"
+    },
+    {
+      "id": "javascript.shelljs.exec.a0",
+      "language": "javascript",
+      "package": "shelljs",
+      "type": null,
+      "method": "exec",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "shell.exec() runs its string through a system shell; unsanitized input yields OS command injection (CWE-78)."
+    },
+    {
+      "id": "javascript.execa.command.a0",
+      "language": "javascript",
+      "package": "execa",
+      "type": null,
+      "method": "command",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "execa.command(str) parses and runs a full command line; tainted input injects extra commands (CWE-78)."
+    },
+    {
+      "id": "javascript.execa.commandsync.a0",
+      "language": "javascript",
+      "package": "execa",
+      "type": null,
+      "method": "commandSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Synchronous full-command-string form of execa.command; same shell-metacharacter injection."
+    },
+    {
+      "id": "javascript.coffeescript.eval.a0",
+      "language": "javascript",
+      "package": "coffeescript",
+      "type": null,
+      "method": "eval",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CoffeeScript.eval(src) compiles and executes source; tainted input runs arbitrary JS (CWE-95)."
+    },
+    {
+      "id": "javascript.coffeescript.compile.a0",
+      "language": "javascript",
+      "package": "coffeescript",
+      "type": null,
+      "method": "compile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-94"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "compile(src) then run executes attacker source; code injection via untrusted template/source."
+    },
+    {
+      "id": "javascript.std.import.a0",
+      "language": "javascript",
+      "package": null,
+      "type": null,
+      "method": "import",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "Dynamic import() of a tainted specifier loads and runs an attacker-chosen module, eval-equivalent (CWE-95)."
+    },
+    {
+      "id": "javascript.better-sqlite3.database.prepare.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Database",
+      "method": "prepare",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "better-sqlite3 Database.prepare(sql) \u2014 concatenated user input in the SQL string is injectable (CWE-89)."
+    },
+    {
+      "id": "javascript.better-sqlite3.database.exec.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Database",
+      "method": "exec",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Database.exec(sql) runs a raw multi-statement SQL string with no parameter binding."
+    },
+    {
+      "id": "javascript.sqlite3.database.run.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Database",
+      "method": "run",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "sqlite3 Database.run(sql) executes a raw SQL string; concatenated input yields injection."
+    },
+    {
+      "id": "javascript.sqlite3.database.all.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Database",
+      "method": "all",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Database.all(sql) selects rows from a raw SQL string; tainted concatenation is injectable."
+    },
+    {
+      "id": "javascript.sqlite3.database.get.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Database",
+      "method": "get",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Database.get(sql) executes a raw SQL string; same string-concatenation injection class."
+    },
+    {
+      "id": "javascript.pg.client.query.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Client",
+      "method": "query",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "node-postgres Client.query(text) runs raw SQL; unparameterized concatenation is classic SQLi (CWE-89)."
+    },
+    {
+      "id": "javascript.oracledb.connection.execute.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Connection",
+      "method": "execute",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "oracledb/mysql2 Connection.execute(sql) \u2014 the string form (no bind params) is injectable."
+    },
+    {
+      "id": "javascript.mongodb.collection.mapreduce.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Collection",
+      "method": "mapReduce",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Collection.mapReduce runs a server-side JS map function / $where; tainted code runs in the DB (CWE-94/943)."
+    },
+    {
+      "id": "javascript.mongodb.collection.distinct.a1",
+      "language": "javascript",
+      "package": null,
+      "type": "Collection",
+      "method": "distinct",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "distinct(field, query) \u2014 an object-valued query filter permits operator injection ($gt/$ne/$where)."
+    },
+    {
+      "id": "javascript.mongodb.collection.countdocuments.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Collection",
+      "method": "countDocuments",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "countDocuments(filter) accepts attacker operators when the filter is built from request JSON."
+    },
+    {
+      "id": "javascript.mongoose.model.find.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Model",
+      "method": "find",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "Mongoose Model.find(filter) with a raw request object allows operator injection ($where/$gt) (CWE-943)."
+    },
+    {
+      "id": "javascript.mongoose.model.findone.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Model",
+      "method": "findOne",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "Model.findOne(filter) \u2014 same NoSQL operator-injection surface as find."
+    },
+    {
+      "id": "javascript.mongoose.model.updateone.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Model",
+      "method": "updateOne",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Model.updateOne(filter, ...) filter accepts injected operators selecting unintended documents."
+    },
+    {
+      "id": "javascript.mongoose.query.where.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Query",
+      "method": "where",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "Query.where() $where form evaluates server-side JS; CVE-2024-53900/CVE-2025-23061 abused nested $where."
+    },
+    {
+      "id": "javascript.fs.opensync.a0",
+      "language": "javascript",
+      "package": "fs",
+      "type": null,
+      "method": "openSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Synchronous fs.openSync(path) \u2014 tainted path with ../ escapes the intended directory (CWE-22)."
+    },
+    {
+      "id": "javascript.fs.mkdirsync.a0",
+      "language": "javascript",
+      "package": "fs",
+      "type": null,
+      "method": "mkdirSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "fs.mkdirSync(path) creates directories at an attacker-chosen traversed path."
+    },
+    {
+      "id": "javascript.fs.unlinksync.a0",
+      "language": "javascript",
+      "package": "fs",
+      "type": null,
+      "method": "unlinkSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "fs.unlinkSync(path) deletes an arbitrary file when the path is tainted (arbitrary file delete)."
+    },
+    {
+      "id": "javascript.fs.renamesync.a0",
+      "language": "javascript",
+      "package": "fs",
+      "type": null,
+      "method": "renameSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "fs.renameSync(old, new) \u2014 a tainted source/target path enables arbitrary file move."
+    },
+    {
+      "id": "javascript.fs.rmsync.a0",
+      "language": "javascript",
+      "package": "fs",
+      "type": null,
+      "method": "rmSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "fs.rmSync(path, {recursive}) removes an arbitrary path/tree under traversal."
+    },
+    {
+      "id": "javascript.fs.readdirsync.a0",
+      "language": "javascript",
+      "package": "fs",
+      "type": null,
+      "method": "readdirSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "fs.readdirSync(path) discloses directory listings outside the intended root."
+    },
+    {
+      "id": "javascript.fs.cp.a0",
+      "language": "javascript",
+      "package": "fs",
+      "type": null,
+      "method": "cp",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "fs.cp(src, dest) copies from/to an attacker-controlled traversed path (arbitrary read/write)."
+    },
+    {
+      "id": "javascript.send.send.a1",
+      "language": "javascript",
+      "package": "send",
+      "type": null,
+      "method": "send",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "send(req, path) streams a file by path; unsanitized path serves files outside the root (CWE-22)."
+    },
+    {
+      "id": "javascript.express.response.sendfile.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Response",
+      "method": "sendfile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "Deprecated res.sendfile(path) lacks the root-confinement of res.sendFile; tainted path traverses."
+    },
+    {
+      "id": "javascript.http.get.a0",
+      "language": "javascript",
+      "package": "http",
+      "type": null,
+      "method": "get",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "http.get(url) fetches an attacker-controlled URL, reaching internal hosts / cloud metadata (CWE-918)."
+    },
+    {
+      "id": "javascript.https.get.a0",
+      "language": "javascript",
+      "package": "https",
+      "type": null,
+      "method": "get",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "https.get(url) \u2014 the .get sibling of https.request; same SSRF surface."
+    },
+    {
+      "id": "javascript.got.post.a0",
+      "language": "javascript",
+      "package": "got",
+      "type": null,
+      "method": "post",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "got.post(url) issues a server-side request to a tainted URL (SSRF)."
+    },
+    {
+      "id": "javascript.request.post.a0",
+      "language": "javascript",
+      "package": "request",
+      "type": null,
+      "method": "post",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "request.post(url) \u2014 legacy request client, tainted URL enables SSRF."
+    },
+    {
+      "id": "javascript.superagent.post.a0",
+      "language": "javascript",
+      "package": "superagent",
+      "type": null,
+      "method": "post",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "superagent.post(url) issues a server-side request to a user-supplied URL."
+    },
+    {
+      "id": "javascript.needle.request.a1",
+      "language": "javascript",
+      "package": "needle",
+      "type": null,
+      "method": "request",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "needle.request(method, url) \u2014 url is the 2nd arg; tainted value drives SSRF."
+    },
+    {
+      "id": "javascript.dom.xmlhttprequest.open.a1",
+      "language": "javascript",
+      "package": null,
+      "type": "XMLHttpRequest",
+      "method": "open",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "XMLHttpRequest.open(method, url) \u2014 url (arg1) from an untrusted source enables request forgery."
+    },
+    {
+      "id": "javascript.dom.websocket.a0",
+      "language": "javascript",
+      "package": null,
+      "type": null,
+      "method": "WebSocket",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "new WebSocket(url) opens a connection to a tainted endpoint (SSRF / connection forgery)."
+    },
+    {
+      "id": "javascript.express.response.set.a1",
+      "language": "javascript",
+      "package": null,
+      "type": "Response",
+      "method": "set",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "open-redirect",
+      "cwe": [
+        "CWE-601"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "res.set('Location', url) writes the redirect header raw; tainted value yields open redirect / header injection (CWE-601/113)."
+    },
+    {
+      "id": "javascript.dom.window.open.a0",
+      "language": "javascript",
+      "package": null,
+      "type": null,
+      "method": "open",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "open-redirect",
+      "cwe": [
+        "CWE-601"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "window.open(url) navigates to a tainted URL (open redirect; javascript: URLs also enable XSS)."
+    },
+    {
+      "id": "javascript.dom.element.setattribute.a1",
+      "language": "javascript",
+      "package": null,
+      "type": "Element",
+      "method": "setAttribute",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 3,
+      "notes": "setAttribute('href'/'src'/'srcdoc', v) with a tainted value injects javascript: URLs or markup (DOM XSS)."
+    },
+    {
+      "id": "javascript.jquery.parsehtml.a0",
+      "language": "javascript",
+      "package": null,
+      "type": null,
+      "method": "parseHTML",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "$.parseHTML(str) builds nodes from an HTML string; tainted input runs inline handlers (DOM XSS)."
+    },
+    {
+      "id": "javascript.jquery.insertafter.a0",
+      "language": "javascript",
+      "package": null,
+      "type": null,
+      "method": "insertAfter",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "jQuery .insertAfter(html) injects markup adjacent to a node; unescaped input is XSS."
+    },
+    {
+      "id": "javascript.jquery.insertbefore.a0",
+      "language": "javascript",
+      "package": null,
+      "type": null,
+      "method": "insertBefore",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "jQuery .insertBefore(html) \u2014 HTML-string sink like .before/.after."
+    },
+    {
+      "id": "javascript.jquery.appendto.a0",
+      "language": "javascript",
+      "package": null,
+      "type": null,
+      "method": "appendTo",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "jQuery .appendTo(target) with an HTML-string receiver injects markup (DOM XSS)."
+    },
+    {
+      "id": "javascript.jquery.prependto.a0",
+      "language": "javascript",
+      "package": null,
+      "type": null,
+      "method": "prependTo",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "jQuery .prependTo(target) \u2014 HTML-string sibling of .prepend."
+    },
+    {
+      "id": "javascript.jquery.replaceall.a0",
+      "language": "javascript",
+      "package": null,
+      "type": null,
+      "method": "replaceAll",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "jQuery .replaceAll(target) replaces nodes with tainted HTML (DOM XSS)."
+    },
+    {
+      "id": "javascript.express.response.send.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Response",
+      "method": "send",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "res.send(body) reflects a body without HTML-escaping; tainted string is server-side reflected XSS."
+    },
+    {
+      "id": "javascript.express.response.write.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Response",
+      "method": "write",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "res.write(chunk) streams an unescaped response chunk; reflected XSS when tainted."
+    },
+    {
+      "id": "javascript.angular.sce.trustasresourceurl.a0",
+      "language": "javascript",
+      "package": "angular",
+      "type": "$sce",
+      "method": "trustAsResourceUrl",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "$sce.trustAsResourceUrl bypasses AngularJS URL sanitization; tainted URL enables script/resource load."
+    },
+    {
+      "id": "javascript.handlebars.precompile.a0",
+      "language": "javascript",
+      "package": "handlebars",
+      "type": null,
+      "method": "precompile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Handlebars.precompile(src) compiles an untrusted template; RCE-class SSTI (cf. CVE-2021-23369)."
+    },
+    {
+      "id": "javascript.ejs.compile.a0",
+      "language": "javascript",
+      "package": "ejs",
+      "type": null,
+      "method": "compile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "ejs.compile(src) turns a tainted template into executable JS; SSTI to RCE."
+    },
+    {
+      "id": "javascript.pug.render.a0",
+      "language": "javascript",
+      "package": "pug",
+      "type": null,
+      "method": "render",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "pug.render(src) compiles+runs an untrusted template string; SSTI (pug <3.0.1 RCE)."
+    },
+    {
+      "id": "javascript.pug.renderfile.a0",
+      "language": "javascript",
+      "package": "pug",
+      "type": null,
+      "method": "renderFile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "pug.renderFile(path) with a tainted template path/source enables SSTI."
+    },
+    {
+      "id": "javascript.nunjucks.compile.a0",
+      "language": "javascript",
+      "package": "nunjucks",
+      "type": null,
+      "method": "compile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "nunjucks.compile(src) compiles an untrusted template; server-side template injection."
+    },
+    {
+      "id": "javascript.eta.compile.a0",
+      "language": "javascript",
+      "package": "eta",
+      "type": null,
+      "method": "compile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "Eta.compile(src) builds a function from a template string; tainted template is SSTI/code injection."
+    },
+    {
+      "id": "javascript.hogan.compile.a0",
+      "language": "javascript",
+      "package": "hogan.js",
+      "type": null,
+      "method": "compile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "Hogan.compile(src) compiles an untrusted Mustache template; SSTI class."
+    },
+    {
+      "id": "javascript.funcster.deepdeserialize.a0",
+      "language": "javascript",
+      "package": "funcster",
+      "type": null,
+      "method": "deepDeserialize",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "funcster.deepDeserialize rebuilds functions from serialized data; untrusted input runs arbitrary code (CWE-502)."
+    },
+    {
+      "id": "javascript.serialize-to-js.deserialize.a0",
+      "language": "javascript",
+      "package": "serialize-to-js",
+      "type": null,
+      "method": "deserialize",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "serialize-to-js.deserialize revives objects/functions from a string; RCE on untrusted input."
+    },
+    {
+      "id": "javascript.cryo.parse.a0",
+      "language": "javascript",
+      "package": "cryo",
+      "type": null,
+      "method": "parse",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "Cryo.parse reconstructs functions/closures from serialized data; deserialization to code execution."
+    },
+    {
+      "id": "javascript.js-yaml.loadall.a0",
+      "language": "javascript",
+      "package": "js-yaml",
+      "type": null,
+      "method": "loadAll",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "js-yaml.loadAll with the legacy/DEFAULT_FULL schema instantiates arbitrary types from YAML (CWE-502)."
+    },
+    {
+      "id": "javascript.node-expat.parser.parse.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Parser",
+      "method": "parse",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xxe",
+      "cwe": [
+        "CWE-611"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "node-expat Parser.parse feeds XML to expat, which resolves external entities, enabling file disclosure/SSRF (CWE-611)."
+    },
+    {
+      "id": "javascript.xml2js.parser.parsestring.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "Parser",
+      "method": "parseString",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xxe",
+      "cwe": [
+        "CWE-611"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "xml2js Parser.parseString is XXE-prone when entity handling is enabled/mis-configured."
+    },
+    {
+      "id": "javascript.fast-xml-parser.xmlparser.parse.a0",
+      "language": "javascript",
+      "package": null,
+      "type": "XMLParser",
+      "method": "parse",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xxe",
+      "cwe": [
+        "CWE-611"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "fast-xml-parser XMLParser.parse with processEntities:true expands external/DTD entities (XXE/billion-laughs)."
+    },
+    {
+      "id": "javascript.std.matchall.a0",
+      "language": "javascript",
+      "package": null,
+      "type": null,
+      "method": "matchAll",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "String.matchAll(re) with a tainted/catastrophic pattern causes exponential backtracking DoS (CWE-1333)."
+    },
+    {
+      "id": "javascript.crypto.createhmac.a0",
+      "language": "javascript",
+      "package": "crypto",
+      "type": null,
+      "method": "createHmac",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327",
+        "CWE-328"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "crypto.createHmac('md5'/'sha1', ...) selects a broken hash; weak MAC/integrity (CWE-327/328)."
+    },
+    {
+      "id": "javascript.crypto.pseudorandombytes.ret",
+      "language": "javascript",
+      "package": "crypto",
+      "type": null,
+      "method": "pseudoRandomBytes",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-338"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "crypto.pseudoRandomBytes is non-cryptographic; using its output for tokens/keys is predictable (CWE-338)."
     }
   ]
 }
