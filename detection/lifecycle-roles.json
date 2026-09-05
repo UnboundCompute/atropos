@@ -56,7 +56,8 @@
       "free_pages", "__free_pages", "free_page", "__free_page",
       "free_pages_exact", "__free_pages_exact",
       "dma_free_coherent", "dmam_free_coherent",
-      "devm_kfree", "mempool_free"
+      "devm_kfree", "mempool_free",
+      "freeaddrinfo", "freeifaddrs"
     ]
   },
   "release_methods": {

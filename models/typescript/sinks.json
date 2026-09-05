@@ -36,40 +36,6 @@
       "notes": "new Function(body)"
     },
     {
-      "id": "typescript.std.settimeout.a0",
-      "language": "typescript",
-      "package": null,
-      "type": null,
-      "method": "setTimeout",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "code-injection",
-      "cwe": [
-        "CWE-95"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": "string-body form is eval-like"
-    },
-    {
-      "id": "typescript.std.setinterval.a0",
-      "language": "typescript",
-      "package": null,
-      "type": null,
-      "method": "setInterval",
-      "signature": null,
-      "access_path": "Argument[0]",
-      "role": "sink",
-      "kind": "code-injection",
-      "cwe": [
-        "CWE-95"
-      ],
-      "confidence": "low",
-      "corroboration": 1,
-      "notes": null
-    },
-    {
       "id": "typescript.std.require.a0",
       "language": "typescript",
       "package": null,
@@ -549,7 +515,7 @@
       "id": "typescript.std.html.a0",
       "language": "typescript",
       "package": null,
-      "type": null,
+      "type": "JQuery",
       "method": "html",
       "signature": null,
       "access_path": "Argument[0]",
@@ -560,7 +526,7 @@
       ],
       "confidence": "low",
       "corroboration": 1,
-      "notes": "jQuery .html(x) sets innerHTML"
+      "notes": "jQuery .html(x) sets innerHTML; type-keyed to JQuery so a concrete non-jQuery receiver (e.g. a first-party Fetcher.html content accessor) is rejected while an untyped jQuery object still binds via the loose gate"
     },
     {
       "id": "typescript.http.request.a0",
@@ -2025,6 +1991,2051 @@
       "confidence": "low",
       "corroboration": 1,
       "notes": "obj[tainted]=v computed write"
+    },
+    {
+      "id": "typescript.vm2.vm-run.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "VM",
+      "method": "run",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-94"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "vm2 VM#run executes the string argument inside a sandbox marketed as safe; vm2 is deprecated precisely because its escapes proved unfixable (host RCE), so untrusted code reaching it is a sandbox-escape lead"
+    },
+    {
+      "id": "typescript.vm2.nodevm-run.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "NodeVM",
+      "method": "run",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-94"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "vm2 NodeVM#run compiles and runs the source string in a sandbox with the same known-unfixable escape exposure as VM#run"
+    },
+    {
+      "id": "typescript.vm2.vmscript.a0",
+      "language": "typescript",
+      "package": "vm2",
+      "type": null,
+      "method": "VMScript",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-94"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "new VMScript(code) compiles untrusted source for a vm2 sandbox whose isolation has known host-RCE escapes"
+    },
+    {
+      "id": "typescript.isolated-vm.context-eval.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Context",
+      "method": "eval",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-94"
+      ],
+      "confidence": "low",
+      "corroboration": 2,
+      "notes": "isolated-vm Context#eval runs the string in a V8 isolate; a reach is a sandbox-escape lead where the isolate boundary is bridged or a leaked Reference is callable"
+    },
+    {
+      "id": "typescript.isolated-vm.context-evalsync.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Context",
+      "method": "evalSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-94"
+      ],
+      "confidence": "low",
+      "corroboration": 2,
+      "notes": "synchronous form of isolated-vm Context#eval; same isolate-boundary exposure"
+    },
+    {
+      "id": "typescript.isolated-vm.context-evalclosure.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Context",
+      "method": "evalClosure",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-94"
+      ],
+      "confidence": "low",
+      "corroboration": 2,
+      "notes": "isolated-vm Context#evalClosure runs a closure body string with bound references; a reach is a sandbox-escape lead when the bound references reach host capabilities"
+    },
+    {
+      "id": "typescript.isolated-vm.isolate-compilescript.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Isolate",
+      "method": "compileScript",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-94"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "isolated-vm Isolate#compileScript compiles untrusted source that a later Script#run executes in the isolate"
+    },
+    {
+      "id": "typescript.isolated-vm.isolate-compilescriptsync.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Isolate",
+      "method": "compileScriptSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-94"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "synchronous form of isolated-vm Isolate#compileScript"
+    },
+    {
+      "id": "typescript.safe-eval.safeeval.a0",
+      "language": "typescript",
+      "package": "safe-eval",
+      "type": null,
+      "method": "safeEval",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "safe-eval evaluates the string via a vm context with a timeout; documented-unsafe with public host-escape payloads, so treat it as eval"
+    },
+    {
+      "id": "typescript.static-eval.evaluate.a0",
+      "language": "typescript",
+      "package": "static-eval",
+      "type": null,
+      "method": "evaluate",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-94"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "static-eval evaluate() interprets an expression AST derived from untrusted input; crafted ASTs achieve RCE (known CVEs)"
+    },
+    {
+      "id": "typescript.shelljs.exec.a0",
+      "language": "typescript",
+      "package": "shelljs",
+      "type": null,
+      "method": "exec",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "shell.exec() runs its string through a system shell; unsanitized input yields OS command injection (CWE-78)."
+    },
+    {
+      "id": "typescript.execa.command.a0",
+      "language": "typescript",
+      "package": "execa",
+      "type": null,
+      "method": "command",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "execa.command(str) parses and runs a full command line; tainted input injects extra commands (CWE-78)."
+    },
+    {
+      "id": "typescript.execa.commandsync.a0",
+      "language": "typescript",
+      "package": "execa",
+      "type": null,
+      "method": "commandSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Synchronous full-command-string form of execa.command; same shell-metacharacter injection."
+    },
+    {
+      "id": "typescript.coffeescript.eval.a0",
+      "language": "typescript",
+      "package": "coffeescript",
+      "type": null,
+      "method": "eval",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CoffeeScript.eval(src) compiles and executes source; tainted input runs arbitrary JS (CWE-95)."
+    },
+    {
+      "id": "typescript.coffeescript.compile.a0",
+      "language": "typescript",
+      "package": "coffeescript",
+      "type": null,
+      "method": "compile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-94"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "compile(src) then run executes attacker source; code injection via untrusted template/source."
+    },
+    {
+      "id": "typescript.std.import.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "import",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "code-injection",
+      "cwe": [
+        "CWE-95"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "Dynamic import() of a tainted specifier loads and runs an attacker-chosen module, eval-equivalent (CWE-95)."
+    },
+    {
+      "id": "typescript.better-sqlite3.database.prepare.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Database",
+      "method": "prepare",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "better-sqlite3 Database.prepare(sql) — concatenated user input in the SQL string is injectable (CWE-89)."
+    },
+    {
+      "id": "typescript.better-sqlite3.database.exec.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Database",
+      "method": "exec",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Database.exec(sql) runs a raw multi-statement SQL string with no parameter binding."
+    },
+    {
+      "id": "typescript.sqlite3.database.run.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Database",
+      "method": "run",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "sqlite3 Database.run(sql) executes a raw SQL string; concatenated input yields injection."
+    },
+    {
+      "id": "typescript.sqlite3.database.all.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Database",
+      "method": "all",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Database.all(sql) selects rows from a raw SQL string; tainted concatenation is injectable."
+    },
+    {
+      "id": "typescript.sqlite3.database.get.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Database",
+      "method": "get",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Database.get(sql) executes a raw SQL string; same string-concatenation injection class."
+    },
+    {
+      "id": "typescript.pg.client.query.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Client",
+      "method": "query",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "node-postgres Client.query(text) runs raw SQL; unparameterized concatenation is classic SQLi (CWE-89)."
+    },
+    {
+      "id": "typescript.oracledb.connection.execute.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Connection",
+      "method": "execute",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "oracledb/mysql2 Connection.execute(sql) — the string form (no bind params) is injectable."
+    },
+    {
+      "id": "typescript.mongodb.collection.mapreduce.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Collection",
+      "method": "mapReduce",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Collection.mapReduce runs a server-side JS map function / $where; tainted code runs in the DB (CWE-94/943)."
+    },
+    {
+      "id": "typescript.mongodb.collection.distinct.a1",
+      "language": "typescript",
+      "package": null,
+      "type": "Collection",
+      "method": "distinct",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "distinct(field, query) — an object-valued query filter permits operator injection ($gt/$ne/$where)."
+    },
+    {
+      "id": "typescript.mongodb.collection.countdocuments.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Collection",
+      "method": "countDocuments",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "countDocuments(filter) accepts attacker operators when the filter is built from request JSON."
+    },
+    {
+      "id": "typescript.mongoose.model.find.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Model",
+      "method": "find",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "Mongoose Model.find(filter) with a raw request object allows operator injection ($where/$gt) (CWE-943)."
+    },
+    {
+      "id": "typescript.mongoose.model.findone.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Model",
+      "method": "findOne",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "Model.findOne(filter) — same NoSQL operator-injection surface as find."
+    },
+    {
+      "id": "typescript.mongoose.model.updateone.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Model",
+      "method": "updateOne",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Model.updateOne(filter, ...) filter accepts injected operators selecting unintended documents."
+    },
+    {
+      "id": "typescript.mongoose.query.where.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Query",
+      "method": "where",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "Query.where() $where form evaluates server-side JS; CVE-2024-53900/CVE-2025-23061 abused nested $where."
+    },
+    {
+      "id": "typescript.fs.opensync.a0",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "openSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Synchronous fs.openSync(path) — tainted path with ../ escapes the intended directory (CWE-22)."
+    },
+    {
+      "id": "typescript.fs.mkdirsync.a0",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "mkdirSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "fs.mkdirSync(path) creates directories at an attacker-chosen traversed path."
+    },
+    {
+      "id": "typescript.fs.unlinksync.a0",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "unlinkSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "fs.unlinkSync(path) deletes an arbitrary file when the path is tainted (arbitrary file delete)."
+    },
+    {
+      "id": "typescript.fs.renamesync.a0",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "renameSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "fs.renameSync(old, new) — a tainted source/target path enables arbitrary file move."
+    },
+    {
+      "id": "typescript.fs.rmsync.a0",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "rmSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "fs.rmSync(path, {recursive}) removes an arbitrary path/tree under traversal."
+    },
+    {
+      "id": "typescript.fs.readdirsync.a0",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "readdirSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "fs.readdirSync(path) discloses directory listings outside the intended root."
+    },
+    {
+      "id": "typescript.fs.cp.a0",
+      "language": "typescript",
+      "package": "fs",
+      "type": null,
+      "method": "cp",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "fs.cp(src, dest) copies from/to an attacker-controlled traversed path (arbitrary read/write)."
+    },
+    {
+      "id": "typescript.send.send.a1",
+      "language": "typescript",
+      "package": "send",
+      "type": null,
+      "method": "send",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "send(req, path) streams a file by path; unsanitized path serves files outside the root (CWE-22)."
+    },
+    {
+      "id": "typescript.express.response.sendfile.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Response",
+      "method": "sendfile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "Deprecated res.sendfile(path) lacks the root-confinement of res.sendFile; tainted path traverses."
+    },
+    {
+      "id": "typescript.http.get.a0",
+      "language": "typescript",
+      "package": "http",
+      "type": null,
+      "method": "get",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "http.get(url) fetches an attacker-controlled URL, reaching internal hosts / cloud metadata (CWE-918)."
+    },
+    {
+      "id": "typescript.https.get.a0",
+      "language": "typescript",
+      "package": "https",
+      "type": null,
+      "method": "get",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "https.get(url) — the .get sibling of https.request; same SSRF surface."
+    },
+    {
+      "id": "typescript.got.post.a0",
+      "language": "typescript",
+      "package": "got",
+      "type": null,
+      "method": "post",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "got.post(url) issues a server-side request to a tainted URL (SSRF)."
+    },
+    {
+      "id": "typescript.request.post.a0",
+      "language": "typescript",
+      "package": "request",
+      "type": null,
+      "method": "post",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "request.post(url) — legacy request client, tainted URL enables SSRF."
+    },
+    {
+      "id": "typescript.superagent.post.a0",
+      "language": "typescript",
+      "package": "superagent",
+      "type": null,
+      "method": "post",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "superagent.post(url) issues a server-side request to a user-supplied URL."
+    },
+    {
+      "id": "typescript.needle.request.a1",
+      "language": "typescript",
+      "package": "needle",
+      "type": null,
+      "method": "request",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "needle.request(method, url) — url is the 2nd arg; tainted value drives SSRF."
+    },
+    {
+      "id": "typescript.dom.xmlhttprequest.open.a1",
+      "language": "typescript",
+      "package": null,
+      "type": "XMLHttpRequest",
+      "method": "open",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "XMLHttpRequest.open(method, url) — url (arg1) from an untrusted source enables request forgery."
+    },
+    {
+      "id": "typescript.dom.websocket.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "WebSocket",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "new WebSocket(url) opens a connection to a tainted endpoint (SSRF / connection forgery)."
+    },
+    {
+      "id": "typescript.express.response.set.a1",
+      "language": "typescript",
+      "package": null,
+      "type": "Response",
+      "method": "set",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "open-redirect",
+      "cwe": [
+        "CWE-601"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "res.set('Location', url) writes the redirect header raw; tainted value yields open redirect / header injection (CWE-601/113)."
+    },
+    {
+      "id": "typescript.dom.window.open.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "open",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "open-redirect",
+      "cwe": [
+        "CWE-601"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "window.open(url) navigates to a tainted URL (open redirect; javascript: URLs also enable XSS)."
+    },
+    {
+      "id": "typescript.dom.element.setattribute.a1",
+      "language": "typescript",
+      "package": null,
+      "type": "Element",
+      "method": "setAttribute",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 3,
+      "notes": "setAttribute('href'/'src'/'srcdoc', v) with a tainted value injects javascript: URLs or markup (DOM XSS)."
+    },
+    {
+      "id": "typescript.jquery.parsehtml.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "parseHTML",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "$.parseHTML(str) builds nodes from an HTML string; tainted input runs inline handlers (DOM XSS)."
+    },
+    {
+      "id": "typescript.jquery.insertafter.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "insertAfter",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "jQuery .insertAfter(html) injects markup adjacent to a node; unescaped input is XSS."
+    },
+    {
+      "id": "typescript.jquery.insertbefore.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "insertBefore",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "jQuery .insertBefore(html) — HTML-string sink like .before/.after."
+    },
+    {
+      "id": "typescript.jquery.appendto.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "appendTo",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "jQuery .appendTo(target) with an HTML-string receiver injects markup (DOM XSS)."
+    },
+    {
+      "id": "typescript.jquery.prependto.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "prependTo",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "jQuery .prependTo(target) — HTML-string sibling of .prepend."
+    },
+    {
+      "id": "typescript.jquery.replaceall.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "replaceAll",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "jQuery .replaceAll(target) replaces nodes with tainted HTML (DOM XSS)."
+    },
+    {
+      "id": "typescript.express.response.send.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Response",
+      "method": "send",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "res.send(body) reflects a body without HTML-escaping; tainted string is server-side reflected XSS."
+    },
+    {
+      "id": "typescript.express.response.write.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Response",
+      "method": "write",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "res.write(chunk) streams an unescaped response chunk; reflected XSS when tainted."
+    },
+    {
+      "id": "typescript.angular.sce.trustasresourceurl.a0",
+      "language": "typescript",
+      "package": "angular",
+      "type": "$sce",
+      "method": "trustAsResourceUrl",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "$sce.trustAsResourceUrl bypasses AngularJS URL sanitization; tainted URL enables script/resource load."
+    },
+    {
+      "id": "typescript.handlebars.precompile.a0",
+      "language": "typescript",
+      "package": "handlebars",
+      "type": null,
+      "method": "precompile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Handlebars.precompile(src) compiles an untrusted template; RCE-class SSTI (cf. CVE-2021-23369)."
+    },
+    {
+      "id": "typescript.ejs.compile.a0",
+      "language": "typescript",
+      "package": "ejs",
+      "type": null,
+      "method": "compile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "ejs.compile(src) turns a tainted template into executable JS; SSTI to RCE."
+    },
+    {
+      "id": "typescript.pug.render.a0",
+      "language": "typescript",
+      "package": "pug",
+      "type": null,
+      "method": "render",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "pug.render(src) compiles+runs an untrusted template string; SSTI (pug <3.0.1 RCE)."
+    },
+    {
+      "id": "typescript.pug.renderfile.a0",
+      "language": "typescript",
+      "package": "pug",
+      "type": null,
+      "method": "renderFile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "pug.renderFile(path) with a tainted template path/source enables SSTI."
+    },
+    {
+      "id": "typescript.nunjucks.compile.a0",
+      "language": "typescript",
+      "package": "nunjucks",
+      "type": null,
+      "method": "compile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "nunjucks.compile(src) compiles an untrusted template; server-side template injection."
+    },
+    {
+      "id": "typescript.eta.compile.a0",
+      "language": "typescript",
+      "package": "eta",
+      "type": null,
+      "method": "compile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "Eta.compile(src) builds a function from a template string; tainted template is SSTI/code injection."
+    },
+    {
+      "id": "typescript.hogan.compile.a0",
+      "language": "typescript",
+      "package": "hogan.js",
+      "type": null,
+      "method": "compile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "template-injection",
+      "cwe": [
+        "CWE-1336"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "Hogan.compile(src) compiles an untrusted Mustache template; SSTI class."
+    },
+    {
+      "id": "typescript.funcster.deepdeserialize.a0",
+      "language": "typescript",
+      "package": "funcster",
+      "type": null,
+      "method": "deepDeserialize",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "funcster.deepDeserialize rebuilds functions from serialized data; untrusted input runs arbitrary code (CWE-502)."
+    },
+    {
+      "id": "typescript.serialize-to-js.deserialize.a0",
+      "language": "typescript",
+      "package": "serialize-to-js",
+      "type": null,
+      "method": "deserialize",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "serialize-to-js.deserialize revives objects/functions from a string; RCE on untrusted input."
+    },
+    {
+      "id": "typescript.cryo.parse.a0",
+      "language": "typescript",
+      "package": "cryo",
+      "type": null,
+      "method": "parse",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "Cryo.parse reconstructs functions/closures from serialized data; deserialization to code execution."
+    },
+    {
+      "id": "typescript.js-yaml.loadall.a0",
+      "language": "typescript",
+      "package": "js-yaml",
+      "type": null,
+      "method": "loadAll",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "deserialization",
+      "cwe": [
+        "CWE-502"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "js-yaml.loadAll with the legacy/DEFAULT_FULL schema instantiates arbitrary types from YAML (CWE-502)."
+    },
+    {
+      "id": "typescript.node-expat.parser.parse.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Parser",
+      "method": "parse",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xxe",
+      "cwe": [
+        "CWE-611"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "node-expat Parser.parse feeds XML to expat, which resolves external entities, enabling file disclosure/SSRF (CWE-611)."
+    },
+    {
+      "id": "typescript.xml2js.parser.parsestring.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Parser",
+      "method": "parseString",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xxe",
+      "cwe": [
+        "CWE-611"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "xml2js Parser.parseString is XXE-prone when entity handling is enabled/mis-configured."
+    },
+    {
+      "id": "typescript.fast-xml-parser.xmlparser.parse.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "XMLParser",
+      "method": "parse",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xxe",
+      "cwe": [
+        "CWE-611"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "fast-xml-parser XMLParser.parse with processEntities:true expands external/DTD entities (XXE/billion-laughs)."
+    },
+    {
+      "id": "typescript.std.matchall.a0",
+      "language": "typescript",
+      "package": null,
+      "type": null,
+      "method": "matchAll",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "String.matchAll(re) with a tainted/catastrophic pattern causes exponential backtracking DoS (CWE-1333)."
+    },
+    {
+      "id": "typescript.crypto.createhmac.a0",
+      "language": "typescript",
+      "package": "crypto",
+      "type": null,
+      "method": "createHmac",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327",
+        "CWE-328"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "crypto.createHmac('md5'/'sha1', ...) selects a broken hash; weak MAC/integrity (CWE-327/328)."
+    },
+    {
+      "id": "typescript.crypto.pseudorandombytes.ret",
+      "language": "typescript",
+      "package": "crypto",
+      "type": null,
+      "method": "pseudoRandomBytes",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-338"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "crypto.pseudoRandomBytes is non-cryptographic; using its output for tokens/keys is predictable (CWE-338)."
+    },
+    {
+      "id": "typescript.domsanitizer.bypasssecuritytrusthtml.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "DomSanitizer",
+      "method": "bypassSecurityTrustHtml",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "Marks arbitrary HTML as trusted, disabling Angular's contextual output encoding; untrusted arg rendered via [innerHTML] yields stored/DOM XSS (CWE-79)."
+    },
+    {
+      "id": "typescript.domsanitizer.bypasssecuritytrustscript.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "DomSanitizer",
+      "method": "bypassSecurityTrustScript",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79",
+        "CWE-95"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Trusts a value as executable script, bypassing sanitization; tainted arg leads to script/code injection (CWE-95)."
+    },
+    {
+      "id": "typescript.domsanitizer.bypasssecuritytruststyle.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "DomSanitizer",
+      "method": "bypassSecurityTrustStyle",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "Trusts arbitrary CSS; attacker-controlled style enables CSS-injection/data-exfil and expression()-class XSS on legacy engines (CWE-79)."
+    },
+    {
+      "id": "typescript.domsanitizer.bypasssecuritytrusturl.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "DomSanitizer",
+      "method": "bypassSecurityTrustUrl",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Trusts a URL, defeating the javascript:-scheme block; tainted href/src yields XSS/open-redirect (CWE-79)."
+    },
+    {
+      "id": "typescript.domsanitizer.bypasssecuritytrustresourceurl.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "DomSanitizer",
+      "method": "bypassSecurityTrustResourceUrl",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79",
+        "CWE-829"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Trusts a resource URL used for <script src>/<iframe src>; tainted value loads attacker code (CWE-79/CWE-829)."
+    },
+    {
+      "id": "typescript.renderer2.setproperty.a2",
+      "language": "typescript",
+      "package": null,
+      "type": "Renderer2",
+      "method": "setProperty",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "setProperty(el,'innerHTML',value) writes DOM properties with no sanitization; tainted value on an HTML-bearing property is XSS (CWE-79)."
+    },
+    {
+      "id": "typescript.renderer2.setattribute.a2",
+      "language": "typescript",
+      "package": null,
+      "type": "Renderer2",
+      "method": "setAttribute",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "setAttribute applies attribute values unsanitized; tainted href/srcdoc/event-like attributes enable XSS (CWE-79)."
+    },
+    {
+      "id": "typescript.router.navigatebyurl.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Router",
+      "method": "navigateByUrl",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "open-redirect",
+      "cwe": [
+        "CWE-601"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "Angular Router.navigateByUrl(userUrl) performs application-logic navigation; unvalidated URL/return-path yields open redirect (CWE-601)."
+    },
+    {
+      "id": "typescript.router.navigate.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "Router",
+      "method": "navigate",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "open-redirect",
+      "cwe": [
+        "CWE-601"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "Router.navigate(commands) with attacker-controlled command segments can redirect to unintended routes (CWE-601)."
+    },
+    {
+      "id": "typescript.httpclient.get.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "HttpClient",
+      "method": "get",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "Angular HttpClient.get(url) with a tainted URL (esp. in SSR/proxy handlers) fetches attacker-chosen hosts, yielding SSRF (CWE-918)."
+    },
+    {
+      "id": "typescript.httpclient.post.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "HttpClient",
+      "method": "post",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "HttpClient.post(url,body) first arg is the destination URL; tainted URL enables SSRF (CWE-918)."
+    },
+    {
+      "id": "typescript.httpclient.put.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "HttpClient",
+      "method": "put",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "HttpClient.put(url,body) destination URL sink; tainted URL yields SSRF (CWE-918)."
+    },
+    {
+      "id": "typescript.httpclient.patch.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "HttpClient",
+      "method": "patch",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "HttpClient.patch(url,body) destination URL sink; tainted URL yields SSRF (CWE-918)."
+    },
+    {
+      "id": "typescript.httpclient.delete.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "HttpClient",
+      "method": "delete",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "HttpClient.delete(url) destination URL sink; tainted URL yields SSRF (CWE-918)."
+    },
+    {
+      "id": "typescript.httpclient.request.a1",
+      "language": "typescript",
+      "package": null,
+      "type": "HttpClient",
+      "method": "request",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "HttpClient.request(method,url,...) - the URL is Argument[1]; tainted value yields SSRF (CWE-918)."
+    },
+    {
+      "id": "typescript.httpclient.jsonp.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "HttpClient",
+      "method": "jsonp",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "ssrf",
+      "cwe": [
+        "CWE-918",
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "HttpClient.jsonp(url,cb) injects a <script src=url>; tainted URL is SSRF plus script-execution XSS (CWE-918/CWE-79)."
+    },
+    {
+      "id": "typescript.selectquerybuilder.where.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "SelectQueryBuilder",
+      "method": "where",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "TypeORM qb.where(string) interpolates raw SQL when a string (not :param) is passed; tainted string yields SQLi (CWE-89)."
+    },
+    {
+      "id": "typescript.selectquerybuilder.andwhere.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "SelectQueryBuilder",
+      "method": "andWhere",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "TypeORM qb.andWhere(string) raw-SQL condition; tainted arg yields SQLi (CWE-89)."
+    },
+    {
+      "id": "typescript.selectquerybuilder.orwhere.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "SelectQueryBuilder",
+      "method": "orWhere",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "TypeORM qb.orWhere(string) raw-SQL condition; tainted arg yields SQLi (CWE-89)."
+    },
+    {
+      "id": "typescript.selectquerybuilder.having.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "SelectQueryBuilder",
+      "method": "having",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "TypeORM qb.having(string) raw-SQL HAVING clause; tainted arg yields SQLi (CWE-89)."
+    },
+    {
+      "id": "typescript.selectquerybuilder.orderby.a0",
+      "language": "typescript",
+      "package": null,
+      "type": "SelectQueryBuilder",
+      "method": "orderBy",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "TypeORM qb.orderBy(string) column/direction is not parameterizable; tainted arg yields SQLi (CWE-89)."
+    },
+    {
+      "id": "typescript.sequelize.literal.a0",
+      "language": "typescript",
+      "package": "sequelize",
+      "type": null,
+      "method": "literal",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Sequelize.literal(str) injects its argument verbatim into generated SQL, bypassing replacements/binds; tainted arg yields SQLi (CWE-89)."
+    },
+    {
+      "id": "typescript.knex.whereraw.a0",
+      "language": "typescript",
+      "package": "knex",
+      "type": null,
+      "method": "whereRaw",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Knex whereRaw(sql) emits raw SQL; string interpolation instead of ? bindings yields SQLi (CWE-89)."
+    },
+    {
+      "id": "typescript.knex.havingraw.a0",
+      "language": "typescript",
+      "package": "knex",
+      "type": null,
+      "method": "havingRaw",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "Knex havingRaw(sql) raw SQL; tainted arg yields SQLi (CWE-89)."
+    },
+    {
+      "id": "typescript.knex.orderbyraw.a0",
+      "language": "typescript",
+      "package": "knex",
+      "type": null,
+      "method": "orderByRaw",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "Knex orderByRaw(sql) raw ORDER BY; tainted arg yields SQLi (CWE-89)."
+    },
+    {
+      "id": "typescript.knex.fromraw.a0",
+      "language": "typescript",
+      "package": "knex",
+      "type": null,
+      "method": "fromRaw",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "Knex fromRaw(sql) raw FROM clause; tainted arg yields SQLi (CWE-89)."
+    },
+    {
+      "id": "typescript.drizzle.raw.a0",
+      "language": "typescript",
+      "package": "drizzle-orm",
+      "type": null,
+      "method": "raw",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "sql-injection",
+      "cwe": [
+        "CWE-89"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "Drizzle sql.raw(str) bypasses the parameterized sql`` tagged-template; tainted arg yields SQLi (CWE-89)."
+    },
+    {
+      "id": "typescript.deno.command.a0",
+      "language": "typescript",
+      "package": "Deno",
+      "type": null,
+      "method": "Command",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "new Deno.Command(cmd, {args}) runs a subprocess outside the sandbox; tainted command path/args yields command injection (CWE-78)."
+    },
+    {
+      "id": "typescript.deno.run.a0",
+      "language": "typescript",
+      "package": "Deno",
+      "type": null,
+      "method": "run",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Legacy Deno.run({cmd:[...]}) spawns a subprocess with --allow-run; tainted cmd array yields command injection (CWE-78)."
+    },
+    {
+      "id": "typescript.deno.readtextfile.a0",
+      "language": "typescript",
+      "package": "Deno",
+      "type": null,
+      "method": "readTextFile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Deno.readTextFile(path) - tainted path (and symlink components) escapes intended dir, yielding arbitrary file read (CWE-22)."
+    },
+    {
+      "id": "typescript.deno.readfile.a0",
+      "language": "typescript",
+      "package": "Deno",
+      "type": null,
+      "method": "readFile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "Deno.readFile(path) arbitrary file read via tainted path (CWE-22)."
+    },
+    {
+      "id": "typescript.deno.readtextfilesync.a0",
+      "language": "typescript",
+      "package": "Deno",
+      "type": null,
+      "method": "readTextFileSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "Sync arbitrary file read via tainted path (CWE-22)."
+    },
+    {
+      "id": "typescript.deno.readfilesync.a0",
+      "language": "typescript",
+      "package": "Deno",
+      "type": null,
+      "method": "readFileSync",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "Sync arbitrary file read via tainted path (CWE-22)."
+    },
+    {
+      "id": "typescript.deno.writetextfile.a0",
+      "language": "typescript",
+      "package": "Deno",
+      "type": null,
+      "method": "writeTextFile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "Deno.writeTextFile(path,data) - tainted path yields arbitrary file write/overwrite (CWE-22)."
+    },
+    {
+      "id": "typescript.deno.writefile.a0",
+      "language": "typescript",
+      "package": "Deno",
+      "type": null,
+      "method": "writeFile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "Deno.writeFile(path,data) arbitrary file write via tainted path (CWE-22)."
+    },
+    {
+      "id": "typescript.deno.open.a0",
+      "language": "typescript",
+      "package": "Deno",
+      "type": null,
+      "method": "open",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "Deno.open(path,opts) opens an arbitrary file for read/write via tainted path (CWE-22)."
+    },
+    {
+      "id": "typescript.deno.remove.a0",
+      "language": "typescript",
+      "package": "Deno",
+      "type": null,
+      "method": "remove",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "Deno.remove(path) deletes an arbitrary path via tainted arg (CWE-22)."
+    },
+    {
+      "id": "typescript.deno.mkdir.a0",
+      "language": "typescript",
+      "package": "Deno",
+      "type": null,
+      "method": "mkdir",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "Deno.mkdir(path) creates dirs at a tainted path (CWE-22)."
+    },
+    {
+      "id": "typescript.deno.rename.a0",
+      "language": "typescript",
+      "package": "Deno",
+      "type": null,
+      "method": "rename",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "Deno.rename(old,new) - tainted source path traverses out of intended dir (CWE-22)."
+    },
+    {
+      "id": "typescript.deno.copyfile.a0",
+      "language": "typescript",
+      "package": "Deno",
+      "type": null,
+      "method": "copyFile",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "Deno.copyFile(from,to) - tainted source path yields arbitrary read (CWE-22)."
+    },
+    {
+      "id": "typescript.deno.stat.a0",
+      "language": "typescript",
+      "package": "Deno",
+      "type": null,
+      "method": "stat",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "low",
+      "corroboration": 1,
+      "notes": "Deno.stat(path) leaks file metadata for an arbitrary tainted path (CWE-22)."
+    },
+    {
+      "id": "typescript.deno.readdir.a0",
+      "language": "typescript",
+      "package": "Deno",
+      "type": null,
+      "method": "readDir",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "path-traversal",
+      "cwe": [
+        "CWE-22"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "Deno.readDir(path) enumerates an arbitrary directory via tainted path (CWE-22)."
+    },
+    {
+      "id": "typescript.classtransformer.plaintoclass.a1",
+      "language": "typescript",
+      "package": "class-transformer",
+      "type": null,
+      "method": "plainToClass",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "prototype-pollution",
+      "cwe": [
+        "CWE-1321"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "CVE-2020-7637: plainToClass(Cls, plain) copies attacker keys incl. __proto__ from the plain object (Argument[1]) into instances, polluting Object.prototype (CWE-1321)."
+    },
+    {
+      "id": "typescript.classtransformer.plaintoinstance.a1",
+      "language": "typescript",
+      "package": "class-transformer",
+      "type": null,
+      "method": "plainToInstance",
+      "signature": null,
+      "access_path": "Argument[1]",
+      "role": "sink",
+      "kind": "prototype-pollution",
+      "cwe": [
+        "CWE-1321",
+        "CWE-502"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "plainToInstance (renamed plainToClass) - same recursive copy of the untrusted plain object (Argument[1]) enables prototype pollution / unsafe deserialization (CWE-1321/CWE-502)."
     }
   ]
 }

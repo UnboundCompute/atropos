@@ -34,6 +34,326 @@
       "confidence": "low",
       "corroboration": 1,
       "notes": "weak algorithm; primary input is the first argument"
+    },
+    {
+      "id": "c.openssl.md5.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "MD5",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327",
+        "CWE-328"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "CWE-327/328: MD5 is collision-broken; hashing this data with it forges checksums/signatures"
+    },
+    {
+      "id": "c.openssl.md4.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "MD4",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327",
+        "CWE-328"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-328: MD4 is fully broken against collision and preimage; unsuitable for any integrity use"
+    },
+    {
+      "id": "c.openssl.sha1.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "SHA1",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327",
+        "CWE-328"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "CWE-327: SHA-1 is collision-broken (practical 2017 attack); hashing here enables forgery"
+    },
+    {
+      "id": "c.openssl.evpmd5.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "EVP_md5",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327",
+        "CWE-328"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-327: returns the MD5 digest method; selecting it configures a broken hash"
+    },
+    {
+      "id": "c.openssl.evpmd4.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "EVP_md4",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327",
+        "CWE-328"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "CWE-328: returns the MD4 digest method, a broken hash primitive"
+    },
+    {
+      "id": "c.openssl.evpsha1.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "EVP_sha1",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327",
+        "CWE-328"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-327: returns the SHA-1 digest method; selects a collision-broken hash"
+    },
+    {
+      "id": "c.openssl.evpdescbc.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "EVP_des_cbc",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327",
+        "CWE-326"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-327/326: single-DES 56-bit key falls to exhaustive search; returns a broken cipher"
+    },
+    {
+      "id": "c.openssl.evpdesecb.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "EVP_des_ecb",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327",
+        "CWE-326"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-327: single-DES in ECB mode; weak key and pattern-leaking mode"
+    },
+    {
+      "id": "c.openssl.evprc4.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "EVP_rc4",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-327: RC4 keystream biases leak plaintext; returns a broken stream cipher"
+    },
+    {
+      "id": "c.openssl.evpbfcbc.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "EVP_bf_cbc",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327",
+        "CWE-326"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-327: Blowfish 64-bit block is birthday-bound (SWEET32); returns a risky cipher"
+    },
+    {
+      "id": "c.openssl.desset.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "DES_set_key",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327",
+        "CWE-326"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-327: schedules a 56-bit DES key; the primitive is broken by exhaustive search"
+    },
+    {
+      "id": "c.openssl.desecbenc.a0",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "DES_ecb_encrypt",
+      "signature": null,
+      "access_path": "Argument[0]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "CWE-327: low-level single-DES ECB encryption of Argument[0]; broken cipher and mode"
+    },
+    {
+      "id": "c.openssl.rc4.a2",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "RC4",
+      "signature": null,
+      "access_path": "Argument[2]",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-327: RC4 encrypt of indata Argument[2]; keystream bias leaks plaintext"
+    },
+    {
+      "id": "c.openssl.evprc2cbc.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "EVP_rc2_cbc",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "sink",
+      "kind": "weak-crypto",
+      "cwe": [
+        "CWE-327"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "CWE-327: RC2 is an obsolete 64-bit-block cipher; returns a risky primitive"
+    },
+    {
+      "id": "c.openssl.sslv2method.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "SSLv2_method",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "sink",
+      "kind": "insecure-tls",
+      "cwe": [
+        "CWE-326",
+        "CWE-327"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-327: pins SSLv2, a fully broken protocol (DROWN); returned method disables modern TLS"
+    },
+    {
+      "id": "c.openssl.sslv3method.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "SSLv3_method",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "sink",
+      "kind": "insecure-tls",
+      "cwe": [
+        "CWE-326",
+        "CWE-327"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "CWE-327: pins SSLv3, broken by POODLE; returned method forces an insecure handshake"
+    },
+    {
+      "id": "c.openssl.sslv3clientmethod.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "SSLv3_client_method",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "sink",
+      "kind": "insecure-tls",
+      "cwe": [
+        "CWE-326",
+        "CWE-327"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "CWE-327: client fixed to SSLv3 (POODLE); no negotiation to a safe version"
+    },
+    {
+      "id": "c.openssl.tlsv1method.ret",
+      "language": "c",
+      "package": null,
+      "type": null,
+      "method": "TLSv1_method",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "sink",
+      "kind": "insecure-tls",
+      "cwe": [
+        "CWE-326",
+        "CWE-327"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "CWE-326: pins TLS 1.0, deprecated and vulnerable (BEAST); use TLS_method for negotiation"
     }
   ]
 }

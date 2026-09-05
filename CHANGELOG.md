@@ -2,6 +2,92 @@
 
 ## Unreleased
 
+- Fix packaging: the wheel omitted the `atropos.resolve` subpackage, so an
+  installed `atropos audit` raised `ModuleNotFoundError: No module named
+  'atropos.resolve'`. Package discovery now includes every subpackage.
+- `atropos audit` is legible on a real tree: it leads with a summary (files,
+  finding count, confidence tally, by-kind breakdown), then shows a bounded,
+  column-clipped sample instead of dumping every row padded to the widest cell
+  (which produced screenfuls of whitespace), with a footer on how to narrow,
+  cap, or dump in full. It also skips generated/build directories (`.next`,
+  `.nuxt`, `out`, `target`, `coverage`, …) as it already skipped `node_modules`,
+  and shows a scan-progress line on a TTY. `--json`/`-f sarif` are unchanged.
+- Add a resolver/enumerator and the `atropos audit <path>` command: walk a file
+  or directory, extract call sites (Python via the stdlib `ast` with import
+  resolution; C/JS/TS via a lexical scanner that masks strings and comments), and
+  join each site to the catalog facts that attach to it, pointing every fact at the
+  concrete argument/receiver/return slot. Each finding carries a binding confidence
+  — `exact`, `heuristic`, or `name-only` — separate from the catalog's own
+  per-fact confidence. Still no engine and no verdict: it enumerates where
+  catalogued symbols are used, not whether tainted data reaches them.
+- Add SARIF 2.1.0 output to `atropos audit` (`-f sarif`): a full log with one
+  reporting rule per kind, a CWE taxonomy, per-result regions, and stable
+  partial fingerprints, for GitHub code scanning / CI / IDE ingestion.
+- Add `atropos coverage <path>`: roll the audit up into counts by kind, language,
+  role, and binding confidence, the top symbols and hottest files, and the gap —
+  catalogued sink kinds (for the languages present) that the target never
+  exercised, so a genuinely clean class is distinguishable from an unmodelled one.
+- Add `atropos diff <path> --baseline <audit.json>`: a CI gate that re-audits and
+  reports only findings new since a recorded baseline, exiting non-zero when any
+  appear (`--exit-zero` to report without failing). Fingerprints exclude line and
+  column so moving or reformatting code does not read as new, while adding a second
+  identical call still does.
+- Add `atropos surface <path>`: a threat-surface worklist that ranks files holding
+  both a catalogued source (where untrusted input enters) and a catalogued sink,
+  listing each file's sources and sink kinds. No flow is claimed — same-file
+  co-location is the precondition for the shortest flow, i.e. where a reviewer or a
+  real taint engine should look first.
+- Add `atropos rules`: project the catalog into a portable enforcement policy
+  (`atropos-watchlist/v1`) — one row per catalogued symbol with the slot to watch,
+  kind, CWE, a severity tier (high-confidence sink = error, other sink = warning,
+  source/sanitizer = note), and a ready-to-show message, so a team that cannot run
+  Atropos in CI can still bind the watch-list into whatever gate they have.
+  `--banned-only` keeps just the hard-ban tier; `-l`/`--role` filter.
+
+- Add `atropos conformance <path>`: a sanitizer-hygiene check. For every sink kind
+  the target exercises, report whether a sanitizer the catalog models for that kind
+  appears in the code at all — `no-sanitizer-seen` (sinks used, a sanitizer modeled,
+  none present: the actionable flag), `sanitizer-present` (a catalogued sanitizer is
+  called, not proof any sink is guarded), or `no-sanitizer-modeled` (the catalog
+  models none, so it cannot be assessed). Needs no flow: a whole-target check at kind
+  granularity, same co-occurrence-is-a-lead discipline as `surface`.
+- Add a grounding layer for language-model reasoning, `atropos ground` and
+  `atropos validate`. `ground <query>` (by `--cwe`, `--kind`, or free text) pulls
+  the catalog facts for a taint class and renders them as a compact, quotable
+  block — the sinks with the exact slot to watch, plus the sanitizers and sources
+  catalogued for the same kind — to drop into a prompt as ground truth instead of
+  a model's own recall. `validate <language> <method>` adjudicates a fact a model
+  *proposed* (symbol, access path, role) against the catalog: `confirmed`,
+  `partial` (right symbol, different watchpoint), `role-conflict`, or `unknown`,
+  exiting non-zero when a claim is not corroborated — so a hallucinated sink is
+  caught before it is trusted. Grounds claims about the catalog's knowledge only;
+  no taint reasoning and no verdict about a program.
+
+## 1.10.0
+
+- Grow the catalog from 1139 to 1618 verified facts across all four languages,
+  filling the largest coverage gaps found in an ecosystem audit.
+- C: add weak-crypto primitives (MD5/SHA1/DES/RC4/Blowfish), insecure-TLS method
+  selectors, SQL/LDAP/XPath injection sinks, format-string and path-traversal
+  sinks, predictable-seed sinks, untrusted-input sources, and SQL-escaper
+  sanitizers.
+- Python: add pandas/numexpr/sympy code execution, pathlib file I/O and Zip-Slip
+  archive extraction, SSRF clients, ML deserialization loaders, reflection sinks
+  (getattr/setattr/pydoc.locate/importlib), framework request sources
+  (Flask/Django/FastAPI/aiohttp/Tornado), and coercion/normalization sanitizers.
+- JavaScript: add SQL drivers, Mongoose NoSQL, synchronous fs traversal, HTTP
+  client SSRF/redirect, jQuery/DOM XSS, template engines, and deserializers, plus
+  process.env/req.params/document.cookie sources and escaping sanitizers.
+- TypeScript: mirror the JavaScript library surfaces and add framework-specific
+  sinks — Angular DomSanitizer/Renderer2 (XSS), Router (open redirect), HttpClient
+  (SSRF), TypeORM/Sequelize/Knex/Drizzle raw SQL, Deno command/file APIs,
+  class-transformer, and NestJS parameter-decorator sources.
+- Add the `unsafe-reflection` sink kind (CWE-470/CWE-915), routed to the
+  reachability detection recipe.
+- Ship an installable, zero-dependency `atropos` Python package: a catalog loader
+  with `ATROPOS_ROOT`/checkout/bundle discovery, a `Catalog` query API, and an
+  `atropos` command line (sinks/sources/resolve/search/show/export/stats).
+
 ## 1.9.0
 
 - Add receiver-access regex sinks for JavaScript and TypeScript (`match`/`search`

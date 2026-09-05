@@ -1,0 +1,436 @@
+"""Tests for the resolver/enumerator: the language scanners, the match-confidence
+spectrum, and the ``atropos audit`` command. Run: python3 -m unittest discover -s tests
+
+These build tiny in-memory targets and audit them against the live catalog in this
+checkout, so they verify both the scanning (import resolution, string/comment masking,
+argument recovery) and the join (exact / heuristic / name-only classification).
+"""
+from __future__ import annotations
+
+import contextlib
+import io
+import json
+import os
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+
+import atropos  # noqa: E402
+from atropos import cli  # noqa: E402
+from atropos.resolve import python_scanner, generic_scanner  # noqa: E402
+from atropos.resolve.engine import Auditor  # noqa: E402
+from atropos.resolve.model import (  # noqa: E402
+    MATCH_EXACT,
+    MATCH_HEURISTIC,
+    MATCH_NAME_ONLY,
+)
+
+
+class TestPythonScanner(unittest.TestCase):
+    def sites(self, src):
+        return python_scanner.scan("t.py", src)
+
+    def test_module_alias_resolution(self):
+        (s,) = [s for s in self.sites("import os as o\no.system(x)") if s.callee == "system"]
+        self.assertEqual(s.module, "os")
+        self.assertFalse(s.is_method)
+        self.assertEqual(s.args, ("x",))
+
+    def test_from_import_binds_module(self):
+        (s,) = [s for s in self.sites("from os import system\nsystem(x)")
+                if s.callee == "system"]
+        self.assertEqual(s.module, "os")
+        self.assertFalse(s.is_method)
+
+    def test_from_import_alias(self):
+        (s,) = [s for s in self.sites("from subprocess import call as c\nc([x])")
+                if s.callee == "call"]
+        self.assertEqual(s.module, "subprocess")
+
+    def test_unresolved_method(self):
+        (s,) = [s for s in self.sites("cur.execute(q)") if s.callee == "execute"]
+        self.assertIsNone(s.module)
+        self.assertTrue(s.is_method)
+        self.assertEqual(s.receiver, "cur")
+
+    def test_syntax_error_raises(self):
+        with self.assertRaises(SyntaxError):
+            self.sites("def (:\n")
+
+
+class TestGenericScanner(unittest.TestCase):
+    def test_c_flat_call(self):
+        (s,) = generic_scanner.scan("t.c", "memcpy(a, b, n);", "c")
+        self.assertEqual(s.callee, "memcpy")
+        self.assertIsNone(s.receiver)
+        self.assertEqual(s.args, ("a", "b", "n"))
+
+    def test_string_is_masked(self):
+        # A call spelled inside a string literal must not be found.
+        sites = generic_scanner.scan("t.c", 'puts("memcpy(evil)");', "c")
+        self.assertEqual([s.callee for s in sites], ["puts"])
+
+    def test_comment_is_masked(self):
+        sites = generic_scanner.scan("t.c", "x = 1; // memcpy(a,b,c)\nputs(y);", "c")
+        self.assertEqual([s.callee for s in sites], ["puts"])
+
+    def test_js_require_destructure(self):
+        src = 'const { exec } = require("child_process");\nexec(cmd);'
+        s = [s for s in generic_scanner.scan("t.js", src, "javascript")
+             if s.callee == "exec"][0]
+        self.assertEqual(s.module, "child_process")
+        self.assertFalse(s.is_method)
+
+    def test_js_module_alias(self):
+        src = 'const cp = require("child_process");\ncp.spawn(x);'
+        s = [s for s in generic_scanner.scan("t.js", src, "javascript")
+             if s.callee == "spawn"][0]
+        self.assertEqual(s.module, "child_process")
+        self.assertFalse(s.is_method)
+
+    def test_line_numbers_survive_masking(self):
+        src = '/* a\n b\n c */\nmemcpy(d, s, n);'
+        (s,) = [x for x in generic_scanner.scan("t.c", src, "c") if x.callee == "memcpy"]
+        self.assertEqual(s.line, 4)
+
+
+class TestClassification(unittest.TestCase):
+    def setUp(self):
+        self.cat = atropos.load()
+        self.au = Auditor(self.cat, roles=["sink"], min_match=MATCH_NAME_ONLY)
+
+    def _audit_src(self, path, lang, src):
+        from atropos.resolve.model import AuditReport
+        rep = AuditReport()
+        self.au.audit_source(path, lang, src, rep)
+        return rep
+
+    def test_resolved_module_call_is_exact(self):
+        rep = self._audit_src("a.py", "python", "import os\nos.system(x)")
+        m = [f for f in rep.findings if f.entry.symbol == "os.system"]
+        self.assertTrue(m and all(f.match == MATCH_EXACT for f in m))
+
+    def test_c_builtin_is_exact(self):
+        rep = self._audit_src("a.c", "c", "memcpy(a,b,n);")
+        m = [f for f in rep.findings if f.entry.method == "memcpy"]
+        self.assertTrue(m and all(f.match == MATCH_EXACT for f in m))
+
+    def test_unresolved_method_is_heuristic(self):
+        rep = self._audit_src("a.py", "python", "cur.execute(q)")
+        m = [f for f in rep.findings if f.entry.method == "execute"
+             and f.entry.type is not None]
+        self.assertTrue(m)
+        self.assertTrue(any(f.match == MATCH_HEURISTIC for f in m))
+
+    def test_focus_expr_recovered(self):
+        rep = self._audit_src("a.py", "python", "import os\nos.system(danger)")
+        f = [f for f in rep.findings if f.entry.symbol == "os.system"][0]
+        self.assertEqual(f.focus, "argument 0")
+        self.assertEqual(f.focus_expr, "danger")
+
+    def test_summaries_are_never_findings(self):
+        # A summary access path (in -> out) is propagation, not a watchpoint.
+        rep = self._audit_src("a.py", "python", "import os\nos.system(x)\ncur.execute(q)")
+        self.assertFalse(any("->" in f.entry.access_path for f in rep.findings))
+        self.assertFalse(any(f.entry.role == "summary" for f in rep.findings))
+
+
+class TestAuditCLI(unittest.TestCase):
+    def _run(self, *argv):
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            rc = cli.main(list(argv))
+        return rc, buf.getvalue()
+
+    def test_audit_json_shape(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = os.path.join(d, "x.py")
+            with open(p, "w") as fh:
+                fh.write("import os\nos.system(cmd)\n")
+            rc, out = self._run("audit", p, "--json")
+        self.assertEqual(rc, 0)
+        payload = json.loads(out)
+        self.assertEqual(payload["files_scanned"], 1)
+        syms = {f["symbol"] for f in payload["findings"]}
+        self.assertIn("os.system", syms)
+
+    def test_audit_min_match_exact_filters(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = os.path.join(d, "x.py")
+            with open(p, "w") as fh:
+                fh.write("import os\nos.system(cmd)\ncur.execute(q)\n")
+            rc, out = self._run("audit", p, "--min-match", "exact", "--json")
+        payload = json.loads(out)
+        self.assertTrue(payload["findings"])
+        self.assertTrue(all(f["match"] == "exact" for f in payload["findings"]))
+
+    def test_table_is_bounded_and_has_headline(self):
+        # Many findings must not flood: headline first, sample capped, note shown.
+        from atropos.cli import _TABLE_ROW_CAP
+        with tempfile.TemporaryDirectory() as d:
+            p = os.path.join(d, "x.py")
+            with open(p, "w") as fh:
+                fh.write("import os\n" + "".join(
+                    "os.system(cmd%d)\n" % i for i in range(_TABLE_ROW_CAP + 25)))
+            rc, out = self._run("audit", p)
+        self.assertEqual(rc, 0)
+        lines = out.splitlines()
+        self.assertTrue(lines[0].startswith("Audited "))
+        self.assertIn("by kind:", out)
+        self.assertIn("more not shown", out)
+        # No line blows up to a monster width regardless of expression length.
+        self.assertLessEqual(max(len(ln) for ln in lines), 220)
+
+    def test_clip_bounds_width_and_keeps_tail(self):
+        from atropos.cli import _clip
+        self.assertEqual(_clip("abcdef", 4), "abc…")
+        self.assertEqual(_clip("abcdef", 4, keep_tail=True), "…def")
+        self.assertEqual(_clip("ab", 4), "ab")
+
+    def test_build_output_dirs_are_skipped(self):
+        # A generated dir like .next must not be walked; hand-written source is.
+        with tempfile.TemporaryDirectory() as d:
+            os.makedirs(os.path.join(d, ".next"))
+            with open(os.path.join(d, ".next", "gen.py"), "w") as fh:
+                fh.write("import os\nos.system(a)\n")
+            with open(os.path.join(d, "real.py"), "w") as fh:
+                fh.write("import os\nos.system(b)\n")
+            rc, out = self._run("audit", d, "--json")
+        payload = json.loads(out)
+        files = {f["file"] for f in payload["findings"]}
+        self.assertTrue(any("real.py" in f for f in files))
+        self.assertFalse(any(".next" in f for f in files))
+
+
+class TestSarif(unittest.TestCase):
+    def _sarif(self, src):
+        from atropos.resolve.model import AuditReport
+        from atropos.resolve.sarif import to_sarif
+        cat = atropos.load()
+        au = Auditor(cat, roles=["sink"], min_match=MATCH_NAME_ONLY)
+        rep = AuditReport()
+        au.audit_source("x.py", "python", src, rep)
+        return to_sarif(rep)
+
+    def test_sarif_shape_and_backreferences(self):
+        doc = self._sarif("import os\nos.system(cmd)\ncur.execute(q)\n")
+        self.assertEqual(doc["version"], "2.1.0")
+        run = doc["runs"][0]
+        rules = run["tool"]["driver"]["rules"]
+        self.assertTrue(rules)
+        for r in run["results"]:
+            # ruleIndex must point back at the matching ruleId
+            self.assertEqual(rules[r["ruleIndex"]]["id"], r["ruleId"])
+            self.assertIn(r["level"], ("warning", "note"))
+            self.assertIn("atroposMatch/v1", r["partialFingerprints"])
+
+    def test_sarif_cwe_taxonomy_resolves(self):
+        doc = self._sarif("import os\nos.system(cmd)\n")
+        run = doc["runs"][0]
+        taxa = {t["id"] for t in run["taxonomies"][0]["taxa"]}
+        for rule in run["tool"]["driver"]["rules"]:
+            for rel in rule.get("relationships", []):
+                self.assertIn(rel["target"]["id"], taxa)
+
+    def test_sarif_fingerprint_is_stable(self):
+        a = self._sarif("import os\nos.system(cmd)\n")
+        b = self._sarif("import os\nos.system(cmd)\n")
+        fa = a["runs"][0]["results"][0]["partialFingerprints"]["atroposMatch/v1"]
+        fb = b["runs"][0]["results"][0]["partialFingerprints"]["atroposMatch/v1"]
+        self.assertEqual(fa, fb)
+
+    def test_audit_sarif_via_cli(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = os.path.join(d, "x.py")
+            with open(p, "w") as fh:
+                fh.write("import os\nos.system(cmd)\n")
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                rc = cli.main(["audit", p, "-f", "sarif"])
+        self.assertEqual(rc, 0)
+        doc = json.loads(buf.getvalue())
+        self.assertEqual(doc["version"], "2.1.0")
+
+
+class TestCoverage(unittest.TestCase):
+    def test_summary_counts_and_gap(self):
+        from atropos.resolve.model import AuditReport
+        from atropos.resolve.coverage import summarize
+        cat = atropos.load()
+        au = Auditor(cat, roles=["sink"], min_match=MATCH_EXACT)
+        rep = AuditReport()
+        au.audit_source("x.py", "python", "import os\nos.system(cmd)\n", rep)
+        s = summarize(rep, cat)
+        self.assertEqual(s["by_language"], {"python": 1})
+        self.assertIn("command-injection", s["by_kind"])
+        # a python target should not report C-only kinds as its own gap
+        self.assertNotIn("buffer-write", s["unexercised_sink_kinds"])
+        # but a python sink kind not used here should be named as a gap
+        self.assertIn("sql-injection", s["unexercised_sink_kinds"])
+
+    def test_coverage_cli_json(self):
+        with tempfile.TemporaryDirectory() as d:
+            p = os.path.join(d, "x.py")
+            with open(p, "w") as fh:
+                fh.write("import os\nos.system(cmd)\n")
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                rc = cli.main(["coverage", p, "--json"])
+        self.assertEqual(rc, 0)
+        s = json.loads(buf.getvalue())
+        self.assertEqual(s["total_findings"], s["by_confidence"].get("exact", 0))
+
+
+class TestPolicy(unittest.TestCase):
+    def test_policy_severity_tiers(self):
+        from atropos.resolve.policy import build
+        cat = atropos.load()
+        p = build(cat)
+        self.assertEqual(p["policy"], "atropos-watchlist/v1")
+        self.assertEqual(p["rule_count"], sum(p["by_severity"].values()))
+        # no summaries leak into an enforcement policy
+        self.assertFalse(any("->" in r["access_path"] for r in p["rules"]))
+        # sources/sanitizers are notes, never error
+        for r in p["rules"]:
+            if r["role"] in ("source", "sanitizer"):
+                self.assertEqual(r["severity"], "note")
+
+    def test_banned_only_is_all_error(self):
+        from atropos.resolve.policy import build
+        cat = atropos.load()
+        p = build(cat, banned_only=True)
+        self.assertTrue(p["rules"])
+        self.assertTrue(all(r["severity"] == "error" for r in p["rules"]))
+
+    def test_rules_cli_json(self):
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            rc = cli.main(["rules", "-l", "python", "--json"])
+        self.assertEqual(rc, 0)
+        p = json.loads(buf.getvalue())
+        self.assertTrue(all(r["language"] == "python" for r in p["rules"]))
+
+
+class TestSurface(unittest.TestCase):
+    def test_file_with_both_ranks_first(self):
+        from atropos.resolve.surface import build
+        cat = atropos.load()
+        with tempfile.TemporaryDirectory() as d:
+            # a source (os.getenv) and a sink (os.system) in one file
+            with open(os.path.join(d, "both.py"), "w") as fh:
+                fh.write("import os\nx = os.getenv('X')\nos.system(x)\n")
+            # only a sink in another
+            with open(os.path.join(d, "sink.py"), "w") as fh:
+                fh.write("import os\nos.system('ls')\n")
+            surface = build(cat, d, min_match="name-only")
+        self.assertGreaterEqual(surface["files_with_both"], 1)
+        first = surface["files"][0]
+        self.assertTrue(first["file"].endswith("both.py"))
+        self.assertTrue(first["both"])
+
+    def test_surface_cli_json(self):
+        with tempfile.TemporaryDirectory() as d:
+            with open(os.path.join(d, "x.py"), "w") as fh:
+                fh.write("import os\nx=os.getenv('X')\nos.system(x)\n")
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                rc = cli.main(["surface", d, "--json"])
+        self.assertEqual(rc, 0)
+        self.assertIn("files_with_both", json.loads(buf.getvalue()))
+
+
+class TestDiffGate(unittest.TestCase):
+    def _write(self, d, body):
+        p = os.path.join(d, "app.py")
+        with open(p, "w") as fh:
+            fh.write(body)
+        return p
+
+    def _audit_json(self, path):
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            cli.main(["audit", path, "--json"])
+        return buf.getvalue()
+
+    def test_no_new_findings_exits_zero(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._write(d, "import os\nos.system(a)\n")
+            base = os.path.join(d, "b.json")
+            with open(base, "w") as fh:
+                fh.write(self._audit_json(d))
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                rc = cli.main(["diff", d, "-b", base])
+        self.assertEqual(rc, 0)
+
+    def test_new_finding_fails_gate(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._write(d, "import os\nos.system(a)\n")
+            base = os.path.join(d, "b.json")
+            with open(base, "w") as fh:
+                fh.write(self._audit_json(d))
+            self._write(d, "import os\nos.system(a)\neval(c)\n")
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                rc = cli.main(["diff", d, "-b", base, "--json"])
+        self.assertEqual(rc, 1)
+        payload = json.loads(buf.getvalue())
+        self.assertEqual(payload["new_count"], 1)
+        self.assertEqual(payload["new"][0]["symbol"], "builtins.eval")
+
+    def test_exit_zero_flag_suppresses_failure(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._write(d, "import os\n")
+            base = os.path.join(d, "b.json")
+            with open(base, "w") as fh:
+                fh.write(self._audit_json(d))
+            self._write(d, "import os\nos.system(a)\n")
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                rc = cli.main(["diff", d, "-b", base, "--exit-zero"])
+        self.assertEqual(rc, 0)
+
+
+class TestConformance(unittest.TestCase):
+    def _conf(self, source: str):
+        from atropos.resolve.conformance import build, C_NO_SANITIZER_SEEN, \
+            C_SANITIZER_PRESENT
+        with tempfile.TemporaryDirectory() as d:
+            with open(os.path.join(d, "x.py"), "w") as fh:
+                fh.write(source)
+            return build(atropos.load(), d), C_NO_SANITIZER_SEEN, C_SANITIZER_PRESENT
+
+    def test_sink_without_sanitizer_is_flagged(self):
+        conf, SEEN, _ = self._conf("import os\nos.system(cmd)\n")
+        ci = [k for k in conf["kinds"] if k["kind"] == "command-injection"]
+        self.assertTrue(ci)
+        self.assertEqual(ci[0]["status"], SEEN)
+        self.assertGreaterEqual(conf["flagged"], 1)
+
+    def test_sink_with_sanitizer_present(self):
+        conf, _, PRESENT = self._conf(
+            "import os, shlex\nos.system(shlex.quote(cmd))\n")
+        ci = [k for k in conf["kinds"] if k["kind"] == "command-injection"]
+        self.assertTrue(ci)
+        self.assertEqual(ci[0]["status"], PRESENT)
+        self.assertIn("shlex.quote", ci[0]["sanitizers_used"])
+
+    def test_conformance_cli_json(self):
+        with tempfile.TemporaryDirectory() as d:
+            with open(os.path.join(d, "x.py"), "w") as fh:
+                fh.write("import os\nos.system(cmd)\n")
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                rc = cli.main(["conformance", d, "--json"])
+        self.assertEqual(rc, 0)
+        payload = json.loads(buf.getvalue())
+        self.assertIn("kinds", payload)
+        self.assertGreaterEqual(payload["kinds_with_sinks"], 1)
+
+
+if __name__ == "__main__":
+    unittest.main()

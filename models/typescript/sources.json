@@ -256,6 +256,363 @@
       "confidence": "low",
       "corroboration": 1,
       "notes": null
+    },
+    {
+      "id": "typescript.process.env.ret",
+      "language": "typescript",
+      "package": "process",
+      "type": null,
+      "method": "env",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "process.env values are externally controllable configuration; untrusted when attacker-influenced."
+    },
+    {
+      "id": "typescript.express.request.params.ret",
+      "language": "typescript",
+      "package": null,
+      "type": "Request",
+      "method": "params",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "req.params holds route parameters straight from the URL path (attacker-controlled)."
+    },
+    {
+      "id": "typescript.express.request.headers.ret",
+      "language": "typescript",
+      "package": null,
+      "type": "Request",
+      "method": "headers",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "req.headers is fully attacker-controlled request input (Host, X-Forwarded-*, etc.)."
+    },
+    {
+      "id": "typescript.express.request.originalurl.ret",
+      "language": "typescript",
+      "package": null,
+      "type": "Request",
+      "method": "originalUrl",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "req.originalUrl reflects the raw request URL, an untrusted source."
+    },
+    {
+      "id": "typescript.express.request.hostname.ret",
+      "language": "typescript",
+      "package": null,
+      "type": "Request",
+      "method": "hostname",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "req.hostname derives from the client-supplied Host header; spoofable untrusted input."
+    },
+    {
+      "id": "typescript.dom.document.cookie.ret",
+      "language": "typescript",
+      "package": null,
+      "type": "Document",
+      "method": "cookie",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 3,
+      "notes": "document.cookie is attacker-influenceable and a classic DOM-XSS source."
+    },
+    {
+      "id": "typescript.dom.document.referrer.ret",
+      "language": "typescript",
+      "package": null,
+      "type": "Document",
+      "method": "referrer",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 3,
+      "notes": "document.referrer is set by the navigating page; untrusted DOM-XSS source."
+    },
+    {
+      "id": "typescript.dom.window.name.ret",
+      "language": "typescript",
+      "package": null,
+      "type": "Window",
+      "method": "name",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "window.name persists across origins and is attacker-controllable (DOM-XSS source)."
+    },
+    {
+      "id": "typescript.dom.location.href.ret",
+      "language": "typescript",
+      "package": null,
+      "type": "Location",
+      "method": "href",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "location.href exposes the full URL (incl. attacker-controlled query/fragment); DOM-XSS source."
+    },
+    {
+      "id": "typescript.dom.messageevent.data.ret",
+      "language": "typescript",
+      "package": null,
+      "type": "MessageEvent",
+      "method": "data",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 3,
+      "notes": "event.data from postMessage/WebSocket onmessage is cross-origin untrusted input (DOM-XSS source)."
+    },
+    {
+      "id": "typescript.http.incomingmessage.headers.ret",
+      "language": "typescript",
+      "package": null,
+      "type": "IncomingMessage",
+      "method": "headers",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "Node http IncomingMessage.headers is raw client-supplied request headers."
+    },
+    {
+      "id": "typescript.nestjs.body.ret",
+      "language": "typescript",
+      "package": "@nestjs/common",
+      "type": null,
+      "method": "Body",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "@Body() binds the untrusted request body to a handler parameter - primary NestJS taint entry point (CWE-20)."
+    },
+    {
+      "id": "typescript.nestjs.query.ret",
+      "language": "typescript",
+      "package": "@nestjs/common",
+      "type": null,
+      "method": "Query",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "@Query() binds untrusted URL query params to a parameter (CWE-20)."
+    },
+    {
+      "id": "typescript.nestjs.param.ret",
+      "language": "typescript",
+      "package": "@nestjs/common",
+      "type": null,
+      "method": "Param",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "@Param() binds untrusted route path params to a parameter (CWE-20)."
+    },
+    {
+      "id": "typescript.nestjs.headers.ret",
+      "language": "typescript",
+      "package": "@nestjs/common",
+      "type": null,
+      "method": "Headers",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "@Headers() binds untrusted request headers to a parameter (CWE-20)."
+    },
+    {
+      "id": "typescript.nestjs.req.ret",
+      "language": "typescript",
+      "package": "@nestjs/common",
+      "type": null,
+      "method": "Req",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "@Req() injects the raw request object; all sub-fields are attacker-controlled (CWE-20)."
+    },
+    {
+      "id": "typescript.nestjs.request.ret",
+      "language": "typescript",
+      "package": "@nestjs/common",
+      "type": null,
+      "method": "Request",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "high",
+      "corroboration": 1,
+      "notes": "@Request() alias of @Req() - raw untrusted request object (CWE-20)."
+    },
+    {
+      "id": "typescript.nestjs.ip.ret",
+      "language": "typescript",
+      "package": "@nestjs/common",
+      "type": null,
+      "method": "Ip",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "@Ip() returns the client-supplied IP (spoofable via X-Forwarded-For) (CWE-20)."
+    },
+    {
+      "id": "typescript.nestjs.session.ret",
+      "language": "typescript",
+      "package": "@nestjs/common",
+      "type": null,
+      "method": "Session",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "web-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "@Session() exposes session data that may include client-influenced values (CWE-20)."
+    },
+    {
+      "id": "typescript.deno.env.get",
+      "language": "typescript",
+      "package": "Deno",
+      "type": "env",
+      "method": "get",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "Deno.env.get(name) returns externally-controlled environment values (CWE-20), analogous to process.env."
+    },
+    {
+      "id": "typescript.deno.args.ret",
+      "language": "typescript",
+      "package": "Deno",
+      "type": null,
+      "method": "args",
+      "signature": null,
+      "access_path": "ReturnValue",
+      "role": "source",
+      "kind": "untrusted-input",
+      "cwe": [
+        "CWE-20"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "Deno.args is the untrusted CLI argument vector, analogous to process.argv (CWE-20)."
     }
   ]
 }

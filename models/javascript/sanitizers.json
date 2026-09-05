@@ -204,6 +204,125 @@
       "confidence": "low",
       "corroboration": 1,
       "notes": null
+    },
+    {
+      "id": "javascript.escape-html.escape.a0-ret",
+      "language": "javascript",
+      "package": "escape-html",
+      "type": null,
+      "method": "escape",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "escape-html encodes &<>\"' for safe HTML text/attribute context (neutralizes reflected XSS)."
+    },
+    {
+      "id": "javascript.he.escape.a0-ret",
+      "language": "javascript",
+      "package": "he",
+      "type": null,
+      "method": "escape",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "he.escape HTML-encodes the string; complements the already-listed he.encode."
+    },
+    {
+      "id": "javascript.validator.striplow.a0-ret",
+      "language": "javascript",
+      "package": "validator",
+      "type": null,
+      "method": "stripLow",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "validator.stripLow removes control characters, reducing injection/smuggling vectors."
+    },
+    {
+      "id": "javascript.validator.blacklist.a0-ret",
+      "language": "javascript",
+      "package": "validator",
+      "type": null,
+      "method": "blacklist",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "xss",
+      "cwe": [
+        "CWE-79"
+      ],
+      "confidence": "medium",
+      "corroboration": 1,
+      "notes": "validator.blacklist(str, chars) strips disallowed characters from the input."
+    },
+    {
+      "id": "javascript.shell-quote.quote.a0-ret",
+      "language": "javascript",
+      "package": "shell-quote",
+      "type": null,
+      "method": "quote",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "command-injection",
+      "cwe": [
+        "CWE-78"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "shell-quote.quote escapes shell metacharacters for safe argument construction (note: pre-1.7.3 had a bypass)."
+    },
+    {
+      "id": "javascript.mongo-sanitize.sanitize.a0-ret",
+      "language": "javascript",
+      "package": "mongo-sanitize",
+      "type": null,
+      "method": "sanitize",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "nosql-injection",
+      "cwe": [
+        "CWE-943"
+      ],
+      "confidence": "high",
+      "corroboration": 2,
+      "notes": "mongo-sanitize strips $-prefixed keys, removing MongoDB operator-injection payloads."
+    },
+    {
+      "id": "javascript.escape-string-regexp.escape.a0-ret",
+      "language": "javascript",
+      "package": "escape-string-regexp",
+      "type": null,
+      "method": "escape",
+      "signature": null,
+      "access_path": "Argument[0] -> ReturnValue",
+      "role": "sanitizer",
+      "kind": "redos",
+      "cwe": [
+        "CWE-1333"
+      ],
+      "confidence": "medium",
+      "corroboration": 2,
+      "notes": "escape-string-regexp escapes regex metacharacters so tainted input can't alter pattern structure."
     }
   ]
 }
